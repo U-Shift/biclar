@@ -92,7 +92,8 @@ routes_integers_cs_fastest_agg = routes_integers_cs_fastest %>%
     Hilliness_90th_percentile = quantile(gradient_segment, probs = 0.9)
   )
 nrow(routes_integers_cs_fastest_agg) == nrow(desire_lines_integers) # TRUE
-mapview::mapview(routes_integers_cs_fastest_agg, zcol = "Bike")
+routes = routes_integers_cs_fastest_agg
+mapview::mapview(routes, zcol = "Bike")
 mapview::mapview(routes_integers_cs_fastest_agg, zcol = "Hilliness_average")
 mapview::mapview(routes_integers_cs_fastest_agg, zcol = "Hilliness_90th_percentile")
 
