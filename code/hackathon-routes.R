@@ -11,20 +11,30 @@ od_wide = od_cities %>%
   pivot_wider(names_from = modo, values_from = viagens, values_fill = 0)
 
 piggyback::pb_download("MUNICIPIOSgeo.Rds")
-piggyback::pb_download("MUNICIPIOSgeo.Rds")
+piggyback::pb_download("CENTROIDS_municipios.Rds")
 city_boundaries = readRDS("MUNICIPIOSgeo.Rds")
-city_boundaries = readRDS("MUNICIPIOSgeo.Rds")
-mapview::mapview(city_boundaries)
+city_centroids = readRDS("CENTROIDS_municipios.Rds")
+
+city_centroids = sf::st_join(city_centroids, city_boundaries) %>% 
+  select(Concelho, fid) %>% 
+  filter(fid != "3")
+
+mapview::mapview(city_boundaries) +
+  mapview::mapview(city_centroids)
 
 # desire_lines_cities = od::od_to_sf(od_wide, city_boundaries) # bug?
 # works well:
-desire_lines_cities = od2line(od_wide, city_boundaries)
+od_wide = od_wide %>%
+  filter(Origem %in% city_centroids$Concelho) %>% 
+  filter(Destino %in% city_centroids$Concelho) 
+desire_lines_cities = od2line(od_wide, city_centroids)
 plot(desire_lines_cities)
 mapview::mapview(desire_lines_cities)
-# 970 lines
+nrow(desire_lines_cities)
+# 281 lines
 
 # only those that have at least 1 cycle trip
-summary(desire_lines_cities$Bike > 0) # 71
+summary(desire_lines_cities$Bike > 0) # 62
 desire_lines_cycle = desire_lines_cities %>% 
   filter(Bike > 0)
 plot(desire_lines_cycle)
@@ -66,10 +76,10 @@ routes_integers_cs_quietest = route(l = desire_lines_integers,
 
 sum(routes_integers_cs_fastest$distances) / 
   sum(routes_integers_cs_balanced$distances)
-# [1] 0.986864
+# [1] 0.941153
 sum(routes_integers_cs_quietest$distances) / 
   sum(routes_integers_cs_balanced$distances)
-# [1] 1.135998
+# [1] 1.07065
 
 routes_integers_cs_fastest_agg = routes_integers_cs_fastest %>% 
   group_by(Origem, Destino) %>% 
