@@ -86,7 +86,32 @@ routes_integers_cs_fastest_agg = routes_integers_cs_fastest %>%
   summarise(
     Origem = first(Origem),
     Destino = first(Destino),
-    Bike = mean(Bike)
+    Bike = mean(Bike),
+    All = mean(Bike) + mean(Car) + mean(Motorcycle) + mean(Transit) + mean(Walk) + mean(Other),
+    Hilliness_average = mean(gradient_segment),
+    Hilliness_90th_percentile = quantile(gradient_segment, probs = 0.9)
   )
 nrow(routes_integers_cs_fastest_agg) == nrow(desire_lines_integers) # TRUE
 mapview::mapview(routes_integers_cs_fastest_agg, zcol = "Bike")
+mapview::mapview(routes_integers_cs_fastest_agg, zcol = "Hilliness_average")
+mapview::mapview(routes_integers_cs_fastest_agg, zcol = "Hilliness_90th_percentile")
+
+# output and upload data --------------------------------------------------
+
+write_and_upload_sf = function(object_name, extension = ".geojson", repo = NULL) {
+  file_name = paste0(object_name, extension)
+  object = get(object_name)
+  if(!file.exists(file_name)) {
+    sf::write_sf(object, file_name)
+  }
+  piggyback::pb_upload(file_name, repo = repo)
+}
+
+
+sf::write_sf(desire_lines_integers, "desire_lines_integers.geojson")
+piggyback::pb_upload("desire_lines_integers.geojson", repo = "u-shift/cyclingpotential-hack")
+
+write_and_upload_sf("routes_integers_cs_fastest_agg", repo = "u-shift/cyclingpotential-hack")
+write_and_upload_sf("routes_integers_cs_fastest", repo = "u-shift/cyclingpotential-hack")
+write_and_upload_sf("routes_integers_cs_balanced", repo = "u-shift/cyclingpotential-hack")
+write_and_upload_sf("routes_integers_cs_quietest", repo = "u-shift/cyclingpotential-hack")
