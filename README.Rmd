@@ -1,0 +1,31 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# bicla-R
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of bicla-R is to store code and (in the releases) data for estimating cycling potential and influencing policy.
+
+# Input data
+
+The key datasets are as follows:
+
+- TRIPS_original.Rds, the original OD dataset
+
+
+# Jittered trip data
+
+
+
