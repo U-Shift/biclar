@@ -7,8 +7,12 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
 )
+library(sf)
 ```
 
 # bicla-R
@@ -25,7 +29,17 @@ The key datasets are as follows:
 - TRIPS_original.Rds, the original OD dataset
 
 
-# Jittered trip data
+```{r}
+od_all = readRDS("TRIPSmode_freguesias.Rds")
+zones = readRDS("FREGUESIASgeo.Rds")
+od_all_sf = od::od_to_sf(od_all, zones)
+od_all_jittered = readRDS("od_all_jittered_50.Rds")
+```
 
+The OD datasets, before and after jittering, are shown below.
 
+```{r jitteredoverview, out.width="50%", fig.show='hold'}
+plot(od_all_sf$geometry, lwd = 0.2)
+plot(od_all_jittered$geometry, lwd = 0.1)
+```
 
