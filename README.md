@@ -13,7 +13,10 @@ estimating cycling potential and influencing policy.
 
 The key datasets are as follows:
 
--   TRIPS_original.Rds, the original OD dataset
+-   [CAOP
+    2020](https://www.dgterritorio.gov.pt/cartografia/cartografia-tematica/caop?language=en) -
+    Official limits of Portuguese areas.
+-   TRIPS_original.Rds, the original OD dataset, from INE (2018)
 
 The OD datasets, before and after jittering, are shown below.
 
