@@ -26,7 +26,8 @@ The goal of bicla-R is to store code and (in the releases) data for estimating c
 
 The key datasets are as follows:
 
-- TRIPS_original.Rds, the original OD dataset
+- [CAOP 2020](https://www.dgterritorio.gov.pt/cartografia/cartografia-tematica/caop?language=en) - Official limits of Portuguese areas.
+- TRIPS_original.Rds, the original OD dataset, from INE (2018)
 
 
 ```{r}
