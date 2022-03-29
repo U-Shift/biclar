@@ -1,5 +1,6 @@
 # Aim: test out Jittering in study region
 remotes::install_github("atumworld/odr")
+# remotes::install_github("dabreegster/odjitter", subdir = "r") ?
 library(tidyverse)
 library(tmap)
 tmap_mode("view")
