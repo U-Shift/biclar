@@ -30,7 +30,7 @@ tm_shape(zones) +
 
 summary(od_all$Total)
 set.seed(42)
-od_all_jittered = odr::odr_jitter(
+od_all_jittered = odjitter::jitter(
   od = od_all,
   zones = zones,
   subpoints = osm_data_region,
