@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# bicla-R
+# biclar
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of bicla-R is to store code and (in the releases) data for
+The goal of biclar is to store code and (in the releases) data for
 estimating cycling potential and influencing policy.
 
 # Input data
