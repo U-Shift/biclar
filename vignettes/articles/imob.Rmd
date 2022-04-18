@@ -1,0 +1,16 @@
+---
+title: "Comparação da amostra IMOB para o universo AML"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(biclar)
+```
+
+Nothing to show so far.

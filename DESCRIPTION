@@ -11,3 +11,5 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 URL: https://u-shift.github.io/biclar/
+Suggests: 
+    rmarkdown
