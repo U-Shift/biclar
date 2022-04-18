@@ -16,13 +16,13 @@ summary(od_lisbon)
 
 file_list = piggyback::pb_list()
 piggyback::pb_download_url(file = file_list$file_name)
-# [1] "https://github.com/U-Shift/bicla-R/releases/download/0.0.1/CENTROIDS.Rds"           
-# [2] "https://github.com/U-Shift/bicla-R/releases/download/0.0.1/Ciclovias2020CORRECT.Rds"
-# [3] "https://github.com/U-Shift/bicla-R/releases/download/0.0.1/CountingPoins.Rds"       
-# [4] "https://github.com/U-Shift/bicla-R/releases/download/0.0.1/FREGUESIASgeo.Rds"       
-# [5] "https://github.com/U-Shift/bicla-R/releases/download/0.0.1/TRIPSmode_freguesias.Rds"
-# [6] "https://github.com/U-Shift/bicla-R/releases/download/0.0.1/TRIPSmode_municipal.Rds" 
-# [7] "https://github.com/U-Shift/bicla-R/releases/download/0.0.1/TRIPS_original.Rds"   
+# [1] "https://github.com/U-Shift/biclar/releases/download/0.0.1/CENTROIDS.Rds"           
+# [2] "https://github.com/U-Shift/biclar/releases/download/0.0.1/Ciclovias2020CORRECT.Rds"
+# [3] "https://github.com/U-Shift/biclar/releases/download/0.0.1/CountingPoins.Rds"       
+# [4] "https://github.com/U-Shift/biclar/releases/download/0.0.1/FREGUESIASgeo.Rds"       
+# [5] "https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_freguesias.Rds"
+# [6] "https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_municipal.Rds" 
+# [7] "https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPS_original.Rds"   
 piggyback::pb_download(file_list$file_name)
 file_list[c("file_name", "size")]
 # file_name    size
