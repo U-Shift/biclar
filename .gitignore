@@ -38,3 +38,4 @@ vignettes/*.pdf
 *.Rds
 *.geojson
 *gpkg*
+docs
