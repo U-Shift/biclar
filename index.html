@@ -90,7 +90,7 @@
 </h2>
 <p>The baseline scenario makes use of the 2018 mobility survey data in LMA.<br>
 We considered all trips between <em>Freguesias</em>.</p>
-<!-- todo: include map of baseline scenario --><p>See vignette <a href="">baseline scenario</a> to see how this was modeled.</p>
+<!-- todo: include map of baseline scenario --><p>See vignette <a href="articles/0_baseline_scenario.html">baseline scenario</a> to see how this was modeled.</p>
 </div>
 <div class="section level2">
 <h2 id="enmac-targets">ENMAC targets<a class="anchor" aria-label="anchor" href="#enmac-targets"></a>
@@ -101,17 +101,17 @@ We considered all trips between <em>Freguesias</em>.</p>
 <li>10% of all trips should be made by bicycle by 2030</li>
 </ul>
 <p>Cycling trips should replace car trips directly.</p>
-<p>See vignette <a href="">ENMAC scenario</a> to see how this was modeled.</p>
+<p>See vignette <a href="articles/1_enmac_scenario.html">ENMAC scenario</a> to see how this was modeled.</p>
 </div>
 <div class="section level2">
 <h2 id="intermodal-trips">Intermodal trips<a class="anchor" aria-label="anchor" href="#intermodal-trips"></a>
 </h2>
-<p>See vignette <a href="">Intermodal scenario</a> to see how this was modeled.</p>
+<p>See vignette <a href="articles/2_intermodal_scenario.html">Intermodal scenario</a> to see how this was modeled.</p>
 </div>
 <div class="section level2">
 <h2 id="e-bikes-investment-policy">E-bikes investment policy<a class="anchor" aria-label="anchor" href="#e-bikes-investment-policy"></a>
 </h2>
-<p>See vignette <a href="">E-bike scenario</a> to see how this was modeled.</p>
+<p>See vignette <a href="articles/3_ebikes_scenario.html">E-bike scenario</a> to see how this was modeled.</p>
 </div>
 </div>
 <div class="section level1">
@@ -128,6 +128,7 @@ We considered all trips between <em>Freguesias</em>.</p>
 <p>For the disagregation of OD pairs at <em>Freguesias</em> level, we use <a href="https://github.com/atumworld/odrust" class="external-link">OD Jittering</a> (Lovelace, Félix, and Carlino 2022) method, which better suits walking and cycling trips modelling (shorter distances), instead of relying on centroids that concentrate all the trips between areas.</p>
 <p>The OD datasets, before and after jittering, are shown below.</p>
 <p><img src="README_files/figure-gfm/jitteredoverview-1.png" width="50%"><img src="README_files/figure-gfm/jitteredoverview-2.png" width="50%"></p>
+<!-- figs not showing on pkgdown -->
 </div>
 <div class="section level2">
 <h2 id="cycling-routes">Cycling routes<a class="anchor" aria-label="anchor" href="#cycling-routes"></a>
@@ -138,8 +139,7 @@ For e-bike scenario, we developed a proper algorithm, considering the topography
 <div class="section level2">
 <h2 id="intermodal-trips-1">Intermodal trips<a class="anchor" aria-label="anchor" href="#intermodal-trips-1"></a>
 </h2>
-<p>We made use and developed a methodology that considers replacing long trips by bike + train or ferry trips (<code>name of the package</code>)</p>
-<!-- todo: include Robin's reflection about multi-modal trips replacement -->
+<p>We made use and developed a <a href="https://github.com/npct/rail" class="external-link">methodology</a> that considers replacing long trips by bike + train or ferry trips.</p>
 </div>
 <div class="section level2">
 <h2 id="estimation-of-socioeconomic-benefits">Estimation of socioeconomic benefits<a class="anchor" aria-label="anchor" href="#estimation-of-socioeconomic-benefits"></a>
