@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # biclar
 
@@ -20,4 +21,4 @@ The key datasets are as follows:
 
 The OD datasets, before and after jittering, are shown below.
 
-<img src="README_files/figure-gfm/jitteredoverview-1.png" width="50%" /><img src="README_files/figure-gfm/jitteredoverview-2.png" width="50%" />
+<img src="man/figures/README-jitteredoverview-1.png" width="50%" /><img src="man/figures/README-jitteredoverview-2.png" width="50%" />

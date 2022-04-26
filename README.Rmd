@@ -8,10 +8,16 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
+  fig.path = "man/figures/README-",
   echo = FALSE,
   message = FALSE,
-  warning = FALSE
+  warning = FALSE,
+  out.width = "100%"
 )
+```
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
 library(sf)
 ```
 
