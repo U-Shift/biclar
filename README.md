@@ -41,7 +41,8 @@ We considered all trips between *Freguesias*.
 
 <!-- todo: include map of baseline scenario -->
 
-See vignette [baseline scenario]() to see how this was modeled.
+See vignette [baseline scenario](articles/0_baseline_scenario.html) to
+see how this was modeled.
 
 ## ENMAC targets
 
@@ -52,15 +53,18 @@ The National targets for cycling uptake were set to:
 
 Cycling trips should replace car trips directly.
 
-See vignette [ENMAC scenario]() to see how this was modeled.
+See vignette [ENMAC scenario](articles/1_enmac_scenario.html) to see how
+this was modeled.
 
 ## Intermodal trips
 
-See vignette [Intermodal scenario]() to see how this was modeled.
+See vignette [Intermodal scenario](articles/2_intermodal_scenario.html)
+to see how this was modeled.
 
 ## E-bikes investment policy
 
-See vignette [E-bike scenario]() to see how this was modeled.
+See vignette [E-bike scenario](articles/3_ebikes_scenario.html) to see
+how this was modeled.
 
 # Methods
 
@@ -82,6 +86,8 @@ The OD datasets, before and after jittering, are shown below.
 
 <img src="README_files/figure-gfm/jitteredoverview-1.png" width="50%" /><img src="README_files/figure-gfm/jitteredoverview-2.png" width="50%" />
 
+<!-- figs not showing on pkgdown -->
+
 ## Cycling routes
 
 Use of [CyclingStreets.net](https://cyclinstreets.net) ([R
@@ -92,10 +98,8 @@ topography (and [`slopes`](https://docs.ropensci.org/slopes) package).
 
 ## Intermodal trips
 
-We made use and developed a methodology that considers replacing long
-trips by bike + train or ferry trips (`name of the package`)
-
-<!-- todo: include Robin's reflection about multi-modal trips replacement -->
+We made use and developed a [methodology](https://github.com/npct/rail)
+that considers replacing long trips by bike + train or ferry trips.
 
 ## Estimation of socioeconomic benefits
 
