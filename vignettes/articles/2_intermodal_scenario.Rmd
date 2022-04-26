@@ -1,0 +1,26 @@
+---
+title: "Intermodal cycling scenario"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+intermodality, based on https://github.com/npct/rail 
+
+
+## Train and ferry stations in LMA
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#read data
+train_stations = readRDS("train_stations.Rds")
+ferry_stations = readRDS("ferry_stations.Rds")
+
+mapview::mapview(train_stations) + mapview::mapview(ferry_stations, col.regions= "red") 
+
+```
+
