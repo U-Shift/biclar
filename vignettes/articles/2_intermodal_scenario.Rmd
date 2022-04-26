@@ -1,0 +1,16 @@
+---
+title: "Intermodal cycling scenario"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(biclar)
+```
+
+intermodality, based on https://github.com/npct/rail 
