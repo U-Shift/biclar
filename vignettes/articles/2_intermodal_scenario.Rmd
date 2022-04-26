@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
 
 intermodality, based on https://github.com/npct/rail 
 
+The multi-stage trips from home to work via rail stations assumes simplistically that the first stage of rail journeys is to the nearest station, that the rail journey went to the station closes to their destination, and that trips involve travelling in a straight line.
+
 
 ## Train and ferry stations in LMA
 
@@ -20,6 +22,15 @@ intermodality, based on https://github.com/npct/rail
 train_stations = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/train_stations.Rds"))
 ferry_stations = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/ferry_stations.Rds"))
 
-mapview::mapview(train_stations) + mapview::mapview(ferry_stations, col.regions= "red") 
+library(tmap)
+tmap_mode("view")
+
+tm_shape(train_stations) +
+  tm_sf(col = "blue", size = 0.3) +
+  tm_shape(ferry_stations) +
+  tm_sf(col = "red", size = 0.3)
+
+# mapview::mapview(train_stations) + mapview::mapview(ferry_stations, col.regions= "red") #mapview not working
 ```
+
 
