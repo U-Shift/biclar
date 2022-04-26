@@ -1,16 +1,21 @@
 Package: biclar
-Title: What the Package Does (One Line, Title Case)
+Title: Strategic Cycle Network Modelling for Lisbon Metropolitan Area
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+    person("Robin", "Lovelace", , "rob00x@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-5679-6536")),
+    person("Rosa", "Félix", , "rosamfelix@tecnico.ulisboa.pt", role = "aut",
+           comment = c(ORCID = "0000-0002-5642-6006"))
+  )
+Description: Code to support the design and assessment of different
+    scenarios of the cycling network models in the Lisbon metropolitan
+    area (LMA).
 License: AGPL (>= 3)
+URL: https://u-shift.github.io/biclar/
+Imports: 
+    tmap
+Suggests: 
+    rmarkdown
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-URL: https://u-shift.github.io/biclar/
-Suggests: 
-    rmarkdown
-Imports: 
-    tmap
