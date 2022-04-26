@@ -28,3 +28,13 @@ train_stations = readRDS("train_stations.Rds")
 # piggyback::pb_upload("ferry_stations.Rds")
 
 ferry_stations = readRDS("ferry_stations.Rds")
+
+library(tmap)
+tmap_mode("view")
+
+tm_shape(train_stations) +
+  tm_sf(col = "blue", size = 0.3) +
+  tm_shape(ferry_stations) +
+  tm_sf(col = "red", size = 0.3)
+
+          

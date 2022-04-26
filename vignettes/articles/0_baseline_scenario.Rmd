@@ -9,8 +9,34 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(biclar)
+
+The OD datasets, before and after jittering, are shown below.
+
+```{r}
+od_all = readRDS("TRIPSmode_freguesias.Rds")
+zones = readRDS("FREGUESIASgeo.Rds")
+od_all_sf = od::od_to_sf(od_all, zones)
+od_all_jittered = readRDS("od_all_jittered_50.Rds")
 ```
 
-Baseline.
+```{r jitteredoverview}
+plot(od_all_sf$geometry, lwd = 0.2)
+plot(od_all_jittered$geometry, lwd = 0.1)
+```
+
+### Desire lines with bike trips
+
+Baseline (IMOB 2018)
+
+```{r}
+od_all = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_freguesias.Rds"))
+zones = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/FREGUESIASgeo.Rds"))
+od_all_sf = od::od_to_sf(od_all, zones)
+
+od_all_bikeonly = od_all_sf %>% filter(Bike != 0) #only for visualization
+
+tm_shape(od_all_bikeonly) +
+    tm_lines(col = "Bike", palette = "viridis", lwd = "Bike", scale = 15)
+```
+
+> Notice the intra-zonal trips. Jittering necessary.

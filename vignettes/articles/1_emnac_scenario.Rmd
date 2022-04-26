@@ -9,9 +9,114 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(biclar)
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(tmap)
+tmap_mode("view")
 ```
 
+The National targets for cycling uptake were set to:
 
-targets...
+-   4% of all trips should be made by bicycle by 2025
+-   10% of all trips should be made by bicycle by 2030
+
+Cycling trips should replace car trips directly.
+
+```{r}
+od_sample = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_sample.Rds"))
+head(od_sample)
+od_sample %>% as.data.frame %>% head(10)
+```
+
+Top 300 desire lines with most trips. Line width for car trips.
+
+```{r}
+od_all = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_freguesias.Rds"))
+zones = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/FREGUESIASgeo.Rds"))
+od_all_sf = od::od_to_sf(od_all, zones)
+
+od_all_sf_top = od_all_sf %>% 
+  filter(DICOFREor11 != DICOFREde11) %>% 
+  top_n(n = 300, wt = Total)
+
+tm_shape(od_all_sf_top) +
+   tm_lines(col = "Total", palette = "viridis", lwd = "Car", scale = 9)
+```
+
+### ENMAC: 4% bike, replaced from Car
+
+```{r include=FALSE}
+#cycling potential function
+od_top_enmac = od_all_sf_top
+ENMAC4 = 0.04 # 4%
+od_top_enmac$Bikeper = od_top_enmac$Bike / od_top_enmac$Total
+
+od_top_enmac_aside = od_top_enmac %>% filter(Bikeper >= ENMAC4) #don't mess with the ones that already reach target
+od_top_enmac = od_top_enmac %>% filter(Bikeper < ENMAC4)
+
+od_top_enmac$new_cyc = ENMAC4 * od_top_enmac$Total - od_top_enmac$Bike
+od_top_enmac$new_car = od_top_enmac$Car - od_top_enmac$new_cyc
+
+od_top_enmac_aside$new_cyc = od_top_enmac_aside$Bike
+od_top_enmac_aside$new_car = od_top_enmac_aside$Car
+
+od_top_enmac = rbind(od_top_enmac, od_top_enmac_aside)
+
+```
+
+```{r}
+tm_shape(od_top_enmac) +
+  tm_lines(lwd = "new_cyc", scale = 9, col = "new_cyc", palette = "viridis")
+```
+
+Example with routing, for top 300 ODs
+(fast routes from Cyclestreets.net)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check route network generation with stplanr
+library(stplanr)
+routes = sf::read_sf("https://github.com/U-Shift/cyclingpotential-hack/releases/download/2.0.0/routes_fast.geojson")
+
+od_top_enmac$pair = paste0(od_top_enmac$DICOFREor11, od_top_enmac$DICOFREde11)
+routes_enmac4 = routes %>% mutate(pair = paste0(DICOFREor11, DICOFREde11)) %>% filter(pair %in% od_top_enmac$pair)
+newcyc = od_top_enmac %>% select(pair, new_cyc) %>% sf::st_drop_geometry() %>% mutate(new_cyc = round(new_cyc))
+routes_enmac4 = left_join(routes_enmac4, newcyc)
+
+rnet = overline(routes_enmac4, "new_cyc") 
+tm_shape(rnet) +
+  tm_lines(scale = 15, col = "new_cyc", lwd = "new_cyc", palette = "viridis")
+
+```
+
+> This is without trips with same O&D. Jittered will bring other results.
+
+
+```{r eval=FALSE, include=TRUE}
+# check analysis with dplyr and estimation of cycling uptake with pct function
+
+library(pct)
+route_segments_balanced = sf::read_sf(u3)
+routes_balanced = route_segments_balanced %>% 
+  group_by(DICOFREor11, DICOFREde11) %>% 
+  summarise(
+    Bike = mean(Bike),
+    All = sum(Total),
+    Length_balanced_m = sum(distances),
+    Hilliness_average = mean(gradient_segment),
+    Hilliness_90th_percentile = quantile(gradient_segment, probs = 0.9)
+  ) %>% 
+  sf::st_cast("LINESTRING")
+summary(routes_balanced$Length_balanced_m)
+routes_balanced$Potential = pct::uptake_pct_godutch( #here goes our ENMAC function!
+  distance = routes_balanced$Length_balanced_m,
+  gradient = routes_balanced$Hilliness_average
+    ) * 
+  routes_balanced$All
+
+rnet_balanced = overline(routes_balanced, "Potential")
+b = c(0, 0.5, 1, 2, 3, 8) * 1e4
+tm_shape(rnet_balanced) +
+  tm_lines(lwd = "Potential", scale = 9, col = "Potential", palette = "viridis", breaks = b)
+
+```
+

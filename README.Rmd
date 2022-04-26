@@ -164,5 +164,7 @@ tm_shape(existing_network) +
 
 ```
 
+We can view it in an [interactive map here](https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html).
+
 
 # References {-}
