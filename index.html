@@ -59,21 +59,106 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="biclar">biclar<a class="anchor" aria-label="anchor" href="#biclar"></a>
 </h1></div>
-<!-- badges: start -->
-<!-- badges: end -->
-<p>The goal of biclar is to store code and (in the releases) data for estimating cycling potential and influencing policy.</p>
+<!-- badges: start --><!-- badges: end --><p>The goal of <code>biclar</code> is to store code and (in the releases) data for estimating cycling potential and influencing policy.</p>
+<p><strong>biclar</strong> is a tool for the design and assessment of different scenarios of the cycling network models in the Lisbon metropolitan area (LMA).</p>
 </div>
 <div class="section level1">
 <h1 id="input-data">Input data<a class="anchor" aria-label="anchor" href="#input-data"></a>
 </h1>
 <p>The key datasets are as follows:</p>
 <ul>
+<li>Trips dataset with Origin and Destination, at <em>Freguesia</em> level, disaggregated by transport mode, from Instituto National de Estatística (2018)<br>
+</li>
 <li>
 <a href="https://www.dgterritorio.gov.pt/cartografia/cartografia-tematica/caop?language=en" class="external-link">CAOP 2020</a> - Official limits of Portuguese areas.</li>
-<li>TRIPS_original.Rds, the original OD dataset, from INE (2018)</li>
+<li>Road network from <a href="https://www.openstreetmap.org/#map=11/38.7053/-9.1585" class="external-link">OpenStreetMap</a><br>
+</li>
+<li>Main public transport interfaces at Lisbon Metro Region, provided by <a href="https://www.tmlmobilidade.pt/" class="external-link">Transportes Metropolitanos de Lisboa</a>
+</li>
 </ul>
+<!-- todo: include shape of transport hubs in releases -->
+</div>
+<div class="section level1">
+<h1 id="cenarios-for-cycling-uptake">Cenarios for cycling uptake<a class="anchor" aria-label="anchor" href="#cenarios-for-cycling-uptake"></a>
+</h1>
+<div class="section level2">
+<h2 id="baseline">Baseline<a class="anchor" aria-label="anchor" href="#baseline"></a>
+</h2>
+<p>The baseline scenario makes use of the 2018 mobility survey data in LMA.<br>
+We considered all trips between <em>Freguesias</em>.</p>
+<!-- todo: include map of baseline scenario --><p>See vignette <a href="">baseline scenario</a> to see how this was modeled.</p>
+</div>
+<div class="section level2">
+<h2 id="enmac-targets">ENMAC targets<a class="anchor" aria-label="anchor" href="#enmac-targets"></a>
+</h2>
+<p>The National targets for cycling uptake were set to:</p>
+<ul>
+<li>4% of all trips should be made by bicycle by 2025</li>
+<li>10% of all trips should be made by bicycle by 2030</li>
+</ul>
+<p>Cycling trips should replace car trips directly.</p>
+<p>See vignette <a href="">ENMAC scenario</a> to see how this was modeled.</p>
+</div>
+<div class="section level2">
+<h2 id="intermodal-trips">Intermodal trips<a class="anchor" aria-label="anchor" href="#intermodal-trips"></a>
+</h2>
+<p>See vignette <a href="">Intermodal scenario</a> to see how this was modeled.</p>
+</div>
+<div class="section level2">
+<h2 id="e-bikes-investment-policy">E-bikes investment policy<a class="anchor" aria-label="anchor" href="#e-bikes-investment-policy"></a>
+</h2>
+<p>See vignette <a href="">E-bike scenario</a> to see how this was modeled.</p>
+</div>
+</div>
+<div class="section level1">
+<h1 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a>
+</h1>
+<div class="section level2">
+<h2 id="pct---propensity-to-cycle-tool">PCT - Propensity to Cycle Tool<a class="anchor" aria-label="anchor" href="#pct---propensity-to-cycle-tool"></a>
+</h2>
+<p><code>biclar</code> uses the methods developed in <a href="https://pct.bike" class="external-link">PCT.bike</a> (Lovelace et al. 2017) for cycling uptake estimation and data visualization.</p>
+</div>
+<div class="section level2">
+<h2 id="jittering">Jittering<a class="anchor" aria-label="anchor" href="#jittering"></a>
+</h2>
+<p>For the disagregation of OD pairs at <em>Freguesias</em> level, we use <a href="https://github.com/atumworld/odrust" class="external-link">OD Jittering</a> (Lovelace, Félix, and Carlino 2022) method, which better suits walking and cycling trips modelling (shorter distances), instead of relying on centroids that concentrate all the trips between areas.</p>
 <p>The OD datasets, before and after jittering, are shown below.</p>
 <p><img src="README_files/figure-gfm/jitteredoverview-1.png" width="50%"><img src="README_files/figure-gfm/jitteredoverview-2.png" width="50%"></p>
+</div>
+<div class="section level2">
+<h2 id="cycling-routes">Cycling routes<a class="anchor" aria-label="anchor" href="#cycling-routes"></a>
+</h2>
+<p>Use of <a href="https://cyclinstreets.net" class="external-link">CyclingStreets.net</a> (<a href="https://rpackage.cyclestreets.net/" class="external-link">R package</a>) for fast and quiet bike routes for baseline scenario.<br>
+For e-bike scenario, we developed a proper algorithm, considering the topography (and <a href="https://docs.ropensci.org/slopes" class="external-link"><code>slopes</code></a> package).</p>
+</div>
+<div class="section level2">
+<h2 id="intermodal-trips-1">Intermodal trips<a class="anchor" aria-label="anchor" href="#intermodal-trips-1"></a>
+</h2>
+<p>We made use and developed a methodology that considers replacing long trips by bike + train or ferry trips (<code>name of the package</code>)</p>
+<!-- todo: include Robin's reflection about multi-modal trips replacement -->
+</div>
+<div class="section level2">
+<h2 id="estimation-of-socioeconomic-benefits">Estimation of socioeconomic benefits<a class="anchor" aria-label="anchor" href="#estimation-of-socioeconomic-benefits"></a>
+</h2>
+<p>Health Economic Assessment Tool (<a href="https://www.heatwalkingcycling.org/#how_heat_works" class="external-link">HEAT v5.0</a>) for walking and cycling by WHO.</p>
+</div>
+</div>
+<div class="section level1">
+<h1 id="results">Results<a class="anchor" aria-label="anchor" href="#results"></a>
+</h1>
+<div class="section level2"><h2 id="cycling-uptake-in-lma-and-by-municipality">Cycling uptake in LMA and by Municipality<a class="anchor" aria-label="anchor" href="#cycling-uptake-in-lma-and-by-municipality"></a>
+</h2></div>
+<div class="section level2"><h2 id="comparision-with-the-cycling-network-plans-by-municipality">Comparision with the cycling network plans by Municipality<a class="anchor" aria-label="anchor" href="#comparision-with-the-cycling-network-plans-by-municipality"></a>
+</h2></div>
+</div>
+<div class="section level1">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-IMOB" class="csl-entry"><p>Instituto National de Estatística. 2018. “Mobilidade e Funcionalidade Do Território Nas áreas Metropolitanas Do Porto e de Lisboa: 2017.” Lisboa. <a href="https://www.ine.pt/xportal/xmain?xpid=INE&amp;xpgid=ine_publicacoes&amp;PUBLICACOESpub_boui=349495406&amp;PUBLICACOESmodo=2&amp;xlang=pt" class="external-link uri">https://www.ine.pt/xportal/xmain?xpid=INE&amp;xpgid=ine_publicacoes&amp;PUBLICACOESpub_boui=349495406&amp;PUBLICACOESmodo=2&amp;xlang=pt</a>.</p></div>
+<div id="ref-Jittering2022" class="csl-entry"><p>Lovelace, Robin, Rosa Félix, and Dustin Carlino. 2022. “Jittering: A Computationally Efficient Method for Generating Realistic Route Networks from Origin-Destination Data.” <em>Findings</em>. <a href="https://doi.org/10.32866/001c.33873" class="external-link uri">https://doi.org/10.32866/001c.33873</a>.</p></div>
+<div id="ref-Lovelace2017" class="csl-entry"><p>Lovelace, Robin, Anna Goodman, Rachel Aldred, Nikolai Berkoff, Ali Abbas, and James Woodcock. 2017. “The Propensity to Cycle Tool: An Open Source Online System for Sustainable Transport Planning.” <em>Journal of Transport and Land Use</em> 10 (1). <a href="https://doi.org/gfgzf7" class="external-link uri">https://doi.org/gfgzf7</a>.</p></div>
+</div>
 </div>
 
   </main><aside class="col-md-3"><div class="license">
@@ -112,7 +197,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer>
