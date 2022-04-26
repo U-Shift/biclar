@@ -3,3 +3,5 @@
 ^pkgdown$
 ^\.github$
 ^vignettes/articles$
+^.*\.Rproj$
+^\.Rproj\.user$
