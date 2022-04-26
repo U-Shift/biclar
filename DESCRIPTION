@@ -13,3 +13,5 @@ RoxygenNote: 7.1.2
 URL: https://u-shift.github.io/biclar/
 Suggests: 
     rmarkdown
+Imports: 
+    tmap
