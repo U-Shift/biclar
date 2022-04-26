@@ -1,6 +1,6 @@
 Package: biclar
 Title: Strategic Cycle Network Modelling for Lisbon Metropolitan Area
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: c(
     person("Robin", "Lovelace", , "rob00x@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5679-6536")),
