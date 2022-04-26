@@ -42,7 +42,6 @@ The key datasets are as follows:
 -   Road network from [OpenStreetMap](https://www.openstreetmap.org/#map=11/38.7053/-9.1585)  
 -   Main public transport interfaces at Lisbon Metro Region, provided by [Transportes Metropolitanos de Lisboa](https://www.tmlmobilidade.pt/)
 
-<!-- todo: include shape of transport hubs in releases -->
 
 # Cenarios for cycling uptake
 
@@ -98,7 +97,6 @@ plot(od_all_sf$geometry, lwd = 0.2)
 plot(od_all_jittered$geometry, lwd = 0.1)
 ```
 
-<!-- figs not showing on pkgdown -->
 
 ## Cycling routes
 
@@ -122,5 +120,49 @@ Health Economic Assessment Tool ([HEAT v5.0](https://www.heatwalkingcycling.org/
 ## Cycling uptake in LMA and by Municipality
 
 ## Comparision with the cycling network plans by Municipality
+
+Compare the modeled cycling networks (segments overlapping) with expansion plans, by municipality.
+
+<!-- todo: this is too heavy -->
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+planned_network = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/CyclingPlans2021.gpkg", quiet = TRUE)
+
+existing_network = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/CyclingNetwork2021.gpkg", quiet = TRUE)
+
+greens2 = c("#1A7832", "#AFD4A0") #color pal
+
+library(tmap)
+tmap_mode("view")
+tm_layout(title = "Existing and planned cycling networkn in LMA", panel.show = T) +
+  tm_add_legend("fill",
+                labels = "Planned",
+                col = "#E3879E",
+                z = 3) +
+tm_shape(planned_network) +
+  tm_sf(lwd = 1.5,
+        #   color = "pink",
+        col = "#E3879E",
+        lty = "dashed",
+        alpha = 0.8 ,
+        legend.show = T,
+        title.col = "Planned") +
+tm_shape(existing_network) +
+  tm_sf(col = "Tipologia",
+           lwd = 2.5,
+           palette = greens2,
+        title.col = "Existing by typology",
+        popup.vars = c(
+      "Município" = "Municipio",
+      "Tipologia" = "Tipologia",
+      "Função" = "Funcao",      
+     "Sentido" = "Sentido", 
+     "Comprimento" = "Lenght", 
+     "ID" = "ID"
+    ),
+  )
+
+```
+
 
 # References {-}

@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # biclar
 
@@ -84,7 +85,7 @@ concentrate all the trips between areas.
 
 The OD datasets, before and after jittering, are shown below.
 
-<img src="README_files/figure-gfm/jitteredoverview-1.png" width="50%" /><img src="README_files/figure-gfm/jitteredoverview-2.png" width="50%" />
+<img src="man/figures/README-jitteredoverview-1.png" width="50%" /><img src="man/figures/README-jitteredoverview-2.png" width="50%" />
 
 <!-- figs not showing on pkgdown -->
 
@@ -112,6 +113,11 @@ and cycling by WHO.
 ## Cycling uptake in LMA and by Municipality
 
 ## Comparision with the cycling network plans by Municipality
+
+Compare the modeled cycling networks (segments overlapping) with
+expansion plans, by municipality.
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 # References
 
