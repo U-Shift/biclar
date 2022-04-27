@@ -125,7 +125,7 @@ Compare the modeled cycling networks (segments overlapping) with expansion plans
 
 <!-- todo: this is too heavy -->
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
 planned_network = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/CyclingPlans2021.gpkg", quiet = TRUE)
 
 existing_network = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/CyclingNetwork2021.gpkg", quiet = TRUE)
@@ -162,6 +162,10 @@ tm_shape(existing_network) +
     ),
   )
 
+```
+
+```{r echo=FALSE}
+knitr::include_graphics("man/figures/existingplanned.png")
 ```
 
 We can view it in an [interactive map here](https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html).
