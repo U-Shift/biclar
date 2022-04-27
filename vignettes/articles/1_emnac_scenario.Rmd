@@ -64,7 +64,7 @@ od_top_enmac = rbind(od_top_enmac, od_top_enmac_aside)
 
 ```
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 tm_shape(od_top_enmac) +
   tm_lines(lwd = "new_cyc", scale = 9, col = "new_cyc", palette = "viridis")
 ```

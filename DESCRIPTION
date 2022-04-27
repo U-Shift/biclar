@@ -13,6 +13,8 @@ Description: Code to support the design and assessment of different
 License: AGPL (>= 3)
 URL: https://u-shift.github.io/biclar/
 Imports: 
+    od,
+    stplanr,
     tmap
 Suggests: 
     rmarkdown
