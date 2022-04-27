@@ -90,32 +90,5 @@ tm_shape(rnet) +
 > This is without trips with same O&D. Jittered will bring other results.
 
 
-```{r eval=FALSE, include=TRUE}
-# check analysis with dplyr and estimation of cycling uptake with pct function
 
-library(pct)
-route_segments_balanced = sf::read_sf(u3)
-routes_balanced = route_segments_balanced %>% 
-  group_by(DICOFREor11, DICOFREde11) %>% 
-  summarise(
-    Bike = mean(Bike),
-    All = sum(Total),
-    Length_balanced_m = sum(distances),
-    Hilliness_average = mean(gradient_segment),
-    Hilliness_90th_percentile = quantile(gradient_segment, probs = 0.9)
-  ) %>% 
-  sf::st_cast("LINESTRING")
-summary(routes_balanced$Length_balanced_m)
-routes_balanced$Potential = pct::uptake_pct_godutch( #here goes our ENMAC function!
-  distance = routes_balanced$Length_balanced_m,
-  gradient = routes_balanced$Hilliness_average
-    ) * 
-  routes_balanced$All
-
-rnet_balanced = overline(routes_balanced, "Potential")
-b = c(0, 0.5, 1, 2, 3, 8) * 1e4
-tm_shape(rnet_balanced) +
-  tm_lines(lwd = "Potential", scale = 9, col = "Potential", palette = "viridis", breaks = b)
-
-```
 

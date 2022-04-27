@@ -63,7 +63,7 @@ The National targets for cycling uptake were set to:
 
 Cycling trips should replace car trips directly.
 
-See vignette [ENMAC scenario](articles/1_enmac_scenario.html) to see how this was modeled.
+See vignette [ENMAC scenario](articles/1_emnac_scenario.html) to see how this was modeled.
 
 ## Intermodal trips
 
