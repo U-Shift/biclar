@@ -19,7 +19,7 @@ od_all_jittered = readRDS(url("https://github.com/U-Shift/biclar/releases/downlo
 ```
 
 ```{r jitteredoverview, echo=FALSE}
-plot(od_all_sf$geometry, lwd = 0.2)
+plot(od_all$geometry, lwd = 0.2)
 plot(od_all_jittered$geometry, lwd = 0.1)
 ```
 
