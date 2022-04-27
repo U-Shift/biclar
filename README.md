@@ -30,8 +30,6 @@ The key datasets are as follows:
     [Transportes Metropolitanos de
     Lisboa](https://www.tmlmobilidade.pt/)
 
-<!-- todo: include shape of transport hubs in releases -->
-
 # Cenarios for cycling uptake
 
 ## Baseline
@@ -54,7 +52,7 @@ The National targets for cycling uptake were set to:
 
 Cycling trips should replace car trips directly.
 
-See vignette [ENMAC scenario](articles/1_enmac_scenario.html) to see how
+See vignette [ENMAC scenario](articles/1_emnac_scenario.html) to see how
 this was modeled.
 
 ## Intermodal trips
@@ -87,8 +85,6 @@ The OD datasets, before and after jittering, are shown below.
 
 <img src="man/figures/README-jitteredoverview-1.png" width="50%" /><img src="man/figures/README-jitteredoverview-2.png" width="50%" />
 
-<!-- figs not showing on pkgdown -->
-
 ## Cycling routes
 
 Use of [CyclingStreets.net](https://cyclinstreets.net) ([R
@@ -117,7 +113,12 @@ and cycling by WHO.
 Compare the modeled cycling networks (segments overlapping) with
 expansion plans, by municipality.
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<!-- todo: this is too heavy -->
+
+<img src="man/figures/existingplanned.png" width="100%" />
+
+We can view it in an [interactive map
+here](https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html).
 
 # References
 
