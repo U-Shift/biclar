@@ -33,9 +33,9 @@ Top 300 desire lines with most trips. Line width for car trips.
 ```{r}
 od_all = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_freguesias.Rds"))
 zones = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/FREGUESIASgeo.Rds"))
-od_all_sf = od::od_to_sf(od_all, zones)
+# od_all_sf = od::od_to_sf(od_all, zones)
 
-od_all_sf_top = od_all_sf %>% 
+od_all_sf_top = od_all %>% 
   filter(DICOFREor11 != DICOFREde11) %>% 
   top_n(n = 300, wt = Total)
 

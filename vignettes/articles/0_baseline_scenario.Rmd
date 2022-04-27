@@ -28,8 +28,7 @@ plot(od_all_jittered$geometry, lwd = 0.1)
 Baseline (IMOB 2018)
 
 ```{r}
-od_all_sf = od::od_to_sf(od_all, zones)
-od_all_bikeonly = od_all_sf %>% filter(Bike != 0) #only for visualization
+od_all_bikeonly = od_all %>% filter(Bike != 0) #only for visualization
 
 tm_shape(od_all_bikeonly) +
     tm_lines(col = "Bike", palette = "viridis", lwd = "Bike", scale = 15)
