@@ -84,7 +84,6 @@
 <li>Main public transport interfaces at Lisbon Metro Region, provided by <a href="https://www.tmlmobilidade.pt/" class="external-link">Transportes Metropolitanos de Lisboa</a>
 </li>
 </ul>
-<!-- todo: include shape of transport hubs in releases -->
 </div>
 <div class="section level1">
 <h1 id="cenarios-for-cycling-uptake">Cenarios for cycling uptake<a class="anchor" aria-label="anchor" href="#cenarios-for-cycling-uptake"></a>
@@ -105,7 +104,7 @@ We considered all trips between <em>Freguesias</em>.</p>
 <li>10% of all trips should be made by bicycle by 2030</li>
 </ul>
 <p>Cycling trips should replace car trips directly.</p>
-<p>See vignette <a href="articles/1_enmac_scenario.html">ENMAC scenario</a> to see how this was modeled.</p>
+<p>See vignette <a href="articles/1_emnac_scenario.html">ENMAC scenario</a> to see how this was modeled.</p>
 </div>
 <div class="section level2">
 <h2 id="intermodal-trips">Intermodal trips<a class="anchor" aria-label="anchor" href="#intermodal-trips"></a>
@@ -132,7 +131,6 @@ We considered all trips between <em>Freguesias</em>.</p>
 <p>For the disagregation of OD pairs at <em>Freguesias</em> level, we use <a href="https://github.com/atumworld/odrust" class="external-link">OD Jittering</a> (Lovelace, Félix, and Carlino 2022) method, which better suits walking and cycling trips modelling (shorter distances), instead of relying on centroids that concentrate all the trips between areas.</p>
 <p>The OD datasets, before and after jittering, are shown below.</p>
 <p><img src="reference/figures/README-jitteredoverview-1.png" width="50%"><img src="reference/figures/README-jitteredoverview-2.png" width="50%"></p>
-<!-- figs not showing on pkgdown -->
 </div>
 <div class="section level2">
 <h2 id="cycling-routes">Cycling routes<a class="anchor" aria-label="anchor" href="#cycling-routes"></a>
@@ -160,7 +158,8 @@ For e-bike scenario, we developed a proper algorithm, considering the topography
 <h2 id="comparision-with-the-cycling-network-plans-by-municipality">Comparision with the cycling network plans by Municipality<a class="anchor" aria-label="anchor" href="#comparision-with-the-cycling-network-plans-by-municipality"></a>
 </h2>
 <p>Compare the modeled cycling networks (segments overlapping) with expansion plans, by municipality.</p>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+<!-- todo: this is too heavy --><p><img src="reference/figures/existingplanned.png" width="100%"></p>
+<p>We can view it in an <a href="https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html" class="external-link">interactive map here</a>.</p>
 </div>
 </div>
 <div class="section level1">
