@@ -202,8 +202,8 @@ names(tablethreshold) = c("top desire lines", scenarios[1], scenarios[2])
 
 tablethreshold[,c(2,3)] = round(tablethreshold[,c(2,3)]/1000,1)
 
-knitr::kable(tablethreshold, caption = "New cycling trips [x1000], by scenario and top desire lines threshold") %>%
-  kableExtra::kable_paper("hover", full_width = F)
+knitr::kable(tablethreshold, caption = "New cycling trips [x1000], by scenario and top desire lines threshold")
+# %>%  kableExtra::kable_paper("hover", full_width = F)
 
 ```
 
