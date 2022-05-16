@@ -27,16 +27,21 @@ od_sample = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0
 od_sample %>% as.data.frame %>% head(10) %>% knitr::kable()
 ```
 
-Top 300 desire lines with most trips. Line width for car trips.
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, include=FALSE}
+topdl = 300 #change here the threshold
+```
+
+Top `r topdl` desire lines with most trips. Line width for car trips.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 od_all = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_freguesias.Rds"))
 zones = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/FREGUESIASgeo.Rds"))
 # od_all_sf = od::od_to_sf(od_all, zones)
 
 od_all_sf_top = od_all %>% 
   filter(DICOFREor11 != DICOFREde11) %>% 
-  top_n(n = 300, wt = Total)
+  top_n(n = topdl, wt = Total)
 
 tm_shape(od_all_sf_top) +
    tm_lines(col = "Total", palette = "viridis", lwd = "Car", scale = 9)
@@ -54,10 +59,10 @@ od_top_enmac_aside = od_top_enmac %>% filter(Bikeper >= ENMAC4) #don't mess with
 od_top_enmac = od_top_enmac %>% filter(Bikeper < ENMAC4)
 
 od_top_enmac$new_cyc = ENMAC4 * od_top_enmac$Total - od_top_enmac$Bike
-od_top_enmac$new_car = od_top_enmac$Car - od_top_enmac$new_cyc
+od_top_enmac$new_carT = (od_top_enmac$Car + od_top_enmac$CarP) - od_top_enmac$new_cyc
 
 od_top_enmac_aside$new_cyc = od_top_enmac_aside$Bike
-od_top_enmac_aside$new_car = od_top_enmac_aside$Car
+od_top_enmac_aside$new_carT = (od_top_enmac_aside$Car + od_top_enmac_aside$CarP)
 
 od_top_enmac = rbind(od_top_enmac, od_top_enmac_aside)
 
@@ -68,7 +73,7 @@ tm_shape(od_top_enmac) +
   tm_lines(lwd = "new_cyc", scale = 9, col = "new_cyc", palette = "viridis")
 ```
 
-Example with routing, for top 300 ODs
+Example with routing, for top `r topdl` ODs
 (fast routes from Cyclestreets.net)
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -87,8 +92,118 @@ tm_shape(rnet) +
 
 ```
 
+With the ENMAC 4% scenario, the cycling potential is **`r round(sum(newcyc$new_cyc)/1000)`k** new cycling trips, transferred from car.
+
+
 > This is without trips with same O&D. Jittered will bring other results.
 
+### ENMAC: 10% bike, replaced from Car
 
+```{r include=FALSE}
+#cycling potential function
+od_top_enmac = od_all_sf_top
+ENMAC10 = 0.1 # 10%
+od_top_enmac$Bikeper = od_top_enmac$Bike / od_top_enmac$Total
 
+od_top_enmac_aside = od_top_enmac %>% filter(Bikeper >= ENMAC10) #don't mess with the ones that already reach target
+od_top_enmac = od_top_enmac %>% filter(Bikeper < ENMAC10)
+
+od_top_enmac$new_cyc = ENMAC10 * od_top_enmac$Total - od_top_enmac$Bike
+od_top_enmac$new_carT = (od_top_enmac$Car + od_top_enmac$CarP) - od_top_enmac$new_cyc
+
+od_top_enmac_aside$new_cyc = od_top_enmac_aside$Bike
+od_top_enmac_aside$new_carT = (od_top_enmac_aside$Car + od_top_enmac_aside$CarP)
+
+od_top_enmac = rbind(od_top_enmac, od_top_enmac_aside)
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+tm_shape(od_top_enmac) +
+  tm_lines(lwd = "new_cyc", scale = 9, col = "new_cyc", palette = "viridis")
+```
+
+Example with routing, for top `r topdl` ODs
+(fast routes from Cyclestreets.net)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check route network generation with stplanr
+library(stplanr)
+routes = sf::read_sf("https://github.com/U-Shift/cyclingpotential-hack/releases/download/2.0.0/routes_fast.geojson")
+
+od_top_enmac$pair = paste0(od_top_enmac$DICOFREor11, od_top_enmac$DICOFREde11)
+routes_enmac10 = routes %>% mutate(pair = paste0(DICOFREor11, DICOFREde11)) %>% filter(pair %in% od_top_enmac$pair)
+newcyc = od_top_enmac %>% select(pair, new_cyc) %>% sf::st_drop_geometry() %>% mutate(new_cyc = round(new_cyc))
+routes_enmac10 = left_join(routes_enmac10, newcyc)
+
+rnet = overline(routes_enmac10, "new_cyc") 
+tm_shape(rnet) +
+  tm_lines(scale = 15, col = "new_cyc", lwd = "new_cyc", palette = "viridis")
+
+```
+
+And with the ENMAC 10% scenario, the cycling potential is **`r round(sum(newcyc$new_cyc)/1000)`k** new cycling trips, transferred from car.
+
+## Threshold table
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+scenarios = c("ENMAC 4%", "ENMAC 10%")
+thresholds = c(300, 500, 1000, 2000, 5000, nrow(od_all %>% filter(DICOFREor11 != DICOFREde11)))
+howmanyt = n
+
+ENMAC4 = 0.04 # 10%
+ENMAC10 = 0.1 # 10%
+
+newcyclists4 = numeric()
+newcyclists10 = numeric()
+
+# 4%
+for(i in 1:length(thresholds)){
+  od_all_top = od_all %>% 
+    filter(DICOFREor11 != DICOFREde11) %>% 
+    top_n(n = thresholds[i], wt = Total)
+
+  od_top_enmac = od_all_top
+
+  od_top_enmac$Bikeper = od_top_enmac$Bike / od_top_enmac$Total
+
+  od_top_enmac_aside = od_top_enmac %>% filter(Bikeper >= ENMAC4) #don't mess with the ones that already reach target
+  od_top_enmac = od_top_enmac %>% filter(Bikeper < ENMAC4)
+
+  od_top_enmac$new_cyc = ENMAC4 * od_top_enmac$Total - od_top_enmac$Bike
+  od_top_enmac_aside$new_cyc = od_top_enmac_aside$Bike
+  od_top_enmac = rbind(od_top_enmac, od_top_enmac_aside)
+  
+  newcyclists4[i] = round(sum(od_top_enmac$new_cyc))
+}
+
+# 10%
+for(i in 1:length(thresholds)){
+  od_all_top = od_all %>% 
+    filter(DICOFREor11 != DICOFREde11) %>% 
+    top_n(n = thresholds[i], wt = Total)
+
+  od_top_enmac = od_all_top
+
+  od_top_enmac$Bikeper = od_top_enmac$Bike / od_top_enmac$Total
+
+  od_top_enmac_aside = od_top_enmac %>% filter(Bikeper >= ENMAC10) #don't mess with the ones that already reach target
+  od_top_enmac = od_top_enmac %>% filter(Bikeper < ENMAC10)
+
+  od_top_enmac$new_cyc = ENMAC10 * od_top_enmac$Total - od_top_enmac$Bike
+  od_top_enmac_aside$new_cyc = od_top_enmac_aside$Bike
+  od_top_enmac = rbind(od_top_enmac, od_top_enmac_aside)
+  
+  newcyclists10[i] = round(sum(od_top_enmac$new_cyc))
+}
+
+tablethreshold = data.frame(top = thresholds, enmac4 = newcyclists4, enmac10 = newcyclists10)
+names(tablethreshold) = c("top desire lines", scenarios[1], scenarios[2])
+
+tablethreshold[,c(2,3)] = round(tablethreshold[,c(2,3)]/1000,1)
+
+knitr::kable(tablethreshold, caption = "New cycling trips [x1000], by scenario and top desire lines threshold") %>%
+  kableExtra::kable_paper("hover", full_width = F)
+
+```
 

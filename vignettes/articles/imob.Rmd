@@ -10,7 +10,12 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(biclar)
+knitr::opts_chunk$set(
+	message = FALSE,
+	warning = FALSE,
+	include = FALSE
+)
+library(sf)
 ```
 
 Nothing to show so far.
