@@ -15,22 +15,26 @@ intermodality, based on https://github.com/npct/rail
 The multi-stage trips from home to work via rail stations assumes simplistically that the first stage of rail journeys is to the nearest station, that the rail journey went to the station closes to their destination, and that trips involve travelling in a straight line.
 
 
-## Train and ferry stations in LMA
+## Public transit major stations in LMA
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #read data
-train_stations = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/train_stations.Rds"))
-ferry_stations = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/ferry_stations.Rds"))
+transit_all = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/transit.gpkg", quiet = TRUE)
 
 library(tmap)
 tmap_mode("view")
 
-tm_shape(train_stations) +
-  tm_sf(col = "blue", size = 0.3) +
-  tm_shape(ferry_stations) +
-  tm_sf(col = "red", size = 0.3)
-
-# mapview::mapview(train_stations) + mapview::mapview(ferry_stations, col.regions= "red") #mapview not working
+tm_shape(transit_all) +
+  tm_sf(col = "mode", size = 0.3)
 ```
 
+For the purpose of the ability to carry a bicycle in the public transport, we will focus on train, ferry and major bus stations.
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+transit = transit_all %>% filter(mode %in% c("train", "ferry", "bus")) 
+
+tm_shape(transit) +
+  tm_sf(col = "mode", size = 0.3)
+
+```
