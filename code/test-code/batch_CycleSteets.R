@@ -11,7 +11,7 @@ library(cyclestreets)
 
 od_jittered_100 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_all_jittered_100.Rds"))
 
-od_jittered_test = od_jittered_100 %>% slice_sample(n = 100)
+od_jittered_test = od_jittered_100 %>% slice_sample(n = 10)
 plot(od_jittered_test$geometry, lwd = 0.1)
 
 routes_jittered = batch(od_jittered_test,
@@ -21,12 +21,13 @@ routes_jittered = batch(od_jittered_test,
                         maxDistance = 10000, #change here the assumed max euclidean distance
                         filename = "biclar_test",
                         includeJsonOutput = 1, #0 - only summary info like time and dist
-                        emailOnCompletion = "temospena@gmail.com",
+                        # emailOnCompletion = "temospena@gmail.com",
                         username = "temospena",
                         password = Sys.getenv("CYCLESTREETS_PW"), #pw for CS account
-                        base_url = "https://api.cyclestreets.net/v2/batchroutes.createjob",
-                        id = "start",
+                        # base_url = "https://api.cyclestreets.net/v2/batchroutes.createjob",
+                        # id = 326, #number of job id 326
                         pat = Sys.getenv("CYCLESTREETS") #API key from CS for this project
 )
 
 plot(routes_jittered$geometry, lwd = 0.1)                       
+
