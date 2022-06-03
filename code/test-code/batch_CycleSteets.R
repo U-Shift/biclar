@@ -23,9 +23,10 @@ routes_jittered = batch(od_jittered_test,
                         includeJsonOutput = 1, #0 - only summary info like time and dist
                         emailOnCompletion = "temospena@gmail.com",
                         username = "temospena",
-                        password = Sys.getenv("CYCLESTREETS"),
+                        password = Sys.getenv("CYCLESTREETS_PW"), #pw for CS account
                         base_url = "https://api.cyclestreets.net/v2/batchroutes.createjob",
-                        id = "start"
+                        id = "start",
+                        pat = Sys.getenv("CYCLESTREETS") #API key from CS for this project
 )
 
 plot(routes_jittered$geometry, lwd = 0.1)                       
