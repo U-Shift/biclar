@@ -35,11 +35,16 @@ od_all_jittered = odjitter::jitter(
   zones = zones,
   subpoints = osm_data_region,
   disaggregation_key = "Total",
-  disaggregation_threshold = 50
+  disaggregation_threshold = 50 #maybe increase to 100 for the prototype?
 )
 nrow(od_all_jittered) # 110008
+# nrow(od_all_jittered) # 57356 - with threshold 100
 saveRDS(od_all_jittered, "od_all_jittered_50.Rds")
+# saveRDS(od_all_jittered, "od_all_jittered_100.Rds")
 piggyback::pb_upload("od_all_jittered_50.Rds")
+# piggyback::pb_upload("od_all_jittered_100.Rds")
+
+
 
 # case study zones
 small_netowrk = sf::st_transform(slopes::lisbon_road_network, 4326)
