@@ -5,17 +5,83 @@ title: "Comparação da amostra IMOB para o universo AML"
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE,
+	warning = FALSE
 )
 ```
 
-```{r setup}
-knitr::opts_chunk$set(
-	message = FALSE,
-	warning = FALSE,
-	include = FALSE
-)
+```{r setup, include = FALSE}
+library(dplyr)
 library(sf)
+library(tmap)
+tmap_mode("view")
 ```
 
-Nothing to show so far.
+IMOB is representative at zone level, which are groups of _Freguesias_ that have homogeneity in accessibility to public transport, and for each Municipality.
+
+The [methodology of IMOB](https://www.ine.pt/ngt_server/attachfileu.jsp?look_parentBoui=352412255&att_display=n&att_download=y) defines 5 different zone levels, resulting in 49 zones, within the 18 Municipalities.
+
+
+```{r import data, include=FALSE}
+ZONAMENTO = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/ZONAMENTO_imob.Rds"))
+FREGUESIASgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/FREGUESIASgeo.Rds"))
+MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
+POPFreguesias = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/PopFreguesias.Rds"))
+TRIPSmode_freguesias = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_freguesias.Rds"))
+```
+
+```{r echo=FALSE}
+FREGUESIASgeo_zones = FREGUESIASgeo %>% left_join(ZONAMENTO %>% select(-2)) %>%
+  left_join(POPFreguesias %>% select(-1)) %>% mutate(Zonas = as.integer(Zonas))
+
+tm_shape(FREGUESIASgeo_zones) + tm_polygons(col = "Zonas", palette = "Paired") +
+  tm_shape(MUNICIPIOSgeo) + tm_borders(col = "black", lwd = 2)
+```
+
+```{r include=FALSE}
+TRIPSmode_freguesias_OR = TRIPSmode_freguesias %>% st_drop_geometry() %>%
+  mutate(Dicofre = as.character(DICOFREor11)) %>% #origins
+  select(3:8,10) %>% group_by(Dicofre) %>% summarise_all(sum)
+
+IMOBvalid_freg = FREGUESIASgeo_zones %>% st_drop_geometry() %>% left_join(TRIPSmode_freguesias_OR) #118
+IMOBvalid_zones = IMOBvalid_freg %>% select(-c(1,4)) %>%
+  group_by(Concelho, DTMN, Zonas, DTMN_Zona) %>% summarise_all(sum) #49
+# sum(IMOBvalid_freg$Total) #5.3M
+# sum(IMOBvalid_zones$Total) #5.3M
+sum(IMOBvalid_freg$Populacao) #2.8M
+sum(IMOBvalid_zones$Populacao) #2.8M
+```
+According to Census 2021, the population in the Lisbon Metropolotan Area (LMA) was `r round(sum(IMOBvalid_freg$Populacao)/1000)`k, and the number of trips extrapolated from the IMOB 2017 was `r round(sum(IMOBvalid_freg$Total)/1000)`k.
+
+```{r echo=TRUE}
+IMOBvalid_freg = IMOBvalid_freg %>% mutate(TRIPS_pop = Total/Populacao, Car_pop = (Car + CarP)/Populacao)
+IMOBvalid_zones = IMOBvalid_zones %>% mutate(TRIPS_pop = Total/Populacao, Car_pop = (Car + CarP)/Populacao)
+
+summary(IMOBvalid_freg$TRIPS_pop)
+summary(IMOBvalid_zones$TRIPS_pop)
+
+summary(IMOBvalid_freg$Car_pop)
+summary(IMOBvalid_zones$Car_pop)
+
+
+modelfreg = lm(data= IMOBvalid_freg, Total ~ Populacao)
+plot(IMOBvalid_freg$Populacao, IMOBvalid_freg$Total) + abline(modelfreg, col = "red")
+plot(IMOBvalid_freg$TRIPS_pop) + abline(h = mean(IMOBvalid_freg$TRIPS_pop), col = "red")
+
+modelzones = lm(data= IMOBvalid_zones, Total ~ Populacao)
+plot(IMOBvalid_zones$Populacao, IMOBvalid_zones$Total) + abline(modelzones, col = "blue")
+plot(IMOBvalid_zones$TRIPS_pop) + abline(h = mean(IMOBvalid_zones$TRIPS_pop), col = "blue")
+
+plot(modelfreg)
+plot(modelzones)
+
+```
+
+The error accepted by IMOB methodology (p.12) is as follows:
+```{r echo=FALSE}
+tabela_erro = data.frame(popupacao_municipio = c("< 50k", "50-100k", "100-200k", ">= 200k"),
+                         error = c("5 pp", "4 pp", "3 pp", "2 pp"))
+knitr::kable(tabela_erro)
+```
+
