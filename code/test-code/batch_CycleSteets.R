@@ -12,6 +12,7 @@ library(cyclestreets)
 od_jittered_100 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_all_jittered_100.Rds"))
 
 od_jittered_test = od_jittered_100 %>% slice_sample(n = 10)
+od_jittered_test$id = 1:nrow(od_jittered_test)
 plot(od_jittered_test$geometry, lwd = 0.1)
 
 routes_jittered = batch(od_jittered_test,
@@ -26,8 +27,17 @@ routes_jittered = batch(od_jittered_test,
                         password = Sys.getenv("CYCLESTREETS_PW"), #pw for CS account
                         # base_url = "https://api.cyclestreets.net/v2/batchroutes.createjob",
                         # id = 326, #number of job id 326
-                        pat = Sys.getenv("CYCLESTREETS") #API key from CS for this project
+                        # id = "id",
+                        pat = Sys.getenv("CYCLESTREETS"), #API key from CS for this project
+                        serverId = 1
 )
 
 plot(routes_jittered$geometry, lwd = 0.1)                       
 
+
+
+# try in cyclestreets online tool -------------------------------------------------------------
+
+st_write(od_jittered_test, "od_biclar_10.geojson", delete_dsn = TRUE)
+routes_jittered_online = read.csv("lisbon_test-data.csv")
+routes_jittered_online = st_as_sf(routes_jittered_online, st_geometry("route"))
