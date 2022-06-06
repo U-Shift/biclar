@@ -1,5 +1,5 @@
 ---
-title: "Comparação da amostra IMOB para o universo AML"
+title: "Validation of the mobility survey for the units of analysis"
 ---
 
 ```{r, include = FALSE}
@@ -29,13 +29,14 @@ FREGUESIASgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download
 MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
 POPFreguesias = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/PopFreguesias.Rds"))
 TRIPSmode_freguesias = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_freguesias.Rds"))
+IMOBresidentes = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/IMOBrespondents.Rds"))
 ```
 
 ```{r echo=FALSE}
 FREGUESIASgeo_zones = FREGUESIASgeo %>% left_join(ZONAMENTO %>% select(-2)) %>%
   left_join(POPFreguesias %>% select(-1)) %>% mutate(Zonas = as.integer(Zonas))
 
-tm_shape(FREGUESIASgeo_zones) + tm_polygons(col = "Zonas", palette = "Paired") +
+tm_shape(FREGUESIASgeo_zones) + tm_polygons(col = "Zonas", palette = "Paired", alpha = 0.8) +
   tm_shape(MUNICIPIOSgeo) + tm_borders(col = "black", lwd = 2)
 ```
 
@@ -52,9 +53,10 @@ IMOBvalid_zones = IMOBvalid_freg %>% select(-c(1,4)) %>%
 sum(IMOBvalid_freg$Populacao) #2.8M
 sum(IMOBvalid_zones$Populacao) #2.8M
 ```
-According to Census 2021, the population in the Lisbon Metropolotan Area (LMA) was `r round(sum(IMOBvalid_freg$Populacao)/1000)`k, and the number of trips extrapolated from the IMOB 2017 was `r round(sum(IMOBvalid_freg$Total)/1000)`k.
+According to Census 2021, the population in the Lisbon Metropolitan Area (LMA) was `r round(sum(IMOBvalid_freg$Populacao)/1000)`k, and the number of trips extrapolated from the IMOB 2017 was `r round(sum(IMOBvalid_freg$Total)/1000)`k.
 
-```{r echo=TRUE}
+```{r eval=FALSE, include=FALSE, echo=TRUE}
+#this was made based on trips, not population
 IMOBvalid_freg = IMOBvalid_freg %>% mutate(TRIPS_pop = Total/Populacao, Car_pop = (Car + CarP)/Populacao)
 IMOBvalid_zones = IMOBvalid_zones %>% mutate(TRIPS_pop = Total/Populacao, Car_pop = (Car + CarP)/Populacao)
 
@@ -76,12 +78,163 @@ plot(IMOBvalid_zones$TRIPS_pop) + abline(h = mean(IMOBvalid_zones$TRIPS_pop), co
 plot(modelfreg)
 plot(modelzones)
 
+#isto é com viagens, mas a metodologia do IMOB tem como referência a população
+
+
 ```
 
+## Validation
+
+We want to check in what extent can we rely on the mobility survey (IMOB), disagregated by _Freguesia_.
+
 The error accepted by IMOB methodology (p.12) is as follows:
+
 ```{r echo=FALSE}
 tabela_erro = data.frame(popupacao_municipio = c("< 50k", "50-100k", "100-200k", ">= 200k"),
-                         error = c("5 pp", "4 pp", "3 pp", "2 pp"))
+                         error = c("5 %", "4 %", "3 %", "2 %"))
 knitr::kable(tabela_erro)
 ```
+
+And it is computed as:
+
+$$ \varepsilon = \sqrt{ \frac{z ^{2}_{1- \alpha/2} \cdot \widehat{P} ( 1 - \widehat{P} )} {n_{inq}} } $$
+
+With $\varepsilon$ as the error, z=1.96 for a significance level of $\alpha$ as 5%, and $n_{inq}$ as the number of conducted surveys in each area.
+
+```{r include=FALSE}
+# filtrar nos microdados o número de inquéritos por zona/municipio
+
+municipios = unique(FREGUESIASgeo_zones$DTMN)
+POPMunicipios = POPFreguesias %>% mutate(DTCC = substr(Dicofre, 1, 4)) %>%
+  group_by(DTCC) %>% summarise(Populacao = sum(Populacao)) 
+
+POPZona = ZONAMENTO %>% left_join(POPFreguesias) %>% group_by(DTMN_Zona) %>% summarise(PopZona = sum(Populacao))
+
+Pzona = IMOBresidentes %>% filter(DTCC_de %in% municipios) %>%
+  mutate(zonamun = paste(DTCC_de, Zona_de, sep="_")) %>%
+  left_join(POPFreguesias) %>% 
+  group_by(zonamun, DTCC_de) %>% summarize(inquiridos = sum(inquiridos)) %>%
+  left_join(POPMunicipios, by=c("DTCC_de" = "DTCC")) %>% 
+  left_join(POPZona, by=c("zonamun" = "DTMN_Zona"))
+
+Pzona$classe = if_else(Pzona$Populacao >=200000, 2, ifelse(
+  Pzona$Populacao > 100000 & Pzona$Populacao < 200000 , 3,ifelse(
+  Pzona$Populacao > 50000 & Pzona$Populacao < 100000 , 4, 5)))
+
+#Proportion
+Pzona = Pzona %>% mutate(percent = inquiridos/PopZona)
+
+summary(Pzona$percent)
+hist(Pzona$percent)
+
+plot(Pzona$Populacao, Pzona$percent)
+
+
+#error
+Pzona$error = sqrt(1.96^2 * Pzona$percent * (1- Pzona$percent) / Pzona$inquiridos)
+summary(Pzona$error)
+
+#inside parameters of validation?
+Pzona$confirm = ifelse(Pzona$error*100 < Pzona$classe, "Inside", "Outide")
+```
+
+
+All the 49 zones present errors bellow the acceptable limits defied by IMOB. 
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# Zones with error within the parameters defined:
+table(Pzona$confirm)
+```
+
+
+```{r include=FALSE}
+
+# filtrar nos microdados o número de inquéritos por freguesia
+
+Pfreg = IMOBresidentes %>% filter(DTCC_de %in% municipios) %>%
+  select(Dicofre, inquiridos) %>%
+  group_by(Dicofre) %>% summarize(inquiridos = sum(inquiridos)) %>% ungroup() %>% 
+  left_join(ZONAMENTO) %>% select(DTMN, DTMN_Zona, Dicofre, inquiridos) %>% 
+  left_join(POPFreguesias, by="Dicofre") %>% 
+  left_join(POPMunicipios, by=c("DTMN" = "DTCC"))
+
+names(Pfreg)[6] = "PopFreg"
+names(Pfreg)[9] = "PopMun"
+
+
+Pfreg$classe = if_else(Pfreg$PopMun >=200000, 2, ifelse(
+  Pfreg$PopMun > 100000 & Pfreg$PopMun < 200000 , 3,ifelse(
+  Pfreg$PopMun > 50000 & Pfreg$PopMun < 100000 , 4, 5)))
+
+#Proporcao
+Pfreg = Pfreg %>% mutate(percent = inquiridos/PopFreg)
+
+summary(Pfreg$percent)
+hist(Pfreg$percent)
+
+plot(Pfreg$PopFreg, Pfreg$percent)
+
+
+#erro
+Pfreg$error = sqrt(1.96^2 * Pfreg$percent * (1- Pfreg$percent) / Pfreg$inquiridos)
+summary(Pfreg$error)
+
+#dentro dos parámetros?
+Pfreg$valid = ifelse(Pfreg$error*100 < Pfreg$classe, "Yes", "No")
+table(Pfreg$valid)
+# Nao Sim 
+#   7 111 
+
+#identificar as freguesias com +25% (3º quartil)
+Pfreg$confianca = ifelse(Pfreg$error*100 > Pfreg$classe, "Above acceptable", ifelse(
+  Pfreg$error > summary(Pfreg$error)[5], ">1.8%", ifelse(
+  Pfreg$error > summary(Pfreg$error)[3], "1.3-1.8%", ifelse(
+  Pfreg$error > summary(Pfreg$error)[2], "1.0-1.3%", "<1.0%"))))
+
+Pfreg$margem_erro = factor(Pfreg$confianca, levels = c("<1.0%", "1.0-1.3%", "1.3-1.8%", ">1.8%", "Above acceptable"))
+table(Pfreg$margem_erro)
+#?
+```
+
+
+### Error margin for each _Freguesia_
+
+```{r echo=FALSE}
+FREGUESIASgeo_zones_error = FREGUESIASgeo_zones %>%
+  left_join(Pfreg %>% select(Dicofre, DTMN_Zona, error, valid, confianca, margem_erro)) %>%
+  mutate(Error = round(error*100,2))
+
+tm_shape(FREGUESIASgeo_zones_error) + tm_polygons(col = "valid", palette = "Paired")
+
+
+tm_shape(FREGUESIASgeo_zones_error) +
+  tm_polygons(col = "margem_erro",
+              title.col = "Error margin",
+              popup.vars = c("Dicofre" = "Dicofre",
+                   "Concelho" = "Concelho",
+                   "Freguesia" = "Name",
+                  "Error margin" = "Error"),
+           id = "Name") 
+# + tm_layout(title= 'Error margin for each Freguesia',  title.position = c('right', 'top'))
+  
+```
+
+Although there are `r nrow(Pfreg %>% filter(valid=="No"))` _Freguesias_ (in `r nrow(Pfreg)`) with a higher error margin than the accepted levels (Table above), the highest error is of `r round(max(Pfreg$error)*100,2)`%.
+
+```{r echo=FALSE}
+tabela = Pfreg %>% select(Dicofre, Freguesia, PopFreg, error, margem_erro, DTMN)
+tabela = tabela %>% left_join(FREGUESIASgeo_zones %>% st_drop_geometry() %>% select(DTMN, Concelho)) %>% unique()
+tabela = tabela %>% select(Dicofre, Concelho, Freguesia, PopFreg, error, margem_erro) %>% mutate(error = round(error*100,2)) %>% arrange(as.integer(tabela$Dicofre))
+  
+knitr::kable(tabela)
+```
+
+
+## Limitations
+
+-   This comparison was made using Census 2021 population data, and not Census 2011 data (used by IMOB).
+
+-   Regarding Census 2021, the population age is not available yet, in order to filter the ones between 6-84 yrs, as defined as "Active Population".
+
+-   We don't know how many survey respondents were by _Freguesia_. From the Mobility Survey database, we can only figure out their home Municipality and Zone. For this purpose, we considered the _Freguesia_ corresponding with the destination of their stated trip purpose "Return home".
 
