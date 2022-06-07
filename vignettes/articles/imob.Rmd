@@ -224,7 +224,7 @@ Although there are `r nrow(Pfreg %>% filter(valid=="No"))` _Freguesias_ (in `r n
 ```{r echo=FALSE}
 tabela = Pfreg %>% select(Dicofre, Freguesia, PopFreg, error, margem_erro, DTMN)
 tabela = tabela %>% left_join(FREGUESIASgeo_zones %>% st_drop_geometry() %>% select(DTMN, Concelho)) %>% unique()
-tabela = tabela %>% select(Dicofre, Concelho, Freguesia, PopFreg, error, margem_erro) %>% mutate(error = round(error*100,2)) %>% arrange(as.integer(tabela$Dicofre))
+tabela = tabela %>% select(Dicofre, Concelho, Freguesia, PopFreg, error, margem_erro) %>% mutate(error = round(error*100,2)) %>% arrange(Concelho, Freguesia)
   
 knitr::kable(tabela)
 ```
@@ -236,5 +236,5 @@ knitr::kable(tabela)
 
 -   Regarding Census 2021, the population age is not available yet, in order to filter the ones between 6-84 yrs, as defined as "Active Population".
 
--   We don't know how many survey respondents were by _Freguesia_. From the Mobility Survey database, we can only figure out their home Municipality and Zone. For this purpose, we considered the _Freguesia_ corresponding with the destination of their stated trip purpose "Return home".
+-   We don't know how many survey respondents were by _Freguesia_. From the Mobility Survey database, we can only figure out their home Municipality and Zone. For this purpose, we considered the _Freguesia_ corresponding with the destination of their stated trip purpose "Return home", discarding 1.28% of all survey respondents.
 

@@ -101,7 +101,8 @@ plot(od_all_jittered$geometry, lwd = 0.1)
 ## Cycling routes
 
 Use of [CyclingStreets.net](https://cyclinstreets.net) ([R package](https://rpackage.cyclestreets.net/)) for fast and quiet bike routes for baseline scenario.  
-For e-bike scenario, we developed a proper algorithm, considering the topography (and [`slopes`](https://docs.ropensci.org/slopes) package).
+
+For e-bike scenario, we developed a proper algorithm, considering the topography, and using  [`slopes`](https://docs.ropensci.org/slopes) package.
 
 
 ## Intermodal trips

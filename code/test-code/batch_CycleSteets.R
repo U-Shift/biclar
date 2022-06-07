@@ -40,4 +40,6 @@ plot(routes_jittered$geometry, lwd = 0.1)
 
 st_write(od_jittered_test, "od_biclar_10.geojson", delete_dsn = TRUE)
 routes_jittered_online = read.csv("lisbon_test-data.csv")
-routes_jittered_online = st_as_sf(routes_jittered_online, st_geometry("route"))
+cyclestreets::
+# routes_jittered_online = json2sf_cs(routes_jittered_online)
+# routes_jittered_online = st_as_sf(routes_jittered_online, st_geometry("route"))
