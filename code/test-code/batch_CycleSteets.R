@@ -17,13 +17,22 @@ od_jittered_test$distance = as.numeric(st_length(od_jittered_test))
 od_jittered_filter = od_jittered_test %>% filter(distance < 9000) %>%   #max 9km - 75%
   filter(Total > 10)
 od_jittered_filter$id = 1:nrow(od_jittered_filter)
+
 plot(od_jittered_filter$geometry, lwd = 0.1)
 
-routes_jittered = batch(od_jittered_filter,
-                        name = "biclar_filtered",
+samplejitter1 = od_jittered_filter %>% slice_head(n= 10000) #maximum allowed - job id 425
+samplejitter2 = od_jittered_filter %>% filter(id == c(10001:20000)) # job id 426
+samplejitter3 = od_jittered_filter %>% filter(id == c(20001:30000)) # job id 427
+samplejitter4 = od_jittered_filter %>% filter(id == c(30001:40000)) # job id 428
+samplejitter5 = od_jittered_filter %>% filter(id == c(40001:50000)) # job id 429
+
+
+#run one by one, and open the result at https://www.cyclestreets.net/journey/batch/423/ #id here
+routes_jittered = batch(samplejitter5,
+                        name = "biclar_filtered_sample",
                         strategies = "quietest", #or quietest
                         minDistance = 200,
-                        # maxDistance = 10000, #change here the assumed max euclidean distance
+                        maxDistance = 10000, #change here the assumed max euclidean distance (default = 5000)
                         filename = "biclar_filtered",
                         includeJsonOutput = 1, #0 - only summary info like time and dist
                         # emailOnCompletion = "temospena@gmail.com",
@@ -36,14 +45,15 @@ routes_jittered = batch(od_jittered_filter,
                         serverId = 1
 )
 
-plot(routes_jittered$geometry, lwd = 0.1)                       
+# plot(routes_jittered$geometry, lwd = 0.1)                       
 
 
 
 # try in cyclestreets online tool -------------------------------------------------------------
 
 st_write(od_jittered_test, "od_biclar_10.geojson", delete_dsn = TRUE)
-routes_jittered_online = read.csv("lisbon_test-data.csv")
+st_write(od_jittered_filter, "od_jittered_filter.json")
+# routes_jittered_online = read.csv("lisbon_test-data.csv")
 routes_jittered_online_sf = cyclestreets:::batch_read("biclar_test-data.csv.gz")
 # routes_jittered_online = json2sf_cs(routes_jittered_online)
 # routes_jittered_online = st_as_sf(routes_jittered_online, st_geometry("route"))
