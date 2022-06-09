@@ -40,3 +40,5 @@ vignettes/*.pdf
 *.geojson
 *gpkg*
 docs
+*.gz
+biclar_f*
