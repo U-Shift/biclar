@@ -6,37 +6,35 @@
 library(dplyr)
 library(sf)
 library(cyclestreets)
+library(stplanr)
 
 ## with a threshold of 100 jittered trips, resulting 57356 od pairs
 
-od_jittered_100 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_all_jittered_100.Rds"))
-
-od_jittered_test = od_jittered_100
+# od_jittered_100 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_all_jittered_100.Rds"))
+# od_jittered_test = od_jittered_100
   # slice_sample(n = 10)
+od_jittered_test = readRDS("od_all_jittered_500.Rds")
+
 od_jittered_test$distance = as.numeric(st_length(od_jittered_test))
-od_jittered_filter = od_jittered_test %>% filter(distance < 9000) %>%   #max 9km - 75%
+od_jittered_filter = od_jittered_test %>%
+  filter(distance < 9000) %>%   #max 9km - 75%
   filter(Total > 10)
 od_jittered_filter$id = 1:nrow(od_jittered_filter)
 plot(od_jittered_filter$geometry, lwd = 0.1)
 
-routes_jittered = batch(od_jittered_filter,
-                        name = "biclar_filtered",
-                        strategies = "quietest", #or quietest
-                        minDistance = 200,
-                        # maxDistance = 10000, #change here the assumed max euclidean distance
-                        filename = "biclar_filtered",
-                        includeJsonOutput = 1, #0 - only summary info like time and dist
-                        # emailOnCompletion = "temospena@gmail.com",
-                        username = "temospena",
-                        password = Sys.getenv("CYCLESTREETS_PW"), #pw for CS account
-                        # base_url = "https://api.cyclestreets.net/v2/batchroutes.createjob",
-                        # id = 326, #number of job id 326
-                        # id = "id",
-                        pat = Sys.getenv("CYCLESTREETS"), #API key from CS for this project
-                        serverId = 1
+routes_jittered_test = route(
+  l = od_jittered_filter %>% sample_n(10),
+  route_fun = journey,
+  plan = "quietest"
 )
 
-plot(routes_jittered$geometry, lwd = 0.1)                       
+plot(routes_jittered_test$geometry)                       
+
+routes_jittered_quietest = route(
+  l = od_jittered_filter,
+  route_fun = journey,
+  plan = "quietest"
+)
 
 
 
