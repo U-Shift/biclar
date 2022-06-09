@@ -7,6 +7,7 @@ library(dplyr)
 library(sf)
 library(cyclestreets)
 library(stplanr)
+library(tmap)
 
 ## with a threshold of 100 jittered trips, resulting 57356 od pairs
 
@@ -19,6 +20,10 @@ od_jittered_test$distance = as.numeric(st_length(od_jittered_test))
 od_jittered_filter = od_jittered_test %>%
   filter(distance < 9000) %>%   #max 9km - 75%
   filter(Total > 10)
+
+# Check what % of existing bike trips are captured
+sum(od_jittered_filter$Bike) / sum(od_jittered_test$Bike)
+
 od_jittered_filter$id = 1:nrow(od_jittered_filter)
 plot(od_jittered_filter$geometry, lwd = 0.1)
 
@@ -35,7 +40,23 @@ routes_jittered_quietest = route(
   route_fun = journey,
   plan = "quietest"
 )
+saveRDS(routes_jittered_quietest, "routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds")
 
+# Baseline route network --------------------------------------------------
+
+rnet_baseline_raw = overline(routes_jittered_quietest, attrib = c("Bike", "quietness"), fun = c(mean, sum))
+rnet_baseline = rnet_baseline_raw %>% 
+  transmute(Quietness = quietness_fn1, Baseline = round(Bike_fn2)) %>% 
+  filter(Baseline > 10)
+nrow(rnet_baseline) # 14k
+write_rds(rnet_baseline, "rnet_quietest_threshold_500_max_9km_total_max_total_10.Rds")
+
+# Create results for one municipality
+head(zones)
+
+
+tm_shape(rnet_baseline) +
+  tm_lines(lwd = "Baseline", col = "Quietness", palette = "-Reds", breaks = c(0, 50, 75, 100), scale = 5)
 
 
 # try in cyclestreets online tool -------------------------------------------------------------
