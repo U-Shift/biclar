@@ -42,3 +42,5 @@ vignettes/*.pdf
 docs
 *.gz
 biclar_f*
+*.csv
+
