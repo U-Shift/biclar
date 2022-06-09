@@ -20,6 +20,8 @@ od_all_sf_top = od_all_sf %>%
 # saveRDS(osm_data_region, "osm_data_region.Rds")
 # piggyback::pb_upload("osm_data_region.Rds")
 osm_data_region = readRDS("osm_data_region.Rds")
+osm_data_region = osm_data_region %>% 
+  filter(!str_detect(highway, pattern = "motor|trunk|path|services|ped"))
 osm_data_region_top = osm_data_region %>% 
   sample_n(500)
 
@@ -29,22 +31,25 @@ tm_shape(zones) +
   tm_lines("highway")
 
 summary(od_all$Total)
+# Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+# 1.54    27.42   122.16   724.82   469.94 66521.17 
 set.seed(42)
+od_all = od_all %>% 
+  filter(Total > 200)
+
 od_all_jittered = odjitter::jitter(
   od = od_all,
   zones = zones,
   subpoints = osm_data_region,
   disaggregation_key = "Total",
-  disaggregation_threshold = 50 #maybe increase to 100 for the prototype?
+  disaggregation_threshold = 500 
 )
-nrow(od_all_jittered) # 110008
+nrow(od_all_jittered) # 11604 with threshold 500
 # nrow(od_all_jittered) # 57356 - with threshold 100
-saveRDS(od_all_jittered, "od_all_jittered_50.Rds")
+saveRDS(od_all_jittered, "od_all_jittered_500.Rds")
 # saveRDS(od_all_jittered, "od_all_jittered_100.Rds")
-piggyback::pb_upload("od_all_jittered_50.Rds")
+piggyback::pb_upload("od_all_jittered_500.Rds")
 # piggyback::pb_upload("od_all_jittered_100.Rds")
-
-
 
 # case study zones
 small_netowrk = sf::st_transform(slopes::lisbon_road_network, 4326)
