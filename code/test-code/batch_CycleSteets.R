@@ -11,16 +11,20 @@ library(cyclestreets)
 
 od_jittered_100 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_all_jittered_100.Rds"))
 
-od_jittered_test = od_jittered_100 %>% slice_sample(n = 10)
-od_jittered_test$id = 1:nrow(od_jittered_test)
-plot(od_jittered_test$geometry, lwd = 0.1)
+od_jittered_test = od_jittered_100
+  # slice_sample(n = 10)
+od_jittered_test$distance = as.numeric(st_length(od_jittered_test))
+od_jittered_filter = od_jittered_test %>% filter(distance < 9000) %>%   #max 9km - 75%
+  filter(Total > 10)
+od_jittered_filter$id = 1:nrow(od_jittered_filter)
+plot(od_jittered_filter$geometry, lwd = 0.1)
 
-routes_jittered = batch(od_jittered_test,
-                        name = "biclar test",
-                        strategies = "fastest", #or quietest
+routes_jittered = batch(od_jittered_filter,
+                        name = "biclar_filtered",
+                        strategies = "quietest", #or quietest
                         minDistance = 200,
-                        maxDistance = 10000, #change here the assumed max euclidean distance
-                        filename = "biclar_test",
+                        # maxDistance = 10000, #change here the assumed max euclidean distance
+                        filename = "biclar_filtered",
                         includeJsonOutput = 1, #0 - only summary info like time and dist
                         # emailOnCompletion = "temospena@gmail.com",
                         username = "temospena",
@@ -40,6 +44,6 @@ plot(routes_jittered$geometry, lwd = 0.1)
 
 st_write(od_jittered_test, "od_biclar_10.geojson", delete_dsn = TRUE)
 routes_jittered_online = read.csv("lisbon_test-data.csv")
-cyclestreets::
+routes_jittered_online_sf = cyclestreets:::batch_read("biclar_test-data.csv.gz")
 # routes_jittered_online = json2sf_cs(routes_jittered_online)
 # routes_jittered_online = st_as_sf(routes_jittered_online, st_geometry("route"))
