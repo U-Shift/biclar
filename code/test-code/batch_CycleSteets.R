@@ -12,9 +12,9 @@ library(tmap)
 ## with a threshold of 100 jittered trips, resulting 57356 od pairs
 
 # od_jittered_100 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_all_jittered_100.Rds"))
-# od_jittered_test = od_jittered_100
+od_jittered_test = od_jittered_100
   # slice_sample(n = 10)
-od_jittered_test = readRDS("od_all_jittered_500.Rds")
+# od_jittered_test = readRDS("od_all_jittered_500.Rds")
 
 od_jittered_test$distance = as.numeric(st_length(od_jittered_test))
 od_jittered_filter = od_jittered_test %>%
@@ -22,7 +22,7 @@ od_jittered_filter = od_jittered_test %>%
   filter(Total > 10)
 
 # Check what % of existing bike trips are captured
-sum(od_jittered_filter$Bike) / sum(od_jittered_test$Bike)
+sum(od_jittered_filter$Bike) / sum(od_jittered_test$Bike) #91.68% with jittered_100
 
 od_jittered_filter$id = 1:nrow(od_jittered_filter)
 
@@ -46,20 +46,23 @@ routes_jittered_quietest = route(
 saveRDS(routes_jittered_quietest, "routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds")
 
 ## end robin
+
+st_write(od_jittered_filter, "od_jittered_filter.geojson")
   
-samplejitter1 = od_jittered_filter %>% slice_head(n= 10000) #maximum allowed - job id 425 quiestest / 430 fastest
-samplejitter2 = od_jittered_filter %>% filter(id == c(10001:20000)) # job id 426 quiestest / 431 fastest
-samplejitter3 = od_jittered_filter %>% filter(id == c(20001:30000)) # job id 427 quiestest / 432 fastest
-samplejitter4 = od_jittered_filter %>% filter(id == c(30001:40000)) # job id 428 quiestest / 433 fastest
-samplejitter5 = od_jittered_filter %>% filter(id == c(40001:50000)) # job id 429 quiestest / 434 fastest
+samplejitter1 = od_jittered_filter %>% slice_head(n= 10000) #maximum allowed - job id 425 quiestest / 430 fastest / 438 fastest AND quietest, both diections
+samplejitter2 = od_jittered_filter %>% filter(id == c(10001:20000)) # job id 426 quiestest / 431 fastest / 436 fastest AND quietest, both diections
+samplejitter3 = od_jittered_filter %>% filter(id == c(20001:30000)) # job id 427 quiestest / 432 fastest / 437 fastest AND quietest, both diections
+samplejitter4 = od_jittered_filter %>% filter(id == c(30001:40000)) # job id 428 quiestest / 433 fastest / 439 fastest AND quietest, both diections
+samplejitter5 = od_jittered_filter %>% filter(id == c(40001:50000)) # job id 429 quiestest / 434 fastest / 440 fastest AND quietest, both diections
 
 
 #run one by one, and open the result at https://www.cyclestreets.net/journey/batch/423/ #id here
 routes_jittered = batch(samplejitter5,
                         name = "biclar_filtered_sample",
-                        strategies = "fastest", #or quietest
+                        strategies = c("fastest", "quietest"), #or quietest
                         minDistance = 200,
                         maxDistance = 10000, #change here the assumed max euclidean distance (default = 5000)
+                        bothDirections = 1,
                         filename = "biclar_filtered",
                         includeJsonOutput = 1, #0 - only summary info like time and dist
                         # emailOnCompletion = "temospena@gmail.com",
