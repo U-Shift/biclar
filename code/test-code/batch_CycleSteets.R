@@ -101,10 +101,14 @@ rnet_enmac_full = rnet_enmac_raw %>%
 nrow(rnet_enmac_full) # 59 k
 sum(routes_jittered_quietest500_ENMAC410$new_cyc4) / sum(routes_jittered_quietest500_ENMAC410$Total)
 write_rds(rnet_enmac_full, "rnet_enmac_full.Rds")
+rnet_enmac_full = readRDS("rnet_enmac_full.Rds")
 rnet_enmac_region = rnet_enmac_full %>% 
-  slice_max(order_by = ENMAC10, n = 10000)
-write_rds(rnet_enmac_region, "rnet_enmac_region_top_10000.Rds")
+  slice_max(order_by = ENMAC10, n = 20000)
+write_rds(rnet_enmac_region, "rnet_enmac_region_top_20000.Rds")
 
+# Visualise the results ------
+rnet_enmac_region = readRDS("rnet_enmac_region_top_20000.Rds")
+tm_rnet(rnet_enmac_region, lwd = "ENMAC10", col = "Quietness", palette = "johnson")
 
 # Create results for one municipality
 head(zones)
