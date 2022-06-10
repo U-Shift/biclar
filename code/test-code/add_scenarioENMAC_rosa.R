@@ -1,7 +1,6 @@
 # scenarios applied to jittered routes
 
 routes_jittered_quietest500 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds"))
-routes_jittered_quietest500$id2 = 1:nrow(routes_jittered_quietest500) #inique ID
 
 #cycling potential function
 routes_enmac = routes_jittered_quietest500
@@ -17,4 +16,5 @@ routes_enmac$new_car10 = ifelse(routes_enmac$Bikeper >= ENMAC10, routes_enmac$Ca
 #export
 routes_jittered_quietest500_ENMAC410 = routes_enmac
 saveRDS(routes_jittered_quietest500_ENMAC410, "routes_jittered_quietest500_ENMAC410.Rds")
+
 

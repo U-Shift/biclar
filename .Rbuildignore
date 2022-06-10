@@ -8,3 +8,8 @@
 ^README\.Rmd$
 ^LICENSE\.md$
 ^data-raw$
+^routes_jittered_quietest\.Rds$
+^routes_jittered_quietest_threshold_500_max_9km_total_max_total_10\.Rds$
+^routes_jittered_quietest500_ENMAC410\.Rds$
+^osm_data_region\.Rds$
+^rnet_enmac_full\.Rds$
