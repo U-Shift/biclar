@@ -15,12 +15,11 @@ URL: https://u-shift.github.io/biclar/
 Imports: 
     od,
     stplanr,
-    tmap,
     cols4all
 Suggests: 
     rmarkdown
 Remotes:
-    r-tmap/tmap@v4,
+    r-tmap/tmap,
     mtennekes/cols4all
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

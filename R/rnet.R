@@ -1,4 +1,8 @@
 #' Visualise route networks with tmap
+#' 
+#' This function is for visualising route networks.
+#' It was originally developed to show quietness, as defined by
+#' [CycleStreets](https://www.cyclestreets.net/help/journey/howitworks/)
 #'
 #' @param rnet 
 #' @param palette 
@@ -12,15 +16,17 @@
 #' @export
 #'
 #' @examples
-#' tm_rnet(rnet_lisbon, lwd = "ENMAC4")
+#' tm_rnet(rnet_lisbon, lwd = "ENMAC4", col = "Quietness")
 tm_rnet = function(
     rnet,
-    palette = "mako",
+    palette = "-temperature_diverging",
     lwd_multiplier = 4,
     scale = 5,
     lwd = names(rnet)[1],
     col = names(rnet)[2],
-    max_features = 10000
+    max_features = 10000,
+    breaks = c(0, 25, 50, 75, 100),
+    labels = c("0-24", "25-49", "50-75", "75+")
     ) {
   rnet_names = names(rnet)
   rnet_names = rnet_names[-grep(pattern = "geom|id", x = rnet_names)]
@@ -29,9 +35,20 @@ tm_rnet = function(
   lwd_scaled = lwd_scaled * (lwd_multiplier - 1)
   lwd_scaled = lwd_scaled + 1
   rnet$lwd = lwd_scaled
+  pal = cols4all::c4a(palette = palette, n = length(breaks) - 1)
+  names(pal) = labels
+  rnet$cols = cut(rnet[[col]], breaks = breaks, labels = labels)
+  
+  # if(packageVersion("tmap") < "4.0") {
   m = tmap::tm_shape(rnet) +
-    tmap::tm_lines(id = NULL, lwd = "lwd", scale = 5, popup.vars = rnet_names,
-                   palette = palette)
+    tmap::tm_lines(id = NULL, lwd = "lwd", scale = 5, popup.vars = rnet_names, col = "cols", palette = pal)
+  # } else {
+  #   # Note: not working
+  # m = tmap::tm_shape(rnet) +
+  #   tmap::tm_lines(lwd = "lwd", lwd.scale = 5,
+  #                  col.scale = palette)
+  # tmap::tmap_mode("view")
+  # }
   tmap::tmap_leaflet(m)
 }
 
