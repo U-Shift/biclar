@@ -2,10 +2,12 @@ Package: biclar
 Title: Strategic Cycle Network Modelling for Lisbon Metropolitan Area
 Version: 0.0.1
 Authors@R: c(
-    person("Robin", "Lovelace", , "rob00x@gmail.com", role = c("aut", "cre"),
+    person("Rosa", "Félix", , "rosamfelix@tecnico.ulisboa.pt", , role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-5642-6006")),
+    person("Robin", "Lovelace", , "rob00x@gmail.com", role = c("aut"),
            comment = c(ORCID = "0000-0001-5679-6536")),
-    person("Rosa", "Félix", , "rosamfelix@tecnico.ulisboa.pt", role = "aut",
-           comment = c(ORCID = "0000-0002-5642-6006"))
+    person("Filipe", "Moura", role = c("aut"),
+           comment = c(ORCID = "0000-0001-7749-8490"))
   )
 Description: Code to support the design and assessment of different
     scenarios of the cycling network models in the Lisbon metropolitan
