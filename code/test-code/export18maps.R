@@ -1,14 +1,19 @@
 ## export separeted html map for each 18 municipalities
 
-MUNICIPIOS = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
-MUNICIPIOS = MUNICIPIOS$Concelho
+MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
+MUNICIPIOS = MUNICIPIOSgeo$Concelho
+
+
+REDE = #SET ROUTES FILE HERE
 
 for(i in 1:length(MUNICIPIOS)){
   mun = MUNICIPIOS[i]
-  REDE = REDEexistente %>% filter(Concelho == mun)  
+  BUFFER = MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(500)
+  REDE = REDE %>% sf::st_crop(BUFFER) #%>% filter(Concelho == mun) 
   
   #make and export 18 maps
   m = tm_layout(title = mun, panel.show = T) +
+    biclar::tm_rnet(REDE)
     # REPLACE HERE THE TMAP FUNCION FOR ZOOM AT MUNICIPALITIES
     #
     # tm_shape(REDE) +
