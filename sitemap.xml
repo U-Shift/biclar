@@ -49,6 +49,21 @@
     <loc>https://u-shift.github.io/biclar/reference/tm_rnet.html</loc>
   </url>
   <url>
+    <loc>https://u-shift.github.io/biclar/region_baseline_fast.html</loc>
+  </url>
+  <url>
     <loc>https://u-shift.github.io/biclar/region_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/region_enmac10_fast.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/region_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/region_enmac4_fast.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/region_enmac4_quiet.html</loc>
   </url>
 </urlset>
