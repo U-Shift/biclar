@@ -12,9 +12,9 @@ library(tmap)
 ## with a threshold of 100 jittered trips, resulting 57356 od pairs
 
 # od_jittered_100 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_all_jittered_100.Rds"))
-od_jittered_test = od_jittered_100
+# od_jittered_test = od_jittered_100
   # slice_sample(n = 10)
-# od_jittered_test = readRDS("od_all_jittered_500.Rds")
+od_jittered_test = readRDS("od_all_jittered_500.Rds")
 
 od_jittered_test$distance = as.numeric(st_length(od_jittered_test))
 od_jittered_filter = od_jittered_test %>%
@@ -35,15 +35,23 @@ routes_jittered_test = route(
   plan = "quietest"
 )
 
-plot(routes_jittered_test$geometry)                       
-
 routes_jittered_quietest = route(
   l = od_jittered_filter,
   route_fun = journey,
   plan = "quietest"
 )
 
+routes_jittered_fastest = route(
+  l = od_jittered_filter,
+  route_fun = journey,
+  plan = "fastest"
+)
+
+saveRDS(routes_jittered_fastest, "routes_jittered_fastest_threshold_500_max_9km_total_max_total_10.Rds")
 saveRDS(routes_jittered_quietest, "routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds")
+system("gh release list")
+system("gh release upload 0.0.1 routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds")
+system("gh release upload 0.0.1 routes_jittered_fastest_threshold_500_max_9km_total_max_total_10.Rds")
 
 ## end robin
 
@@ -78,19 +86,20 @@ routes_jittered = batch(samplejitter5,
 
 # Baseline route network --------------------------------------------------
 
-# For the baseline
-rnet_baseline_raw = overline(routes_jittered_quietest, attrib = c("Bike", "quietness"), fun = c(mean, sum))
-rnet_baseline = rnet_baseline_raw %>% 
-  transmute(Quietness = quietness_fn1, Baseline = round(Bike_fn2)) %>% 
-  filter(Baseline > 10)
-nrow(rnet_baseline) # 14k
-write_rds(rnet_baseline, "rnet_quietest_threshold_500_max_9km_total_max_total_10.Rds")
+# # For the baseline
+# rnet_baseline_raw = overline(routes_jittered_quietest, attrib = c("Bike", "quietness"), fun = c(mean, sum))
+# rnet_baseline = rnet_baseline_raw %>% 
+#   transmute(Quietness = quietness_fn1, Baseline = round(Bike_fn2)) %>% 
+#   filter(Baseline > 10)
+# nrow(rnet_baseline) # 14k
+# write_rds(rnet_baseline, "rnet_quietest_threshold_500_max_9km_total_max_total_10.Rds")
 
 # Generate ENMAC scenario rnet - see ad_scenarioENMAC_rosa.R file --------
 # file.edit("code/test-code/add_scenarioENMAC_rosa.R")
-routes_jittered_quietest500_ENMAC410 = readRDS("routes_jittered_quietest500_ENMAC410.Rds")
+# routes_jittered_500_ENMAC410 = readRDS("routes_jittered_quietest500_ENMAC410.Rds")
+routes_jittered_500_ENMAC410 = readRDS("routes_jittered_ENMAC410_fastest_500.Rds")
 rnet_enmac_raw = overline(
-  routes_jittered_quietest500_ENMAC410,
+  routes_jittered_500_ENMAC410,
   attrib = c("Bike", "quietness", "new_cyc4", "new_cyc10"),
   fun = c("mean", "sum")
   )
@@ -99,16 +108,19 @@ rnet_enmac_full = rnet_enmac_raw %>%
   transmute(Quietness = quietness_mean, Baseline = Bike_sum, ENMAC4 = new_cyc4_sum, ENMAC10 = new_cyc10_sum) %>%
   mutate_if(is.numeric, round) 
 nrow(rnet_enmac_full) # 59 k
-sum(routes_jittered_quietest500_ENMAC410$new_cyc4) / sum(routes_jittered_quietest500_ENMAC410$Total)
-write_rds(rnet_enmac_full, "rnet_enmac_full.Rds")
-rnet_enmac_full = readRDS("rnet_enmac_full.Rds")
+sum(routes_jittered_500_ENMAC410$new_cyc4) / sum(routes_jittered_500_ENMAC410$Total)
+write_rds(rnet_enmac_full, "rnet_enmac_fastest_full.Rds")
+# write_rds(rnet_enmac_full, "rnet_enmac_full.Rds")
+# rnet_enmac_full = readRDS("rnet_enmac_full.Rds")
 rnet_enmac_region = rnet_enmac_full %>% 
   slice_max(order_by = ENMAC10, n = 20000)
-write_rds(rnet_enmac_region, "rnet_enmac_region_top_20000.Rds")
+# write_rds(rnet_enmac_region, "rnet_enmac_region_fastest_top_20000.Rds")
 
 # Visualise the results ------
-rnet_enmac_region = readRDS("rnet_enmac_region_top_20000.Rds")
-tm_rnet(rnet_enmac_region, lwd = "ENMAC10", col = "Quietness", palette = "johnson")
+rnet_enmac_region = readRDS("rnet_enmac_region_fastest_top_20000.Rds")
+m = tm_rnet(rnet_enmac_region, lwd = "ENMAC10", col = "Quietness", palette = "johnson")
+tmap_save(m, "m_rnet_enmac_region_fastest_top_20000.html")
+htmlwidgets::saveWidget(m, "m_rnet_enmac_region_fastest_top_20000.html")
 
 # Create results for one municipality
 head(zones)
