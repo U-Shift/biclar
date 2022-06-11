@@ -25,6 +25,9 @@
     <loc>https://u-shift.github.io/biclar/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://u-shift.github.io/biclar/articles/propotype.html</loc>
+  </url>
+  <url>
     <loc>https://u-shift.github.io/biclar/authors.html</loc>
   </url>
   <url>
@@ -44,5 +47,8 @@
   </url>
   <url>
     <loc>https://u-shift.github.io/biclar/reference/tm_rnet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/region_baseline_quiet.html</loc>
   </url>
 </urlset>
