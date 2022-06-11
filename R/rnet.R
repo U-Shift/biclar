@@ -11,6 +11,7 @@
 #' @param lwd 
 #' @param col 
 #' @param max_features 
+#' @param title.col
 #'
 #' @return A tmap object
 #' @export
@@ -27,7 +28,8 @@ tm_rnet = function(
     col = names(rnet)[2],
     max_features = 10000,
     breaks = c(0, 25, 50, 75, 100),
-    labels = c("0-24", "25-49", "50-75", "75+")
+    labels = c("0-24", "25-49", "50-75", "75+"),
+    title.col = "Quietness"
     ) {
   rnet_names = names(rnet)
   rnet_names = rnet_names[-grep(pattern = "geom|id", x = rnet_names)]
@@ -42,7 +44,14 @@ tm_rnet = function(
   
   # if(packageVersion("tmap") < "4.0") {
   m = tmap::tm_shape(rnet) +
-    tmap::tm_lines(id = NULL, lwd = "lwd", scale = scale, popup.vars = rnet_names, col = "cols", palette = pal)
+    tmap::tm_lines(id = NULL,
+                   lwd = "lwd",
+                   scale = scale,
+                   popup.vars = rnet_names,
+                   col = "cols",
+                   palette = pal,
+                   title.col = title.col
+                   )
   # } else {
   #   # Note: not working
   # m = tmap::tm_shape(rnet) +
