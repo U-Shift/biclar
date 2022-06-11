@@ -6,12 +6,14 @@
 \usage{
 tm_rnet(
   rnet,
-  palette,
+  palette = "-temperature_diverging",
   lwd_multiplier = 4,
   scale = 5,
   lwd = names(rnet)[1],
-  col = names(rnet)[1],
-  max_features = 10000
+  col = names(rnet)[2],
+  max_features = 10000,
+  breaks = c(0, 25, 50, 75, 100),
+  labels = c("0-24", "25-49", "50-75", "75+")
 )
 }
 \arguments{
@@ -33,8 +35,11 @@ tm_rnet(
 A tmap object
 }
 \description{
-Visualise route networks with tmap
+This function is for visualising route networks.
+It was originally developed to show quietness, as defined by
+\href{https://www.cyclestreets.net/help/journey/howitworks/}{CycleStreets}
 }
 \examples{
-tm_rnet(rnet, lwd = "ENMAC4")
+tm_rnet(rnet_lisbon, lwd = "ENMAC4", col = "Quietness")
+tm_rnet(rnet_lisbon, lwd = "ENMAC4", col = "Quietness", scale = 30)
 }
