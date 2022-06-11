@@ -170,6 +170,15 @@ knitr::include_graphics("man/figures/existingplanned.png")
 ```
 
 We can view it in an [interactive map here](https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html).
+See [here](m_rnet_enmac_region_fastest.html) for full map.
+
+```{r}
+# knitr::include_url("m_rnet_enmac_region_fastest.html")
+```
+
+<iframe src="m_rnet_enmac_region_fastest.html" width="672" height="400px" data-external="1">
+</iframe>
+
 
 
 # References {-}

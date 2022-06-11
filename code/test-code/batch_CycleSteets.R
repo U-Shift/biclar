@@ -52,6 +52,12 @@ saveRDS(routes_jittered_quietest, "routes_jittered_quietest_threshold_500_max_9k
 system("gh release list")
 system("gh release upload 0.0.1 routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds")
 system("gh release upload 0.0.1 routes_jittered_fastest_threshold_500_max_9km_total_max_total_10.Rds")
+gh_release_upload = function(file, tag = "0.0.1") {
+  msg = glue::glue("gh release upload {tag} {file}")
+  message("Running this command:\n", msg)
+  system(msg)
+}
+
 
 ## end robin
 
@@ -117,10 +123,15 @@ rnet_enmac_region = rnet_enmac_full %>%
 # write_rds(rnet_enmac_region, "rnet_enmac_region_fastest_top_20000.Rds")
 
 # Visualise the results ------
-rnet_enmac_region = readRDS("rnet_enmac_region_fastest_top_20000.Rds")
-m = tm_rnet(rnet_enmac_region, lwd = "ENMAC10", col = "Quietness", palette = "johnson")
-tmap_save(m, "m_rnet_enmac_region_fastest_top_20000.html")
-htmlwidgets::saveWidget(m, "m_rnet_enmac_region_fastest_top_20000.html")
+rnet_enmac_region = readRDS("rnet_enmac_region_top_20000.Rds")
+# rnet_enmac_region = readRDS("rnet_enmac_region_fastest_top_20000.Rds")
+m = tm_rnet(rnet_enmac_region %>% slice_max(ENMAC4, n = 1000), lwd = "ENMAC10", col = "Quietness", palette = "johnson")
+m = tm_rnet(rnet_enmac_region, lwd = "ENMAC10", col = "Quietness", palette = "-mako", scale = 30)
+# htmlwidgets::saveWidget(m, "m_rnet_enmac_region_fastest_top_20000.html")
+htmlwidgets::saveWidget(m, "pkgdown/assets/m_rnet_enmac_region_fastest.html")
+gh_release_upload("m_rnet_enmac_region_fastest_top_20000.html")
+gh_release_upload("m_rnet_enmac_region_quietest_top_20000.html")
+
 
 # Create results for one municipality
 head(zones)

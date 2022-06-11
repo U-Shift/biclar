@@ -89,9 +89,11 @@ The OD datasets, before and after jittering, are shown below.
 
 Use of [CyclingStreets.net](https://cyclinstreets.net) ([R
 package](https://rpackage.cyclestreets.net/)) for fast and quiet bike
-routes for baseline scenario.  
+routes for baseline scenario.
+
 For e-bike scenario, we developed a proper algorithm, considering the
-topography (and [`slopes`](https://docs.ropensci.org/slopes) package).
+topography, and using [`slopes`](https://docs.ropensci.org/slopes)
+package.
 
 ## Intermodal trips
 
@@ -119,6 +121,10 @@ expansion plans, by municipality.
 
 We can view it in an [interactive map
 here](https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html).
+See [here](m_rnet_enmac_region_fastest.html) for full map.
+
+<iframe src="m_rnet_enmac_region_fastest.html" width="672" height="400px" data-external="1">
+</iframe>
 
 # References
 
@@ -127,7 +133,7 @@ here](https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html).
 <div id="ref-IMOB" class="csl-entry">
 
 Instituto National de Estatística. 2018. “Mobilidade e Funcionalidade Do
-Território Nas áreas Metropolitanas Do Porto e de Lisboa: 2017.” Lisboa.
+Território Nas Áreas Metropolitanas Do Porto e de Lisboa: 2017.” Lisboa.
 <https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt>.
 
 </div>
