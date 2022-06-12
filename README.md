@@ -110,6 +110,23 @@ and cycling by WHO.
 
 ## Cycling uptake in LMA and by Municipality
 
+#### ENMAC Scenario
+
+See [here](region_enmac4_quiet.html) for full map.
+
+<iframe src="region_enmac4_quiet.html" width="800" height="400px" data-external="1">
+</iframe>
+
+See [here](articles/propotype.html) for results for each Municipality.
+
+#### E-bike Scenario
+
+<!-- todo -->
+
+#### Intermodality Scenario
+
+<!-- todo -->
+
 ## Comparision with the cycling network plans by Municipality
 
 Compare the modeled cycling networks (segments overlapping) with
@@ -121,13 +138,6 @@ expansion plans, by municipality.
 
 We can view it in an [interactive map
 here](https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html).
-
-### ENMAC Scenario
-
-See [here](region_baseline_quiet.html) for full map.
-
-<iframe src="region_baseline_quiet.html" width="800" height="400px" data-external="1">
-</iframe>
 
 # References
 
