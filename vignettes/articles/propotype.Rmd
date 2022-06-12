@@ -10,11 +10,14 @@ knitr::opts_chunk$set(
 ```
 
 
-This includes some statistics about each Municipality, and the Metro Region.
+This includes some statistics about each Municipality, and the Metro Region (*work in progress*).
 
 The maps and statistics include: Baseline Scenario, ENMAC 4%, and ENMAC 10%.
 
-**How to read the maps?** The line width is proportional to the number of cycling trips per day expected in each segment. The darker the line is, less safe it is to cycle there (see [Quietness](https://www.cyclestreets.net/help/journey/howitworks/#quietness)), suggesting those cycling infrastructure should be provided there.
+**How to read the maps?**   
+
+-   The line width is proportional to the number of cycling trips per day expected in each segment.
+-   The darker the line is, less safe it is to cycle there (see [Quietness](https://www.cyclestreets.net/help/journey/howitworks/#quietness)), suggesting those cycling infrastructure should be provided there.
 
 ### Separated maps
 
@@ -31,7 +34,7 @@ The maps and statistics include: Baseline Scenario, ENMAC 4%, and ENMAC 10%.
 *   Amadora: 
     +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/amadora_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/amadora_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/amadora_enmac10_quiet.html)
     +   Fast routes: [Baseline](https://u-shift.github.io/biclar/amadora_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/amadora_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/amadora_enmac10_fast.html)
-*   Barreiro (https://u-shift.github.io/biclar/*in july a new version of CycleStreets will improve these results*): 
+*   Barreiro (*in july a new version of CycleStreets will improve these results*): 
     +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/barreiro_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/barreiro_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/barreiro_enmac10_quiet.html)
     +   Fast routes: [Baseline](https://u-shift.github.io/biclar/barreiro_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/barreiro_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/barreiro_enmac10_fast.html)
 *   Cascais: 
