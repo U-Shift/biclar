@@ -42,4 +42,4 @@ for(i in 1:length(MUNICIPIOS)){
 }
 
 
-
+# Manually open «vila franca xira html, save as, vfxira, and delete the previous ones
