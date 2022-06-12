@@ -3,6 +3,7 @@
 # routes_jittered = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds"))
 routes_jittered = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/routes_jittered_fastest_threshold_500_max_9km_total_max_total_10.Rds"))
 
+
 #cycling potential function
 routes_enmac = routes_jittered
 ENMAC4 = 0.04 # 4%
