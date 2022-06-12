@@ -19,61 +19,61 @@ The maps and statistics include: Baseline Scenario, ENMAC 4%, and ENMAC 10%.
 ### Separated maps
 
 *   **Área Metropolitana de Lisboa**: 
-    +   Quiet routes: [Baseline](region_baseline_quiet.html)    |   [ENMAC4](region_enmac4_quiet.html)    |    [ENMAC10](region_enmac10_quiet.html)
-    +   Fast routes: [Baseline](region_baseline_fast.html)    |   [ENMAC4](region_enmac4_fast.html)    |    [ENMAC10](region_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/region_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/region_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/region_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/region_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/region_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/region_enmac10_fast.html)
 
 *   Alcochete: 
-    +   Quiet routes: [Baseline](alcochete_baseline_quiet.html)    |   [ENMAC4](alcochete_enmac4_quiet.html)    |    [ENMAC10](alcochete_enmac10_quiet.html)
-    +   Fast routes: [Baseline](alcochete_baseline_fast.html)    |   [ENMAC4](alcochete_enmac4_fast.html)    |    [ENMAC10](alcochete_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/alcochete_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/alcochete_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/alcochete_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/alcochete_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/alcochete_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/alcochete_enmac10_fast.html)
 *   Almada: 
-    +   Quiet routes: [Baseline](almada_baseline_quiet.html)    |   [ENMAC4](almada_enmac4_quiet.html)    |    [ENMAC10](almada_enmac10_quiet.html)
-    +   Fast routes: [Baseline](almada_baseline_fast.html)    |   [ENMAC4](almada_enmac4_fast.html)    |    [ENMAC10](almada_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/almada_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/almada_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/almada_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/almada_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/almada_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/almada_enmac10_fast.html)
 *   Amadora: 
-    +   Quiet routes: [Baseline](amadora_baseline_quiet.html)    |   [ENMAC4](amadora_enmac4_quiet.html)    |    [ENMAC10](amadora_enmac10_quiet.html)
-    +   Fast routes: [Baseline](amadora_baseline_fast.html)    |   [ENMAC4](amadora_enmac4_fast.html)    |    [ENMAC10](amadora_enmac10_fast.html)
-*   Barreiro (*in july a new version of CycleStreets will improve these results*): 
-    +   Quiet routes: [Baseline](barreiro_baseline_quiet.html)    |   [ENMAC4](barreiro_enmac4_quiet.html)    |    [ENMAC10](barreiro_enmac10_quiet.html)
-    +   Fast routes: [Baseline](barreiro_baseline_fast.html)    |   [ENMAC4](barreiro_enmac4_fast.html)    |    [ENMAC10](barreiro_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/amadora_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/amadora_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/amadora_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/amadora_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/amadora_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/amadora_enmac10_fast.html)
+*   Barreiro (https://u-shift.github.io/biclar/*in july a new version of CycleStreets will improve these results*): 
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/barreiro_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/barreiro_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/barreiro_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/barreiro_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/barreiro_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/barreiro_enmac10_fast.html)
 *   Cascais: 
-    +   Quiet routes: [Baseline](cascais_baseline_quiet.html)    |   [ENMAC4](cascais_enmac4_quiet.html)    |    [ENMAC10](cascais_enmac10_quiet.html)
-    +   Fast routes: [Baseline](cascais_baseline_fast.html)    |   [ENMAC4](cascais_enmac4_fast.html)    |    [ENMAC10](cascais_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/cascais_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/cascais_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/cascais_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/cascais_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/cascais_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/cascais_enmac10_fast.html)
 *   Lisboa: 
-    +   Quiet routes: [Baseline](lisboa_baseline_quiet.html)    |   [ENMAC4](lisboa_enmac4_quiet.html)    |    [ENMAC10](lisboa_enmac10_quiet.html)
-    +   Fast routes: [Baseline](lisboa_baseline_fast.html)    |   [ENMAC4](lisboa_enmac4_fast.html)    |    [ENMAC10](lisboa_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/lisboa_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/lisboa_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/lisboa_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/lisboa_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/lisboa_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/lisboa_enmac10_fast.html)
 *   Loures: 
-    +   Quiet routes: [Baseline](loures_baseline_quiet.html)    |   [ENMAC4](loures_enmac4_quiet.html)    |    [ENMAC10](loures_enmac10_quiet.html)
-    +   Fast routes: [Baseline](loures_baseline_fast.html)    |   [ENMAC4](loures_enmac4_fast.html)    |    [ENMAC10](loures_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/loures_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/loures_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/loures_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/loures_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/loures_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/loures_enmac10_fast.html)
 *   Mafra: 
-    +   Quiet routes: [Baseline](mafra_baseline_quiet.html)    |   [ENMAC4](mafra_enmac4_quiet.html)    |    [ENMAC10](mafra_enmac10_quiet.html)
-    +   Fast routes: [Baseline](mafra_baseline_fast.html)    |   [ENMAC4](mafra_enmac4_fast.html)    |    [ENMAC10](mafra_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/mafra_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/mafra_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/mafra_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/mafra_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/mafra_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/mafra_enmac10_fast.html)
 *   Moita: 
-    +   Quiet routes: [Baseline](moita_baseline_quiet.html)    |   [ENMAC4](moita_enmac4_quiet.html)    |    [ENMAC10](moita_enmac10_quiet.html)
-    +   Fast routes: [Baseline](moita_baseline_fast.html)    |   [ENMAC4](moita_enmac4_fast.html)    |    [ENMAC10](moita_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/moita_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/moita_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/moita_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/moita_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/moita_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/moita_enmac10_fast.html)
 *   Montijo: 
-    +   Quiet routes: [Baseline](montijo_baseline_quiet.html)    |   [ENMAC4](montijo_enmac4_quiet.html)    |    [ENMAC10](montijo_enmac10_quiet.html)
-    +   Fast routes: [Baseline](montijo_baseline_fast.html)    |   [ENMAC4](montijo_enmac4_fast.html)    |    [ENMAC10](montijo_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/montijo_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/montijo_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/montijo_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/montijo_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/montijo_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/montijo_enmac10_fast.html)
 *   Odivelas: 
-    +   Quiet routes: [Baseline](odivelas_baseline_quiet.html)    |   [ENMAC4](odivelas_enmac4_quiet.html)    |    [ENMAC10](odivelas_enmac10_quiet.html)
-    +   Fast routes: [Baseline](odivelas_baseline_fast.html)    |   [ENMAC4](odivelas_enmac4_fast.html)    |    [ENMAC10](odivelas_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/odivelas_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/odivelas_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/odivelas_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/odivelas_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/odivelas_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/odivelas_enmac10_fast.html)
 *   Oeiras: 
-    +   Quiet routes: [Baseline](oeiras_baseline_quiet.html)    |   [ENMAC4](oeiras_enmac4_quiet.html)    |    [ENMAC10](oeiras_enmac10_quiet.html)
-    +   Fast routes: [Baseline](oeiras_baseline_fast.html)    |   [ENMAC4](oeiras_enmac4_fast.html)    |    [ENMAC10](oeiras_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/oeiras_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/oeiras_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/oeiras_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/oeiras_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/oeiras_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/oeiras_enmac10_fast.html)
 *   Palmela: 
-    +   Quiet routes: [Baseline](palmela_baseline_quiet.html)    |   [ENMAC4](palmela_enmac4_quiet.html)    |    [ENMAC10](palmela_enmac10_quiet.html)
-    +   Fast routes: [Baseline](palmela_baseline_fast.html)    |   [ENMAC4](palmela_enmac4_fast.html)    |    [ENMAC10](palmela_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/palmela_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/palmela_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/palmela_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/palmela_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/palmela_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/palmela_enmac10_fast.html)
 *   Seixal: 
-    +   Quiet routes: [Baseline](seixal_baseline_quiet.html)    |   [ENMAC4](seixal_enmac4_quiet.html)    |    [ENMAC10](seixal_enmac10_quiet.html)
-    +   Fast routes: [Baseline](seixal_baseline_fast.html)    |   [ENMAC4](seixal_enmac4_fast.html)    |    [ENMAC10](seixal_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/seixal_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/seixal_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/seixal_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/seixal_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/seixal_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/seixal_enmac10_fast.html)
 *   Sesimbra: 
-    +   Quiet routes: [Baseline](sesimbra_baseline_quiet.html)    |   [ENMAC4](sesimbra_enmac4_quiet.html)    |    [ENMAC10](sesimbra_enmac10_quiet.html)
-    +   Fast routes: [Baseline](sesimbra_baseline_fast.html)    |   [ENMAC4](sesimbra_enmac4_fast.html)    |    [ENMAC10](sesimbra_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/sesimbra_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/sesimbra_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/sesimbra_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/sesimbra_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/sesimbra_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/sesimbra_enmac10_fast.html)
 *   Setubal: 
-    +   Quiet routes: [Baseline](setubal_baseline_quiet.html)    |   [ENMAC4](setubal_enmac4_quiet.html)    |    [ENMAC10](setubal_enmac10_quiet.html)
-    +   Fast routes: [Baseline](setubal_baseline_fast.html)    |   [ENMAC4](setubal_enmac4_fast.html)    |    [ENMAC10](setubal_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/setubal_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/setubal_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/setubal_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/setubal_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/setubal_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/setubal_enmac10_fast.html)
 *   Sintra: 
-    +   Quiet routes: [Baseline](sintra_baseline_quiet.html)    |   [ENMAC4](sintra_enmac4_quiet.html)    |    [ENMAC10](sintra_enmac10_quiet.html)
-    +   Fast routes: [Baseline](sintra_baseline_fast.html)    |   [ENMAC4](sintra_enmac4_fast.html)    |    [ENMAC10](sintra_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/sintra_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/sintra_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/sintra_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/sintra_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/sintra_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/sintra_enmac10_fast.html)
 *   Vila Franca de Xira: 
-    +   Quiet routes: [Baseline](vfxira_baseline_quiet.html)    |   [ENMAC4](vfxira_enmac4_quiet.html)    |    [ENMAC10](vfxira_enmac10_quiet.html)
-    +   Fast routes: [Baseline](vfxira_baseline_fast.html)    |   [ENMAC4](vfxira_enmac4_fast.html)    |    [ENMAC10](vfxira_enmac10_fast.html)
+    +   Quiet routes: [Baseline](https://u-shift.github.io/biclar/vfxira_baseline_quiet.html)    |   [ENMAC4](https://u-shift.github.io/biclar/vfxira_enmac4_quiet.html)    |    [ENMAC10](https://u-shift.github.io/biclar/vfxira_enmac10_quiet.html)
+    +   Fast routes: [Baseline](https://u-shift.github.io/biclar/vfxira_baseline_fast.html)    |   [ENMAC4](https://u-shift.github.io/biclar/vfxira_enmac4_fast.html)    |    [ENMAC10](https://u-shift.github.io/biclar/vfxira_enmac10_fast.html)
 
