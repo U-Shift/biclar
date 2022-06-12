@@ -1,4 +1,7 @@
 # Visualise the results - experiments ------
+
+# remotes::install_github("u-shift/biclar")
+
 library(tmap)
 library(biclar)
 rnet_enmac_region = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/rnet_enmac_region_fastest_top_20000.Rds"))
