@@ -7,6 +7,33 @@
     <loc>https://u-shift.github.io/biclar/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://u-shift.github.io/biclar/alcochete_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/alcochete_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/alcochete_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/almada_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/almada_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/almada_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/amadora_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/amadora_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/amadora_enmac4_quiet.html</loc>
+  </url>
+  <url>
     <loc>https://u-shift.github.io/biclar/articles/0_baseline_scenario.html</loc>
   </url>
   <url>
@@ -31,13 +58,103 @@
     <loc>https://u-shift.github.io/biclar/authors.html</loc>
   </url>
   <url>
+    <loc>https://u-shift.github.io/biclar/barreiro_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/barreiro_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/barreiro_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/cascais_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/cascais_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/cascais_enmac4_quiet.html</loc>
+  </url>
+  <url>
     <loc>https://u-shift.github.io/biclar/faq.html</loc>
   </url>
   <url>
     <loc>https://u-shift.github.io/biclar/index.html</loc>
   </url>
   <url>
+    <loc>https://u-shift.github.io/biclar/lisboa_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/lisboa_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/lisboa_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/loures_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/loures_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/loures_enmac4_quiet.html</loc>
+  </url>
+  <url>
     <loc>https://u-shift.github.io/biclar/m_rnet_enmac_region_fastest.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/mafra_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/mafra_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/mafra_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/moita_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/moita_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/moita_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/montijo_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/montijo_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/montijo_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/odivelas_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/odivelas_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/odivelas_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/oeiras_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/oeiras_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/oeiras_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/palmela_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/palmela_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/palmela_enmac4_quiet.html</loc>
   </url>
   <url>
     <loc>https://u-shift.github.io/biclar/reference/index.html</loc>
@@ -65,5 +182,50 @@
   </url>
   <url>
     <loc>https://u-shift.github.io/biclar/region_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/seixal_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/seixal_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/seixal_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/sesimbra_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/sesimbra_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/sesimbra_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/setubal_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/setubal_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/setubal_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/sintra_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/sintra_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/sintra_enmac4_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/vfxira_baseline_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/vfxira_enmac10_quiet.html</loc>
+  </url>
+  <url>
+    <loc>https://u-shift.github.io/biclar/vfxira_enmac4_quiet.html</loc>
   </url>
 </urlset>
