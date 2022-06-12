@@ -9,15 +9,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(biclar)
-```
 
 This includes some statistics about each Municipality, and the Metro Region.
 
 The maps and statistics include: Baseline Scenario, ENMAC 4%, and ENMAC 10%.
 
-**How to read the maps?** The line width is proportional to the number of cycling trips per day expected in each segment. The darker the line is, less safe it is to cycle, suggesting those cycling infrastructure should be provided there.
+**How to read the maps?** The line width is proportional to the number of cycling trips per day expected in each segment. The darker the line is, less safe it is to cycle there (see [Quietness](https://www.cyclestreets.net/help/journey/howitworks/#quietness)), suggesting those cycling infrastructure should be provided there.
 
 ### Separated maps
 
