@@ -8,16 +8,23 @@ MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download
 MUNICIPIOS = MUNICIPIOSgeo$Concelho
 
 REDEregion = readRDS("rnet_enmac_quietest_full.Rds")
-# REDE = readRDS("rnet_enmac_fastest_full.Rds")
+# REDEregion = readRDS("rnet_enmac_fastest_full.Rds")
 
-scenario = "baseline" #baseline, enmac4, enmac10
+scenario = "enmac10" #baseline, enmac4, enmac10
 route = "quiet" #quiet, fast
+
+#Quiet, Baseline - DONE
+#Quiet, ENMAC4 - DONE
+#Quiet, ENMAC10 - DONE
+#Fast, Baseline
+#Fast, ENMAC4
+#Fast, ENMAC10
 
 for(i in 1:length(MUNICIPIOS)){
   mun = MUNICIPIOS[i]
   BUFFER = MUNICIPIOSgeo %>% filter(Concelho == mun) %>% st_buffer(500)
   REDE = REDEregion %>% st_filter(BUFFER)
-  REDE = REDE %>% filter(Baseline >= quantile(REDE$Baseline, 0.60)) #try other slices
+  REDE = REDE %>% filter(ENMAC10 >= quantile(REDE$ENMAC10, 0.60)) #try other slices, change here scenario
   
   #make and export 18 maps
   m = tm_rnet(
@@ -34,10 +41,5 @@ for(i in 1:length(MUNICIPIOS)){
 
 }
 
-#Quiet, Baseline - DONE
-#Quiet, ENMAC4
-#Quiet, ENMAC10
-#Fast, Baseline
-#Fast, ENMAC4
-#Fast, ENMAC10
+
 

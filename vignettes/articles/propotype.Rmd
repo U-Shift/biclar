@@ -17,35 +17,66 @@ This includes some statistics about each Municipality, and the Metro Region.
 
 The maps and statistics include: Baseline Scenario, ENMAC 4%, and ENMAC 10%.
 
-### Separated statistics and maps
+**How to read the maps?** The line width is proportional to the number of cycling trips per day expected in each segment. The darker the line is, less safe it is to cycle, suggesting those cycling infrastructure should be provided there.
+
+### Separated maps
 
 *   **Área Metropolitana de Lisboa**: 
-    +   Quiet routes
-      -   [Baseline](region_baseline_quiet.html) 
-      -   [ENMAC4](region_enmac4_quiet.html)
-      -   [ENMAC10](region_enmac10_quiet.html)
-    +   Fast routes
-      -   [Baseline](region_baseline_fast.html) 
-      -   [ENMAC4](region_enmac4_fast.html)
-      -   [ENMAC10](region_enmac10_fast.html)
-      
-*   [Alcochete](articles/alcochete.html)
-*   [Almada](articles/almada.html)
-*   [Amadora](articles/amadora.html)
-*   [Barreiro](articles/barreiro.html)
-*   [Cascais](articles/cascais.html)
-*   [Lisboa](articles/lisboa.html)
-*   [Loures](articles/loures.html)
-*   [Mafra](articles/mafra.html)
-*   [Moita](articles/moita.html)
-*   [Montijo](articles/motijo.html)
-*   [Odivelas](articles/odivelas.html)
-*   [Oeiras](articles/oeiras.html)
-*   [Palmela](articles/palmela.html)
-*   [Seixal](articles/seixal.html)
-*   [Sesimbra](articles/sesimbra.html)
-*   [Setubal](articles/setubal.html)
-*   [Sintra](articles/sintra.html))
-*   [Vila Franca de Xira](articles/vfxira.html)
+    +   Quiet routes: [Baseline](region_baseline_quiet.html)    |   [ENMAC4](region_enmac4_quiet.html)    |    [ENMAC10](region_enmac10_quiet.html)
+    +   Fast routes: [Baseline](region_baseline_fast.html)    |   [ENMAC4](region_enmac4_fast.html)    |    [ENMAC10](region_enmac10_fast.html)
 
+*   Alcochete: 
+    +   Quiet routes: [Baseline](alcochete_baseline_quiet.html)    |   [ENMAC4](alcochete_enmac4_quiet.html)    |    [ENMAC10](alcochete_enmac10_quiet.html)
+    +   Fast routes: [Baseline](alcochete_baseline_fast.html)    |   [ENMAC4](alcochete_enmac4_fast.html)    |    [ENMAC10](alcochete_enmac10_fast.html)
+*   Almada: 
+    +   Quiet routes: [Baseline](almada_baseline_quiet.html)    |   [ENMAC4](almada_enmac4_quiet.html)    |    [ENMAC10](almada_enmac10_quiet.html)
+    +   Fast routes: [Baseline](almada_baseline_fast.html)    |   [ENMAC4](almada_enmac4_fast.html)    |    [ENMAC10](almada_enmac10_fast.html)
+*   Amadora: 
+    +   Quiet routes: [Baseline](amadora_baseline_quiet.html)    |   [ENMAC4](amadora_enmac4_quiet.html)    |    [ENMAC10](amadora_enmac10_quiet.html)
+    +   Fast routes: [Baseline](amadora_baseline_fast.html)    |   [ENMAC4](amadora_enmac4_fast.html)    |    [ENMAC10](amadora_enmac10_fast.html)
+*   Barreiro: 
+    +   Quiet routes: [Baseline](barreiro_baseline_quiet.html)    |   [ENMAC4](barreiro_enmac4_quiet.html)    |    [ENMAC10](barreiro_enmac10_quiet.html)
+    +   Fast routes: [Baseline](barreiro_baseline_fast.html)    |   [ENMAC4](barreiro_enmac4_fast.html)    |    [ENMAC10](barreiro_enmac10_fast.html)
+*   Cascais: 
+    +   Quiet routes: [Baseline](cascais_baseline_quiet.html)    |   [ENMAC4](cascais_enmac4_quiet.html)    |    [ENMAC10](cascais_enmac10_quiet.html)
+    +   Fast routes: [Baseline](cascais_baseline_fast.html)    |   [ENMAC4](cascais_enmac4_fast.html)    |    [ENMAC10](cascais_enmac10_fast.html)
+*   Lisboa: 
+    +   Quiet routes: [Baseline](lisboa_baseline_quiet.html)    |   [ENMAC4](lisboa_enmac4_quiet.html)    |    [ENMAC10](lisboa_enmac10_quiet.html)
+    +   Fast routes: [Baseline](lisboa_baseline_fast.html)    |   [ENMAC4](lisboa_enmac4_fast.html)    |    [ENMAC10](lisboa_enmac10_fast.html)
+*   Loures: 
+    +   Quiet routes: [Baseline](loures_baseline_quiet.html)    |   [ENMAC4](loures_enmac4_quiet.html)    |    [ENMAC10](loures_enmac10_quiet.html)
+    +   Fast routes: [Baseline](loures_baseline_fast.html)    |   [ENMAC4](loures_enmac4_fast.html)    |    [ENMAC10](loures_enmac10_fast.html)
+*   Mafra: 
+    +   Quiet routes: [Baseline](mafra_baseline_quiet.html)    |   [ENMAC4](mafra_enmac4_quiet.html)    |    [ENMAC10](mafra_enmac10_quiet.html)
+    +   Fast routes: [Baseline](mafra_baseline_fast.html)    |   [ENMAC4](mafra_enmac4_fast.html)    |    [ENMAC10](mafra_enmac10_fast.html)
+*   Moita: 
+    +   Quiet routes: [Baseline](moita_baseline_quiet.html)    |   [ENMAC4](moita_enmac4_quiet.html)    |    [ENMAC10](moita_enmac10_quiet.html)
+    +   Fast routes: [Baseline](moita_baseline_fast.html)    |   [ENMAC4](moita_enmac4_fast.html)    |    [ENMAC10](moita_enmac10_fast.html)
+*   Montijo: 
+    +   Quiet routes: [Baseline](montijo_baseline_quiet.html)    |   [ENMAC4](montijo_enmac4_quiet.html)    |    [ENMAC10](montijo_enmac10_quiet.html)
+    +   Fast routes: [Baseline](montijo_baseline_fast.html)    |   [ENMAC4](montijo_enmac4_fast.html)    |    [ENMAC10](montijo_enmac10_fast.html)
+*   Odivelas: 
+    +   Quiet routes: [Baseline](odivelas_baseline_quiet.html)    |   [ENMAC4](odivelas_enmac4_quiet.html)    |    [ENMAC10](odivelas_enmac10_quiet.html)
+    +   Fast routes: [Baseline](odivelas_baseline_fast.html)    |   [ENMAC4](odivelas_enmac4_fast.html)    |    [ENMAC10](odivelas_enmac10_fast.html)
+*   Oeiras: 
+    +   Quiet routes: [Baseline](oeiras_baseline_quiet.html)    |   [ENMAC4](oeiras_enmac4_quiet.html)    |    [ENMAC10](oeiras_enmac10_quiet.html)
+    +   Fast routes: [Baseline](oeiras_baseline_fast.html)    |   [ENMAC4](oeiras_enmac4_fast.html)    |    [ENMAC10](oeiras_enmac10_fast.html)
+*   Palmela: 
+    +   Quiet routes: [Baseline](palmela_baseline_quiet.html)    |   [ENMAC4](palmela_enmac4_quiet.html)    |    [ENMAC10](palmela_enmac10_quiet.html)
+    +   Fast routes: [Baseline](palmela_baseline_fast.html)    |   [ENMAC4](palmela_enmac4_fast.html)    |    [ENMAC10](palmela_enmac10_fast.html)
+*   Seixal: 
+    +   Quiet routes: [Baseline](seixal_baseline_quiet.html)    |   [ENMAC4](seixal_enmac4_quiet.html)    |    [ENMAC10](seixal_enmac10_quiet.html)
+    +   Fast routes: [Baseline](seixal_baseline_fast.html)    |   [ENMAC4](seixal_enmac4_fast.html)    |    [ENMAC10](seixal_enmac10_fast.html)
+*   Sesimbra: 
+    +   Quiet routes: [Baseline](sesimbra_baseline_quiet.html)    |   [ENMAC4](sesimbra_enmac4_quiet.html)    |    [ENMAC10](sesimbra_enmac10_quiet.html)
+    +   Fast routes: [Baseline](sesimbra_baseline_fast.html)    |   [ENMAC4](sesimbra_enmac4_fast.html)    |    [ENMAC10](sesimbra_enmac10_fast.html)
+*   Setubal: 
+    +   Quiet routes: [Baseline](setubal_baseline_quiet.html)    |   [ENMAC4](setubal_enmac4_quiet.html)    |    [ENMAC10](setubal_enmac10_quiet.html)
+    +   Fast routes: [Baseline](setubal_baseline_fast.html)    |   [ENMAC4](setubal_enmac4_fast.html)    |    [ENMAC10](setubal_enmac10_fast.html)
+*   Sintra: 
+    +   Quiet routes: [Baseline](sintra_baseline_quiet.html)    |   [ENMAC4](sintra_enmac4_quiet.html)    |    [ENMAC10](sintra_enmac10_quiet.html)
+    +   Fast routes: [Baseline](sintra_baseline_fast.html)    |   [ENMAC4](sintra_enmac4_fast.html)    |    [ENMAC10](sintra_enmac10_fast.html)
+*   Vila Franca de Xira: 
+    +   Quiet routes: [Baseline](vfxira_baseline_quiet.html)    |   [ENMAC4](vfxira_enmac4_quiet.html)    |    [ENMAC10](vfxira_enmac10_quiet.html)
+    +   Fast routes: [Baseline](vfxira_baseline_fast.html)    |   [ENMAC4](vfxira_enmac4_fast.html)    |    [ENMAC10](vfxira_enmac10_fast.html)
 
