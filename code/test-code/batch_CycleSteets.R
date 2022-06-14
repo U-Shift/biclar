@@ -41,14 +41,22 @@ routes_jittered_quietest = route(
   plan = "quietest"
 )
 
+routes_jittered_balanced = route(
+  l = od_jittered_filter,
+  route_fun = journey,
+  plan = "balanced"
+)
+
+
 routes_jittered_fastest = route(
   l = od_jittered_filter,
   route_fun = journey,
   plan = "fastest"
 )
 
-saveRDS(routes_jittered_fastest, "routes_jittered_fastest_threshold_500_max_9km_total_max_total_10.Rds")
 saveRDS(routes_jittered_quietest, "routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds")
+saveRDS(routes_jittered_balanced, "routes_jittered_balanced_threshold_500_max_9km_total_max_total_10.Rds")
+saveRDS(routes_jittered_fastest, "routes_jittered_fastest_threshold_500_max_9km_total_max_total_10.Rds")
 system("gh release list")
 system("gh release upload 0.0.1 routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds")
 system("gh release upload 0.0.1 routes_jittered_fastest_threshold_500_max_9km_total_max_total_10.Rds")
