@@ -103,8 +103,8 @@ routes_jittered = batch(samplejitter5,
 # Generate ENMAC scenario rnet - see ad_scenarioENMAC_rosa.R file --------
 # file.edit("code/test-code/add_scenarioENMAC_rosa.R")
 # routes_jittered_500_ENMAC410 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/routes_jittered_quietest500_ENMAC410.Rds"))
-routes_jittered_500_ENMAC410 = readRDS("routes_jittered_quietest500_ENMAC410.Rds")
-# routes_jittered_500_ENMAC410 = readRDS("routes_jittered_ENMAC410_fastest_500.Rds")
+# routes_jittered_500_ENMAC410 = readRDS("routes_jittered_quietest500_ENMAC410.Rds")
+routes_jittered_500_ENMAC410 = readRDS("routes_jittered_fastest500_ENMAC410.Rds")
 rnet_enmac_raw = overline(
   routes_jittered_500_ENMAC410,
   attrib = c("Bike", "quietness", "new_cyc4", "new_cyc10"),
@@ -114,10 +114,10 @@ names(rnet_enmac_raw)
 rnet_enmac_full = rnet_enmac_raw %>% 
   transmute(Quietness = quietness_mean, Baseline = Bike_sum, ENMAC4 = new_cyc4_sum, ENMAC10 = new_cyc10_sum) %>%
   mutate_if(is.numeric, round) 
-nrow(rnet_enmac_full) # 59 k
+nrow(rnet_enmac_full) # 59 k for quiet, 56 k for fast
 sum(routes_jittered_500_ENMAC410$new_cyc4) / sum(routes_jittered_500_ENMAC410$Total)
-write_rds(rnet_enmac_full, "rnet_enmac_fastest_full.Rds")
-saveRDS(rnet_enmac_full, "rnet_enmac_quietest_full.Rds")
+saveRDS(rnet_enmac_full, "rnet_enmac_fastest_full.Rds")
+# saveRDS(rnet_enmac_full, "rnet_enmac_quietest_full.Rds")
 # write_rds(rnet_enmac_full, "rnet_enmac_full.Rds")
 # rnet_enmac_full = readRDS("rnet_enmac_full.Rds")
 rnet_enmac_region = rnet_enmac_full %>% 
