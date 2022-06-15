@@ -88,7 +88,9 @@ tm_rnet_multi = function(
   
   # if(packageVersion("tmap") < "4.0") {
   m = tmap::tm_shape(rnet) +
-    tmap::tm_lines(id = NULL, lwd = "lwd", scale = scale, popup.vars = rnet_names, col = "cols", palette = pal)
+    tmap::tm_lines(id = NULL, lwd = lwd, scale = scale, popup.vars = rnet_names, col = "cols", palette = pal)
+  tmap_mode("view")
+  m
   # } else {
   #   # Note: not working
   # m = tmap::tm_shape(rnet) +

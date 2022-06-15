@@ -9,6 +9,12 @@ library(cyclestreets)
 library(stplanr)
 library(tmap)
 
+gh_release_upload = function(file, tag = "0.0.1") {
+  msg = glue::glue("gh release upload {tag} {file}")
+  message("Running this command:\n", msg)
+  system(msg)
+}
+
 ## with a threshold of 100 jittered trips, resulting 57356 od pairs
 
 # od_jittered_100 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/od_all_jittered_100.Rds"))
@@ -60,12 +66,7 @@ saveRDS(routes_jittered_fastest, "routes_jittered_fastest_threshold_500_max_9km_
 system("gh release list")
 system("gh release upload 0.0.1 routes_jittered_quietest_threshold_500_max_9km_total_max_total_10.Rds")
 system("gh release upload 0.0.1 routes_jittered_fastest_threshold_500_max_9km_total_max_total_10.Rds")
-gh_release_upload = function(file, tag = "0.0.1") {
-  msg = glue::glue("gh release upload {tag} {file}")
-  message("Running this command:\n", msg)
-  system(msg)
-}
-
+gh_release_upload(file = "routes_jittered_balanced_threshold_500_max_9km_total_max_total_10.Rds")
 
 ## end robin
 
@@ -112,7 +113,8 @@ routes_jittered = batch(samplejitter5,
 # file.edit("code/test-code/add_scenarioENMAC_rosa.R")
 # routes_jittered_500_ENMAC410 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/routes_jittered_quietest500_ENMAC410.Rds"))
 # routes_jittered_500_ENMAC410 = readRDS("routes_jittered_quietest500_ENMAC410.Rds")
-routes_jittered_500_ENMAC410 = readRDS("routes_jittered_fastest500_ENMAC410.Rds")
+# routes_jittered_500_ENMAC410 = readRDS("routes_jittered_fastest500_ENMAC410.Rds")
+routes_jittered_500_ENMAC410 = readRDS("routes_jittered_ENMAC410_balanced_500.Rds")
 rnet_enmac_raw = overline(
   routes_jittered_500_ENMAC410,
   attrib = c("Bike", "quietness", "new_cyc4", "new_cyc10"),
@@ -126,21 +128,24 @@ nrow(rnet_enmac_full) # 59 k for quiet, 56 k for fast
 sum(routes_jittered_500_ENMAC410$new_cyc4) / sum(routes_jittered_500_ENMAC410$Total)
 saveRDS(rnet_enmac_full, "rnet_enmac_fastest_full.Rds")
 # saveRDS(rnet_enmac_full, "rnet_enmac_quietest_full.Rds")
+# saveRDS(rnet_enmac_full, "rnet_enmac_balanced_full.Rds")
 # write_rds(rnet_enmac_full, "rnet_enmac_full.Rds")
 # rnet_enmac_full = readRDS("rnet_enmac_full.Rds")
 rnet_enmac_region = rnet_enmac_full %>% 
   slice_max(order_by = ENMAC10, n = 20000)
 # write_rds(rnet_enmac_region, "rnet_enmac_region_fastest_top_20000.Rds")
-saveRDS(rnet_enmac_region, "rnet_enmac_region_quietest_top_20000.Rds")
-
+# saveRDS(rnet_enmac_region, "rnet_enmac_region_quietest_top_20000.Rds")
+saveRDS(rnet_enmac_region, "rnet_enmac_region_balanced_top_20000.Rds")
+gh_release_upload("rnet_enmac_balanced_full.Rds")
 
 # Visualise the results ------
 rnet_enmac_region = readRDS("rnet_enmac_region_top_20000.Rds")
 # rnet_enmac_region = readRDS("rnet_enmac_region_fastest_top_20000.Rds")
 m = tm_rnet(rnet_enmac_region %>% slice_max(ENMAC4, n = 1000), lwd = "ENMAC10", col = "Quietness", palette = "johnson")
 m = tm_rnet(rnet_enmac_region, lwd = "ENMAC10", col = "Quietness", palette = "-mako", scale = 30)
-# htmlwidgets::saveWidget(m, "m_rnet_enmac_region_fastest_top_20000.html")
 htmlwidgets::saveWidget(m, "pkgdown/assets/m_rnet_enmac_region_fastest.html")
+# htmlwidgets::saveWidget(m, "m_rnet_enmac_region_fastest_top_20000.html")
+htmlwidgets::saveWidget(m, "pkgdown/assets/m_rnet_enmac_region_balanced.html")
 gh_release_upload("m_rnet_enmac_region_fastest_top_20000.html")
 gh_release_upload("m_rnet_enmac_region_quietest_top_20000.html")
 
