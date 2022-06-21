@@ -7,8 +7,8 @@ library(biclar)
 MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
 MUNICIPIOS = MUNICIPIOSgeo$Concelho
 
-# REDEregion = readRDS("rnet_enmac_quietest_full.Rds") #quiet
-REDEregion = readRDS("rnet_enmac_fastest_full.Rds") #fast
+REDEregion = readRDS("rnet_enmac_quietest_full.Rds") #quiet
+# REDEregion = readRDS("rnet_enmac_fastest_full.Rds") #fast
 
 scenario = "enmac10" #baseline, enmac4, enmac10
 route = "fast" #quiet, fast
@@ -67,3 +67,25 @@ m = tm_rnet(
 
 htmlwidgets::saveWidget(m, paste0("pkgdown/assets/vfxira_", scenario, "_", route, ".html")) #Só com VFXIRA
 
+
+
+
+
+
+
+# 100 50 30 10 --------------------------------------------------------------------------------
+
+REDEregion = readRDS("rnet_enmac_quietest_full.Rds") #quiet
+# REDEregion = readRDS("rnet_enmac_fastest_full.Rds") #fast
+
+REDE = REDEregion %>% filter(Baseline >= quantile(REDEregion$Baseline, 0.90)) #0.6 for quiet, 0.7 for fast, change here scenario. (Barreiro should be 0.65)
+
+m= tm_rnet(
+  REDE,
+  lwd = "Baseline", #Baseline, ENMAC4, ENMAC10
+  col = "Quietness",
+  palette = "-mako", # "mako", "linear_yl_rd_bk" - linear_yl_rd_bk for fastest, mako for quietest (tried reds, rocket, burg)
+  scale = 15,
+  lwd_multiplier = 15 #15 used in region and fast, 12 for quiet
+)
+m

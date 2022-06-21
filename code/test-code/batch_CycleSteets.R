@@ -71,7 +71,9 @@ gh_release_upload(file = "routes_jittered_balanced_threshold_500_max_9km_total_m
 ## end robin
 
 st_write(od_jittered_filter, "od_jittered_filter.geojson")
-  
+
+
+#for 42k  
 samplejitter1 = od_jittered_filter %>% slice_head(n= 10000) #maximum allowed - job id 425 quiestest / 430 fastest / 438 fastest AND quietest, both diections
 samplejitter2 = od_jittered_filter %>% filter(id == c(10001:20000)) # job id 426 quiestest / 431 fastest / 436 fastest AND quietest, both diections
 samplejitter3 = od_jittered_filter %>% filter(id == c(20001:30000)) # job id 427 quiestest / 432 fastest / 437 fastest AND quietest, both diections
@@ -80,12 +82,12 @@ samplejitter5 = od_jittered_filter %>% filter(id == c(40001:50000)) # job id 429
 
 
 #run one by one, and open the result at https://www.cyclestreets.net/journey/batch/423/ #id here
-routes_jittered = batch(samplejitter5,
+routes_jittered4 = batch(samplejitter4,
                         name = "biclar_filtered_sample",
-                        strategies = c("fastest", "quietest"), #or quietest
+                        strategies = "quietest", #or quietest c("fastest", "quietest")
                         minDistance = 200,
                         maxDistance = 10000, #change here the assumed max euclidean distance (default = 5000)
-                        bothDirections = 1,
+                        # bothDirections = 1, #0 - no, ist the default
                         filename = "biclar_filtered",
                         includeJsonOutput = 1, #0 - only summary info like time and dist
                         # emailOnCompletion = "temospena@gmail.com",
