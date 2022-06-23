@@ -10,7 +10,7 @@ rnet_enmac_region = readRDS(url("https://github.com/U-Shift/biclar/releases/down
 m = tm_rnet(rnet_enmac_region,
         lwd = "ENMAC10", #Baseline, ENMAC4, ENMAC10
         col = "Quietness",
-        palette = "-mako", # "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
+        palette = "-linear_yl_rd_bk", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
         scale = 15,
         lwd_multiplier = 15
         )
