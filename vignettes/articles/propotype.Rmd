@@ -9,6 +9,16 @@ knitr::opts_chunk$set(
 )
 ```
 
+# **DISCLAIMER**: This is a work in progress!
+
+> The information contained in this website is a prototype that is being developed, tested, and consolidated, and the information is not binding on any institution or participant.  
+Please do not share it with institutions or individuals outside the advisory process, or in any other way.
+
+
+# **ATENÇÃO**: Isto não é uma versão final!
+
+> A informação contida neste website constitui um protótipo em fase de desenvolvimento, testes e consolidação, e a sua informação não compromete qualquer entidade ou participante.  
+Agradecemos que não seja partilhada com entidades ou individualidades externas ao processo consultivo, ou de qualquer outra forma.
 
 This includes some statistics about each Municipality, and the Metro Region (*work in progress*).
 
