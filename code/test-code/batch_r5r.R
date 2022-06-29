@@ -16,7 +16,7 @@ library(r5r)
 library(stplanr)
 library(tmap)
 
-r5r_lts = setup_r5(data_path = "r5r/") #apagar o network.dat anterior que esteja na pasta
+r5r_lts = setup_r5(data_path = "r5r/", elevation = "TOBLER", overwrite = TRUE) #apagar o network.dat anterior que esteja na pasta
 # includes .pbf of OSM ALM + .tif of AML raster coopernicus 25m // + fake gtfs (wk issue - altough not working due "frequencies")
 ## todo: make gfs with only ferry connections, and run again, with Inf time waiting
 
