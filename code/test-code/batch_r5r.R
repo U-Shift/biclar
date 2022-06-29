@@ -10,15 +10,50 @@ library(sf)
 # # get installed version of Java
 # .jinit()
 # .jcall("java.lang.System","S","getProperty","java.version") #should be 11!
-options(java.parameters = '-Xmx8G') #memory max 8GB
+options(java.parameters = '-Xmx16G') #memory max 16GB
 options(java.home="C:/Program Files/Java/jdk-11.0.11/")
 library(r5r)
 library(stplanr)
 library(tmap)
 
-r5r_lts = setup_r5(data_path = "r5r/", elevation = "TOBLER", overwrite = TRUE) #apagar o network.dat anterior que esteja na pasta
-# includes .pbf of OSM ALM + .tif of AML raster coopernicus 25m // + fake gtfs (wk issue - altough not working due "frequencies")
-## todo: make gfs with only ferry connections, and run again, with Inf time waiting
+#problem with frequencies of ferry
+# remotes::install_github("ipeaGIT/gtfstools")
+# library(gtfstools)
+# 
+# data_path <- "r5r/ferrys.zip"
+# output_path <- tempfile("validation_result")
+# validator_path <- download_validator(tempdir())
+# validate_gtfs(data_path, output_path, validator_path)
+# 
+# 
+# 
+# 
+# # read GTFS data
+# freq_gtfs <- gtfstools::read_gtfs("r5r/gtfs_4.zip")
+# # convert from frequencies to time tables
+# stop_times_gtfs <- gtfstools::frequencies_to_stop_times(freq_gtfs)
+# # save it as a new GTFS.zip file
+# gtfstools::write_gtfs(gtfs = stop_times_gtfs,
+#                       path = 'r5r/stop_times_gtfs.zip')
+# 
+# 
+# names(freq_gtfs)
+# spo_shapes <- read_gtfs("r5r/gtfs_4.zip", files = c("shapes", "trips"))
+# trip_geom <- get_trip_geometry(freq_gtfs, file = "shapes")
+# plot(trip_geom) #ERROR  in CPL_geos_is_empty(st_geometry(x))
+# 
+# single_trip <- freq_gtfs$trips$trip_id[1]
+# single_trip
+# both_geom <- get_trip_geometry(freq_gtfs, trip_id = single_trip)
+# plot(both_geom["origin_file"])
+# 
+# write_gtfs(freq_gtfs, "ferrys.zip")
+
+
+
+
+r5r_lts_elevation = setup_r5(data_path = "r5r/", elevation = "MINETTI", overwrite = TRUE) #apagar o network.dat anterior que esteja na pasta
+# includes .pbf of OSM ALM + .tif of AML raster coopernicus 25m // + fluvial gtfs
 
 ## with a threshold of 100 jittered trips, resulting 57356 od pairs
 
