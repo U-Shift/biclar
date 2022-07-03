@@ -10,7 +10,7 @@ library(stplanr)
 library(tmap)
 
 gh_release_upload = function(file, tag = "0.0.1") {
-  msg = glue::glue("gh release upload {tag} {file}")
+  msg = glue::glue("gh release upload {tag} {file} --clobber")
   message("Running this command:\n", msg)
   system(msg)
 }
