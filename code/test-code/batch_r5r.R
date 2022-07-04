@@ -10,7 +10,7 @@ library(sf)
 # # get installed version of Java
 # .jinit()
 # .jcall("java.lang.System","S","getProperty","java.version") #should be 11!
-options(java.parameters = '-Xmx16G') #memory max 16GB
+options(java.parameters = '-Xmx32G') #memory max 16GB
 options(java.home="C:/Program Files/Java/jdk-11.0.11/")
 library(r5r)
 library(stplanr)
@@ -113,46 +113,126 @@ routes_r5r_lts2_elevation = detailed_itineraries(
   output_dir = NULL
 )
 
-saveRDS(routes_r5r_lts2_elevation, "routes_jittered_500_r5rlts2_elev_ferry.Rds")
-
-
-#to get the LTS level for each segment
-network_r5r_elevation = r5r::street_network_to_sf(r5r_lts_elevation)
-routes_r5r_lts2_elevation_lts = st_join(routes_r5r_lts2_elevation, network_r5r_elevation$edges)
+# saveRDS(routes_r5r_lts2_elevation, "routes_jittered_500_r5rlts2_elev_ferry.Rds")
+routes_r5r_lts2_elevation = readRDS("routes_jittered_500_r5rlts2_elev_ferry.Rds")
 
 #join original info of IMOB
-routes_r5r_lts2_elevation_lts = routes_r5r_lts2_elevation_lts %>% mutate(id = as.integer(from_id)) %>%
-  select(id, option, total_duration, total_distance, segment, mode, distance, from_vertex, to_vertex, length, bicycle_lts, geometry) %>%
+routes_r5r_lts2_elevation = routes_r5r_lts2_elevation %>% mutate(id = as.integer(from_id)) %>%
+  select(id, option, total_duration, total_distance, segment, mode, distance, geometry) %>%
   left_join(od_jittered_filter %>% st_drop_geometry(), by="id")
 
 #estimate enmac potential
-routes_r5r_lts2_elevation_lts$Bikeper = routes_r5r_lts2_elevation_lts$Bike / routes_r5r_lts2_elevation_lts$Total
-routes_r5r_lts2_elevation_lts$new_cyc4 = ifelse(routes_r5r_lts2_elevation_lts$Bikeper >= ENMAC4, routes_r5r_lts2_elevation_lts$Bike, ENMAC4 * routes_r5r_lts2_elevation_lts$Total - routes_r5r_lts2_elevation_lts$Bike)
-routes_r5r_lts2_elevation_lts$new_cyc10 = ifelse(routes_r5r_lts2_elevation_lts$Bikeper >= ENMAC10, routes_r5r_lts2_elevation_lts$Bike, ENMAC10 * routes_r5r_lts2_elevation_lts$Total - routes_r5r_lts2_elevation_lts$Bike)
-routes_r5r_lts2_elevation_lts$new_car4 = ifelse(routes_r5r_lts2_elevation_lts$Bikeper >= ENMAC4, routes_r5r_lts2_elevation_lts$Car + routes_r5r_lts2_elevation_lts$CarP, (routes_r5r_lts2_elevation_lts$Car + routes_r5r_lts2_elevation_lts$CarP) - routes_r5r_lts2_elevation_lts$new_cyc4)
-routes_r5r_lts2_elevation_lts$new_car10 = ifelse(routes_r5r_lts2_elevation_lts$Bikeper >= ENMAC10, routes_r5r_lts2_elevation_lts$Car + routes_r5r_lts2_elevation_lts$CarP, (routes_r5r_lts2_elevation_lts$Car + routes_r5r_lts2_elevation_lts$CarP) - routes_r5r_lts2_elevation_lts$new_cyc10)
-routes_r5r_lts2_elevation_lts$Bike_4_total = routes_r5r_lts2_elevation_lts$Bike + routes_r5r_lts2_elevation_lts$new_cyc4
-routes_r5r_lts2_elevation_lts$Bike_10_total = routes_r5r_lts2_elevation_lts$Bike + routes_r5r_lts2_elevation_lts$new_cyc10
+routes_r5r_lts2_elevation$Bikeper = routes_r5r_lts2_elevation$Bike / routes_r5r_lts2_elevation$Total
+routes_r5r_lts2_elevation$new_cyc4 = ifelse(routes_r5r_lts2_elevation$Bikeper >= ENMAC4, routes_r5r_lts2_elevation$Bike, ENMAC4 * routes_r5r_lts2_elevation$Total - routes_r5r_lts2_elevation$Bike)
+routes_r5r_lts2_elevation$new_cyc10 = ifelse(routes_r5r_lts2_elevation$Bikeper >= ENMAC10, routes_r5r_lts2_elevation$Bike, ENMAC10 * routes_r5r_lts2_elevation$Total - routes_r5r_lts2_elevation$Bike)
+routes_r5r_lts2_elevation$new_car4 = ifelse(routes_r5r_lts2_elevation$Bikeper >= ENMAC4, routes_r5r_lts2_elevation$Car + routes_r5r_lts2_elevation$CarP, (routes_r5r_lts2_elevation$Car + routes_r5r_lts2_elevation$CarP) - routes_r5r_lts2_elevation$new_cyc4)
+routes_r5r_lts2_elevation$new_car10 = ifelse(routes_r5r_lts2_elevation$Bikeper >= ENMAC10, routes_r5r_lts2_elevation$Car + routes_r5r_lts2_elevation$CarP, (routes_r5r_lts2_elevation$Car + routes_r5r_lts2_elevation$CarP) - routes_r5r_lts2_elevation$new_cyc10)
+routes_r5r_lts2_elevation$Bike_4_total = routes_r5r_lts2_elevation$Bike + routes_r5r_lts2_elevation$new_cyc4
+routes_r5r_lts2_elevation$Bike_10_total = routes_r5r_lts2_elevation$Bike + routes_r5r_lts2_elevation$new_cyc10
 
-saveRDS(routes_r5r_lts2_elevation_lts, "routes_jittered_500_r5rlts2_levels_ENMAC410.Rds") #7.019k rows, info per segment of osm
+sum(routes_r5r_lts2_elevation$new_cyc4) / sum(routes_r5r_lts2_elevation$Total) #3.58%
 
-sum(routes_r5r_lts2_elevation_lts$new_cyc4) / sum(routes_r5r_lts2_elevation_lts$Total) #3.954%
+routes_r5r_lts2_elevation = sf::st_as_sf(
+  as.data.frame(sf::st_drop_geometry(routes_r5r_lts2_elevation)),
+  geometry = routes_r5r_lts2_elevation$geometry
+)
 
 #rnet with LTS
 rnet_r5r_lts2_raw = overline( #this takes too much memory - try to reduce info first! 
-  routes_r5r_lts2_elevation_lts,
-  attrib = c("Bike", "bicycle_lts", "Bike_4_total", "Bike_10_total"),
-  fun = c("mean", "sum")
+  routes_r5r_lts2_elevation,
+  attrib = c("Bike", "Bike_4_total", "Bike_10_total"),
+  fun = c("mean", "sum"),
+  regionalise = 9e99 #it was failing - see issue https://github.com/ropensci/stplanr/issues/466
 )
-names(rnet_r5r_lts2_raw)
-rnet_r5r_lts2_raw_full = rnet_r5r_lts2_raw %>% 
-  transmute(Quietness = bicycle_lts_mean, Baseline = Bike_sum, ENMAC4 = Bike_4_total, ENMAC10 = Bike_10_total) %>%
+
+
+names(rnet_r5r_lts2_raw) 
+rnet_r5r_lts2_raw = rnet_r5r_lts2_raw %>% 
+  transmute(Baseline = Bike_sum, ENMAC4 = Bike_4_total_sum, ENMAC10 = Bike_10_total_sum) %>% #Quietness = bicycle_lts_mean, 
   mutate_if(is.numeric, round) 
-nrow(rnet_r5r_lts2_raw_full) # 59 k for quiet, 56 k for fast
+nrow(rnet_r5r_lts2_raw) # 51390
 
-saveRDS(rnet_r5r_lts2_raw_full, "rnet_r5r_lts2_raw_full.Rds")
+saveRDS(rnet_r5r_lts2_raw, "rnet_r5r_lts2_raw.Rds")
 
 
+#to get the LTS level for each segment
+network_r5r_elevation = r5r::street_network_to_sf(r5r_lts_elevation) #forgot to save r5r_lts_elevation!!!!
+routes_r5r_lts2_elevation_lts = st_join(routes_r5r_lts2_elevation, network_r5r_elevation$edges)
+
+rnet_r5r_lts2_raw_lts = st_join(rnet_r5r_lts2_raw, r5r_network$edges) #it also works witthout ferry and elevation?
+
+table(rnet_r5r_lts2_raw_lts$bicycle_lts)
+# 1      2      3      4 
+# 507842  23420 105428 189958 
+
+saveRDS(rnet_r5r_lts2_raw_lts, "rnet_jittered_500_r5rlts2_levels_ENMAC410.Rds") #826k rows, info per segment of osm
+
+
+#plot
+library(biclar)
+mun = MUNICIPIOS[6] #Lisboa
+BUFFER = MUNICIPIOSgeo %>% filter(Concelho == mun) %>% st_buffer(500) #maybe reduce to 200? 
+REDE = rnet_r5r_lts2_raw_lts %>% st_filter(BUFFER)
+
+REDE = REDE %>% filter(Baseline >= quantile(REDE$Baseline, 0.60)) #0.6 for quiet, 0.7 for fast, change here scenario. (Barreiro should be 0.65)
+
+
+#make map
+tm_rnet_lts = function(
+    rnet,
+    palette = "-temperature_diverging",
+    lwd_multiplier = 4,
+    scale = 5,
+    lwd = names(rnet)[1],
+    col = names(rnet)[2],
+    max_features = 10000,
+    breaks = c(0, 1, 2, 3, 4),
+    labels = c("1", "2", "3", "4"),
+    title.col = "Level of Traffic Stress"
+) {
+  rnet_names = names(rnet)
+  rnet_names = rnet_names[-grep(pattern = "geom|id", x = rnet_names)]
+  lwd_scaled = rnet[[lwd]] - min(rnet[[lwd]])
+  lwd_scaled = lwd_scaled / max(lwd_scaled)
+  lwd_scaled = lwd_scaled * (lwd_multiplier - 1)
+  lwd_scaled = lwd_scaled + 1
+  rnet$lwd = lwd_scaled
+  pal = cols4all::c4a(palette = palette, n = length(breaks) - 1)
+  names(pal) = labels
+  rnet$cols = cut(rnet[[col]], breaks = breaks, labels = labels)
+  
+  m = tmap::tm_shape(rnet) +
+    tmap::tm_lines(id = NULL,
+                   lwd = "lwd",
+                   scale = scale,
+                   popup.vars = rnet_names,
+                   col = "cols",
+                   palette = pal,
+                   title.col = title.col
+    )
+  # } else {
+  #   # Note: not working
+  # m = tmap::tm_shape(rnet) +
+  #   tmap::tm_lines(lwd = "lwd", lwd.scale = 5,
+  #                  col.scale = palette)
+  # tmap::tmap_mode("view")
+  # }
+  tmap::tmap_leaflet(m)
+}
+
+
+m = tm_rnet_lts(
+  REDE,
+  lwd = "Baseline", #Baseline, ENMAC4, ENMAC10
+  col = "bicycle_lts",
+  palette = "mako", # "mako", "linear_yl_rd_bk" - linear_yl_rd_bk for fastest, mako for quietest (tried reds, rocket, burg)
+  scale = 15,
+  lwd_multiplier = 15 #15 used in region and fast, 12 for quiet
+)
+
+m
+
+htmlwidgets::saveWidget(m, paste0("pkgdown/assets/lisbon_baseline_lts2.html")) 
 
 
 
