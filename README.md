@@ -139,6 +139,11 @@ expansion plans, by municipality.
 We can view it in an [interactive map
 here](https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistentePrevista.html).
 
+# Funding
+
+This project is funded by [TML - Transportes Metropolitanos de
+Lisboa](https://www.tmlmobilidade.pt/projetos-e-atividades/planos-e-estudos/rede-ciclavel-metropolitana-estudo-modelacao-e-ferramenta-de-apoio-ao-planeamento-e-decisao/).
+
 # References
 
 <div id="refs" class="references csl-bib-body hanging-indent">
