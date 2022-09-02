@@ -26,8 +26,8 @@ The key datasets are as follows:
     Official limits of Portuguese areas.
 -   Road network from
     [OpenStreetMap](https://www.openstreetmap.org/#map=11/38.7053/-9.1585)  
--   Main public transport interfaces at Lisbon Metro Region, provided by
-    [Transportes Metropolitanos de
+-   Main public transport interfaces at Lisbon Metropolitan Area,
+    provided by [Transportes Metropolitanos de
     Lisboa](https://www.tmlmobilidade.pt/)
 
 # Cenarios for cycling uptake
