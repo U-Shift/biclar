@@ -44,4 +44,8 @@ docs
 biclar_f*
 *.csv
 
+# r5r version
 /r5r/*
+
+# html files in assets
+/pkgdown/assets/**
