@@ -17,7 +17,8 @@ URL: https://u-shift.github.io/biclar/
 Imports: 
     od,
     stplanr,
-    cols4all
+    cols4all,
+    tmap
 Suggests: 
     rmarkdown
 Remotes:
