@@ -75,13 +75,14 @@ routes_r5r_100jit_lts3_elevation = detailed_itineraries(
   output_dir = NULL
 )
 
-testelev = routes_r5r_100jit_lts3_elevation %>% mutate(id = as.integer(from_id)) %>%
+saveRDS(routes_r5r_100jit_lts3_elevation, "routes_r5r_100jit_lts3_elev_ferry_resultsraw.Rds")
+
+routes_r5r_100jit_lts3_elevation = routes_r5r_100jit_lts3_elevation %>% mutate(id = as.integer(from_id)) %>%
   select(id, total_duration, total_distance, segment, mode, distance, route, geometry) %>%
   left_join(od_jittered_100filter %>% st_drop_geometry(), by="id")
-routes_r5r_100jit_lts3_elevation = testelev
 
 names(routes_r5r_100jit_lts3_elevation)[6] = "distance"
-names(routes_r5r_100jit_lts3_elevation)[7] = "eucl_distance"
+names(routes_r5r_100jit_lts3_elevation)[17] = "eucl_distance"
 
 saveRDS(routes_r5r_100jit_lts3_elevation, "routes_r5r_100jit_lts3_elev_ferry_raw.Rds")
 
