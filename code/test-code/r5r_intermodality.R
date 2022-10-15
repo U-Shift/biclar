@@ -16,19 +16,22 @@ library(stplanr)
 library(tmap)
 
 
-GTFSall = tidytransit::read_gtfs("r5r/GTFS_AML_2022_bikeonly_noCarris.zip")
-tidytransit::validate_gtfs(GTFSall)
+# GTFSall = tidytransit::read_gtfs("r5r/GTFS_AML_2022_bikeonly_noCarris.zip")
+# tidytransit::validate_gtfs(GTFSall)
 # GTFSall[["."]] = NULL
 # tidytransit::write_gtfs(GTFSall, "r5r/GTFS_AML_2022_noCarris.zip")
+# GTFSall = gtfstools::read_gtfs("r5r/GTFS_AML_2022_bikeonly_noCarris.zip")
+# GTFSall = gtfstools::frequencies_to_stop_times(GTFSall) #necessary to ifnore frequencies.txt
+# gtfstools::write_gtfs(GTFSall, "r5r/GTFS_AML_2022_bikeonly_noCarris.zip") 
 
 
 r5r_lts_intermodality = setup_r5(data_path = "r5r/", elevation = "MINETTI") #to create new, delete network.dat in the folder. otherwise just load it
 # includes .pbf of OSM ALM + .tif of AML raster coopernicus 25m // + gtfs for all modes
 
 # #export nework with osm_id and LTS levels
-# r5r_lts_shp = street_network_to_sf(r5r_lts)
-# r5r_lts_shp = r5r_lts_shp$edges
-# saveRDS(r5r_lts_shp, "r5r/r5r_lts_elev_202210_shp.Rds")
+# r5r_lts_intermodality_shp = street_network_to_sf(r5r_lts_intermodality)
+# r5r_lts_intermodality_shp = r5r_lts_intermodality_shp$edges
+# saveRDS(r5r_lts_intermodality_shp, "r5r/r5r_lts_intermodality_elev_202210_shp.Rds")
 
 
 ## with a threshold of 100 jittered trips, resulting 57356 od pairs
@@ -55,23 +58,23 @@ od_jittered_100filter_DE = od_jittered_100filter_points[,c(1,4,5)]
 names(od_jittered_100filter_DE) = c("id", "lon", "lat")
 
 #routing with LTS3 (enthused and confident)
-routes_r5r_100jit_lts3_elevation = detailed_itineraries(
-  r5r_lts,
+routes_r5r_100jit_lts3__intermod_elev = detailed_itineraries(
+  r5r_lts_intermodality,
   origins = od_jittered_100filter_OR,
   destinations = od_jittered_100filter_DE,
-  mode = c("BICYCLE", "FERRY"),
-  # mode_egress = "WALK",
-  # departure_datetime = Sys.time(),
+  mode = c("BICYCLE", "TRANSIT"),
+  mode_egress = "BICYCLE",
+  departure_datetime = as.POSIXct("13-10-2022 09:00:00", format = "%d-%m-%Y %H:%M:%S"), #Sys.time(), 
   # time_window = 1L,
   # suboptimal_minutes = 0L,
   fare_structure = NULL,
   max_fare = Inf,
   max_walk_time = Inf,
-  max_bike_time = Inf,
+  max_bike_time = 1500, #25min no total - será pouco ou muito?
   max_trip_duration = 120L, #in minutes
   # walk_speed = 3.6,
-  bike_speed = 12,
-  max_rides = 3, #bike - ferry - bike?
+  bike_speed = 14, #higher to be competitive with PT
+  max_rides = 1, #max public transit rides for the same trip
   max_lts = 3, #1 - quietest, 4 - hardcore
   shortest_path = TRUE, #FALSE? fastest or multiple alternatives?
   all_to_all = FALSE,
