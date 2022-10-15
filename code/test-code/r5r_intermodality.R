@@ -85,16 +85,16 @@ routes_r5r_100jit_lts3__intermod_elev = detailed_itineraries(
   output_dir = NULL
 )
 
-saveRDS(routes_r5r_100jit_lts3_elevation, "routes_r5r_100jit_lts3_elev_ferry_resultsraw.Rds")
+saveRDS(routes_r5r_100jit_lts3__intermod_elev, "routes_r5r_100jit_lts3__intermod_elev_resultsraw.Rds")
 
-routes_r5r_100jit_lts3_elevation = routes_r5r_100jit_lts3_elevation %>% mutate(id = as.integer(from_id)) %>%
-  select(id, total_duration, total_distance, segment, mode, distance, route, geometry) %>%
+routes_r5r_100jit_lts3__intermod_elev = routes_r5r_100jit_lts3__intermod_elev %>% mutate(id = as.integer(from_id)) %>%
+  select(id, total_duration, total_distance, segment, mode, segment_duration, distance, route, geometry) %>%
   left_join(od_jittered_100filter %>% st_drop_geometry(), by="id")
 
-names(routes_r5r_100jit_lts3_elevation)[6] = "distance"
-names(routes_r5r_100jit_lts3_elevation)[17] = "eucl_distance"
+names(routes_r5r_100jit_lts3__intermod_elev)[7] = "distance"
+names(routes_r5r_100jit_lts3__intermod_elev)[18] = "eucl_distance"
 
-saveRDS(routes_r5r_100jit_lts3_elevation, "routes_r5r_100jit_lts3_elev_ferry_raw.Rds")
+saveRDS(routes_r5r_100jit_lts3__intermod_elev, "routes_r5r_100jit_lts3__intermod_elev_raw.Rds")
 
 # filter by duration > 1h?
 
