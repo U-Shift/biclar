@@ -20,18 +20,27 @@ library(tmap)
 # tidytransit::validate_gtfs(GTFSall)
 # GTFSall[["."]] = NULL
 # tidytransit::write_gtfs(GTFSall, "r5r/GTFS_AML_2022_noCarris.zip")
-# GTFSall = gtfstools::read_gtfs("r5r/GTFS_AML_2022_bikeonly_noCarris.zip")
-# GTFSall = gtfstools::frequencies_to_stop_times(GTFSall) #necessary to ifnore frequencies.txt
-# gtfstools::write_gtfs(GTFSall, "r5r/GTFS_AML_2022_bikeonly_noCarris.zip") 
+GTFSall = gtfstools::read_gtfs("r5r/allmodes/GTFS_AML_2022_bikeonly.zip")
+GTFSall = gtfstools::frequencies_to_stop_times(GTFSall) #necessary to ifnore frequencies.txt
+gtfstools::write_gtfs(GTFSall, "r5r/GTFS_AML_2022_bikeonly_noCarris.zip")
 
 
 r5r_lts_intermodality = setup_r5(data_path = "r5r/", elevation = "MINETTI") #to create new, delete network.dat in the folder. otherwise just load it
-# includes .pbf of OSM ALM + .tif of AML raster coopernicus 25m // + gtfs for all modes
+# includes .pbf of OSM ALM + .tif of AML raster coopernicus 25m // + gtfs for all modes except bus
 
 # #export nework with osm_id and LTS levels
 # r5r_lts_intermodality_shp = street_network_to_sf(r5r_lts_intermodality)
 # r5r_lts_intermodality_shp = r5r_lts_intermodality_shp$edges
 # saveRDS(r5r_lts_intermodality_shp, "r5r/r5r_lts_intermodality_elev_202210_shp.Rds")
+
+
+r5r_lts_intermodalityALL = setup_r5(data_path = "r5r/allmodes/", elevation = "MINETTI") #to create new, delete network.dat in the folder. otherwise just load it
+# includes .pbf of OSM ALM + .tif of AML raster coopernicus 25m // + gtfs for all modes
+
+# #export nework with osm_id and LTS levels
+r5r_lts_intermodalityALL_shp = street_network_to_sf(r5r_lts_intermodalityALL)
+r5r_lts_intermodalityALL_shp = r5r_lts_intermodalityALL_shp$edges
+saveRDS(r5r_lts_intermodalityALL_shp, "r5r/allmodes/r5r_lts_intermodalityALL_elev_202210_shp.Rds")
 
 
 ## with a threshold of 100 jittered trips, resulting 57356 od pairs
