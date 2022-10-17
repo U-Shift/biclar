@@ -109,9 +109,9 @@ saveRDS(routes_r5r_100jit_lts3__intermod_elev, "routes_r5r_100jit_lts3__intermod
 
 
 
-#routing with LTS3 (enthused and confident) - all transit modes (except Bus - no data)
+#routing with LTS3 (enthused and confident) - all transit modes (except Bus and subway)
 routes_r5r_100jit_lts3__intermod_NoSub_elev = detailed_itineraries(
-  r5r_lts_intermodality,
+  r5r_lts_intermodalityALL,
   origins = od_jittered_100filter_OR,
   destinations = od_jittered_100filter_DE,
   mode = c("BICYCLE", "RAIL", "TRAM", "FERRY"), #remove subway
@@ -122,7 +122,7 @@ routes_r5r_100jit_lts3__intermod_NoSub_elev = detailed_itineraries(
   fare_structure = NULL,
   max_fare = Inf,
   max_walk_time = Inf,
-  max_bike_time = 1500, #25min no total - será pouco ou muito?
+  max_bike_time = 25L, #25min no total - será pouco ou muito?
   max_trip_duration = 120L, #in minutes
   # walk_speed = 3.6,
   bike_speed = 14, #higher to be competitive with PT
@@ -137,7 +137,7 @@ routes_r5r_100jit_lts3__intermod_NoSub_elev = detailed_itineraries(
   output_dir = NULL
 )
 
-saveRDS(routes_r5r_100jit_lts3__intermod_NoSub_elev, "routes_r5r_100jit_lts3__intermod_NoSub_elev_resultsraw.Rds")
+saveRDS(routes_r5r_100jit_lts3__intermod_NoSub_elev, "routes_r5r_100jit_lts3__intermodALL_NoSubBus_elev_resultsraw.Rds")
 
 routes_r5r_100jit_lts3__intermod_NoSub_elev = routes_r5r_100jit_lts3__intermod_NoSub_elev %>% mutate(id = as.integer(from_id)) %>%
   select(id, total_duration, total_distance, segment, mode, segment_duration, distance, route, geometry) %>%
@@ -146,7 +146,7 @@ routes_r5r_100jit_lts3__intermod_NoSub_elev = routes_r5r_100jit_lts3__intermod_N
 names(routes_r5r_100jit_lts3__intermod_NoSub_elev)[7] = "distance"
 names(routes_r5r_100jit_lts3__intermod_NoSub_elev)[18] = "eucl_distance"
 
-saveRDS(routes_r5r_100jit_lts3__intermod_NoSub_elev, "routes_r5r_100jit_lts3__intermod_NoSub_elev_raw.Rds")
+saveRDS(routes_r5r_100jit_lts3__intermod_NoSub_elev, "routes_r5r_100jit_lts3__intermodALL_NoSubBus_elev_raw.Rds")
 
 
 
@@ -154,7 +154,7 @@ saveRDS(routes_r5r_100jit_lts3__intermod_NoSub_elev, "routes_r5r_100jit_lts3__in
 
 #routing with lts2 (enthused and confident) - all transit modes (except Bus - no data)
 routes_r5r_100jit_lts2__intermod_NoSub_elev = detailed_itineraries(
-  r5r_lts_intermodality,
+  r5r_lts_intermodalityALL,
   origins = od_jittered_100filter_OR,
   destinations = od_jittered_100filter_DE,
   mode = c("BICYCLE", "RAIL", "TRAM", "FERRY"), #remove subway
@@ -165,7 +165,7 @@ routes_r5r_100jit_lts2__intermod_NoSub_elev = detailed_itineraries(
   fare_structure = NULL,
   max_fare = Inf,
   max_walk_time = Inf,
-  max_bike_time = 1500, #25min no total - será pouco ou muito?
+  max_bike_time = 25L, #25min no total - será pouco ou muito?
   max_trip_duration = 120L, #in minutes
   # walk_speed = 3.6,
   bike_speed = 14, #higher to be competitive with PT
@@ -180,7 +180,7 @@ routes_r5r_100jit_lts2__intermod_NoSub_elev = detailed_itineraries(
   output_dir = NULL
 )
 
-saveRDS(routes_r5r_100jit_lts2__intermod_NoSub_elev, "routes_r5r_100jit_lts2__intermod_NoSub_elev_resultsraw.Rds")
+saveRDS(routes_r5r_100jit_lts2__intermod_NoSub_elev, "routes_r5r_100jit_lts2__intermod_NoSubBus_elev_resultsraw.Rds")
 
 routes_r5r_100jit_lts2__intermod_NoSub_elev = routes_r5r_100jit_lts2__intermod_NoSub_elev %>% mutate(id = as.integer(from_id)) %>%
   select(id, total_duration, total_distance, segment, mode, segment_duration, distance, route, geometry) %>%
@@ -189,7 +189,7 @@ routes_r5r_100jit_lts2__intermod_NoSub_elev = routes_r5r_100jit_lts2__intermod_N
 names(routes_r5r_100jit_lts2__intermod_NoSub_elev)[7] = "distance"
 names(routes_r5r_100jit_lts2__intermod_NoSub_elev)[18] = "eucl_distance"
 
-saveRDS(routes_r5r_100jit_lts2__intermod_NoSub_elev, "routes_r5r_100jit_lts2__intermod_NoSub_elev_raw.Rds")
+saveRDS(routes_r5r_100jit_lts2__intermod_NoSub_elev, "routes_r5r_100jit_lts2__intermod_NoSubBus_elev_raw.Rds")
 
 
 
@@ -206,7 +206,7 @@ routes_r5r_100jit_lts3__intermodALL_NoSub_elev = detailed_itineraries(
   fare_structure = NULL,
   max_fare = Inf,
   max_walk_time = Inf,
-  max_bike_time = 1500, #25min no total - será pouco ou muito?
+  max_bike_time = 25L, #25min no total - será pouco ou muito?
   max_trip_duration = 120L, #in minutes
   # walk_speed = 3.6,
   bike_speed = 14, #higher to be competitive with PT
@@ -232,6 +232,87 @@ names(routes_r5r_100jit_lts3__intermodALL_NoSub_elev)[18] = "eucl_distance"
 
 saveRDS(routes_r5r_100jit_lts3__intermodALL_NoSub_elev, "routes_r5r_100jit_lts3__intermodALL_NoSub_elev_raw.Rds")
 
+
+
+#routing with LTS3 (enthused and confident) - only ferry
+routes_r5r_100jit_lts3__ferry_elev = detailed_itineraries(
+  r5r_lts_intermodalityALL,
+  origins = od_jittered_100filter_OR,
+  destinations = od_jittered_100filter_DE,
+  mode = c("BICYCLE", "FERRY"), #only ferry
+  mode_egress = "BICYCLE",
+  departure_datetime = as.POSIXct("13-10-2022 09:00:00", format = "%d-%m-%Y %H:%M:%S"), #Sys.time(), 
+  # time_window = 1L,
+  # suboptimal_minutes = 0L,
+  fare_structure = NULL,
+  max_fare = Inf,
+  max_walk_time = Inf,
+  max_bike_time = Inf, #no restrictons 
+  max_trip_duration = 120L, #in minutes
+  # walk_speed = 3.6,
+  bike_speed = 14, #higher to be competitive with PT
+  max_rides = 1, #max public transit rides for the same trip
+  max_lts = 3, #1 - quietest, 4 - hardcore
+  shortest_path = TRUE, #FALSE? fastest or multiple alternatives?
+  all_to_all = FALSE,
+  n_threads = Inf,
+  verbose = FALSE,
+  progress = TRUE,
+  drop_geometry = FALSE,
+  output_dir = NULL
+)
+
+saveRDS(routes_r5r_100jit_lts3__ferry_elev, "routes_r5r_100jit_lts3__ferry_elev_resultsraw.Rds")
+
+routes_r5r_100jit_lts3__ferry_elev = routes_r5r_100jit_lts3__ferry_elev %>% mutate(id = as.integer(from_id)) %>%
+  select(id, total_duration, total_distance, segment, mode, segment_duration, distance, route, geometry) %>%
+  left_join(od_jittered_100filter %>% st_drop_geometry(), by="id")
+
+names(routes_r5r_100jit_lts3__ferry_elev)[7] = "distance"
+names(routes_r5r_100jit_lts3__ferry_elev)[18] = "eucl_distance"
+
+saveRDS(routes_r5r_100jit_lts3__ferry_elev, "routes_r5r_100jit_lts3__ferry_elev_raw.Rds")
+
+
+
+#routing with LTS2 (enthused and confident) - all transit modes
+routes_r5r_100jit_lts2__intermodALL_NoSub_elev = detailed_itineraries(
+  r5r_lts_intermodalityALL,
+  origins = od_jittered_100filter_OR,
+  destinations = od_jittered_100filter_DE,
+  mode = c("BICYCLE", "BUS", "RAIL", "TRAM", "FERRY"), #remove subway
+  mode_egress = "BICYCLE",
+  departure_datetime = as.POSIXct("13-10-2022 09:00:00", format = "%d-%m-%Y %H:%M:%S"), #Sys.time(), 
+  # time_window = 1L,
+  # suboptimal_minutes = 0L,
+  fare_structure = NULL,
+  max_fare = Inf,
+  max_walk_time = Inf,
+  max_bike_time = 25L, #25min no total - será pouco ou muito?
+  max_trip_duration = 120L, #in minutes
+  # walk_speed = 3.6,
+  bike_speed = 14, #higher to be competitive with PT
+  max_rides = 1, #max public transit rides for the same trip
+  max_lts = 2, #1 - quietest, 4 - hardcore
+  shortest_path = TRUE, #FALSE? fastest or multiple alternatives?
+  all_to_all = FALSE,
+  n_threads = Inf,
+  verbose = FALSE,
+  progress = TRUE,
+  drop_geometry = FALSE,
+  output_dir = NULL
+)
+
+saveRDS(routes_r5r_100jit_lts2__intermodALL_NoSub_elev, "routes_r5r_100jit_lts2__intermodALL_NoSub_elev_resultsraw.Rds")
+
+routes_r5r_100jit_lts2__intermodALL_NoSub_elev = routes_r5r_100jit_lts2__intermodALL_NoSub_elev %>% mutate(id = as.integer(from_id)) %>%
+  select(id, total_duration, total_distance, segment, mode, segment_duration, distance, route, geometry) %>%
+  left_join(od_jittered_100filter %>% st_drop_geometry(), by="id")
+
+names(routes_r5r_100jit_lts2__intermodALL_NoSub_elev)[7] = "distance"
+names(routes_r5r_100jit_lts2__intermodALL_NoSub_elev)[18] = "eucl_distance"
+
+saveRDS(routes_r5r_100jit_lts2__intermodALL_NoSub_elev, "routes_r5r_100jit_lts2__intermodALL_NoSub_elev_raw.Rds")
 
 
 # filter by duration > 1h?
