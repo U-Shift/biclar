@@ -18,7 +18,8 @@ Imports:
     od,
     stplanr,
     cols4all,
-    tmap
+    tmap,
+    kableExtra
 Suggests: 
     rmarkdown
 Remotes:
