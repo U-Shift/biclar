@@ -163,3 +163,10 @@ st_write(od_jittered_filter, "od_jittered_filter.json")
 routes_jittered_online_sf1 = cyclestreets:::batch_read("biclar_filtered-data1.gz")
 # routes_jittered_online = json2sf_cs(routes_jittered_online)
 
+
+
+
+
+
+
+
