@@ -53,8 +53,9 @@ routes_ferry4_filtered[1,]
 routes_ferry4_filtered[3000,]
 
 rnet_ferry4_overline = routes_ferry4_filtered %>%
-  stplanr::overline(c("Bike", "Bikeper", "new_cyc4", "cyc4", "new_cyc10", "cyc10"),
-                    fun = "sum")
+  stplanr::overline(c("Bike", "Total", "new_cyc4", "cyc4", "new_cyc10", "cyc10"),
+                    fun = "sum") %>% 
+  mutate(Bikeper = Bike / Total)
 saveRDS(rnet_ferry4_overline, "routes_ferry4_overline.Rds")
 
 
@@ -170,8 +171,9 @@ routes_ferry2_filtered[1,]
 routes_ferry2_filtered[3000,]
 
 rnet_ferry2_overline = routes_ferry2_filtered %>%
-  stplanr::overline(c("Bike", "Bikeper", "new_cyc4", "cyc4", "new_cyc10", "cyc10"),
-                    fun = "sum")
+  stplanr::overline(c("Bike", "Total", "new_cyc4", "cyc4", "new_cyc10", "cyc10"),
+                    fun = "sum") %>% 
+  mutate(Bikeper = Bike / Total)
 saveRDS(rnet_ferry2_overline, "routes_ferry2_overline.Rds")
 
 
@@ -295,8 +297,9 @@ routes_allmodesNSub4_filtered[1,]
 routes_allmodesNSub4_filtered[3000,]
 
 rnet_allmodesNSub4_overline = routes_allmodesNSub4_filtered %>%
-  stplanr::overline(c("Bike", "Bikeper", "new_cyc10", "cyc10"),
-                    fun = "sum")
+  stplanr::overline(c("Bike", "Total", "new_cyc10", "cyc10"),
+                    fun = "sum") %>% 
+  mutate(Bikeper = Bike / Total)
 saveRDS(rnet_allmodesNSub4_overline, "routes_allmodesNSub4_overline.Rds")
 
 
@@ -424,8 +427,9 @@ routes_allmodesNSub2_filtered[1,]
 routes_allmodesNSub2_filtered[3000,]
 
 rnet_allmodesNSub2_overline = routes_allmodesNSub2_filtered %>%
-  stplanr::overline(c("Bike", "Bikeper", "new_cyc10", "cyc10"),
-                    fun = "sum")
+  stplanr::overline(c("Bike", "Total", "new_cyc10", "cyc10"),
+                    fun = "sum") %>% 
+  mutate(Bikeper = Bike / Total)
 saveRDS(rnet_allmodesNSub2_overline, "routes_allmodesNSub2_overline.Rds")
 
 
