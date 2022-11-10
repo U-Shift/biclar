@@ -78,15 +78,15 @@ routes_r5r_100jit_lts3__intermod_NoSub_elev = detailed_itineraries(
   r5r_lts_intermodalityALL,
   origins = od_jittered_100filter_OR,
   destinations = od_jittered_100filter_DE,
-  mode = c("BICYCLE", "RAIL", "TRAM", "FERRY"), #remove subway
+  mode = c("BICYCLE", "RAIL", "TRAM", "FERRY", "BUS"), #remove subway
   mode_egress = "BICYCLE",
-  departure_datetime = as.POSIXct("13-10-2022 09:00:00", format = "%d-%m-%Y %H:%M:%S"), #Sys.time(), 
+  departure_datetime = departure_datetime,
   # time_window = 1L,
   # suboptimal_minutes = 0L,
   fare_structure = NULL,
   max_fare = Inf,
   max_walk_time = Inf,
-  max_bike_time = 25L, #25min no total - será pouco ou muito?
+  max_bike_time = 30L, #25min no total - será pouco ou muito?
   max_trip_duration = 120L, #in minutes
   # walk_speed = 3.6,
   bike_speed = 14, #higher to be competitive with PT

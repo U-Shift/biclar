@@ -7,32 +7,37 @@ local_crs = "EPSG:3857"
 
 # Import data -------------------------------------------------------------
 
-# transport_network = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/quietnessAML_alltags_fewer.Rds"))
-transport_network = quietnessAML_alltags_fewer
-names(transport_network)
-# summary(sf::st_geometry_type(transport_network))
-transport_network = sf::st_cast(sf::st_cast(transport_network, "MULTILINESTRING"), "LINESTRING")
+# # transport_network = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/quietnessAML_alltags_fewer.Rds"))
+# transport_network = quietnessAML_alltags_fewer
+# names(transport_network)
+# # summary(sf::st_geometry_type(transport_network))
+# transport_network = sf::st_cast(sf::st_cast(transport_network, "MULTILINESTRING"), "LINESTRING")
 
 
-rnet_ferry2_overline_morethan100_clean = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/rnet_ferry2_overline_morethan100_clean.Rds"))
+# rnet_allmodesNSub4_overline_morethan100_clean = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/rnet_allmodesNSub4_overline_morethan100_clean.Rds"))
 #enmac
-# rnet = rnet_ferry2_overline_morethan10_clean 
-rnet = rnet_ferry2_overline_morethan100_clean
-# rnet = rnet_ferry4_overline_morethan10_clean 
-# rnet = rnet_ferry4_overline_morethan100_clean
+# rnet = rnet_ferry3_overline_morethan20_clean #done
+# rnet = rnet_ferry3_overline_morethan100_clean #done
+rnet = rnet_ferry4_overline_morethan20_clean
+# rnet = rnet_ferry4_overline_morethan100_clean #done
 # 
 # #ebikes
-# rnet = rnet_ferry2_ebike_overline_morethan10_clean 
-# rnet = rnet_ferry2_ebike_overline_morethan100_clean 
-# rnet = rnet_ferry4_ebike_overline_morethan10_clean 
-# rnet = rnet_ferry4_ebike_overline_morethan100_clean
+# rnet = rnet_ferry3_ebike_overline_morethan50_clean 
+# rnet = rnet_ferry3_ebike_overline_morethan100_clean #done
+# rnet = rnet_ferry3_ebike_overline_morethan200_clean #done
+# rnet = rnet_ferry4_ebike_overline_morethan50_clean 
+# rnet = rnet_ferry4_ebike_overline_morethan100_clean #done
+# rnet = rnet_ferry4_ebike_overline_morethan200_clean #done
 # 
 # #intermodal
-# rnet = rnet_allmodesNSub2_overline_morethan50_clean 
-# rnet = rnet_allmodesNSub2_overline_morethan100_clean 
-# rnet = rnet_allmodesNSub4_overline_morethan30_clean 
-# rnet = rnet_allmodesNSub4_overline_morethan100_clean
+# rnet = rnet_allmodesNSub3_overline_morethan10_clean 
+# rnet = rnet_allmodesNSub3_overline_morethan30_clean #done
+# rnet = rnet_allmodesNSub3_overline_morethan50_clean #done
+# rnet = rnet_allmodesNSub4_overline_morethan10_clean 
+# rnet = rnet_allmodesNSub4_overline_morethan30_clean #done
+# rnet = rnet_allmodesNSub4_overline_morethan50_clean #done
 
+colnames(rnet)
 rnet$id = seq(nrow(rnet))
 
 # Join --------------------------------------------------------------------
@@ -64,7 +69,7 @@ rnet_joined = left_join(rnet, transport_network_summary)
 colnames(rnet_joined)
 rnet_joined = rnet_joined %>% mutate(Total = round(Total),
                                      Bike = round(Bike),
-                                     Bikeper = scales::label_percent(accuracy = 0.01, sufix = " %")(Bikeper/100),
+                                     Bikeper = scales::label_percent(accuracy = 0.1, sufix = " %")(Bikeper),
                                      new_cyc4 = round(new_cyc4),
                                      cyc4 = round(cyc4),
                                      new_cyc10 = round(new_cyc10),
@@ -77,13 +82,13 @@ rnet_joined = rnet_joined %>% mutate(Total = round(Total),
 
 # slopes weighted here 
 
-library(slopes)
+# library(slopes)
 # dem25 = raster::raster("r5r/LisboaAML_COPERNICUS_clip_WGS84.tif")
 rnet_joined$slope = slopes::slope_raster(rnet_joined, dem25)
 
 summary(rnet_joined$slope)
-# Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# 0.00000 0.01532 0.03039 0.04074 0.05507 0.37669      49 
+# Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+# 0.000053 0.013610 0.027265 0.036485 0.049604 0.256815       12 
 
 rnet_joined$slope = scales::label_percent(accuracy = 0.1, sufix = " %")(rnet_joined$slope)
 
@@ -95,23 +100,53 @@ library(biclar)
 tm_rnet(rnet_joined,
         lwd = "Bike", #Baseline, ENMAC4, ENMAC10
         col = "quietness",
-        palette = "-mako", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
+        palette = "-burg", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
         scale = 15,
         lwd_multiplier = 15
 )
 
 
-# saveRDS(rnet_joined, "export/rnet_ferry2_overline_morethan10_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry2_overline_morethan100_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry4_overline_morethan10_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry4_overline_morethan100_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry2_ebike_overline_morethan10_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry2_ebike_overline_morethan100_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan10_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan100_clean.Rds")
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub2_overline_morethan50_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub2_overline_morethan100_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan30_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan100_clean_tags.Rds")
+# saveRDS(rnet_joined, "export/rnet_ferry3_overline_morethan20_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_ferry3_overline_morethan100_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_ferry4_overline_morethan20_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_ferry4_overline_morethan100_clean_tags.Rds") #done
 
+# saveRDS(rnet_joined, "export/rnet_ferry3_ebike_overline_morethan50_clean_tags.Rds")
+# saveRDS(rnet_joined, "export/rnet_ferry3_ebike_overline_morethan100_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_ferry3_ebike_overline_morethan200_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan50_clean_tags.Rds")
+# saveRDS(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan100_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan200_clean_tags.Rds") #done
+
+# saveRDS(rnet_joined, "export/rnet_allmodesNSub3_overline_morethan10_clean_tags.Rds")
+# saveRDS(rnet_joined, "export/rnet_allmodesNSub3_overline_morethan30_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_allmodesNSub3_overline_morethan50_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan10_clean_tags.Rds")
+# saveRDS(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan30_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan50_clean_tags.Rds") #done
+
+
+### NOT NEEDED NOW
+# sf::st_write(rnet_joined, "export/rnet_ferry3_ebike_overline_morethan200_clean_tags.geojson") #done
+# sf::st_write(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan200_clean_tags.geojson") #done
+# sf::st_write(rnet_joined, "export/rnet_allmodesNSub3_overline_morethan50_clean_tags.geojson") #done
+# sf::st_write(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan50_clean_tags.geojson") #done
+
+
+#test 2 layers
+rnet_joined2 = readRDS("export/rnet_ferry4_overline_morethan100_clean_tags.Rds")
+tm_rnet(rnet_joined, #ferry3
+        lwd = "Bike", #Baseline, ENMAC4, ENMAC10
+        col = "quietness",
+        palette = "-mako", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
+        scale = 15,
+        lwd_multiplier = 15
+) +
+  tm_rnet(rnet_joined2,
+          lwd = "Bike", #Baseline, ENMAC4, ENMAC10
+          col = "quietness",
+          palette = "-burg", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
+          scale = 15,
+          lwd_multiplier = 15
+  )
 
