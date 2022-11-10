@@ -505,7 +505,6 @@ table(routes_allmodesNSub4_filtered$mode) #potencial FILTRADO
 
 # sum(routes_allmodesNSub4_filtered$Total[routes_allmodesNSub4_filtered$mode == "TRAM"])
 
-colnames(routes_allmodesNSub4_filtered)
 routes_allmodesNSub4_filtered = routes_allmodesNSub4_filtered %>% filter(mode == "BICYCLE") #drop routes with other modes
 
 # get potential
@@ -526,14 +525,12 @@ sum(routes_allmodesNSub4_filtered$cyc10) #100k
 sum(routes_allmodesNSub4_filtered$new_cyc10) #97k
 
 
-routes_allmodesNSub4_filtered[1,]
-routes_allmodesNSub4_filtered[3000,]
-
 rnet_allmodesNSub4_overline = routes_allmodesNSub4_filtered %>%
   stplanr::overline(c("Bike", "Total", "new_cyc10", "cyc10"),
                     fun = "sum") %>% 
   mutate(Bikeper = Bike / Total)
 saveRDS(rnet_allmodesNSub4_overline, "routes_allmodesNSub4_overline.Rds")
+saveRDS(routes_allmodesNSub4_filtered, "routes_allmodesNSub4_preoverline.Rds")
 
 
 ## filter segments with less than X trips?
@@ -620,7 +617,6 @@ table(routes_allmodesNSub2_filtered$mode)
 # BICYCLE     BUS   FERRY    RAIL    TRAM 
 #   18018     288      82    8086     553 
 
-
 routes_allmodesNSub2_dist = routes_allmodesNSub2_filtered %>%
   filter(mode == "BICYCLE") %>%
   st_drop_geometry() %>%
@@ -633,7 +629,10 @@ routes_allmodesNSub2_filtered = routes_allmodesNSub2_filtered %>% filter(id %in%
 table(routes_allmodesNSub2_filtered$mode)
 # BICYCLE     BUS   FERRY    RAIL    TRAM 
 # 14230     224      60    6286     545 
+# 1.355k    21k     5k      597k    54k
+# 677k (2  pernas da mesma viagem, first & last mile) 
 
+# sum(routes_allmodesNSub2_filtered$Total[routes_allmodesNSub2_filtered$mode == "BICYCLE"])
 
 colnames(routes_allmodesNSub2_filtered)
 routes_allmodesNSub2_filtered = routes_allmodesNSub2_filtered %>% filter(mode == "BICYCLE") #drop routes with other modes
@@ -656,14 +655,12 @@ sum(routes_allmodesNSub2_filtered$cyc10) #135k
 sum(routes_allmodesNSub2_filtered$new_cyc10) #131k
 
 
-routes_allmodesNSub2_filtered[1,]
-routes_allmodesNSub2_filtered[3000,]
-
 rnet_allmodesNSub2_overline = routes_allmodesNSub2_filtered %>%
   stplanr::overline(c("Bike", "Total", "new_cyc10", "cyc10"),
                     fun = "sum") %>% 
   mutate(Bikeper = Bike / Total)
 saveRDS(rnet_allmodesNSub2_overline, "routes_allmodesNSub2_overline.Rds")
+saveRDS(routes_allmodesNSub2_filtered, "routes_allmodesNSub2_preoverline.Rds")
 
 
 ## filter segments with less than X trips?
