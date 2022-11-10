@@ -1,6 +1,7 @@
 # Aim: get quietness scores on route networks
 
 library(tidyverse)
+library(biclar)
 library(tmap)
 tmap_mode("view")
 local_crs = "EPSG:3857"
@@ -15,25 +16,30 @@ local_crs = "EPSG:3857"
 
 
 # rnet_allmodesNSub4_overline_morethan100_clean = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/rnet_allmodesNSub4_overline_morethan100_clean.Rds"))
+
 #enmac
 # rnet = rnet_ferry3_overline_morethan20_clean #done
 # rnet = rnet_ferry3_overline_morethan100_clean #done
+# rnet = rnet_ferry3_overline_morethan200_clean #done
 rnet = rnet_ferry4_overline_morethan20_clean
 # rnet = rnet_ferry4_overline_morethan100_clean #done
+# rnet = rnet_ferry4_overline_morethan200_clean #done
 # 
 # #ebikes
-# rnet = rnet_ferry3_ebike_overline_morethan50_clean 
+# rnet = rnet_ferry3_ebike_overline_morethan50_clean #done
 # rnet = rnet_ferry3_ebike_overline_morethan100_clean #done
 # rnet = rnet_ferry3_ebike_overline_morethan200_clean #done
-# rnet = rnet_ferry4_ebike_overline_morethan50_clean 
+# rnet = rnet_ferry3_ebike_overline_morethan400_clean #done
+# rnet = rnet_ferry4_ebike_overline_morethan50_clean #done
 # rnet = rnet_ferry4_ebike_overline_morethan100_clean #done
 # rnet = rnet_ferry4_ebike_overline_morethan200_clean #done
-# 
+# rnet = rnet_ferry4_ebike_overline_morethan400_clean #done
+
 # #intermodal
-# rnet = rnet_allmodesNSub3_overline_morethan10_clean 
+# rnet = rnet_allmodesNSub3_overline_morethan10_clean #done
 # rnet = rnet_allmodesNSub3_overline_morethan30_clean #done
 # rnet = rnet_allmodesNSub3_overline_morethan50_clean #done
-# rnet = rnet_allmodesNSub4_overline_morethan10_clean 
+# rnet = rnet_allmodesNSub4_overline_morethan10_clean #done
 # rnet = rnet_allmodesNSub4_overline_morethan30_clean #done
 # rnet = rnet_allmodesNSub4_overline_morethan50_clean #done
 
@@ -86,19 +92,43 @@ rnet_joined = rnet_joined %>% mutate(Total = round(Total),
 # dem25 = raster::raster("r5r/LisboaAML_COPERNICUS_clip_WGS84.tif")
 rnet_joined$slope = slopes::slope_raster(rnet_joined, dem25)
 
-summary(rnet_joined$slope)
+# summary(rnet_joined$slope)
 # Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
 # 0.000053 0.013610 0.027265 0.036485 0.049604 0.256815       12 
 
 rnet_joined$slope = scales::label_percent(accuracy = 0.1, sufix = " %")(rnet_joined$slope)
 
 
+
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan20_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan100_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan200_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan20_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan100_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan200_clean_tags.Rds") #done
+
+# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan50_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan100_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan200_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan400_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan50_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan100_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan200_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan400_clean_tags.Rds") #done
+
+# saveRDS(rnet_joined, "export2/rnet_allmodesNSub3_overline_morethan10_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_allmodesNSub3_overline_morethan30_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_allmodesNSub3_overline_morethan50_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_allmodesNSub4_overline_morethan10_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_allmodesNSub4_overline_morethan30_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_allmodesNSub4_overline_morethan50_clean_tags.Rds") #done
+
+
 ####
 
 
-library(biclar)
 tm_rnet(rnet_joined,
-        lwd = "Bike", #Baseline, ENMAC4, ENMAC10
+        lwd = "cyc4", #Baseline, ENMAC4, ENMAC10
         col = "quietness",
         palette = "-burg", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
         scale = 15,
@@ -106,35 +136,18 @@ tm_rnet(rnet_joined,
 )
 
 
-# saveRDS(rnet_joined, "export/rnet_ferry3_overline_morethan20_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_ferry3_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_ferry4_overline_morethan20_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_ferry4_overline_morethan100_clean_tags.Rds") #done
 
-# saveRDS(rnet_joined, "export/rnet_ferry3_ebike_overline_morethan50_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry3_ebike_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_ferry3_ebike_overline_morethan200_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan50_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan200_clean_tags.Rds") #done
-
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub3_overline_morethan10_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub3_overline_morethan30_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub3_overline_morethan50_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan10_clean_tags.Rds")
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan30_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan50_clean_tags.Rds") #done
 
 
 ### NOT NEEDED NOW
-# sf::st_write(rnet_joined, "export/rnet_ferry3_ebike_overline_morethan200_clean_tags.geojson") #done
-# sf::st_write(rnet_joined, "export/rnet_ferry4_ebike_overline_morethan200_clean_tags.geojson") #done
-# sf::st_write(rnet_joined, "export/rnet_allmodesNSub3_overline_morethan50_clean_tags.geojson") #done
-# sf::st_write(rnet_joined, "export/rnet_allmodesNSub4_overline_morethan50_clean_tags.geojson") #done
+# sf::st_write(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan200_clean_tags.geojson") 
+# sf::st_write(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan200_clean_tags.geojson") 
+# sf::st_write(rnet_joined, "export2/rnet_allmodesNSub3_overline_morethan50_clean_tags.geojson") 
+# sf::st_write(rnet_joined, "export2/rnet_allmodesNSub4_overline_morethan50_clean_tags.geojson") 
 
 
 #test 2 layers
-rnet_joined2 = readRDS("export/rnet_ferry4_overline_morethan100_clean_tags.Rds")
+rnet_joined2 = readRDS("export2/rnet_ferry4_overline_morethan100_clean_tags.Rds")
 tm_rnet(rnet_joined, #ferry3
         lwd = "Bike", #Baseline, ENMAC4, ENMAC10
         col = "quietness",
