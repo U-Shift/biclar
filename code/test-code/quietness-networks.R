@@ -21,7 +21,7 @@ local_crs = "EPSG:3857"
 # rnet = rnet_ferry3_overline_morethan20_clean #done
 # rnet = rnet_ferry3_overline_morethan100_clean #done
 # rnet = rnet_ferry3_overline_morethan200_clean #done
-rnet = rnet_ferry4_overline_morethan20_clean
+# rnet = rnet_ferry4_overline_morethan20_clean #done
 # rnet = rnet_ferry4_overline_morethan100_clean #done
 # rnet = rnet_ferry4_overline_morethan200_clean #done
 # 
@@ -126,11 +126,11 @@ rnet_joined$slope = scales::label_percent(accuracy = 0.1, sufix = " %")(rnet_joi
 
 ####
 
-
-tm_rnet(rnet_joined,
+rnet_joined = readRDS("export2/rnet_ferry4_overline_morethan200_clean_tags.Rds")
+tm_rnet(rnet_joined, #filtrar barreiro [MUNICIPIOSgeo %>% filter(Concelho == "Barreiro"), , op = sf::st_within]
         lwd = "cyc4", #Baseline, ENMAC4, ENMAC10
         col = "quietness",
-        palette = "-burg", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
+        palette = "-reds", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
         scale = 15,
         lwd_multiplier = 15
 )
