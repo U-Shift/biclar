@@ -74,3 +74,74 @@ rnet_contained_within = rnet_segments %>%
   slice(unlist(sf::st_contains_properly(rnet_small, rnet_segment_filtered)))
 
 qtm(rnet_contained_within)
+
+
+
+# use NEW rnet_join() function from stplanr ---------------------------------------------------
+
+library(tidyverse)
+library(sf)
+library(stplanr)
+rnet_x = transport_network #OSM_id is the first column
+nrow(rnet_x) # 2184086
+rnet_y = rnet_ferry4_overline_morethan100_clean %>% mutate(id = 1:nrow(rnet_ferry4_overline_morethan100_clean))
+nrow(rnet_y) # 10590
+
+
+time_i = Sys.time()
+rnet_join = rnet_join(rnet_x, rnet_y)
+Sys.time() - time_i
+# Time difference of 3.987354 mins
+nrow(rnet_join) # 85442
+
+
+rnetj_summary = rnet_join %>%
+  sf::st_drop_geometry() %>%
+  group_by(osm_id) %>%
+    summarise(
+      Bike = weighted.mean(Bike, length_y, na.rm = TRUE),
+      Total = weighted.mean(Total, length_y, na.rm = TRUE),
+      new_cyc4 = weighted.mean(new_cyc4, length_y, na.rm = TRUE),
+      cyc4 = weighted.mean(cyc4, length_y, na.rm = TRUE),
+      new_cyc10 = weighted.mean(new_cyc10, length_y, na.rm = TRUE),
+      cyc10 = weighted.mean(cyc10, length_y, na.rm = TRUE),
+      )
+osm_joined_rnet = left_join(rnet_x, rnetj_summary)
+nrow(osm_joined_rnet) #2184086
+
+sum(rnet_y$Bike) # 250545
+sum(osm_joined_rnet$Bike, na.rm = TRUE) # 2112663
+
+rnet_y$length = as.numeric(st_length(rnet_y))
+sum(rnet_y$Bike * rnet_y$length) # 17115920
+osm_joined_rnet$length = as.numeric(st_length(osm_joined_rnet))
+sum(osm_joined_rnet$Bike * osm_joined_rnet$length, na.rm = TRUE) #47510538
+#are those the same? 
+
+
+# reverse process
+rnet_y = transport_network 
+nrow(rnet_y) # 2184086
+rnet_x = rnet_ferry4_overline_morethan100_clean %>% mutate(id = 1:nrow(rnet_ferry4_overline_morethan100_clean)) #id is the last column
+nrow(rnet_x) # 10590
+
+time_i = Sys.time()
+osm_subset = rnet_subset(rnet_y, rnet_x) #reduce the large OSM network
+Sys.time() - time_i # Time difference of 2.259305 mins
+nrow(osm_subset) # 58876
+
+time_i = Sys.time()
+rnet_join2 = rnet_join(rnet_x, osm_subset, key_column = 10) # id - is this parameter working??
+Sys.time() - time_i# Time difference of 1.233207 mins
+nrow(rnet_join2) # 53298
+
+rnetj_summary2 = rnet_join2 %>% # WHERE IS THE ID  #STOP HERE
+  sf::st_drop_geometry() %>%
+  group_by(id) %>%
+  summarise(
+    quietness = weighted.mean(quietness, length_y, na.rm = TRUE),
+    carspeed = weighted.mean(car_speed, length_y, na.rm = TRUE),
+    carspeed_max = max(car_speed, na.rm = TRUE),
+  )
+osm_joined_rnet2 = left_join(rnet_y, rnetj_summary2)
+nrow(osm_joined_rnet2) #

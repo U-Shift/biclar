@@ -16,8 +16,8 @@ routes_ferry4_filtered = routes_r5r_100jit_lts4__ferry_elev %>%
   filter(mode == "BICYCLE") %>%
   st_drop_geometry() %>%
   group_by(id) %>% 
-  summarise(distance = distance)
-summary(routes_ferry4_filtered$distance) #50% less than 5000m, 75% less than 9000m in total
+  summarise(distance = sum(distance))
+summary(routes_ferry4_filtered$distance) #50% less than 5180m, 75% less than 9600m in total
 # routes_ferry4_filtered = routes_ferry4_filtered %>% filter(distance <= 9000)
 routes_ferry4_filtered = routes_ferry4_filtered %>% filter(distance <= 5000) #fazer até 5km para os cenarios 4 e 10
 
@@ -25,11 +25,11 @@ routes_ferry4_filtered = routes_ferry4_filtered %>% filter(distance <= 5000) #fa
 routes_ferry4_filtered = routes_r5r_100jit_lts4__ferry_elev %>% filter(id %in% routes_ferry4_filtered$id)
 table(routes_ferry4_filtered$mode)
 # BICYCLE   FERRY 
-# 28197    1441 
-# 2.410k    117k
-# 2.233k (2  pernas da mesma viagem, first & last mile) 
+#   25493      89
+# 2.522k    7695
+# 2.506k (2  pernas da mesma viagem, first & last mile) 
 
-# sum(routes_ferry4_filtered$Total[routes_ferry4_filtered$mode == "FERRY"])
+# sum(routes_ferry4_filtered$Total[routes_ferry4_filtered$mode == "BICYCLE"])
 
 
 # get potential
@@ -47,11 +47,14 @@ routes_ferry4_filtered = routes_ferry4_filtered %>% mutate(
   new_cyc10 = ifelse(Bikeper >= ENMAC10, 0, cyc10 - Bike)
 )
 
-sum(routes_ferry4_filtered$Bike) #15k
-sum(routes_ferry4_filtered$cyc4) #117k
-sum(routes_ferry4_filtered$new_cyc4) #102k
-sum(routes_ferry4_filtered$cyc10) #287k
-sum(routes_ferry4_filtered$new_cyc10) #272k
+sum(routes_ferry4_filtered$Bike) #13k
+sum(routes_ferry4_filtered$cyc4) #102k
+sum(routes_ferry4_filtered$new_cyc4) #89k
+sum(routes_ferry4_filtered$cyc10) #253k
+sum(routes_ferry4_filtered$new_cyc10) #240k
+
+#### CONTINUAR AQUI 15nov ####
+#erro nos cenarios 2 e 3
 
 rnet_ferry4_overline = routes_ferry4_filtered %>%
   stplanr::overline(c("Bike", "Total", "new_cyc4", "cyc4", "new_cyc10", "cyc10"),
@@ -150,8 +153,8 @@ routes_ferry3_filtered = routes_r5r_100jit_lts3__ferry_elev %>%
   filter(mode == "BICYCLE") %>%
   st_drop_geometry() %>%
   group_by(id) %>% 
-  summarise(distance = distance)
-summary(routes_ferry3_filtered$distance) #50% less than 4800m, 75% less than 8500m in total
+  summarise(distance = sum(distance))
+summary(routes_ferry3_filtered$distance) #50% less than 5003m, 75% less than 8900m in total
 # routes_ferry3_filtered = routes_ferry3_filtered %>% filter(distance <= 9000)
 routes_ferry3_filtered = routes_ferry3_filtered %>% filter(distance <= 5000) #fazer até 5km para os cenarios 4 e 10
 
@@ -159,11 +162,11 @@ routes_ferry3_filtered = routes_ferry3_filtered %>% filter(distance <= 5000) #fa
 routes_ferry3_filtered = routes_r5r_100jit_lts3__ferry_elev %>% filter(id %in% routes_ferry3_filtered$id)
 table(routes_ferry3_filtered$mode)
 # BICYCLE   FERRY 
-# 25287    1020 
-# 2.473k    85k
-# 2.388k (2  pernas da mesma viagem, first & last mile) 
+# 23409    81 
+# 2.317k    7k
+# 2.303k (2  pernas da mesma viagem, first & last mile) 
 
-# sum(routes_ferry3_filtered$Total[routes_ferry3_filtered$mode == "BICYCLE"])
+# sum(routes_ferry3_filtered$Total[routes_ferry3_filtered$mode == "FERRY"])
 
 
 # get potential
@@ -181,11 +184,14 @@ routes_ferry3_filtered = routes_ferry3_filtered %>% mutate(
 
 summary(routes_ferry3_filtered$cyc4)
 summary(routes_ferry3_filtered$new_cyc4) 
-sum(routes_ferry3_filtered$Bike) #13k
-sum(routes_ferry3_filtered$cyc4) #104k
-sum(routes_ferry3_filtered$new_cyc4) #91k
-sum(routes_ferry3_filtered$cyc10) #257k
-sum(routes_ferry3_filtered$new_cyc10) #243k
+sum(routes_ferry3_filtered$Bike) #12k
+sum(routes_ferry3_filtered$cyc4) #94k
+sum(routes_ferry3_filtered$new_cyc4) #82k
+sum(routes_ferry3_filtered$cyc10) #235k
+sum(routes_ferry3_filtered$new_cyc10) #221k
+
+## CONTINUAR AQUI
+
 
 rnet_ferry3_overline = routes_ferry3_filtered %>%
   stplanr::overline(c("Bike", "Total", "new_cyc4", "cyc4", "new_cyc10", "cyc10"),
@@ -275,8 +281,8 @@ routes_ferry4_ebike_filtered = routes_r5r_100jit_lts4__ferry_elev %>%
   filter(mode == "BICYCLE") %>%
   st_drop_geometry() %>%
   group_by(id) %>% 
-  summarise(distance = distance)
-summary(routes_ferry4_ebike_filtered$distance) #50% less than 5000m, 75% less than 9000m in total
+  summarise(distance = sum(distance))
+summary(routes_ferry4_ebike_filtered$distance) #50% less than 5180m, 75% less than 9600m in total
 routes_ferry4_ebike_filtered = routes_ferry4_ebike_filtered %>% filter(distance <= 10000) #fazer até 10km para os cenarios ebike
 
 
@@ -415,8 +421,8 @@ routes_ferry3_ebike_filtered = routes_r5r_100jit_lts3__ferry_elev %>%
   filter(mode == "BICYCLE") %>%
   st_drop_geometry() %>%
   group_by(id) %>% 
-  summarise(distance = distance)
-summary(routes_ferry3_ebike_filtered$distance) #50% less than 4800m, 75% less than 8500m in total
+  summarise(distance = sum(distance))
+summary(routes_ferry3_ebike_filtered$distance) #50% less than 5003m, 75% less than 8900m in total
 routes_ferry3_ebike_filtered = routes_ferry3_ebike_filtered %>% filter(distance <= 10000) #fazer até 10km para os cenarios ebike
 
 

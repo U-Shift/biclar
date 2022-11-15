@@ -13,27 +13,28 @@ local_crs = "EPSG:3857"
 # names(transport_network)
 # # summary(sf::st_geometry_type(transport_network))
 # transport_network = sf::st_cast(sf::st_cast(transport_network, "MULTILINESTRING"), "LINESTRING")
+# saveRDS(transport_network, "transport_network.Rds")
 
 
 # rnet_allmodesNSub4_overline_morethan100_clean = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/rnet_allmodesNSub4_overline_morethan100_clean.Rds"))
 
 #enmac
-# rnet = rnet_ferry3_overline_morethan20_clean #done
-# rnet = rnet_ferry3_overline_morethan100_clean #done
-# rnet = rnet_ferry3_overline_morethan200_clean #done
-# rnet = rnet_ferry4_overline_morethan20_clean #done
-# rnet = rnet_ferry4_overline_morethan100_clean #done
-# rnet = rnet_ferry4_overline_morethan200_clean #done
+# rnet = rnet_ferry3_overline_morethan20_clean 
+# rnet = rnet_ferry3_overline_morethan100_clean 
+# rnet = rnet_ferry3_overline_morethan200_clean 
+# rnet = rnet_ferry4_overline_morethan20_clean 
+# rnet = rnet_ferry4_overline_morethan100_clean 
+# rnet = rnet_ferry4_overline_morethan200_clean 
 # 
 # #ebikes
-# rnet = rnet_ferry3_ebike_overline_morethan50_clean #done
-# rnet = rnet_ferry3_ebike_overline_morethan100_clean #done
-# rnet = rnet_ferry3_ebike_overline_morethan200_clean #done
-# rnet = rnet_ferry3_ebike_overline_morethan400_clean #done
-# rnet = rnet_ferry4_ebike_overline_morethan50_clean #done
-# rnet = rnet_ferry4_ebike_overline_morethan100_clean #done
-# rnet = rnet_ferry4_ebike_overline_morethan200_clean #done
-# rnet = rnet_ferry4_ebike_overline_morethan400_clean #done
+# rnet = rnet_ferry3_ebike_overline_morethan50_clean 
+# rnet = rnet_ferry3_ebike_overline_morethan100_clean 
+# rnet = rnet_ferry3_ebike_overline_morethan200_clean 
+# rnet = rnet_ferry3_ebike_overline_morethan400_clean 
+# rnet = rnet_ferry4_ebike_overline_morethan50_clean 
+# rnet = rnet_ferry4_ebike_overline_morethan100_clean 
+# rnet = rnet_ferry4_ebike_overline_morethan200_clean 
+# rnet = rnet_ferry4_ebike_overline_morethan400_clean
 
 # #intermodal
 # rnet = rnet_allmodesNSub3_overline_morethan10_clean #done
@@ -100,21 +101,21 @@ rnet_joined$slope = scales::label_percent(accuracy = 0.1, sufix = " %")(rnet_joi
 
 
 
-# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan20_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan200_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan20_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan200_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan20_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan100_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan200_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan20_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan100_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan200_clean_tags.Rds") 
 
-# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan50_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan200_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan400_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan50_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan200_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan400_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan50_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan100_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan200_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan400_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan50_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan100_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan200_clean_tags.Rds") 
+# saveRDS(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan400_clean_tags.Rds") 
 
 # saveRDS(rnet_joined, "export2/rnet_allmodesNSub3_overline_morethan10_clean_tags.Rds") #done
 # saveRDS(rnet_joined, "export2/rnet_allmodesNSub3_overline_morethan30_clean_tags.Rds") #done
@@ -135,6 +136,18 @@ tm_rnet(rnet_joined, #filtrar barreiro [MUNICIPIOSgeo %>% filter(Concelho == "Ba
         lwd_multiplier = 15
 )
 
+
+
+summary(rnet_joined$carspeed)
+a = rnet_joined %>% filter(carspeed > 50)
+sum(a$Bike) #2538
+b = rnet_joined %>% filter(carspeed <= 50)
+sum(b$Bike) 
+sum(a$Bike) / sum(rnet_joined$Bike) #1.7% quiet routes
+
+a = rnet_joined %>% filter(carspeed > 50)
+sum(a$Bike) #2538
+sum(a$Bike) / sum(rnet_joined$Bike) #37.6% fast routes
 
 
 
@@ -163,3 +176,7 @@ tm_rnet(rnet_joined, #ferry3
           lwd_multiplier = 15
   )
 
+
+passkm = 1005525
+pass = 65940
+passkm / pass = 15.25 km/viagem
