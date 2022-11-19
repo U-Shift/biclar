@@ -6,6 +6,7 @@ library(stplanr)
 # for cenarios 1 ------------------------------------------------------------------------------
 
 ## LTS4
+routes_r5r_100jit_lts4__ferry_elev = readRDS("routes_r5r_100jit_lts4__ferry_elev_raw.Rds")
 # filter for conventional bike
 table(routes_r5r_100jit_lts4__ferry_elev$mode)
 # BICYCLE   FERRY 
@@ -25,11 +26,11 @@ routes_ferry4_filtered = routes_ferry4_filtered %>% filter(distance <= 5000) #fa
 routes_ferry4_filtered = routes_r5r_100jit_lts4__ferry_elev %>% filter(id %in% routes_ferry4_filtered$id)
 table(routes_ferry4_filtered$mode)
 # BICYCLE   FERRY 
-#   25493      89
-# 2.522k    7695
+#   25491      88
+# 2.522k    7626
 # 2.506k (2  pernas da mesma viagem, first & last mile) 
 
-# sum(routes_ferry4_filtered$Total[routes_ferry4_filtered$mode == "BICYCLE"])
+# sum(routes_ferry4_filtered$Total[routes_ferry4_filtered$mode == "FERRY"])
 
 
 # get potential
@@ -53,8 +54,6 @@ sum(routes_ferry4_filtered$new_cyc4) #89k
 sum(routes_ferry4_filtered$cyc10) #253k
 sum(routes_ferry4_filtered$new_cyc10) #240k
 
-#### CONTINUAR AQUI 15nov ####
-#erro nos cenarios 2 e 3
 
 rnet_ferry4_overline = routes_ferry4_filtered %>%
   stplanr::overline(c("Bike", "Total", "new_cyc4", "cyc4", "new_cyc10", "cyc10"),
@@ -190,8 +189,6 @@ sum(routes_ferry3_filtered$new_cyc4) #82k
 sum(routes_ferry3_filtered$cyc10) #235k
 sum(routes_ferry3_filtered$new_cyc10) #221k
 
-## CONTINUAR AQUI
-
 
 rnet_ferry3_overline = routes_ferry3_filtered %>%
   stplanr::overline(c("Bike", "Total", "new_cyc4", "cyc4", "new_cyc10", "cyc10"),
@@ -289,10 +286,10 @@ routes_ferry4_ebike_filtered = routes_ferry4_ebike_filtered %>% filter(distance 
 routes_ferry4_ebike_filtered = routes_r5r_100jit_lts4__ferry_elev %>% filter(id %in% routes_ferry4_ebike_filtered$id)
 table(routes_ferry4_ebike_filtered$mode)
 # BICYCLE   FERRY 
-# 43388    2011 
-# 4.182k    162k
+# 40774     704 
+# 3.976k    59k
 
-# sum(routes_ferry4_ebike_filtered$Total[routes_ferry4_ebike_filtered$mode == "BICYCLE"])
+# sum(routes_ferry4_ebike_filtered$Total[routes_ferry4_ebike_filtered$mode == "FERRY"])
 
 
 # get potential
@@ -311,10 +308,10 @@ routes_ferry4_ebike_filtered = routes_ferry4_ebike_filtered %>% mutate(
 summary(routes_ferry4_ebike_filtered$cyc4)
 summary(routes_ferry4_ebike_filtered$new_cyc4) 
 sum(routes_ferry4_ebike_filtered$Bike) #22k
-sum(routes_ferry4_ebike_filtered$cyc4) #178k
-sum(routes_ferry4_ebike_filtered$new_cyc4) #156k
-sum(routes_ferry4_ebike_filtered$cyc10) #437k
-sum(routes_ferry4_ebike_filtered$new_cyc10) #414k
+sum(routes_ferry4_ebike_filtered$cyc4) #166k
+sum(routes_ferry4_ebike_filtered$new_cyc4) #148k
+sum(routes_ferry4_ebike_filtered$cyc10) #406k
+sum(routes_ferry4_ebike_filtered$new_cyc10) #384k
 
 rnet_ferry4_ebike_overline = routes_ferry4_ebike_filtered %>%
   stplanr::overline(c("Bike", "Total", "new_cyc4", "cyc4", "new_cyc10", "cyc10"), #vale a pena manter ambos 4% 4 10% ?
@@ -389,7 +386,7 @@ rm(rnet_ferry4_ebike_overline_morethan400_group)
 
 
 library(biclar)
-tm_rnet(rnet_ferry4_ebike_overline_morethan400_clean,
+tm_rnet(rnet_ferry4_ebike_overline_morethan100_clean,
         lwd = "cyc4", #Baseline, ENMAC4, ENMAC10
         # col = "Quietness",
         palette = "-linear_yl_rd_bk", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
@@ -429,10 +426,10 @@ routes_ferry3_ebike_filtered = routes_ferry3_ebike_filtered %>% filter(distance 
 routes_ferry3_ebike_filtered = routes_r5r_100jit_lts3__ferry_elev %>% filter(id %in% routes_ferry3_ebike_filtered$id)
 table(routes_ferry3_ebike_filtered$mode)
 # BICYCLE   FERRY 
-# 39275    1241 
-# 3.821k    103k
+# 37919    563 
+# 3.708k    47k
 
-# sum(routes_ferry3_ebike_filtered$Total[routes_ferry3_ebike_filtered$mode == "FERRY"])
+# sum(routes_ferry3_ebike_filtered$Total[routes_ferry3_ebike_filtered$mode == "BICYCLE"])
 
 
 # get potential
@@ -451,10 +448,10 @@ routes_ferry3_ebike_filtered = routes_ferry3_ebike_filtered %>% mutate(
 summary(routes_ferry3_ebike_filtered$cyc4)
 summary(routes_ferry3_ebike_filtered$new_cyc4) 
 sum(routes_ferry3_ebike_filtered$Bike) #20k
-sum(routes_ferry3_ebike_filtered$cyc4) #161k
-sum(routes_ferry3_ebike_filtered$new_cyc4) #140k
-sum(routes_ferry3_ebike_filtered$cyc10) #394k
-sum(routes_ferry3_ebike_filtered$new_cyc10) #374k
+sum(routes_ferry3_ebike_filtered$cyc4) #153k
+sum(routes_ferry3_ebike_filtered$new_cyc4) #134k
+sum(routes_ferry3_ebike_filtered$cyc10) #377k
+sum(routes_ferry3_ebike_filtered$new_cyc10) #357k
 
 rnet_ferry3_ebike_overline = routes_ferry3_ebike_filtered %>%
   stplanr::overline(c("Bike", "Total", "new_cyc4", "cyc4", "new_cyc10", "cyc10"), #vale a pena manter ambos 4% 4 10% ?
