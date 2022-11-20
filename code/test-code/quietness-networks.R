@@ -19,7 +19,7 @@ local_crs = "EPSG:3857"
 # rnet_allmodesNSub4_overline_morethan100_clean = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/rnet_allmodesNSub4_overline_morethan100_clean.Rds"))
 
 #enmac
-rnet = rnet_ferry3_overline_morethan20_clean
+# rnet = rnet_ferry3_overline_morethan20_clean #done
 # rnet = rnet_ferry3_overline_morethan100_clean #done
 # rnet = rnet_ferry3_overline_morethan200_clean #done
 # rnet = rnet_ferry4_overline_morethan20_clean #done
@@ -101,7 +101,7 @@ rnet_joined$slope = scales::label_percent(accuracy = 0.1, sufix = " %")(rnet_joi
 
 
 
-saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan20_clean_tags.Rds")
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan20_clean_tags.Rds") #done
 # saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan100_clean_tags.Rds") #done
 # saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan200_clean_tags.Rds") #done
 # saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan20_clean_tags.Rds") #done
