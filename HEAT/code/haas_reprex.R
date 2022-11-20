@@ -83,7 +83,7 @@ res[26]-res[27]-res[28]+res[29]
 #> [1] 235260000 
 #> 
 #> # ESTE É o unico que dá resultados semelhantes com o do UI, pois usa o genericdata (onde tem o occupancy car rate, velocidades assumidas, e % de shifting de que modos
-# mas só fuinciona pelo reprex :(
+# 
 
 
 

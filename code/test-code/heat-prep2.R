@@ -224,7 +224,7 @@ weighted.mean(routes_car_filtered$distance, w= routes_car_filtered$car10) # 7.47
 
 rnet_joined = readRDS("export2/rnet_ferry3_ebike_overline_morethan50_clean_tags.Rds")
 summary(rnet_joined$carspeed)
-a = rnet_joined %>% filter(carspeed > 50)
+a = rnet_joined %>% filter(carspeed > 30)
 round(sum(a$Bike) / sum(rnet_joined$Bike), 2) #2% stress roads
 
 
