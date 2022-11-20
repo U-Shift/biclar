@@ -1,0 +1,372 @@
+---
+title: "biclaR"
+output:
+  html_document:
+    theme:
+      bg: "#FFFFFF"
+      fg: "#000000"
+      highlight: "#000000"
+      primary: "#000000"
+      base_font:
+        google: "Prompt"
+      code_font:
+        google: "JetBrains Mono"
+    # css: style.css
+    includes:
+      after_body: img/footer.html
+---
+  
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  echo=FALSE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "#>"
+)
+
+# has_pub_key = nchar(Sys.getenv("MAPBOX_PUBLIC_TOKEN")) > 5
+# knitr::opts_chunk$set(eval = has_pub_key)
+
+library(sf)
+library(stringr)
+library(dplyr)
+library(leaflet)
+# library(mapboxapi)
+library(DT)
+library(htmlwidgets)
+```
+
+
+<!-- Content for landing page-->
+
+##  Ferramenta de apoio ao pleanemanto da rede ciclável na Área Metropolitana de Lisboa
+
+##### Nota: este projeto está em fase _beta_ e a informação deste site deve ser considerada como _work in progress_. 
+
+
+
+```{r pkg, eval=FALSE, include=FALSE}
+# TODO this will contain more variables we need, primarily % cycling
+# Load counties geometry
+counties_raw = readRDS("counties.Rds")
+counties_raw = counties_raw %>%
+  mutate(county_name = stringr::str_to_title(COUNTY))
+# Load pcycle_data at the county level
+county_trips = read.csv("county-trips.csv")
+# counties_index = county_trips %>%
+#   select(county_name, pcycle_baseline)
+counties_index = counties_raw %>%
+  dplyr::left_join(county_trips)
+# counties_index = counties_index %>%
+#   dplyr::rename(Name = COUNTY) %>%
+#   dplyr::mutate(Name =  stringr::str_to_sentence(Name)) %>%
+#   dplyr::mutate(url = paste0(
+#     "<a href='",
+#     tolower(Name) ,
+#     "/' target='_blank'>",
+#     Name,
+#     "</a>"
+#   ))
+# counties_index = sf::st_as_sf(counties_index)
+
+municipios_index = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))%>% #it was counties_index -> change to a table with mode statistics!
+  dplyr::rename(Name = Concelho) %>%
+  dplyr::mutate(Name = stringr::str_to_sentence(Name)) %>%
+  dplyr::mutate(url = paste0(
+  "<a href='",
+  tolower(Name) ,
+  "/' target='_blank'>",
+  Name,
+  "</a>"
+)) 
+municipios_index = sf::st_as_sf(municipios_index)
+```
+
+# {.tabset}
+
+## Mapa
+
+
+test content
+
+```{r eval=FALSE, include=FALSE}
+tippy::tippy_this(elementId = "word", tooltip = "At low zoom, the map shows the % cycle uptake per county; at high zoom, it displays a cycle friendliness measure, with a score between 0 (very unfriendly) and 100 (very friendly). Both measures are shown for each given scenario. See the FAQs for more details")
+palette = c(
+  '#d73027',
+  '#f46d43',
+  '#fdae61',
+  '#fee090',
+  '#ffffbf',
+  '#e0f3f8',
+  '#abd9e9',
+  '#74add1',
+  '#4575b4'
+)
+breaks = c(0, 1, 2, 3, 5, 10, 20, 30, 40, Inf)
+pal_baseline = leaflet::colorBin(palette, bins = breaks,
+                                 domain = counties_index$pcycle_baseline)
+pal_near = leaflet::colorBin(palette, bins = breaks,
+                             domain = counties_index$pcycle_near)
+pal_climate = leaflet::colorBin(palette, bins = breaks,
+                                domain = counties_index$pcycle_climate)
+pal_dutch = leaflet::colorBin(palette, bins = breaks,
+                              domain = counties_index$pcycle_godutch)
+pal_ebike = leaflet::colorBin(palette, bins = breaks,
+                              domain = counties_index$pcycle_ebike)
+schools_raw = readRDS("schools_all.Rds")
+# main map
+leaflet::leaflet(counties_index) %>%
+  leaflet::addProviderTiles(
+    providers$CartoDB.Positron,
+    group = "Grey basemap",
+    options = leaflet::providerTileOptions(minZoom = 5, maxZoom = 22)
+  ) %>%
+  leaflet::addPolygons(
+    data = counties_index %>% sf::st_transform(crs = 4326),
+    color = "black",
+    fillColor = "transparent",
+    group = "Borders",
+    popup = paste0("View county results: ", counties_index$url),
+    opacity = 0.7,
+    weight = 1.2,
+    label = ~ Name,
+    labelOptions = leaflet::labelOptions(noHide = F, permanent = TRUE, direction = "auto",sticky = FALSE, textsize = "1.5em")) %>%
+  leaflet::addCircles(
+    data = schools_raw,
+    group = "Schools",
+    color = "black",
+    opacity = 0.8,
+    fillOpacity = 0.3
+  ) %>%
+  #polygons
+  mapboxapi::addMapboxTiles(
+    style_id = "cl77hy22i000m14pa2r440vgi",
+    username = "nathanaelisamapper",
+    group = "Baseline scenario",
+    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>%
+  mapboxapi::addMapboxTiles(
+    style_id = "cl77h0i4v001u15o1cp39sk37",
+    username = "nathanaelisamapper",
+    group = "Near Market",
+    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>%
+  mapboxapi::addMapboxTiles(
+    style_id = "cl77hqtom000214qrk6ceqeur",
+    username = "nathanaelisamapper",
+    group = "Climate Action Plan",
+    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>%
+  mapboxapi::addMapboxTiles(
+    style_id = "cl77hvhpx000d14nz0uhmsp40",
+    username = "nathanaelisamapper",
+    group = "Ebike",
+    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>%
+  mapboxapi::addMapboxTiles(
+    style_id = "cl77i0bqh003i16n2cijgn6r1",
+    username = "nathanaelisamapper",
+    group = "Go Dutch",
+    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>%
+  #rnet
+  mapboxapi::addMapboxTiles(
+    style_id = "cl66fjj97000a15ru2hhss06g",
+    username = "nathanaelisamapper",
+    group = "Baseline scenario",
+    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>%
+  mapboxapi::addMapboxTiles(
+    style_id = "cl66f8ax6001i14ti630sk73z",
+    username = "nathanaelisamapper",
+    group = "Climate Action Plan",
+    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>%   mapboxapi::addMapboxTiles(
+    style_id = "cl66foarr001d14lmc88wyu42",
+    username = "nathanaelisamapper",
+    group = "Near Market",
+    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  )  %>% mapboxapi::addMapboxTiles(
+    style_id = "cl66flaic000114t385c8spxn",
+    username = "nathanaelisamapper",
+    group = "Ebike",
+    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>% mapboxapi::addMapboxTiles(
+    style_id = "cl66fmn9j001g14lkbone3hye",
+    username = "nathanaelisamapper",
+    group = "Go Dutch",
+    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
+    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
+  ) %>%
+  leaflet::setView(lng = -8.2,
+                   lat = 53.5,
+                   zoom = 7) %>%
+  leaflet::addLegend(
+    "bottomleft",
+    colors = c("#882255",  "#CC6677", "#44AA99", "#117733"),
+    labels = c("0 to 25", "25 to 50", "50 to 75", "75 to 100"),
+    title = "Cycle friendliness",
+    group = "Friend",
+    opacity = 0.7
+  ) %>%
+  leaflet::addLegend(
+    "bottomleft",
+    colors = c(
+      '#d73027',
+      '#f46d43',
+      '#fdae61',
+      '#fee090',
+      '#ffffbf',
+      '#e0f3f8',
+      '#abd9e9',
+      '#74add1',
+      '#4575b4'
+    ),
+    labels = c(
+      "0 to 1",
+      "1 to 2",
+      "2 to 3",
+      "3 to 5",
+      "5 to 10",
+      "10 to 20",
+      "20 to 30",
+      "30 to 40",
+      "40 to more"
+    ),
+    title = "Percent cycling",
+    group = "Base",
+    opacity = 0.7
+  ) %>%
+  leaflet::addLegend(
+    title = "Get Started:",
+    group = "Help",
+    position = "bottomright",
+    colors = c("white",
+               "white"),
+    labels = c(
+      "Zoom in to explore the network",
+      "Click on a county for detailed results"
+    )
+  ) %>%
+  addLayersControl(
+    baseGroups  = c(
+      "Baseline scenario",
+      "Near Market",
+      "Climate Action Plan",
+      "Go Dutch",
+      "Ebike"
+    ),
+    overlayGroups = c("Schools"),
+    options = leaflet::layersControlOptions(collapsed = FALSE)
+  ) %>%
+  leaflet::groupOptions(group = "Help", zoomLevels = 7:8)  %>%
+    leaflet::groupOptions(group = "Base", zoomLevels = 1:9) %>%
+  leaflet::groupOptions(group = "Friend", zoomLevels = 10:20) %>%
+  leaflet::hideGroup("Schools")  %>%
+  htmlwidgets::onRender("
+        function() {
+            $('.leaflet-control-layers-base').prepend('<label style=\"text-align:center;font-size:larger;\"><b>Scenarios</b></label>');
+        }
+    ")
+```
+
+**O que mostra este mapa? **  
+Por enquanto nada.
+
+------------------------------------------------------------------------
+
+## Dados por Município
+
+add table with link to each municipality 
+
+Construir tabela com os dados de populacao, Bike, cyc4, ebike, etc
+
+```{r}
+# Aim: Build table for homepage
+# dn = "popupCycleways/v1"
+# built_counties = list.files(dn)
+# set.seed(42)
+municipios_index %>%
+  sf::st_drop_geometry() %>%
+  # dplyr::select(url, Population, "% cycling (Baseline)" = pcycle_baseline, "% cycling (Near Market)" = pcycle_near,  "% cycling (Climate Action Plan)" = pcycle_climate,  "% cycling (Go Dutch)" = pcycle_godutch,  "% cycling (Ebike)" = pcycle_ebike) %>%
+  # dplyr::rename(Name = url) %>%
+  dplyr::arrange(Name) %>%
+  # dplyr::mutate_if(is.numeric, round, 1) %>%
+  DT::datatable(escape = -2, filter = 'none', options = list(pageLength = 18,
+                                                             responsive = TRUE,
+                                                             extensions = c('Responsive'))) 
+```
+
+
+
+------------------------------------------------------------------------
+
+## Sobre
+
+### Objetivos da ferramenta biclaR
+
+This information can be used to inform decisions about where best to invest in new or improved cycle routes.
+
+### A equipa biclaR
+
+*   Transportes Metropolitanos de Lisboa (coordenação): XX XXX XXXX.
+
+*   Instituto Superior Técnico - Universidade de Lisboa (desenvolvimento): Filipe Moura, Rosa Félix.
+
+*   Institute for Transport Studies - University of Leeds (apoio ao desenvolvimento): Robin Lovelace.
+
+### Agradecimentos
+
+*   Grupo de Trabalho: ...
+*   Conselho Consultuvo: ....
+*   CycleStreets
+*   r5r
+
+### Feedback
+
+You can give feedback on the tool in the [online survey](nada).
+
+### Contactos
+
+Enviar um email para...
+
+
+------------------------------------------------------------------------
+
+## FAQ
+
+Short answers to key frequently answered questions (FAQ) are provided below.
+See the full FAQ page for more details and answers to questions about how the tool works.
+
+### O que é a ferramenta biclar?
+
+tal tal.
+
+### Qual o objetivo da ferramenta biclar?
+
+tal tal tal.
+
+
+------------------------------------------------------------------------
+
+
+
+```{r eval=FALSE, include=FALSE}
+# ?
+setTimeout(function(){
+  $('.loader-bg').fadeToggle();
+}, 1000);
+```
+
+

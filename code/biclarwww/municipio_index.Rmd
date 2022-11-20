@@ -1,0 +1,17 @@
+<!-- landing page for each municipio -->
+
+# Municipio X
+
+See map below
+
+```{r}
+#read data
+transit_all = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/transit.gpkg", quiet = TRUE)
+
+library(tmap)
+tmap_mode("view")
+
+tm_shape(transit_all) +
+  tm_sf(col = "mode", size = 0.3)
+```
+
