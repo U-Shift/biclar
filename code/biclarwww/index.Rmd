@@ -8,7 +8,7 @@ output:
       highlight: "#000000"
       primary: "#000000"
       base_font:
-        google: "Prompt"
+        google: "Lexend" #Prompt
       code_font:
         google: "JetBrains Mono"
     # css: style.css

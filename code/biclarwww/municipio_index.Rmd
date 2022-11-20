@@ -1,3 +1,24 @@
+---
+title: "biclaR - Resultados por município"
+output:
+  html_document:
+    theme:
+      bg: "#FFFFFF"
+      fg: "#000000"
+      highlight: "#000000"
+      primary: "#000000"
+      base_font:
+        google: "Lexend"
+      code_font:
+        google: "JetBrains Mono"
+    # css: style.css
+    includes:
+      after_body: img/footer.html
+---
+  
+
+
+
 <!-- landing page for each municipio -->
 
 # Municipio X
