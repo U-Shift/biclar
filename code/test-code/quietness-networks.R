@@ -19,12 +19,12 @@ local_crs = "EPSG:3857"
 # rnet_allmodesNSub4_overline_morethan100_clean = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/rnet_allmodesNSub4_overline_morethan100_clean.Rds"))
 
 #enmac
-# rnet = rnet_ferry3_overline_morethan20_clean #done
+# rnet = rnet_ferry3_overline_morethan15_clean #done
+# rnet = rnet_ferry3_overline_morethan50_clean #done
 # rnet = rnet_ferry3_overline_morethan100_clean #done
-# rnet = rnet_ferry3_overline_morethan200_clean #done
-# rnet = rnet_ferry4_overline_morethan20_clean #done
+# rnet = rnet_ferry4_overline_morethan15_clean #done
+# rnet = rnet_ferry4_overline_morethan50_clean #done
 # rnet = rnet_ferry4_overline_morethan100_clean #done
-# rnet = rnet_ferry4_overline_morethan200_clean #done
 # 
 # #ebikes
 # rnet = rnet_ferry3_ebike_overline_morethan50_clean #done
@@ -101,12 +101,12 @@ rnet_joined$slope = scales::label_percent(accuracy = 0.1, sufix = " %")(rnet_joi
 
 
 
-# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan20_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan15_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan50_clean_tags.Rds") #done
 # saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry3_overline_morethan200_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan20_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan15_clean_tags.Rds") #done
+# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan50_clean_tags.Rds") #done
 # saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan100_clean_tags.Rds") #done
-# saveRDS(rnet_joined, "export2/rnet_ferry4_overline_morethan200_clean_tags.Rds") #done
 
 # saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan50_clean_tags.Rds") #done
 # saveRDS(rnet_joined, "export2/rnet_ferry3_ebike_overline_morethan100_clean_tags.Rds") #done
@@ -127,7 +127,8 @@ rnet_joined$slope = scales::label_percent(accuracy = 0.1, sufix = " %")(rnet_joi
 
 ####
 
-rnet_joined = readRDS("export2/rnet_ferry4_overline_morethan200_clean_tags.Rds")
+# library(biclar)
+rnet_joined = readRDS("export2/rnet_ferry4_ebike_overline_morethan100_clean_tags.Rds")
 tm_rnet(rnet_joined, #filtrar barreiro [MUNICIPIOSgeo %>% filter(Concelho == "Barreiro"), , op = sf::st_within]
         lwd = "cyc4", #Baseline, ENMAC4, ENMAC10
         col = "quietness",
@@ -144,23 +145,4 @@ tm_rnet(rnet_joined, #filtrar barreiro [MUNICIPIOSgeo %>% filter(Concelho == "Ba
 # sf::st_write(rnet_joined, "export2/rnet_ferry4_ebike_overline_morethan200_clean_tags.geojson") 
 # sf::st_write(rnet_joined, "export2/rnet_allmodesNSub3_overline_morethan50_clean_tags.geojson") 
 # sf::st_write(rnet_joined, "export2/rnet_allmodesNSub4_overline_morethan50_clean_tags.geojson") 
-
-
-#test 2 layers
-rnet_joined2 = readRDS("export2/rnet_ferry4_overline_morethan100_clean_tags.Rds")
-tm_rnet(rnet_joined, #ferry3
-        lwd = "Bike", #Baseline, ENMAC4, ENMAC10
-        col = "quietness",
-        palette = "-mako", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
-        scale = 15,
-        lwd_multiplier = 15
-) +
-  tm_rnet(rnet_joined2,
-          lwd = "Bike", #Baseline, ENMAC4, ENMAC10
-          col = "quietness",
-          palette = "-burg", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
-          scale = 15,
-          lwd_multiplier = 15
-  )
-
 

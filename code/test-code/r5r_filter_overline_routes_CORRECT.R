@@ -63,11 +63,20 @@ saveRDS(rnet_ferry4_overline, "routes_ferry4_overline.Rds")
 saveRDS(routes_ferry4_filtered, "routes_ferry4_preoverline.Rds")
 
 ## filter segments with less than X trips?
-summary(rnet_ferry4_overline$new_cyc4)
+summary(rnet_ferry4_overline$cyc4)
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 0.774   7.979  19.923  42.091  51.866 692.216 
 
-rnet_ferry4_overline_morethan20 = rnet_ferry4_overline %>% filter(cyc4 >=20) #só sesimbra e mafra
-rnet_ferry4_overline_morethan100 = rnet_ferry4_overline %>% filter(cyc4 >=100)
-rnet_ferry4_overline_morethan200 = rnet_ferry4_overline %>% filter(cyc4 >=200) #estruturante
+rnet_ferry4_overline_morethan15 = rnet_ferry4_overline %>% filter(cyc4 >=15) #só sesimbra e mafra
+rnet_ferry4_overline_morethan50 = rnet_ferry4_overline %>% filter(cyc4 >=50) 
+rnet_ferry4_overline_morethan100 = rnet_ferry4_overline %>% filter(cyc4 >=100) # estruturante
+
+# rnet_ferry4_overline_morethan20 = rnet_ferry4_overline %>% filter(cyc4 >=20) #só sesimbra e mafra
+# rnet_ferry4_overline_morethan30 = rnet_ferry4_overline %>% filter(cyc4 >=30)
+# rnet_ferry4_overline_morethan60 = rnet_ferry4_overline %>% filter(cyc4 >=60) 
+# rnet_ferry4_overline_morethan80 = rnet_ferry4_overline %>% filter(cyc4 >=80) 
+# rnet_ferry4_overline_morethan200 = rnet_ferry4_overline %>% filter(cyc4 >=200) #estruturante
+
 
 
 #rnet clean to get rid of small pieces - 100
@@ -86,54 +95,69 @@ rnet_ferry4_overline_morethan100_clean = rnet_ferry4_overline_morethan100_clean 
 rm(rnet_ferry4_overline_morethan100_group)
 
 
-#rnet clean to get rid of small pieces - 20
-rnet_ferry4_overline_morethan20_clean = rnet_ferry4_overline_morethan20 %>%
-  mutate(group = stplanr::rnet_group(rnet_ferry4_overline_morethan20, d = 100 ))
-# summary(rnet_ferry4_overline_morethan20_clean$group)
 
-rnet_ferry4_overline_morethan20_group = rnet_ferry4_overline_morethan20_clean %>%
+#rnet clean to get rid of small pieces - 15
+rnet_ferry4_overline_morethan15_clean = rnet_ferry4_overline_morethan15 %>%
+  mutate(group = stplanr::rnet_group(rnet_ferry4_overline_morethan15, d = 100 ))
+# summary(rnet_ferry4_overline_morethan15_clean$group)
+
+rnet_ferry4_overline_morethan15_group = rnet_ferry4_overline_morethan15_clean %>%
   st_drop_geometry() %>% group_by(group) %>% summarise(count = n())
-# summary(rnet_ferry4_overline_morethan20_group$count)
-group = rnet_ferry4_overline_morethan20_group %>% filter(count >=5) #discard networks with less than 5 semnets?
+# summary(rnet_ferry4_overline_morethan15_group$count)
+group = rnet_ferry4_overline_morethan15_group %>% filter(count >=5) #discard networks with less than 5 semnets?
 groupp = group$group
 
-rnet_ferry4_overline_morethan20_clean = rnet_ferry4_overline_morethan20_clean %>%
+rnet_ferry4_overline_morethan15_clean = rnet_ferry4_overline_morethan15_clean %>%
   filter(group %in% groupp) #more than 5 segments connected
-rm(rnet_ferry4_overline_morethan20_group)
+rm(rnet_ferry4_overline_morethan15_group)
 
 
 
-#rnet clean to get rid of small pieces - 200
-rnet_ferry4_overline_morethan200_clean = rnet_ferry4_overline_morethan200 %>%
-  mutate(group = stplanr::rnet_group(rnet_ferry4_overline_morethan200, d = 100 ))
-# summary(rnet_ferry4_overline_morethan200_clean$group)
 
-rnet_ferry4_overline_morethan200_group = rnet_ferry4_overline_morethan200_clean %>%
+
+#rnet clean to get rid of small pieces - 50
+rnet_ferry4_overline_morethan50_clean = rnet_ferry4_overline_morethan50 %>%
+  mutate(group = stplanr::rnet_group(rnet_ferry4_overline_morethan50, d = 100 ))
+# summary(rnet_ferry4_overline_morethan50_clean$group)
+
+rnet_ferry4_overline_morethan50_group = rnet_ferry4_overline_morethan50_clean %>%
   st_drop_geometry() %>% group_by(group) %>% summarise(count = n())
-# summary(rnet_ferry4_overline_morethan200_group$count)
-group = rnet_ferry4_overline_morethan200_group %>% filter(count >=5) #discard networks with less than 5 semnets?
+# summary(rnet_ferry4_overline_morethan50_group$count)
+group = rnet_ferry4_overline_morethan50_group %>% filter(count >=5) #discard networks with less than 5 semnets?
 groupp = group$group
 
-rnet_ferry4_overline_morethan200_clean = rnet_ferry4_overline_morethan200_clean %>%
+rnet_ferry4_overline_morethan50_clean = rnet_ferry4_overline_morethan50_clean %>%
   filter(group %in% groupp) #more than 5 segments connected
-rm(rnet_ferry4_overline_morethan200_group)
+rm(rnet_ferry4_overline_morethan50_group)
 
 
 
 
 library(biclar)
-tm_rnet(rnet_ferry4_overline_morethan100_clean,
+tm_rnet(rnet_ferry4_overline_morethan20_clean,
             lwd = "cyc4", #Baseline, ENMAC4, ENMAC10
             # col = "Quietness",
-            palette = "-linear_yl_rd_bk", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
+            palette = "-burg", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
             scale = 15,
             lwd_multiplier = 15
 )
 
 saveRDS(rnet_ferry4_overline_morethan100_clean, "export2/rnet_ferry4_overline_morethan100_clean.Rds")
-saveRDS(rnet_ferry4_overline_morethan20_clean, "export2/rnet_ferry4_overline_morethan20_clean.Rds")
-saveRDS(rnet_ferry4_overline_morethan200_clean, "export2/rnet_ferry4_overline_morethan200_clean.Rds")
+saveRDS(rnet_ferry4_overline_morethan50_clean, "export2/rnet_ferry4_overline_morethan50_clean.Rds")
+saveRDS(rnet_ferry4_overline_morethan15_clean, "export2/rnet_ferry4_overline_morethan15_clean.Rds")
 # rnet_ferry4_overline_morethan100_clean = readRDS("export2/rnet_ferry4_overline_morethan100_clean.Rds")
+
+
+
+mapathres = rnet_ferry4_overline_morethan15_clean %>% mutate(
+  volume = cut(
+    cyc4,
+    breaks = c(15, 20, 30,50, 60, 80, 100, max(cyc4)),
+    labels = c("15-20", "20-30","30-50","50-60","60-80","80-100", ">100")
+))
+
+mapview::mapview(mapathres, zcol = "volume")
+
 
 
 
@@ -142,6 +166,8 @@ saveRDS(rnet_ferry4_overline_morethan200_clean, "export2/rnet_ferry4_overline_mo
 
 
 ## LTS3
+
+routes_r5r_100jit_lts3__ferry_elev = readRDS("routes_r5r_100jit_lts3__ferry_elev_raw.Rds")
 # filter for conventional bike
 table(routes_r5r_100jit_lts3__ferry_elev$mode)
 # BICYCLE   FERRY 
@@ -198,11 +224,14 @@ saveRDS(rnet_ferry3_overline, "routes_ferry3_overline.Rds")
 saveRDS(routes_ferry3_filtered, "routes_ferry3_preoverline.Rds")
 
 ## filter segments with less than X trips?
-summary(rnet_ferry3_overline$new_cyc4)
+summary(rnet_ferry3_overline$cyc4)
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 0.774   7.964  19.771  45.195  54.999 990.643 
 
-rnet_ferry3_overline_morethan20 = rnet_ferry3_overline %>% filter(cyc4 >=20)
+rnet_ferry3_overline_morethan15 = rnet_ferry3_overline %>% filter(cyc4 >=15)
+rnet_ferry3_overline_morethan50 = rnet_ferry3_overline %>% filter(cyc4 >=50)
 rnet_ferry3_overline_morethan100 = rnet_ferry3_overline %>% filter(cyc4 >=100)
-rnet_ferry3_overline_morethan200 = rnet_ferry3_overline %>% filter(cyc4 >=200)
+# rnet_ferry3_overline_morethan200 = rnet_ferry3_overline %>% filter(cyc4 >=200)
 
 
 #rnet clean to get rid of small pieces - 100
@@ -219,37 +248,37 @@ rnet_ferry3_overline_morethan100_clean = rnet_ferry3_overline_morethan100_clean 
 rm(rnet_ferry3_overline_morethan100_group)
 
 
-#rnet clean to get rid of small pieces - 20
-rnet_ferry3_overline_morethan20_clean = rnet_ferry3_overline_morethan20 %>%
-  mutate(group = stplanr::rnet_group(rnet_ferry3_overline_morethan20, d = 100 ))
+#rnet clean to get rid of small pieces - 15
+rnet_ferry3_overline_morethan15_clean = rnet_ferry3_overline_morethan15 %>%
+  mutate(group = stplanr::rnet_group(rnet_ferry3_overline_morethan15, d = 100 ))
 
-rnet_ferry3_overline_morethan20_group = rnet_ferry3_overline_morethan20_clean %>%
+rnet_ferry3_overline_morethan15_group = rnet_ferry3_overline_morethan15_clean %>%
   st_drop_geometry() %>% group_by(group) %>% summarise(count = n())
-group = rnet_ferry3_overline_morethan20_group %>% filter(count >=5) #discard networks with less than 5 semnets?
+group = rnet_ferry3_overline_morethan15_group %>% filter(count >=5) #discard networks with less than 5 semnets?
 groupp = group$group
 
-rnet_ferry3_overline_morethan20_clean = rnet_ferry3_overline_morethan20_clean %>%
+rnet_ferry3_overline_morethan15_clean = rnet_ferry3_overline_morethan15_clean %>%
   filter(group %in% groupp) #more than 5 segments connected
-rm(rnet_ferry3_overline_morethan20_group)
+rm(rnet_ferry3_overline_morethan15_group)
 
 
 
-#rnet clean to get rid of small pieces - 200
-rnet_ferry3_overline_morethan200_clean = rnet_ferry3_overline_morethan200 %>%
-  mutate(group = stplanr::rnet_group(rnet_ferry3_overline_morethan200, d = 100 ))
+#rnet clean to get rid of small pieces - 50
+rnet_ferry3_overline_morethan50_clean = rnet_ferry3_overline_morethan50 %>%
+  mutate(group = stplanr::rnet_group(rnet_ferry3_overline_morethan50, d = 100 ))
 
-rnet_ferry3_overline_morethan200_group = rnet_ferry3_overline_morethan200_clean %>%
+rnet_ferry3_overline_morethan50_group = rnet_ferry3_overline_morethan50_clean %>%
   st_drop_geometry() %>% group_by(group) %>% summarise(count = n())
-group = rnet_ferry3_overline_morethan200_group %>% filter(count >=5) #discard networks with less than 5 semnets?
+group = rnet_ferry3_overline_morethan50_group %>% filter(count >=5) #discard networks with less than 5 semnets?
 groupp = group$group
 
-rnet_ferry3_overline_morethan200_clean = rnet_ferry3_overline_morethan200_clean %>%
+rnet_ferry3_overline_morethan50_clean = rnet_ferry3_overline_morethan50_clean %>%
   filter(group %in% groupp) #more than 5 segments connected
-rm(rnet_ferry3_overline_morethan200_group)
+rm(rnet_ferry3_overline_morethan50_group)
 
 
 library(biclar)
-tm_rnet(rnet_ferry3_overline_morethan200_clean,
+tm_rnet(rnet_ferry3_overline_morethan50_clean,
         lwd = "cyc4", #Baseline, ENMAC4, ENMAC10
         # col = "Quietness",
         palette = "-linear_yl_rd_bk", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
@@ -258,8 +287,8 @@ tm_rnet(rnet_ferry3_overline_morethan200_clean,
 )
 
 saveRDS(rnet_ferry3_overline_morethan100_clean, "export2/rnet_ferry3_overline_morethan100_clean.Rds")
-saveRDS(rnet_ferry3_overline_morethan20_clean, "export2/rnet_ferry3_overline_morethan20_clean.Rds")
-saveRDS(rnet_ferry3_overline_morethan200_clean, "export2/rnet_ferry3_overline_morethan200_clean.Rds")
+saveRDS(rnet_ferry3_overline_morethan15_clean, "export2/rnet_ferry3_overline_morethan15_clean.Rds")
+saveRDS(rnet_ferry3_overline_morethan50_clean, "export2/rnet_ferry3_overline_morethan50_clean.Rds")
 # rnet_ferry3_overline_morethan100_clean = readRDS("export2/rnet_ferry3_overline_morethan100_clean.Rds")
 
 
@@ -386,7 +415,7 @@ rm(rnet_ferry4_ebike_overline_morethan400_group)
 
 
 library(biclar)
-tm_rnet(rnet_ferry4_ebike_overline_morethan100_clean,
+tm_rnet(rnet_ferry3_ebike_overline_morethan100_clean,
         lwd = "cyc4", #Baseline, ENMAC4, ENMAC10
         # col = "Quietness",
         palette = "-linear_yl_rd_bk", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest
