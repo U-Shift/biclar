@@ -22,35 +22,41 @@ CENARIOS$dist_max[CENARIOS$Estrategia == "Intermodal"] = 5000
 # File paths
 PATHS = readxl::read_excel("export2/Scenarios_Routing.xlsx", sheet = "paths")
 
-
-# proportion in traffic vs. away from major roads. carspeed > 30 ?? 50 is too high, as a road in 40 is still in traffic.
-
-
+# DICOFRE
+Relacao1116 = readxl::read_excel("D:/GIS/IMOB/GIS/InfExtra_Concelhos_Freguesias_CAOP2019/RelacaoFreguesiasINE20112016.xlsx", 
+                            col_types = c("text", "skip", "text", 
+                                          "skip"))
+Relacao1116 = Relacao1116 %>% fill(DICOFRE16) %>%
+  mutate(DTCC = substr(DICOFRE16, 1, 4))%>% #ficar com primeiros 4 digitos
+  filter(DTCC %in% as.character(PM25$DTCC))
 
 
 # script to get values -------------------------------------------------------------------------
 
 # Code == X
 
-Code_Hass = CENARIOS$Code[1:8] #fazer por enquanto só AML e senários 1 e 2
+Code_Hass = CENARIOS %>% filter(Estrategia != "Intermodal") %>% filter(Municipio !="AML") %>% select(Code) #fazer por enquanto só AML e senários 1 e 2
 #para os cenários dos municípios, acrescentar codigo que filtre as viagens com inicio lá, e a rnet within + buffer
 # HEATbind = HEAT #last result without function
 
 
-for (i in Code_Hass){
-  
-# i = 1304
+for (i in Code_Hass$Code){
 
+i = 31304 #test: há muitos NA quando se junta o DTCC
+  
 HEAT = CENARIOS %>% 
   mutate(Year_ref = `0_Ano`,
          Year_cf = `1_Ano`) %>% 
   select(NMunicipio, Municipio, Code, ENMAC, dist_max, Year_ref, Year_cf) %>%
   filter(Code == i) %>% 
-  left_join(PATHS) %>% 
+  mutate(CodePath = as.integer(stringr::str_sub(Code, -4, -1))) %>% 
+  left_join(PATHS, by=c("CodePath" = "Code")) %>% 
   left_join(PM25) %>% 
   mutate(ENMAC = ENMAC/100)
 
-HEAT_bike = readRDS(HEAT$routes_filepath)
+HEAT_bike = readRDS(HEAT$routes_filepath) %>%
+  left_join(Relacao1116, by=c("DICOFREor11" = "DICOFRE11")) %>%
+  filter(DTCC == HEAT$DTCC)
 HEAT_bikeOD = paste0(HEAT_bike$DICOFREor11, HEAT_bike$DICOFREde11) %>% unique()
 # max_euc = max(HEAT_bike$eucl_distance)
 
@@ -71,6 +77,8 @@ HEAT_bike = HEAT_bike %>%
   )
 
 HEAT_car = routes_r5r_100jit_car %>%
+  left_join(Relacao1116, by=c("DICOFREor11" = "DICOFRE11")) %>%
+  filter(DTCC == HEAT$DTCC) %>% 
   # filter(eucl_distance <= max_euc) %>% #euclidean distance of routes_ferry3_filtered
   mutate(HEAT_carOD = paste0(DICOFREor11, DICOFREde11)) %>% 
   filter(HEAT_carOD %in% HEAT_bikeOD) %>%  #better filter by ODs equal than by max distance
@@ -81,8 +89,13 @@ HEAT_car = routes_r5r_100jit_car %>%
     new_cyc = ifelse(Bikeper >= HEAT$ENMAC, 0, cyc - Bike)) %>% 
   mutate(Car_new = Car + CarP - new_cyc)
 
-Trips_rnet = readRDS(HEAT$rnet_filepath) %>% filter(Bike>0)
+
+# proportion in traffic vs. away from major roads. carspeed > 30 ?? 50 is too high, as a road in 40 is still in traffic.
+Trips_rnet = readRDS(HEAT$rnet_filepath) %>%
+  st_filter(MUNICIPIOSgeo %>% filter(Concelho == HEAT$Municipio)) %>%
+  filter(Bike>0)
 InTraffic = Trips_rnet %>% filter(carspeed > 30)
+
 
 HEAT = HEAT %>% mutate(Bike = round(sum(HEAT_bike$Bike)),
                        Total = round(sum(HEAT_bike$Total)),
@@ -210,11 +223,12 @@ HEAT = HEAT %>% mutate(Mortality = from_hass$results$impactperyearave[30],
   mutate(value_newcyc = round(Economic10/Bike_new),
          value_newcyc_eur = round(Economic10/Bike_new*usd_to_eur))
                     
-HEATbind = rbind(HEATbind, HEAT)
+HEATbind_municipios = rbind(HEATbind_municipios, HEAT)
 
-print(paste0(i, " done"))
+print(paste0(HEAT$Municipio, i, " done"))
 }
-#1.34min for 8 runs
 
-# HEATbind = HEATbind[-1,] #remove the trial one
-# saveRDS(HEATbind, "HEAT/HEAT_AML_1e2.Rds")
+# 3.20min for 16 runs
+
+# HEATbind_municipios = HEATbind_municipios[-1,]
+# saveRDS(HEATbind_municipios, "HEAT/HEAT_municipios_1e2.Rds")
