@@ -128,7 +128,7 @@ rnet_joined$slope = scales::label_percent(accuracy = 0.1, sufix = " %")(rnet_joi
 ####
 
 # library(biclar)
-rnet_joined = readRDS("export2/rnet_ferry4_ebike_overline_morethan100_clean_tags.Rds")
+rnet_joined = readRDS("export2/rnet_ferry4_ebike_overline_morethan50_clean_tags.Rds")
 tm_rnet(rnet_joined, #filtrar barreiro [MUNICIPIOSgeo %>% filter(Concelho == "Barreiro"), , op = sf::st_within]
         lwd = "cyc4", #Baseline, ENMAC4, ENMAC10
         col = "quietness",
