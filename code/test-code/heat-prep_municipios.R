@@ -32,15 +32,19 @@ PATHS = readxl::read_excel("export2/Scenarios_Routing.xlsx", sheet = "paths")
 #   mutate(DTCC = substr(DICOFRE16, 1, 4))%>% #ficar com primeiros 4 digitos
 #   filter(DTCC %in% as.character(PM25$DTCC))
 
+# População movel AML = 80.4%
+# Deslocacoes / pessoa / dia = 2.6 AML
+
 
 # script to get values -------------------------------------------------------------------------
 
 Code_Hass = CENARIOS %>% filter(Estrategia != "Intermodal") %>% filter(Municipio !="AML") %>% select(Code) #fazer por enquanto só AML e senários 1 e 2
 #para os cenários dos municípios, acrescentar codigo que filtre as viagens com inicio lá, e a rnet within + buffer
-# Code_Hass = Code_Hass[c(123:nrow(Code_Hass)),] #só setubal sem acento
+Code_Hass = Code_Hass[c(137:nrow(Code_Hass)),] #a partir de onde deu erro
 
-HEATbind_municipios = HEAT #last result without function
+# HEATbind_municipios = HEAT #last result without function
 
+# start_time = Sys.time()
 for (i in Code_Hass$Code){
 
 # i = 161304 #test: há muitos NA quando se junta o DTCC
@@ -58,7 +62,7 @@ HEAT = CENARIOS %>%
 HEAT_bike = readRDS(HEAT$routes_filepath) %>%
   mutate(DTCC = substr(DICOFREor11, 1,4)) %>% #trtps with origin in...
   filter(DTCC == HEAT$DTCC)
-HEAT_bikeOD = paste0(HEAT_bike$DICOFREor11, HEAT_bike$DICOFREde11) %>% unique()
+# HEAT_bikeOD = paste0(HEAT_bike$DICOFREor11, HEAT_bike$DICOFREde11) %>% unique()
 # max_euc = max(HEAT_bike$eucl_distance)
 
 HEAT_bike = HEAT_bike %>% 
@@ -81,8 +85,9 @@ HEAT_car = routes_r5r_100jit_car %>%
   mutate(DTCC = substr(DICOFREor11, 1,4)) %>%
   filter(DTCC == HEAT$DTCC) %>% 
   # filter(eucl_distance <= max_euc) %>% #euclidean distance of routes_ferry3_filtered
-  mutate(HEAT_carOD = paste0(DICOFREor11, DICOFREde11)) %>% 
-  filter(HEAT_carOD %in% HEAT_bikeOD) %>%  #better filter by ODs equal than by max distance
+  # mutate(HEAT_carOD = paste0(DICOFREor11, DICOFREde11)) %>% 
+  # filter(HEAT_carOD %in% HEAT_bikeOD) %>%  #better filter by ODs equal than by max distance
+  filter(id %in% unique(HEAT_bike$id)) %>%  # even better, filter by the same routing trip
   mutate(Bikeper = Bike / Total,
          Car = Car + CarP) %>% 
   mutate(
@@ -120,8 +125,10 @@ HEAT = HEAT %>% mutate(Bike = round(sum(HEAT_bike$Bike)),
 # genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_generic_data_relevant_with_calc_params.rds"))
 
 # for PPP VSL value
-webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_webapp_input.rds"))
-genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_generic_data_relevant_with_calc_params.rds"))
+# webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_webapp_input.rds"))
+# genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_generic_data_relevant_with_calc_params.rds"))
+webapp_input = readRDS("HEAT/162410_webapp_input.rds")
+genericdata = readRDS("HEAT/162410_generic_data_relevant_with_calc_params.rds")
 
 
 # Assessment intro
@@ -138,7 +145,7 @@ webapp_input[["ucc_motormodebasic"]] = "car" # modes to be considered. opt in ba
 
 # Active modes data (ref = Reference, cf = Comparison)
 # webapp_input[["raw_activemode_bike_ref_source"]] = "model" # alternatives: "scenario" (Hypotetical scenario), "popsurvey" (Population survey), "intercept" (Intercept survey), "counts" (Count data), "model" (Modeled Data), "app" (App-based data)
-# webapp_input[["raw_activemode_bike_ref_unit-label"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
+# webapp_input[["raw_activemode_bike_ref_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
 webapp_input[["raw_activemode_bike_ref_modesharepercent"]] = HEAT$Bike_per # percentage of CYCLING trips in the reference scenario
 webapp_input[["raw_activemode_bike_ref_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the reference scenario
 # webapp_input[["raw_activemode_bike_ref_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
@@ -147,7 +154,7 @@ webapp_input[["raw_activemode_bike_ref_tripkm"]] = HEAT$Dist_bike # average leng
 # webapp_input[["raw_activemode_bike_ref_agerange"]] = "2064" # age range of the assessed population. alternatives: "2064" (Adults, 20-64yrs), "2044" (Younger adults), "45-64" (Older) 
 
 # webapp_input[["raw_activemode_bike_cf_source"]] = "model" # alternatives: "scenario" (Hypotetical scenario), "popsurvey" (Population survey), "intercept" (Intercept survey), "counts" (Count data), "model" (Modeled Data), "app" (App-based data)
-# webapp_input[["raw_activemode_bike_cf_unit-label"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
+# webapp_input[["raw_activemode_bike_cf_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
 webapp_input[["raw_activemode_bike_cf_modesharepercent"]] = HEAT$Bike_per_new # percentage of CYCLING trips in the comparison scenario
 webapp_input[["raw_activemode_bike_cf_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the comparison scenario
 # webapp_input[["raw_activemode_bike_cf_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
@@ -156,13 +163,13 @@ webapp_input[["raw_activemode_bike_cf_tripkm"]] = HEAT$Dist_bike_new # average l
 # webapp_input[["raw_activemode_bike_cf_agerange"]] = "2064" # age range of the assessed population. alternatives: "2064" (Adults, 20-64yrs), "2044" (Younger adults), "45-64" (Older) 
 
 # Motorized modes data (car, tp // ref, cf)
-# webapp_input[["raw_motorizedmode_car_ref_unit-label"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
+# webapp_input[["raw_motorizedmode_car_ref_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
 webapp_input[["raw_motorizedmode_car_ref_modesharepercent"]] = HEAT$Car_per # percentage of CAR trips in the reference scenario
 webapp_input[["raw_motorizedmode_car_ref_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the reference scenario
 # webapp_input[["raw_motorizedmode_car_ref_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
 webapp_input[["raw_motorizedmode_car_ref_tripkm"]] = HEAT$Dist_car # average length of CAR trips for reference scenario
 
-# webapp_input[["raw_motorizedmode_car_cf_unit-label"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
+# webapp_input[["raw_motorizedmode_car_cf_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
 webapp_input[["raw_motorizedmode_car_cf_modesharepercent"]] = HEAT$Car_per_new # percentage of CAR trips in the comparison scenario
 webapp_input[["raw_motorizedmode_car_cf_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the comparison scenario
 # webapp_input[["raw_motorizedmode_car_cf_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
@@ -236,6 +243,8 @@ print(paste0(HEAT$Municipio, i, " done"))
 closeAllConnections() #solves the problem of Error in url("....rds") : all connections are in use
 
 }
+Sys.time() - start_time
+
 
 # 3.20min for 16 runs
 # 14min for 61 runs
@@ -243,6 +252,214 @@ closeAllConnections() #solves the problem of Error in url("....rds") : all conne
 # 2.35min for 13 runs
 
 
-# HEATbind_municipios = HEATbind_municipios[-1,]
-# saveRDS(HEATbind_municipios, "HEAT/HEAT_municipios_1e2_MER.Rds")
-# HEATbind_municipios_MER = HEATbind_municipios
+HEATbind_municipios = HEATbind_municipios[-1,]
+saveRDS(HEATbind_municipios, "HEAT/HEAT_municipios_1e2_PPP.Rds")
+HEATbind_municipios_PPP = HEATbind_municipios
+
+
+
+
+
+
+
+
+
+
+# For intermodality ---------------------------------------------------------------------------
+
+
+
+Code_Hass = CENARIOS %>% filter(Estrategia == "Intermodal") %>% filter(Municipio !="AML") %>% select(Code) #fazer por enquanto só AML e senários 1 e 2
+#para os cenários dos municípios, acrescentar codigo que filtre as viagens com inicio lá, e a rnet within + buffer
+Code_Hass = Code_Hass[c(5:nrow(Code_Hass)),] #a partir de onde deu erro
+
+HEATbind_municipios_intermodal = HEAT #last result without function
+
+# start_time = Sys.time()
+for (i in Code_Hass$Code){
+  
+  # i = 113304 #test: há muitos NA quando se junta o DTCC
+  
+  HEAT = CENARIOS %>% 
+    mutate(Year_ref = `0_Ano`,
+           Year_cf = `1_Ano`) %>% 
+    select(NMunicipio, Municipio, Code, ENMAC, dist_max, Year_ref, Year_cf) %>%
+    filter(Code == i) %>% 
+    mutate(CodePath = as.integer(stringr::str_sub(Code, -4, -1))) %>% 
+    left_join(PATHS, by=c("CodePath" = "Code")) %>% 
+    left_join(PM25) %>% 
+    mutate(ENMAC = ENMAC/100)
+  
+  HEAT_bike = readRDS(HEAT$routes_filepath) %>%
+    mutate(DTCC = substr(DICOFREor11, 1,4)) %>% #trtps with origin in...
+    filter(DTCC == HEAT$DTCC) %>% 
+    ungroup() %>% 
+    st_drop_geometry() %>%
+    group_by(id) %>% 
+    summarise(distance = sum(distance), 
+              Bike = Bike,
+              Car = Car + CarP,
+              Total = Total,
+              Bikeper = Bike / Total) %>% 
+    ungroup() %>% 
+    mutate(
+      cyc = ifelse(Bikeper >= HEAT$ENMAC, Bike, HEAT$ENMAC * Total),
+      new_cyc = ifelse(Bikeper >= HEAT$ENMAC, 0, cyc - Bike)
+    )
+  
+  if (nrow(HEAT_bike) == 0) { #para municipios que não têm rede intermodal
+    
+    HEATbind_municipios_intermodal = bind_rows(HEATbind_municipios_intermodal, HEAT)
+    
+    print(paste0(HEAT$Municipio, i, " done"))
+  }
+  else { 
+  
+  HEAT_car = readRDS(HEAT$car_routes_filepath) %>%
+    mutate(DTCC = substr(DICOFREor11, 1,4)) %>%
+    filter(DTCC == HEAT$DTCC) %>% 
+    filter(id %in% unique(HEAT_bike$id)) %>%  # even better, filter by the same routing trip
+    group_by(id) %>% 
+    summarise(distance = sum(distance), 
+              Bike = Bike,
+              Car = Car + CarP,
+              Total = Total,
+              Bikeper = Bike / Total) %>% 
+    mutate(
+      cyc = ifelse(Bikeper >= HEAT$ENMAC, Bike, HEAT$ENMAC * Total),
+      new_cyc = ifelse(Bikeper >= HEAT$ENMAC, 0, cyc - Bike)) %>% 
+    mutate(Car_new = Car - new_cyc)
+  
+  
+  # proportion in traffic vs. away from major roads. carspeed > 30 ?? 50 is too high, as a road in 40 is still in traffic.
+  Trips_rnet = readRDS(HEAT$rnet_filepath) %>%
+    st_filter(MUNICIPIOSgeo %>% filter(Concelho == HEAT$Municipio)) %>%
+    filter(Bike>0)
+  InTraffic = Trips_rnet %>% filter(carspeed > 30)
+  
+  HEAT = HEAT %>% mutate(Bike = round(sum(HEAT_bike$Bike)),
+                         Total = round(sum(HEAT_bike$Total)),
+                         Bike_new = round(sum(HEAT_bike$new_cyc)),
+                         Dist_bike = round(weighted.mean(HEAT_bike$distance, w= HEAT_bike$Bike)/1000, 3),
+                         Dist_bike_new = round(weighted.mean(HEAT_bike$distance, w= HEAT_bike$cyc)/1000, 3),
+                         Bike_per = round(sum(HEAT_bike$Bike)/sum(HEAT_bike$Total)*100,2),
+                         Bike_per_new = round(sum(HEAT_bike$cyc)/sum(HEAT_bike$Total)*100,2),
+                         Car_per = round(sum(HEAT_bike$Car)/sum(HEAT_bike$Total)*100,2),
+                         Car_per_new = round((sum(HEAT_bike$Car)-sum(HEAT_bike$new_cyc))/sum(HEAT_bike$Total)*100,2),
+                         Dist_car = round(weighted.mean(HEAT_car$distance, w= HEAT_car$Car)/1000, 3),
+                         Dist_car_new = round(weighted.mean(HEAT_car$distance, w= HEAT_car$Car_new)/1000, 3),
+                         InTraffic = as.integer(round(sum(InTraffic$Bike) /sum(Trips_rnet$Bike)*100))
+  )
+  
+  if (is.nan(HEAT$Dist_bike)){
+    HEAT$Dist_bike = HEAT$Dist_bike_new
+  }
+  
+  if (is.na(HEAT$InTraffic)){
+    HEAT$InTraffic = 97
+    
+  }
+  
+  # HaaS 
+  
+  # for PPP VSL value
+  # webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_webapp_input.rds"))
+  # genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_generic_data_relevant_with_calc_params.rds"))
+  webapp_input = readRDS("HEAT/162410_webapp_input.rds")
+  genericdata = readRDS("HEAT/162410_generic_data_relevant_with_calc_params.rds")
+  
+  
+  # Assessment intro
+  webapp_input[["ucc_location_id"]] = HEAT$location_id
+  webapp_input[["ucc_yearref"]] = HEAT$Year_ref # reference year
+  webapp_input[["ucc_yearcf"]] = HEAT$Year_cf # comparison year
+  webapp_input[["ucc_motormodebasic"]] = "car" # modes to be considered. opt in basic categories: c("car", "pt")
+
+  # Active modes data (ref = Reference, cf = Comparison)
+  webapp_input[["raw_activemode_bike_ref_modesharepercent"]] = HEAT$Bike_per # percentage of CYCLING trips in the reference scenario
+  webapp_input[["raw_activemode_bike_ref_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the reference scenario
+  webapp_input[["raw_activemode_bike_ref_tripkm"]] = HEAT$Dist_bike # average length of CYCLING trips for reference scenario
+  
+  webapp_input[["raw_activemode_bike_cf_modesharepercent"]] = HEAT$Bike_per_new # percentage of CYCLING trips in the comparison scenario
+  webapp_input[["raw_activemode_bike_cf_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the comparison scenario
+  webapp_input[["raw_activemode_bike_cf_tripkm"]] = HEAT$Dist_bike_new # average length of CYCLING trips, for comparison scenario 
+ 
+  # Motorized modes data (car, tp // ref, cf)
+  webapp_input[["raw_motorizedmode_car_ref_modesharepercent"]] = HEAT$Car_per # percentage of CAR trips in the reference scenario
+  webapp_input[["raw_motorizedmode_car_ref_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the reference scenario
+  webapp_input[["raw_motorizedmode_car_ref_tripkm"]] = HEAT$Dist_car # average length of CAR trips for reference scenario
+  
+  webapp_input[["raw_motorizedmode_car_cf_modesharepercent"]] = HEAT$Car_per_new # percentage of CAR trips in the comparison scenario
+  webapp_input[["raw_motorizedmode_car_cf_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the comparison scenario
+  webapp_input[["raw_motorizedmode_car_cf_tripkm"]] = HEAT$Dist_car_new # average length of CAR trips, for comparison scenario 
+  
+  # Population
+  webapp_input[["ap_pop_tot"]] = HEAT$Pop21 # total population for city or region
+  webapp_input[["ap_percentofallages_bike_ref"]] = 80.4 # percentage or total population within age range, for the reference case
+  webapp_input[["raw_activemode_bike_ref_population"]] = round(80.4*HEAT$Pop21) # population size used of the assessment in reference case (or ap_pop_tot*ap_percentofallages_bike_ref/100)
+  webapp_input[["ap_percentofallages_bike_cf"]] = 80.4 # percentage or total population within age range, for the comparison case
+  webapp_input[["raw_activemode_bike_cf_population"]] = round(80.4*HEAT$Pop21) # population size used of the assessment in comparison case (or ap_pop_tot*ap_percentofallages_bike_cf/100)
+  
+  # Gernal adjustments - some missing here
+  webapp_input[["quali_activemode_bike_percenttransport"]] = 90 # proportion for transport vs. recreation, percentage of trips that are not generated and are done regardless the transport mode, as integer
+  webapp_input[["quali_activemode_bike_percentintraffic"]] = HEAT$InTraffic # proportion of trips that takes place in traffic, vs. away from major roads or parks, as integer
+  
+  # Air pollution
+  webapp_input[["pollution_calc"]] = HEAT$PM25 # PM2.5 concentration fot the location. See: ...
+
+  # Value of Statistical Life VSL
+  webapp_input[["ap_vsl_currency"]] = "ppp" # currency format of monetizaion of impacts. alternatives: "mer" and "lcu" (not showing in the twocase assesnemt)
+  webapp_input[["ap_vsl_ppp_calc"]] = VSL_intusdPPP # VSL in international dollars, if "ppp" was the selected currency
+  
+  # Economic discounting
+  webapp_input[["ap_discountyear"]] = 2022 # year to which you want to discount (or inflate) future (or past) economic values to
+  webapp_input[["ap_discountrate"]] = 5 # discount rate
+  webapp_input[["ap_inflationrate"]] = 3 # inflation rate
+  
+  # Adjusting default and background values
+  genericdata$value[genericdata$parameter_name == "occupancy_rate_car"] = 1.6 #car occupancy rate for all purposes. default: 2
+  genericdata$value[genericdata$parameter_name == "default_activemode_bike_fromcar"] = 100 # percentage of trips shifting from CAR. default: 30
+  genericdata$value[genericdata$parameter_name == "default_activemode_bike_frompt"] = 0 # percentage of trips shifting from CAR. default: 50
+  genericdata$value[genericdata$parameter_name == "default_activemode_bike_fromwalk"] = 0 # percentage of trips shifting from CAR. default: 20
+  
+  
+  
+  resp <- 
+    httr::POST("https://api.heatwalkingcycling.org/apiv1/heat_5_0/calc_results?output_format=rds",
+               httr::set_cookies("user" = Sys.getenv("HEAT_COOKIE")),
+               body = jsonlite::toJSON(
+                 list("webapp_input" = webapp_input,
+                      "generic_data_relevant" = genericdata)),
+               encode = "multipart")
+  
+  # convert to R
+  from_hass <- unserialize(httr::content(resp, "raw"))
+  
+  # Check final result value
+  from_hass$results$moneyperyear = as.numeric(gsub(" ","",from_hass$results$moneyperyear))
+  from_hass$results$moneytotaldisc = as.numeric(gsub(" ","",from_hass$results$moneytotaldisc))
+  
+  HEAT = HEAT %>% mutate(Mortality = from_hass$results$impactperyearave[30],
+                         Mortality10 = from_hass$results$impacttotal[30],
+                         CO2eq = from_hass$results$impactperyearaveco2[30],
+                         CO2eq10 = from_hass$results$impacttotalco2[30],
+                         Economic = from_hass$results$moneyperyear[26]-from_hass$results$moneyperyear[27]-from_hass$results$moneyperyear[28]+from_hass$results$moneyperyear[29],
+                         Economic10 = from_hass$results$moneytotaldisc[26]-from_hass$results$moneytotaldisc[27]-from_hass$results$moneytotaldisc[28]+from_hass$results$moneytotaldisc[29]) %>% 
+    mutate(value_newcyc = round(Economic10/Bike_new),
+           value_newcyc_eur = round(Economic10/Bike_new*usd_to_eur))
+  
+  HEATbind_municipios_intermodal = rbind(HEATbind_municipios_intermodal, HEAT)
+  
+  print(paste0(HEAT$Municipio, i, " done"))
+  
+  closeAllConnections() #solves the problem of Error in url("....rds") : all connections are in use
+  
+  }
+}
+Sys.time() - start_time
+
+
+HEATbind_municipios_intermodal = HEATbind_municipios_intermodal[-1,]
+HEATbind_municipios_intermodal_PPP = HEATbind_municipios_intermodal
+saveRDS(HEATbind_municipios_intermodal, "HEAT/HEAT_municipios_intermodal_PPP.Rds")
+

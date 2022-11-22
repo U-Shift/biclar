@@ -12,7 +12,7 @@ webapp_input[["ucc_trafficcondition"]] = "euromeancongestionurban" # alternative
 
 # Active modes data (ref = Reference, cf = Comparison)
 webapp_input[["raw_activemode_bike_ref_source"]] = "model" # alternatives: "scenario" (Hypotetical scenario), "popsurvey" (Population survey), "intercept" (Intercept survey), "counts" (Count data), "model" (Modeled Data), "app" (App-based data)
-webapp_input[["raw_activemode_bike_ref_unit-label"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
+webapp_input[["raw_activemode_bike_ref_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
 webapp_input[["raw_activemode_bike_ref_modesharepercent"]] = 0.52 # percentage of CYCLING trips in the reference scenario
 webapp_input[["raw_activemode_bike_ref_alltrips"]] = 2317371 # total travel volume of ALL MODES in the reference scenario
 webapp_input[["raw_activemode_bike_ref_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
@@ -21,7 +21,7 @@ webapp_input[["raw_activemode_bike_ref_denominator"]] = "person" # type of popul
 webapp_input[["raw_activemode_bike_ref_agerange"]] = "2064" # age range of the assessed population. alternatives: "2064" (Adults, 20-64yrs), "2044" (Younger adults), "45-64" (Older) 
 
 webapp_input[["raw_activemode_bike_cf_source"]] = "model" # alternatives: "scenario" (Hypotetical scenario), "popsurvey" (Population survey), "intercept" (Intercept survey), "counts" (Count data), "model" (Modeled Data), "app" (App-based data)
-webapp_input[["raw_activemode_bike_cf_unit-label"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
+webapp_input[["raw_activemode_bike_cf_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
 webapp_input[["raw_activemode_bike_cf_modesharepercent"]] = 4.04 # percentage of CYCLING trips in the comparison scenario
 webapp_input[["raw_activemode_bike_cf_alltrips"]] = 2317371 # total travel volume of ALL MODES in the comparison scenario
 webapp_input[["raw_activemode_bike_cf_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
@@ -30,13 +30,13 @@ webapp_input[["raw_activemode_bike_cf_denominator"]] = "person" # type of popula
 webapp_input[["raw_activemode_bike_cf_agerange"]] = "2064" # age range of the assessed population. alternatives: "2064" (Adults, 20-64yrs), "2044" (Younger adults), "45-64" (Older) 
 
 # Motorized modes data (car, tp // ref, cf)
-webapp_input[["raw_motorizedmode_car_ref_unit-label"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
+webapp_input[["raw_motorizedmode_car_ref_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
 webapp_input[["raw_motorizedmode_car_ref_modesharepercent"]] = 46.34 # percentage of CAR trips in the reference scenario
 webapp_input[["raw_motorizedmode_car_ref_alltrips"]] = 2317371 # total travel volume of ALL MODES in the reference scenario
 webapp_input[["raw_motorizedmode_car_ref_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
 webapp_input[["raw_motorizedmode_car_ref_tripkm"]] = 7.404 # average length of CAR trips for reference scenario
 
-webapp_input[["raw_motorizedmode_car_cf_unit-label"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
+webapp_input[["raw_motorizedmode_car_cf_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
 webapp_input[["raw_motorizedmode_car_cf_modesharepercent"]] = 42.81 # percentage of CAR trips in the comparison scenario
 webapp_input[["raw_motorizedmode_car_cf_alltrips"]] = 2317371 # total travel volume of ALL MODES in the comparison scenario
 webapp_input[["raw_motorizedmode_car_cf_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
