@@ -614,7 +614,22 @@ table(routes_allmodesNSub4_filtered$mode) #potencial FILTRADO
 
 # sum(routes_allmodesNSub4_filtered$Total[routes_allmodesNSub4_filtered$mode == "TRAM"])
 
+# ONLY TO GET TP STATISTICS
+# routes_allmodesNSub4_filtered_TPonly = routes_allmodesNSub4_filtered %>% filter(mode != "BICYCLE") #keep routes with other modes
+# #cycling potential function
+# routes_allmodesNSub4_filtered_TPonly$Bikeper = routes_allmodesNSub4_filtered_TPonly$Bike / routes_allmodesNSub4_filtered_TPonly$Total
+# routes_allmodesNSub4_filtered_TPonly = routes_allmodesNSub4_filtered_TPonly %>% mutate(
+#   cyc4 = ifelse(Bikeper >= ENMAC4, Bike, ENMAC4 * Total),
+#   new_cyc4 = ifelse(Bikeper >= ENMAC4, 0, cyc4 - Bike),
+#   cyc10 = ifelse(Bikeper >= ENMAC10, Bike, ENMAC10 * Total),
+#   new_cyc10 = ifelse(Bikeper >= ENMAC10, 0, cyc10 - Bike)
+# )
+# saveRDS(routes_allmodesNSub4_filtered_TPonly, "routes_allmodesNSub4_TPonly_preoverline.Rds")
+
+
+
 routes_allmodesNSub4_filtered = routes_allmodesNSub4_filtered %>% filter(mode == "BICYCLE") #drop routes with other modes
+
 
 # get potential
 #cycling potential function
@@ -769,6 +784,19 @@ table(routes_allmodesNSub3_filtered$mode) #potencial FILTRADO
 # 538k (2  pernas da mesma viagem, first & last mile) 
 
 # sum(routes_allmodesNSub3_filtered$Total[routes_allmodesNSub3_filtered$mode == "BICYCLE"])
+
+# ONLY TO KEEP SEGMENTS FOR TP STATISTICS 
+# routes_allmodesNSub3_filtered_TPonly = routes_allmodesNSub3_filtered %>% filter(mode != "BICYCLE") #keep routes with other modes
+# #cycling potential function
+# routes_allmodesNSub3_filtered_TPonly$Bikeper = routes_allmodesNSub3_filtered_TPonly$Bike / routes_allmodesNSub3_filtered_TPonly$Total
+# routes_allmodesNSub3_filtered_TPonly = routes_allmodesNSub3_filtered_TPonly %>% mutate(
+#   cyc4 = ifelse(Bikeper >= ENMAC4, Bike, ENMAC4 * Total),
+#   new_cyc4 = ifelse(Bikeper >= ENMAC4, 0, cyc4 - Bike),
+#   cyc10 = ifelse(Bikeper >= ENMAC10, Bike, ENMAC10 * Total),
+#   new_cyc10 = ifelse(Bikeper >= ENMAC10, 0, cyc10 - Bike)
+# )
+# saveRDS(routes_allmodesNSub3_filtered_TPonly, "routes_allmodesNSub3_TPonly_preoverline.Rds")
+
 
 routes_allmodesNSub3_filtered = routes_allmodesNSub3_filtered %>% filter(mode == "BICYCLE") #drop routes with other modes
 
