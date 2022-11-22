@@ -37,7 +37,7 @@ PATHS = readxl::read_excel("export2/Scenarios_Routing.xlsx", sheet = "paths")
 
 Code_Hass = CENARIOS %>% filter(Estrategia != "Intermodal") %>% filter(Municipio !="AML") %>% select(Code) #fazer por enquanto só AML e senários 1 e 2
 #para os cenários dos municípios, acrescentar codigo que filtre as viagens com inicio lá, e a rnet within + buffer
-# Code_Hass = Code_Hass[c(121:128),] #só setubal sem acento
+# Code_Hass = Code_Hass[c(123:nrow(Code_Hass)),] #só setubal sem acento
 
 HEATbind_municipios = HEAT #last result without function
 
@@ -115,8 +115,13 @@ HEAT = HEAT %>% mutate(Bike = round(sum(HEAT_bike$Bike)),
 
 # HaaS 
 
-webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_webapp_input.rds"))
-genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_generic_data_relevant_with_calc_params.rds"))
+# # # for MER VSL value
+# webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_webapp_input.rds"))
+# genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_generic_data_relevant_with_calc_params.rds"))
+
+# for PPP VSL value
+webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_webapp_input.rds"))
+genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_generic_data_relevant_with_calc_params.rds"))
 
 
 # Assessment intro
@@ -239,5 +244,5 @@ closeAllConnections() #solves the problem of Error in url("....rds") : all conne
 
 
 # HEATbind_municipios = HEATbind_municipios[-1,]
-# saveRDS(HEATbind_municipios, "HEAT/HEAT_municipios_1e2_MER_estragadomaslegivel.Rds")
-
+# saveRDS(HEATbind_municipios, "HEAT/HEAT_municipios_1e2_MER.Rds")
+# HEATbind_municipios_MER = HEATbind_municipios
