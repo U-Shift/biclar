@@ -1,5 +1,6 @@
 # prepare tables for HEAT SE estimations
-
+library(tidyverse)
+library(sf)
 
 # PM25 por municipio, incluindo AML
 PM25 = readxl::read_excel("export2/Scenarios_Routing.xlsx", sheet = "PM25")
@@ -7,11 +8,12 @@ PM25$PM25 = round(PM25$PM25, 2)
 PM25$location_id = as.character(PM25$location_id)
 
 # VSL Portugal 2017
-VSL_intusdPPP = 3355000
+usd_to_eur = 0.976430 #21nov2022
+VSL_intusdPPP = 3055358/usd_to_eur #fonte: ANSR 2021. original = 3355000
 VSL_eurotousd = 2323000 #? 
 VSL_usdMER = 2194000
 #https://www.oecd-ilibrary.org/environment/mortality-risk-valuation-in-environment-health-and-transport-policies_9789264130807-en
-usd_to_eur = 0.96858759 #20nov2022
+
 
 # CENARIOS combinations
 CENARIOS = readxl::read_excel("export2/Scenarios_Routing.xlsx", sheet = "CENARIOS")
@@ -22,27 +24,26 @@ CENARIOS$dist_max[CENARIOS$Estrategia == "Intermodal"] = 5000
 # File paths
 PATHS = readxl::read_excel("export2/Scenarios_Routing.xlsx", sheet = "paths")
 
-# DICOFRE
-Relacao1116 = readxl::read_excel("D:/GIS/IMOB/GIS/InfExtra_Concelhos_Freguesias_CAOP2019/RelacaoFreguesiasINE20112016.xlsx", 
-                            col_types = c("text", "skip", "text", 
-                                          "skip"))
-Relacao1116 = Relacao1116 %>% fill(DICOFRE16) %>%
-  mutate(DTCC = substr(DICOFRE16, 1, 4))%>% #ficar com primeiros 4 digitos
-  filter(DTCC %in% as.character(PM25$DTCC))
+# # DICOFRE - isto não é necessário. usou-se o de 16 em vez do 11 (como infica no label). Erro nosso ou do IMOB?
+# Relacao1116 = readxl::read_excel("D:/GIS/IMOB/GIS/InfExtra_Concelhos_Freguesias_CAOP2019/RelacaoFreguesiasINE20112016.xlsx", 
+#                             col_types = c("text", "skip", "text", 
+#                                           "skip"))
+# Relacao1116 = Relacao1116 %>% fill(DICOFRE16) %>%
+#   mutate(DTCC = substr(DICOFRE16, 1, 4))%>% #ficar com primeiros 4 digitos
+#   filter(DTCC %in% as.character(PM25$DTCC))
 
 
 # script to get values -------------------------------------------------------------------------
 
-# Code == X
-
 Code_Hass = CENARIOS %>% filter(Estrategia != "Intermodal") %>% filter(Municipio !="AML") %>% select(Code) #fazer por enquanto só AML e senários 1 e 2
 #para os cenários dos municípios, acrescentar codigo que filtre as viagens com inicio lá, e a rnet within + buffer
-# HEATbind = HEAT #last result without function
+# Code_Hass = Code_Hass[c(121:128),] #só setubal sem acento
 
+HEATbind_municipios = HEAT #last result without function
 
 for (i in Code_Hass$Code){
 
-i = 31304 #test: há muitos NA quando se junta o DTCC
+# i = 161304 #test: há muitos NA quando se junta o DTCC
   
 HEAT = CENARIOS %>% 
   mutate(Year_ref = `0_Ano`,
@@ -55,7 +56,7 @@ HEAT = CENARIOS %>%
   mutate(ENMAC = ENMAC/100)
 
 HEAT_bike = readRDS(HEAT$routes_filepath) %>%
-  left_join(Relacao1116, by=c("DICOFREor11" = "DICOFRE11")) %>%
+  mutate(DTCC = substr(DICOFREor11, 1,4)) %>% #trtps with origin in...
   filter(DTCC == HEAT$DTCC)
 HEAT_bikeOD = paste0(HEAT_bike$DICOFREor11, HEAT_bike$DICOFREde11) %>% unique()
 # max_euc = max(HEAT_bike$eucl_distance)
@@ -77,7 +78,7 @@ HEAT_bike = HEAT_bike %>%
   )
 
 HEAT_car = routes_r5r_100jit_car %>%
-  left_join(Relacao1116, by=c("DICOFREor11" = "DICOFRE11")) %>%
+  mutate(DTCC = substr(DICOFREor11, 1,4)) %>%
   filter(DTCC == HEAT$DTCC) %>% 
   # filter(eucl_distance <= max_euc) %>% #euclidean distance of routes_ferry3_filtered
   mutate(HEAT_carOD = paste0(DICOFREor11, DICOFREde11)) %>% 
@@ -181,9 +182,9 @@ webapp_input[["pollution_calc"]] = HEAT$PM25 # PM2.5 concentration fot the locat
 # webapp_input[["crashdata_used_fatality_rate_bike_cf"]] = 1 # Fatality rate for cycling in the comparison case, as integer of fatalities / 100 million km
 
 # Value of Statistical Life VSL
-webapp_input[["ap_vsl_currency"]] = "mer" # currency format of monetizaion of impacts. alternatives: "ppp" and ??? (not showing in the twocase assesnemt)
-webapp_input[["ap_vsl_mer_calc"]] = VSL_eurotousd # VSL in US dollars, if "mer" was the selected currency
-# webapp_input[["ap_vsl_ppp_calc"]] = 3355000 # VSL in international dollars, if "ppp" was the selected currency
+webapp_input[["ap_vsl_currency"]] = "ppp" # currency format of monetizaion of impacts. alternatives: "mer" and "lcu" (not showing in the twocase assesnemt)
+# webapp_input[["ap_vsl_mer_calc"]] = VSL_eurotousd # VSL in US dollars, if "mer" was the selected currency
+webapp_input[["ap_vsl_ppp_calc"]] = VSL_intusdPPP # VSL in international dollars, if "ppp" was the selected currency
 
 # Economic discounting
 webapp_input[["ap_discountyear"]] = 2022 # year to which you want to discount (or inflate) future (or past) economic values to
@@ -226,9 +227,17 @@ HEAT = HEAT %>% mutate(Mortality = from_hass$results$impactperyearave[30],
 HEATbind_municipios = rbind(HEATbind_municipios, HEAT)
 
 print(paste0(HEAT$Municipio, i, " done"))
+
+closeAllConnections() #solves the problem of Error in url("....rds") : all connections are in use
+
 }
 
 # 3.20min for 16 runs
+# 14min for 61 runs
+# 14.51min for 68 runs
+# 2.35min for 13 runs
+
 
 # HEATbind_municipios = HEATbind_municipios[-1,]
-# saveRDS(HEATbind_municipios, "HEAT/HEAT_municipios_1e2.Rds")
+# saveRDS(HEATbind_municipios, "HEAT/HEAT_municipios_1e2_MER_estragadomaslegivel.Rds")
+

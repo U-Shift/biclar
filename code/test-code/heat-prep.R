@@ -7,11 +7,11 @@ PM25$PM25 = round(PM25$PM25, 2)
 PM25$location_id = as.character(PM25$location_id)
 
 # VSL Portugal 2017
-VSL_intusdPPP = 3355000
+usd_to_eur = 0.976430 #21nov2022
+VSL_intusdPPP = 3055358/usd_to_eur #fonte: ANSR 2021. original = 3355000
 VSL_eurotousd = 2323000 #? 
 VSL_usdMER = 2194000
 #https://www.oecd-ilibrary.org/environment/mortality-risk-valuation-in-environment-health-and-transport-policies_9789264130807-en
-usd_to_eur = 0.96858759 #20nov2022
 
 # CENARIOS combinations
 CENARIOS = readxl::read_excel("export2/Scenarios_Routing.xlsx", sheet = "CENARIOS")
@@ -101,8 +101,14 @@ HEAT = HEAT %>% mutate(Bike = round(sum(HEAT_bike$Bike)),
 
 # HaaS 
 
-webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_webapp_input.rds"))
-genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_generic_data_relevant_with_calc_params.rds"))
+# # for MER VSL value
+# webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_webapp_input.rds"))
+# genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_generic_data_relevant_with_calc_params.rds"))
+
+# for PPP VSL value
+webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_webapp_input.rds"))
+genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_generic_data_relevant_with_calc_params.rds"))
+
 
 
 # Assessment intro
@@ -168,9 +174,9 @@ webapp_input[["pollution_calc"]] = HEAT$PM25 # PM2.5 concentration fot the locat
 # webapp_input[["crashdata_used_fatality_rate_bike_cf"]] = 1 # Fatality rate for cycling in the comparison case, as integer of fatalities / 100 million km
 
 # Value of Statistical Life VSL
-webapp_input[["ap_vsl_currency"]] = "mer" # currency format of monetizaion of impacts. alternatives: "ppp" and ??? (not showing in the twocase assesnemt)
-webapp_input[["ap_vsl_mer_calc"]] = VSL_eurotousd # VSL in US dollars, if "mer" was the selected currency
-# webapp_input[["ap_vsl_ppp_calc"]] = 3355000 # VSL in international dollars, if "ppp" was the selected currency
+webapp_input[["ap_vsl_currency"]] = "ppp" # currency format of monetizaion of impacts. alternatives: "mer" and "lcu" (not showing in the twocase assesnemt)
+# webapp_input[["ap_vsl_mer_calc"]] = VSL_eurotousd # VSL in US dollars, if "mer" was the selected currency
+webapp_input[["ap_vsl_ppp_calc"]] = VSL_intusdPPP # VSL in international dollars, if "ppp" was the selected currency
 
 # Economic discounting
 webapp_input[["ap_discountyear"]] = 2022 # year to which you want to discount (or inflate) future (or past) economic values to
@@ -213,8 +219,12 @@ HEAT = HEAT %>% mutate(Mortality = from_hass$results$impactperyearave[30],
 HEATbind = rbind(HEATbind, HEAT)
 
 print(paste0(i, " done"))
+
+closeAllConnections() #solves the problem of Error in url("....rds") : all connections are in use
+
 }
 #1.34min for 8 runs
 
-# HEATbind = HEATbind[-1,] #remove the trial one
+HEATbind = HEATbind[-1,] #remove the trial one
 # saveRDS(HEATbind, "HEAT/HEAT_AML_1e2.Rds")
+saveRDS(HEATbind, "HEAT/HEAT_AML_1e2_ppp.Rds")
