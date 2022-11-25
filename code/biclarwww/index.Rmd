@@ -11,7 +11,7 @@ output:
         google: "Lexend" #Prompt
       code_font:
         google: "JetBrains Mono"
-    # css: style.css
+    css: css/style.css
     includes:
       after_body: img/footer.html
 ---
@@ -41,7 +41,7 @@ library(htmlwidgets)
 
 <!-- Content for landing page-->
 
-##  Ferramenta de apoio ao pleanemanto da rede ciclável na Área Metropolitana de Lisboa
+##  Ferramenta de apoio ao planeamento da rede ciclável na Área Metropolitana de Lisboa
 
 ##### Nota: este projeto está em fase _beta_ e a informação deste site deve ser considerada como _work in progress_. 
 
@@ -71,15 +71,12 @@ counties_index = counties_raw %>%
 #   ))
 # counties_index = sf::st_as_sf(counties_index)
 
-municipios_index = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))%>% #it was counties_index -> change to a table with mode statistics!
-  dplyr::rename(Name = Concelho) %>%
-  dplyr::mutate(Name = stringr::str_to_sentence(Name)) %>%
+municipios_index = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds")) %>% #it was counties_index -> change to a table with mode statistics!
+  # dplyr::mutate(county_name = stringr::str_to_title(Concelho)) %>% #maiusculas
+  dplyr::rename(Municipio = Concelho) %>%
+  # dplyr::mutate(Municipio = stringr::str_to_sentence(Municipio)) %>% #minusculas
   dplyr::mutate(url = paste0(
-  "<a href='",
-  tolower(Name) ,
-  "/' target='_blank'>",
-  Name,
-  "</a>"
+  "<a href='", tolower(Municipio) , "/' target='_blank'>",  Municipio,  "</a>"
 )) 
 municipios_index = sf::st_as_sf(municipios_index)
 ```
@@ -284,15 +281,14 @@ leaflet::leaflet(counties_index) %>%
 **O que mostra este mapa? **  
 Por enquanto nada.
 
+
 ------------------------------------------------------------------------
 
-## Dados por Município
-
-add table with link to each municipality 
+## AML
 
 Construir tabela com os dados de populacao, Bike, cyc4, ebike, etc
 
-```{r}
+```{r eval=FALSE, include=FALSE}
 # Aim: Build table for homepage
 # dn = "popupCycleways/v1"
 # built_counties = list.files(dn)
@@ -306,6 +302,40 @@ municipios_index %>%
   DT::datatable(escape = -2, filter = 'none', options = list(pageLength = 18,
                                                              responsive = TRUE,
                                                              extensions = c('Responsive'))) 
+```
+
+
+------------------------------------------------------------------------
+
+## Municípios
+
+Construir tabela com os dados de populacao, Bike, cyc4, ebike, etc, por municipio
+
+```{r}
+# Aim: Build table for homepage
+# dn = "popupCycleways/v1"
+# built_counties = list.files(dn)
+# set.seed(42)
+municipios_index %>%
+  sf::st_drop_geometry() %>%
+  dplyr::left_join(HEAT_municipios_PPP_redux %>% filter(CodePath == 1304)) %>% 
+  dplyr::select(url, Pop21, Total, Bike, Bike_new, CO2eq10, Economic10) %>%
+  dplyr::mutate(Economic10 = Economic10/1000,
+                CO2eq10 = as.numeric(gsub(" ","", CO2eq10))) %>% 
+  # Population, "% cycling (Baseline)" = pcycle_baseline, "% cycling (Near Market)" = pcycle_near,  "% cycling (Climate Action Plan)" = pcycle_climate,  "% cycling (Go Dutch)" = pcycle_godutch,  "% cycling (Ebike)" = pcycle_ebike) %>%
+  dplyr::rename(Municipio = url) %>%
+  dplyr::arrange(Municipio) %>%
+  # dplyr::mutate_if(is.numeric, round, 1) %>%
+  DT::datatable(escape = -1, #para colocar os links, a contar com os rownames
+                filter = 'none',
+                rownames = FALSE,
+                colnames = c("Município", "População 2021", "Viagens /dia", "Viagens Bicicleta", "Novas Viagens Bicicleta 4%",
+                             "CO2eq evitado em 10 anos (ton)", "Benefícios estimados em 10 anos (milhares €)"),
+                options = list(dom = "t",
+                               pageLength = 18,
+                               responsive = TRUE,
+                              extensions = c('Responsive'))) %>% 
+  DT::formatRound(c(2:7),0, mark = " ")
 ```
 
 
