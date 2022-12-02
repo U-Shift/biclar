@@ -360,6 +360,7 @@ This information can be used to inform decisions about where best to invest in n
 
 *   Grupo de Trabalho: ...
 *   Conselho Consultuvo: ....
+*   Matheus Correia, OpenStreetMap Portugal
 *   CycleStreets
 *   r5r
 
