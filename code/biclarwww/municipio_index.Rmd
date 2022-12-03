@@ -1,5 +1,5 @@
 ---
-title: "biclaR - Resultados por município"
+title: "Resultados por município"
 output:
   html_document:
     theme:
@@ -11,28 +11,178 @@ output:
         google: "Lexend"
       code_font:
         google: "JetBrains Mono"
-    # css: style.css
+    css: css/style.css
     includes:
       after_body: img/footer.html
 ---
   
 
+```{r setup, include=FALSE}
+library(dplyr)
+library(tmap)
+tmap_mode("view")
+
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
+fmt_num = function(x) format(round(sum(x)), big.mark=" ")
+```
+
+```{r chamadas}
+i = "barreiro"
+mun = stringr::str_to_title(i)
+proposicao = ifelse(mun %in% c("Amadora", "Moita"), "Na",
+                    ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "No",
+                           "Em"))
+proposicaoD = ifelse(mun %in% c("Amadora", "Moita"), "da",
+                    ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "do",
+                           "de"))
+```
+
+```{r}
+MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
+
+HEAT_municipios_redux = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/HEAT_municipios_123_redux.Rds"))
+HEAT_mun = HEAT_municipios_redux %>% filter(Municipio == mun)
+
+# mapa11 = sf::st_read("export_rnet/rnet_aml_1410_50.gpkg")
+mapa11 = sf::st_read("D:/GIS/TML/biclar/export_rnet/rnet_aml_1310_50.gpkg", quiet = TRUE)
+mapa11 = mapa11[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10)
+mapa12 = sf::st_read("D:/GIS/TML/biclar/export_rnet/rnet_aml_1410_50.gpkg", quiet = TRUE)
+mapa12 = mapa12[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10)
+
+# mapa2 = sf::st_read("export_rnet/rnet_aml_2410_100.gpkg")
+mapa2 = sf::st_read("D:/GIS/TML/biclar/export_rnet/rnet_aml_2410_100.gpkg", quiet = TRUE)
+mapa2 = mapa2[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within]
+
+# mapa3 = sf::st_read("export_rnet/rnet_aml_3410_30.gpkg")
+mapa3 = sf::st_read("D:/GIS/TML/biclar/export_rnet/rnet_aml_3410_30.gpkg", quiet = TRUE)
+mapa3 = mapa3[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within]
+
+```
 
 
 <!-- landing page for each municipio -->
 
-# Municipio X
+# `r mun`
 
-See map below
+`r proposicao` `r mun`, as viagens são assim.
+
+Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMOB 2018), para **4%** de viagens em bicicleta (meta 2024), e para **10%** de viagens em bicicleta (meta 2030), transferidas diretamente de viagens em automóvel.
+
+Cada mapa refere-se a cada uma das 3 estimativas:
+
+* viagens até 5 km com ligação em bicicleta (_`r fmt_num(HEAT_mun[4,14])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
+* viagens até 10 km com ligação em bicicleta (_`r fmt_num(HEAT_mun[8,14])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
+* viagens até 5 km em bicicleta de ou até uma interface de transportes (_`r fmt_num(HEAT_mun[12,14])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
+
+
+
+
+### Até 5 km
 
 ```{r}
-#read data
-transit_all = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/transit.gpkg", quiet = TRUE)
-
-library(tmap)
-tmap_mode("view")
-
-tm_shape(transit_all) +
-  tm_sf(col = "mode", size = 0.3)
+biclar::tm_rnet(mapa1,
+                lwd = "cyc", #Baseline, ENMAC4, ENMAC10
+                col = "quietness",
+                palette = "-mako", 
+                scale = 15, #30 para lisboa?
+                lwd_multiplier = 15) 
 ```
+
+```{r}
+m = tmap::tm_shape(mapa11, name = "Potencial 4%") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 12,
+                   lwd_multiplier = 15,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  # "Em bicicleta 2018" = "Bike",
+                                  "% bicicleta 2018" = "Bikeper",
+                                  "Em bicicleta 4%" = "cyc",
+                                  "Novos ciclistas 4%" = "new_cyc",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2 evitado [ton/ano]" = "tCO2eq"
+                                  ),
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-mako", n = 5),
+                   breaks = c(0, 20, 40, 60, 80, 100),
+                   labels = c("0 - 19", "20 - 39", "40 - 59", "60 - 79", "80 - 100"),
+                   textNA = "sem info",
+                   title.col = "Tranquilidade"
+                   ) +
+  tmap::tm_shape(mapa12, name = "Potencial 10%") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 12,
+                   lwd_multiplier = 15,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  # "Em bicicleta 2018" = "Bike",
+                                  "% bicicleta 2018" = "Bikeper",
+                                  "Em bicicleta 10%" = "cyc",
+                                  "Novos ciclistas 10%" = "new_cyc",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2 evitado [ton/ano]" = "tCO2eq"
+                                  ),
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-reds", n = 5),
+                   breaks = c(0, 20, 40, 60, 80, 100),
+                   labels = c("0 - 19", "20 - 39", "40 - 59", "60 - 79", "80 - 100"),
+                   textNA = "sem info",
+                   title.col = "Tranquilidade",
+                   ) +
+  tm_view(view.legend.position = c("right", "bottom"),
+          control.position = c("right", "top"),
+          leaflet.options = highlightOptions(color = "white", bringToFront = TRUE))
+tmap::tmap_leaflet(m) %>% 
+  # leaflet::addPolylines(highlightOptions = highlightOptions(color = "white", bringToFront = TRUE)) %>%
+  leaflet::addLayersControl(overlayGroups = c("Potencial 4%", "Potencial 10%"),
+                                                    options = layersControlOptions(collapsed = FALSE))
+```
+
+
+
+### Até 10 km (e-bike)
+
+```{r}
+biclar::tm_rnet(mapa2,
+                lwd = "cyc", #Baseline, ENMAC4, ENMAC10
+                col = "quietness",
+                palette = "-linear_yl_rd_bk", 
+                scale = 15, #30 para lisboa?
+                lwd_multiplier = 15)
+```
+
+
+### Até 5 km intermodal
+
+```{r}
+biclar::tm_rnet(mapa3,
+                lwd = "cyc", #Baseline, ENMAC4, ENMAC10
+                col = "quietness",
+                palette = "-burg", 
+                scale = 15, #30 para lisboa?
+                lwd_multiplier = 15)
+```
+
+
+> Nota: Estes mapas referem-se às ligações mais _rápidas_. Para ligações mais _tranquilas_, ver a página de [donwloads](downloads.html).
+
+## Resumo
+
+```{r}
+# tabela com potencial para cada cenario +  estimativas SE
+```
+
 
