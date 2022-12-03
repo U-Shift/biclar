@@ -17,12 +17,12 @@ rmarkdown::render(input = "code/biclarwww/index.Rmd", output_dir = "biclarwww", 
 
 # code to build the site
 
-# i = "lisboa"
+i = "barreiro"
 
 for (i in municipios){
   
   pub_folder = paste0("biclarwww/", i) #this needs to be updated for each municipio
-  dir.create(pub_folder) #comment this one??
+  # dir.create(pub_folder) #comment this one??
   rmarkdown::render(input = "code/biclarwww/municipio_index.Rmd", output_dir = pub_folder, output_file = "index.html")
   # rmarkdown::render(input = "stats.Rmd", output_dir = pub_folder, output_file = "stats.html")
   # rmarkdown::render(input = "baseline.Rmd", output_dir = pub_folder, output_file = "baseline.html")
