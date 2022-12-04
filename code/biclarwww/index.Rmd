@@ -71,6 +71,7 @@ counties_index = counties_raw %>%
 #   ))
 # counties_index = sf::st_as_sf(counties_index)
 
+
 municipios_index = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds")) %>% #it was counties_index -> change to a table with mode statistics!
   # dplyr::mutate(county_name = stringr::str_to_title(Concelho)) %>% #maiusculas
   dplyr::rename(Municipio = Concelho) %>%
@@ -78,7 +79,12 @@ municipios_index = readRDS(url("https://github.com/U-Shift/biclar/releases/downl
   dplyr::mutate(url = paste0(
   "<a href='", tolower(Municipio) , "/' target='_blank'>",  Municipio,  "</a>"
 )) 
+
+municipios_index$url[Municipio == "Vila Franca de Xira"] = paste0("<a href='vfxira/' target='_blank'>",  Municipio,  "</a>")
+
 municipios_index = sf::st_as_sf(municipios_index)
+
+
 ```
 
 # {.tabset}
@@ -87,6 +93,18 @@ municipios_index = sf::st_as_sf(municipios_index)
 
 
 test content
+
+```{r}
+#read data
+transit_all = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/transit.gpkg", quiet = TRUE)
+
+library(tmap)
+tmap_mode("view")
+
+tm_shape(transit_all) +
+  tm_sf(col = "mode", size = 0.3)
+```
+
 
 ```{r eval=FALSE, include=FALSE}
 tippy::tippy_this(elementId = "word", tooltip = "At low zoom, the map shows the % cycle uptake per county; at high zoom, it displays a cycle friendliness measure, with a score between 0 (very unfriendly) and 100 (very friendly). Both measures are shown for each given scenario. See the FAQs for more details")
@@ -282,7 +300,7 @@ leaflet::leaflet(counties_index) %>%
 Por enquanto nada.
 
 
-------------------------------------------------------------------------
+<!-- ------------------------------------------------------------------------ -->
 
 ## AML
 
@@ -305,7 +323,7 @@ municipios_index %>%
 ```
 
 
-------------------------------------------------------------------------
+<!-- ------------------------------------------------------------------------ -->
 
 ## Municípios
 
@@ -340,7 +358,7 @@ municipios_index %>%
 
 
 
-------------------------------------------------------------------------
+<!-- ------------------------------------------------------------------------ -->
 
 ## Sobre
 
@@ -373,7 +391,7 @@ You can give feedback on the tool in the [online survey](nada).
 Enviar um email para...
 
 
-------------------------------------------------------------------------
+<!-- ------------------------------------------------------------------------ -->
 
 ## FAQ
 
@@ -389,7 +407,7 @@ tal tal.
 tal tal tal.
 
 
-------------------------------------------------------------------------
+<!-- ------------------------------------------------------------------------ -->
 
 
 
