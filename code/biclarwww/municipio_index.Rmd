@@ -54,7 +54,7 @@ HEAT_mun = HEAT_municipios_redux %>% filter(Municipio == mun)
 
 # cenario 1
 
-if (i %in% c("mafra", "sesimbra", "alcochete")){
+if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){
 
   mapa11r = sf::st_read("export_rnet/rnet_aml_1404_15.gpkg", quiet = TRUE)
   mapa11r = mapa11r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
@@ -105,7 +105,7 @@ mapa12l = mapa12l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(30
 
 # cenario 2
 
-if (i %in% c("mafra", "sesimbra", "alcochete")){
+if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){
 
 mapa21r = sf::st_read("export_rnet/rnet_aml_1404_50.gpkg", quiet = TRUE)
 mapa21r = mapa21r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
@@ -232,12 +232,12 @@ mapa32l = mapa32l[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_withi
 ```
 
 ```{r minimos}
-if (i %in% c("mafra", "sesimbra", "alcochete")){ 
+if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){ 
   minimo1 = 15} else {
     minimo1 = 50 
   }
 
-if (i %in% c("mafra", "sesimbra", "alcochete")){ 
+if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){ 
   minimo2 = 50} else if (i %in% c("almada", "oeiras", "lisboa", "odivelas", "amadora")){
     minimo2 = 200 } else {
     minimo2 = 100
