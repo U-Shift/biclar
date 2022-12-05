@@ -17,7 +17,7 @@ output:
 ---
   
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, cache=FALSE}
 library(dplyr)
 library(tmap)
 tmap_mode("view")
@@ -25,17 +25,25 @@ library(leaflet)
 
 knitr::opts_chunk$set(echo = FALSE,
                       message = FALSE,
-                      warning = FALSE)
+                      cache = TRUE, #hide if needed
+                      warning = FALSE
+                      )
+
+
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) #to use the project root as the working directory
+
+options(encoding = "UTF-8")
 
 fmt_num = function(x) format(round(sum(x)), big.mark=" ")
 ```
 
 ```{r chamadas}
-i = "barreiro" #delete this when running for all!!!
+# i = "barreiro" #delete this when running for all!!!
 mun = stringr::str_to_title(i)
 
 if (i == "vila franca de xira") {
     i = "vfxira"
+    mun = "Vila Franca de Xira"
   }
 
 proposicao = ifelse(mun %in% c("Amadora", "Moita"), "Na",
@@ -46,7 +54,47 @@ proposicaoD = ifelse(mun %in% c("Amadora", "Moita"), "da",
                            "de"))
 ```
 
-```{r}
+```{r dados}
+TRIPSmode_municipio = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_municipal.Rds"))
+
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Car"] = "Automovel"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Bike"] = "Bicicleta"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Motorcycle"] = "Motociclo"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Walk"] = "A Pe"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Transit"] = "Transportes Publicos"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Other"] = "Outro"
+
+# TRIPSmode_municipio$Origem[TRIPSmode_municipio$Origem == "Setubal"] = "Setúbal" #resolver o encoding!
+# TRIPSmode_municipio$Destino[TRIPSmode_municipio$Destino == "Setubal"] = "Setúbal"
+
+
+TRIPSmode_mun = TRIPSmode_municipio %>%
+  filter(Origem == mun | Destino == mun) %>% 
+  group_by(modo) %>%
+  summarise(viagens = round(sum(viagens))) %>% 
+  mutate(percentagem = round(100*viagens/sum(viagens),1))
+
+
+TRIPSmode_mun_intr = TRIPSmode_municipio %>%
+  filter(Origem == mun | Destino == mun)
+TRIPSmode_mun_intr$Inter[TRIPSmode_mun_intr$Origem == TRIPSmode_mun_intr$Destino] = "Intramunicipal"
+TRIPSmode_mun_intr$Inter[is.na(TRIPSmode_mun_intr$Inter)] = "Intermunicipal"
+TRIPSmode_mun_intr = TRIPSmode_mun_intr %>% 
+  group_by(modo, Inter) %>%
+  summarise(viagens = round(sum(viagens)))
+
+viagensinter = sum(TRIPSmode_mun_intr$viagens[TRIPSmode_mun_intr$Inter == "Intermunicipal"])
+viagensintra = sum(TRIPSmode_mun_intr$viagens[TRIPSmode_mun_intr$Inter == "Intramunicipal"])
+
+TRIPSmode_mun_intr$percentagem[TRIPSmode_mun_intr$Inter == "Intermunicipal"] =  round(100*TRIPSmode_mun_intr$viagens[TRIPSmode_mun_intr$Inter == "Intermunicipal"]/viagensinter, 1)
+
+TRIPSmode_mun_intr$percentagem[TRIPSmode_mun_intr$Inter == "Intramunicipal"] =  round(100*TRIPSmode_mun_intr$viagens[TRIPSmode_mun_intr$Inter == "Intramunicipal"]/viagensintra, 1)
+
+TRIPSmode_mun_intr = bind_rows(TRIPSmode_mun %>% mutate(Inter = "Todas"),  TRIPSmode_mun_intr)
+
+```
+
+```{r makemaps}
 MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
 
 HEAT_municipios_redux = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/HEAT_municipios_123_redux.Rds"))
@@ -107,22 +155,22 @@ mapa12l = mapa12l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(30
 
 if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){
 
-mapa21r = sf::st_read("export_rnet/rnet_aml_1404_50.gpkg", quiet = TRUE)
+mapa21r = sf::st_read("export_rnet/rnet_aml_2404_50.gpkg", quiet = TRUE)
 mapa21r = mapa21r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa21l = sf::st_read("export_rnet/rnet_aml_1304_50.gpkg", quiet = TRUE)
+mapa21l = sf::st_read("export_rnet/rnet_aml_2304_50.gpkg", quiet = TRUE)
 mapa21l = mapa21l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa22r = sf::st_read("export_rnet/rnet_aml_1410_50.gpkg", quiet = TRUE)
+mapa22r = sf::st_read("export_rnet/rnet_aml_2410_50.gpkg", quiet = TRUE)
 mapa22r = mapa22r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa22l = sf::st_read("export_rnet/rnet_aml_1310_50.gpkg", quiet = TRUE)
+mapa22l = sf::st_read("export_rnet/rnet_aml_2310_50.gpkg", quiet = TRUE)
 mapa22l = mapa22l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
@@ -130,22 +178,22 @@ mapa22l = mapa22l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(30
 
 } else if (i %in% c("almada", "oeiras", "lisboa", "odivelas", "amadora")){
 
-mapa21r = sf::st_read("export_rnet/rnet_aml_1404_200.gpkg", quiet = TRUE)
+mapa21r = sf::st_read("export_rnet/rnet_aml_2404_200.gpkg", quiet = TRUE)
 mapa21r = mapa21r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa21l = sf::st_read("export_rnet/rnet_aml_1304_200.gpkg", quiet = TRUE)
+mapa21l = sf::st_read("export_rnet/rnet_aml_2304_200.gpkg", quiet = TRUE)
 mapa21l = mapa21l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa22r = sf::st_read("export_rnet/rnet_aml_1410_200.gpkg", quiet = TRUE)
+mapa22r = sf::st_read("export_rnet/rnet_aml_2410_200.gpkg", quiet = TRUE)
 mapa22r = mapa22r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa22l = sf::st_read("export_rnet/rnet_aml_1310_200.gpkg", quiet = TRUE)
+mapa22l = sf::st_read("export_rnet/rnet_aml_2310_200.gpkg", quiet = TRUE)
 mapa22l = mapa22l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
@@ -153,22 +201,22 @@ mapa22l = mapa22l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(30
 
 } else {
 
-mapa21r = sf::st_read("export_rnet/rnet_aml_1404_100.gpkg", quiet = TRUE)
+mapa21r = sf::st_read("export_rnet/rnet_aml_2404_100.gpkg", quiet = TRUE)
 mapa21r = mapa21r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa21l = sf::st_read("export_rnet/rnet_aml_1304_100.gpkg", quiet = TRUE)
+mapa21l = sf::st_read("export_rnet/rnet_aml_2304_100.gpkg", quiet = TRUE)
 mapa21l = mapa21l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa22r = sf::st_read("export_rnet/rnet_aml_1410_100.gpkg", quiet = TRUE)
+mapa22r = sf::st_read("export_rnet/rnet_aml_2410_100.gpkg", quiet = TRUE)
 mapa22r = mapa22r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
-mapa22l = sf::st_read("export_rnet/rnet_aml_1310_100.gpkg", quiet = TRUE)
+mapa22l = sf::st_read("export_rnet/rnet_aml_2310_100.gpkg", quiet = TRUE)
 mapa22l = mapa22l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
   mutate(tCO2eq = tCO2eq10/10,
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
@@ -256,7 +304,47 @@ if (i %in% c("lisboa", "almada", "cascais", "amadora", "sintra", "oeiras")){
 
 # `r mun`
 
-`r proposicao` `r mun`, as viagens são assim.
+Segundo o Inquérito à Mobilidade  ([IMOB](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt)) realizado em 2018 pelo INE, as viagens com origem e/ou destino `r stringr::str_to_lower(proposicao)` `r mun` têm as seguintes características.
+
+```{r mododist, fig.ncol=2, out.width="50%"}
+# gráfico com caracterização viagens IMOB intra municipais e intermonicipais
+
+TRIPSmode_mun_intr$modo = factor(TRIPSmode_mun_intr$modo, 
+                                 levels = c("Automovel", "Transportes Publicos", "Motociclo", 
+                                            "Outro", "A Pe", "Bicicleta"))
+
+col_modes = c("#fe5f55", "#ffd166", "#8E794A", "grey", "#457b9d", "#90be6d") 
+
+ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = percentagem/100, x = Inter)) +
+  geom_bar(position = position_fill(reverse = FALSE), stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Modo") +
+  scale_y_continuous(labels = scales::percent) +
+  geom_text(aes(label = ifelse(percentagem > 6, paste0(percentagem,"%"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(), axis.title.x = element_blank(), legend.title = element_blank(), legend.position = "none") +
+  coord_flip()
+
+ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Modo") +
+  scale_y_continuous("Viagens / dia", labels = scales::comma_format(big.mark = ' ')) +
+  geom_text(aes(label = ifelse(viagens/1000 > 10, paste0(round(viagens/1000)," k"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(), legend.title = element_text("Modo"), legend.position = "right") +
+  coord_flip()
+
+
+
+```
+
+Das cerca de `r fmt_num(round(sum(TRIPSmode_mun$viagens)/1000))`mil viagens diárias `r stringr::str_to_lower(proposicao)` `r mun`, apenas **`r TRIPSmode_mun[3,3]`% das viagens são realizadas em bicicleta** (`r round(TRIPSmode_mun[3,2])`). `r round(TRIPSmode_mun[2,2]/1000)`mil são feitas em automóvel (`r TRIPSmode_mun[2,3]`%), `r round(TRIPSmode_mun[1,2]/1000)`mil a pé (`r TRIPSmode_mun[1,3]`%), `r round(TRIPSmode_mun[6,2]/1000)`mil em Transportes Públicos (`r TRIPSmode_mun[6,3]`%) e `r round(TRIPSmode_mun[4,2]+TRIPSmode_mun[5,2])` em outros modos (`r TRIPSmode_mun[4,3]+TRIPSmode_mun[5,3]`%).
+
+Diariamente, cerca de `r fmt_num(round(viagensintra/1000))`mil viagens têm origem e destino `r stringr::str_to_lower(proposicao)` `r mun`, e cerca de `r fmt_num(round(viagensinter/1000))`mil viagens têm origem ou destino em municípios diferentes.
+
+
+## Rede ciclável potencial
 
 Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMOB 2018), para **4%** de viagens em bicicleta (meta 2024), e para **10%** de viagens em bicicleta (meta 2030), transferidas diretamente de viagens em automóvel.
 
@@ -267,16 +355,23 @@ Cada mapa refere-se a cada uma das 3 estimativas:
 * viagens até 5 km em bicicleta de ou até uma interface de transportes (_`r fmt_num(HEAT_mun[12,14])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
 
 <!-- Passar isto para FAQ? -->
-Os mapas apresentam a informação gráfica para duas redes - a rede ciclável para viagens mais diretas, e a rede para viagens mais seguras e tranquilas (conforme a rede viária existente). A largura das linhas varia consoante o número de ciclistas potencial para cada um dos cenários (4% e 10% de ciclistas), e essa informação é visível ao passar com o rato em cima da linha.  
+
+<details>
+  <summary>**Como ler estes mapas?**</summary>
+Os mapas apresentam a informação gráfica para duas redes - a rede ciclável para viagens mais diretas, e a rede para viagens mais seguras e tranquilas (conforme a rede viária existente).  
+A largura das linhas varia consoante o número de ciclistas potencial para cada um dos cenários (4% e 10% de ciclistas), e essa informação é visível ao passar com o rato em cima da linha.  
 A cor das linhas varia com o nível de tranquilidade ([_quietness_](https://www.cyclestreets.net/help/journey/howitworks/#quietness)), sendo as mais escuras aquelas menos seguras para circular em bicicleta - indicando com maior clareza quais os segmentos que necessitam de intervenção para se tornarem mais seguros e potencialmente trazerem mais ciclistas: os **mais escuros e mais largos**.
 
 Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viagens estimadas que podem passar por aquele segmento, incluindo os benefícios socio-ambientais estimados, e as características físicas daquele segmento.
 
 É possível ver mais do que uma opção de rota em simultâneo (direta / segura), por exemplo para comparar alternativas, e níveis de potencial ciclável, estabelecidos pela Estratégia Nacionail de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf)), em 4 e 10% nos centros urbanos, transferidos de viagens em automóvel. 
+</details>
 
-### Até 5 km
+#### Até 5 km
 
-```{r mapa1}
+Este mapa apresenta os segmentos com mais de `r minimo1` viagens potenciais em bicicleta. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
+
+```{r mapa1, cache=FALSE}
 m1 = tmap::tm_shape(mapa11r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
@@ -395,12 +490,12 @@ htmlwidgets::saveWidget(m1leaf, file = paste0("biclarwww/", i,"/mapa_cenario1.ht
 
 Ver mapa em [ecrã inteiro](mapa_cenario1.html).
 
-> Este mapa apresenta os segmentos com mais de `r minimo1` viagens potenciais em bicicleta. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
 
+#### Até 10 km (e-bike)
 
-### Até 10 km (e-bike)
+Este mapa mostra os segmentos com mais de `r minimo2` viagens potenciais em bicicleta elétrica. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
 
-```{r mapa2}
+```{r mapa2, cache=FALSE}
 m2 = tmap::tm_shape(mapa21r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
@@ -420,7 +515,7 @@ m2 = tmap::tm_shape(mapa21r, name = "Potencial 4% - direto") +
                                   ),
                    popup.format = list(big.mark = " ", digits = 0), #
                    col = "quietness",
-                   palette = cols4all::c4a(palette = "-linear_yl_rd_bk", n = 4),
+                   palette = cols4all::c4a(palette = "-reds3", n = 4),
                    breaks = c(0, 25, 50, 75, 100),
                    legend.format = list(text.separator = "a"),
                    textNA = "sem info",
@@ -443,7 +538,7 @@ m2 = tmap::tm_shape(mapa21r, name = "Potencial 4% - direto") +
                                   ),
                    popup.format = list(big.mark = " ", digits = 0), #
                    col = "quietness",
-                   palette = cols4all::c4a(palette = "-mako", n = 4),
+                   palette = cols4all::c4a(palette = "-hokusai2", n = 4),
                    breaks = c(0, 25, 50, 75, 100),
                    legend.format = list(text.separator = "a"),
                    textNA = "sem info",
@@ -466,7 +561,7 @@ m2 = tmap::tm_shape(mapa21r, name = "Potencial 4% - direto") +
                                   ),
                    popup.format = list(big.mark = " ", digits = 0),
                    col = "quietness",
-                   palette = cols4all::c4a(palette = "-linear_yl_rd_bk",  n = 4),
+                   palette = cols4all::c4a(palette = "-reds3",  n = 4),
                    breaks = c(0, 25, 50, 75, 100),
                    legend.format = list(text.separator = "a"),
                    legend.col.show = FALSE,
@@ -490,7 +585,7 @@ m2 = tmap::tm_shape(mapa21r, name = "Potencial 4% - direto") +
                                   ),
                    popup.format = list(big.mark = " ", digits = 0),
                    col = "quietness",
-                   palette = cols4all::c4a(palette = "-mako",  n = 4),
+                   palette = cols4all::c4a(palette = "-hokusai2",  n = 4),
                    breaks = c(0, 25, 50, 75, 100),
                    legend.format = list(text.separator = "a"),
                    legend.col.show = FALSE,
@@ -519,11 +614,12 @@ htmlwidgets::saveWidget(m2leaf, file = paste0("biclarwww/", i,"/mapa_cenario2.ht
 
 Ver mapa em [ecrã inteiro](mapa_cenario2.html).
 
-> Este mapa mostra os segmentos com mais de `r minimo2` viagens potenciais em bicicleta. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
 
-### Até 5 km intermodal
+#### Até 5 km intermodal
 
-```{r mapa3}
+Este mapa mostra os segmentos com mais de `r minimo3` viagens potenciais em bicicleta, em que parte da viagem é realizada em transportes públicos (barco, comboio, metro sul do Tejo, ou carris metropolitana). Os segmentos deste mapa dizem respeito apenas à parte da viagem que é realizada em bicicleta, num total de até 5 km no conjunto da primeira e última etapa da viagem intermodal. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
+
+```{r mapa3, cache=FALSE}
 m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
@@ -642,29 +738,37 @@ htmlwidgets::saveWidget(m3leaf, file = paste0("biclarwww/", i,"/mapa_cenario3.ht
 
 Ver mapa em [ecrã inteiro](mapa_cenario3.html).
 
-> Este mapa mostra os segmentos com mais de `r minimo3` viagens potenciais em bicicleta. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
-
 
 ## Resumo
 
-```{r}
+Tabela com potencial para cada cenário + estimativas impactes socio-ambientais.
+
+```{r tabela}
 # tabela com potencial para cada cenario +  estimativas SE
+
+DT::datatable(head(iris),
+              rownames = FALSE,
+              filter = 'none',
+              options = list(dom = "t",
+                               pageLength = 5,
+                               responsive = TRUE,
+                              extensions = c('Responsive'))
+)
 ```
 
 
 ## Downloads
 
-```{r}
-download_folder = paste0("biclarwww/", i)
+```{r downloads}
 
-path_sf_1r = paste0(download_folder, "/", i, "_rededireta_cenario1.gpkg")
-path_sf_1l = paste0(download_folder, "/", i, "_redesegura_cenario1.gpkg")
+path_sf_1r = paste0(i, "_rededireta_cenario1.gpkg") #how works best?
+path_sf_1l = paste0(i, "_redesegura_cenario1.gpkg")
 
-path_sf_2r = paste0(download_folder, "/", i, "_rededireta_cenario2.gpkg")
-path_sf_2l = paste0(download_folder, "/", i, "_redesegura_cenario2.gpkg")
+path_sf_2r = paste0(i, "_rededireta_cenario2.gpkg")
+path_sf_2l = paste0(i, "_redesegura_cenario2.gpkg")
 
-path_sf_3r = paste0(download_folder, "/", i, "_rededireta_cenario3.gpkg")
-path_sf_3l = paste0(download_folder, "/", i, "_redesegura_cenario3.gpkg")
+path_sf_3r = paste0(i, "_rededireta_cenario3.gpkg")
+path_sf_3l = paste0(i, "_redesegura_cenario3.gpkg")
 
 ```
 
@@ -672,15 +776,20 @@ path_sf_3l = paste0(download_folder, "/", i, "_redesegura_cenario3.gpkg")
 Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg), que pode ser ligo em qualquer SIG moderno. É recomendável o software de acesso livre [QGIS](https://qgis.org/pt_PT/site/) para leitura, visualização e análise de dados em detalhe.
 
 1.    **Viagens até 5 km em bicicleta**
-    *   [Rede direta](path_sf_1r)
-    *   [Rede segura](path_sf_1l)
-2.    **Viagens até 10 km em bicicleta elétrica**
-    *   [Rede direta](path_sf_2r)
-    *   [Rede segura](path_sf_2l)
-3.    **Viagens intermodais até 5 km em bicicleta**
-    *   [Rede direta](path_sf_3r)
-    *   [Rede segura](path_sf_3l)
 
-Para cada município, os dados disponíveis para download referem-se à rede ciclável potencial com um _buffer_ de 300 metros para além dos limites do município, para que sejam consideradas as ligações ao município vizinho. ( _Excepto no cenário 3_) 
+  *   [Rede direta](`r path_sf_1r`)
+  *   [Rede segura](`r path_sf_1l`)
+    
+2.    **Viagens até 10 km em bicicleta elétrica**
+
+  *   [Rede direta](`r path_sf_2r`)
+  *   [Rede segura](`r path_sf_2l`)
+    
+3.    **Viagens intermodais até 5 km em bicicleta**
+
+  *   [Rede direta](`r path_sf_3r`)
+  *   [Rede segura](`r path_sf_3l`)
+
+Para cada município, os dados disponíveis para download referem-se à rede ciclável potencial com uma margem de 300 metros para além dos limites do município, para que sejam consideradas as ligações ao município vizinho. (_Exceto no cenário 3_) 
 
 A rede disponibilizada poderá não corresponder à que é apresentada nos mapas acima, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta. Para visualizar os segmentos dependendo do número de viagens potenciais, utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicileta.

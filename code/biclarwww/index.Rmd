@@ -39,13 +39,11 @@ library(htmlwidgets)
 ```
 
 
-<!-- Content for landing page-->
-
-##  Ferramenta de apoio ao planeamento da rede ciclável na Área Metropolitana de Lisboa
+<h2 style="text-align: center;">Ferramenta de apoio ao planeamento da rede ciclável<br> na Área Metropolitana de Lisboa</h2>
 
 ##### Nota: este projeto está em fase _beta_ e a informação deste site deve ser considerada como _work in progress_. 
 
-
+<!-- Content for landing page-->
 
 ```{r pkg, eval=FALSE, include=FALSE}
 # TODO this will contain more variables we need, primarily % cycling
@@ -321,6 +319,8 @@ municipios_index %>%
                                                              responsive = TRUE,
                                                              extensions = c('Responsive'))) 
 ```
+
+ver página com detalhes: [AML](aml/index.html)
 
 
 <!-- ------------------------------------------------------------------------ -->

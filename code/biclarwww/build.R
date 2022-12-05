@@ -4,18 +4,18 @@
 # Read in data --------------------------------------------------------------------------------
 
 
+# página principal
+rmarkdown::render(input = "code/biclarwww/index.Rmd", output_dir = "biclarwww", output_file = "index.html") #run this
 
 
+# página da AML - demora cerca de 5min a render. Agora sem 2 mapas é rápido (1min)
+rmarkdown::render(input = "code/biclarwww/aml_index.Rmd", output_dir = "biclarwww/aml", output_file = "index.html") #run this
 
 
 
 # Create outputs for each region --------------------------------------------------------------
 
 
-rmarkdown::render(input = "code/biclarwww/index.Rmd", output_dir = "biclarwww", output_file = "index.html") #run this
-
-
-# code to build the site
 
 i = "barreiro"
 
@@ -34,4 +34,5 @@ for (i in municipios){
   # rmarkdown::render(input = "downloads.Rmd", output_dir = pub_folder, output_file = "downloads.html")
   
 }
+
 
