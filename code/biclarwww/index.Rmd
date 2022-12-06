@@ -320,7 +320,7 @@ municipios_index %>%
                                                              extensions = c('Responsive'))) 
 ```
 
-ver página com detalhes: [AML](aml/index.html)
+ver página com detalhes: [AML](aml/index.html){target="_blank"}
 
 
 <!-- ------------------------------------------------------------------------ -->
