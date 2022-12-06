@@ -396,13 +396,28 @@ municipios_taburl = municipios_index %>%
   dplyr::arrange(Municipio)
 
 
+sketch = htmltools::withTags(table( #repetir header
+  class = 'display',
+  thead(
+    tr(
+      th(rowspan = 2, 'Município'),
+      th(rowspan = 2, 'População 2021'),
+      th(rowspan = 2, 'Total Viagens /dia 2018'),
+      th(colspan = 3, 'Viagens Bicicleta até 5km'),
+      th(colspan = 3, 'Viagens Bicicleta até 10km e-bike'),
+      th(colspan = 3, 'Viagens Bicicleta até 5km intermodal')
+    ),
+    tr(
+      lapply(rep(c("2018", "Meta 4%", "Meta 10%"), 3), th)
+    )
+  )
+))
 
 DT::datatable(municipios_taburl,
                 escape = -1, #para colocar os links, a contar com os rownames
                 filter = 'none',
                 rownames = FALSE,
-                colnames = c("Município", "População 2021", "Total Viagens /dia 2018",
-                             "Viagens Bicicleta 2018 até 5km", "Viagens Bicicleta 4% até 5km", "Viagens Bicicleta 10% até 5km", "Viagens Bicicleta 2018 até 10km e-bike", "Viagens Bicicleta 4% até 10km e-bike", "Viagens Bicicleta 10% até 10km e-bike","Viagens Bicicleta 2018 até 5km intermodal", "Viagens Bicicleta 4% até 5km intermodal", "Viagens Bicicleta 10% até 5km intermodal"),
+                container = sketch,
                 options = list(dom = "t",
                                pageLength = 18,
                                # width = "100%",
@@ -410,6 +425,8 @@ DT::datatable(municipios_taburl,
                                # responsive = TRUE,
                               extensions = c('Responsive'))) %>% 
   DT::formatRound(c(2:12),0, mark = " ")
+
+
 ```
 
 
