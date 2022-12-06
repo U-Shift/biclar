@@ -29,6 +29,8 @@ knitr::opts_chunk$set(
 # has_pub_key = nchar(Sys.getenv("MAPBOX_PUBLIC_TOKEN")) > 5
 # knitr::opts_chunk$set(eval = has_pub_key)
 
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) #to use the project root as the working directory
+
 library(sf)
 library(stringr)
 library(dplyr)
@@ -36,6 +38,8 @@ library(leaflet)
 # library(mapboxapi)
 library(DT)
 library(htmlwidgets)
+
+fmt_num = function(x) format(round(sum(x)), big.mark=" ")
 ```
 
 
@@ -96,6 +100,7 @@ test content
 #read data
 transit_all = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/transit.gpkg", quiet = TRUE)
 
+library(tidyverse)
 library(tmap)
 tmap_mode("view")
 
@@ -302,58 +307,109 @@ Por enquanto nada.
 
 ## AML
 
-Construir tabela com os dados de populacao, Bike, cyc4, ebike, etc
+Ver página com detalhes, mapas e mais resultados para a Área Metropolitana de Lisboa: [AML](aml/index.html){target="_blank"}
 
-```{r eval=FALSE, include=FALSE}
-# Aim: Build table for homepage
-# dn = "popupCycleways/v1"
-# built_counties = list.files(dn)
-# set.seed(42)
-municipios_index %>%
-  sf::st_drop_geometry() %>%
-  # dplyr::select(url, Population, "% cycling (Baseline)" = pcycle_baseline, "% cycling (Near Market)" = pcycle_near,  "% cycling (Climate Action Plan)" = pcycle_climate,  "% cycling (Go Dutch)" = pcycle_godutch,  "% cycling (Ebike)" = pcycle_ebike) %>%
-  # dplyr::rename(Name = url) %>%
-  dplyr::arrange(Name) %>%
-  # dplyr::mutate_if(is.numeric, round, 1) %>%
-  DT::datatable(escape = -2, filter = 'none', options = list(pageLength = 18,
-                                                             responsive = TRUE,
-                                                             extensions = c('Responsive'))) 
+```{r amlprep}
+tabelas_aml = readRDS("HEAT/tabelas_aml.Rds")
+tabelas_aml$Estrategia = gsub("ate", "até", tabelas_aml$Estrategia)
+POPaml = tabelas_aml$Pop21[1]
+tabelas_aml = tabelas_aml %>%
+  mutate(Percursos = recode(LTS, `3` = "seguro", `4` = "direto")) %>% 
+  filter(Percursos == "direto") %>% 
+  select(c(1,5,6,7,3)) %>% 
+  pivot_wider(names_from = Meta_ENMAC,
+              values_from = Bike_new) %>% 
+  arrange(Estrategia)
 ```
 
-ver página com detalhes: [AML](aml/index.html){target="_blank"}
+A AML tem uma população de `r fmt_num(POPaml)`. Diariamente são realizadas 5.33 milhões de viagens, em vários modos de transporte, das quais apenas **25 479 são realizadas em bicicleta** (0.5%).
+
+A tabela informa sobre o potencial ciclável em cada cenário considerado neste estudo, para ligações entre freguesias, realizáveis em bicicleta, e para percursos preferencialmente diretos.
+
+
+```{r tabelaaml}
+
+DT::datatable(tabelas_aml,
+                filter = 'none',
+                rownames = FALSE,
+                colnames = c("Cenário", "Total Viagens /dia",
+                             "Viagens Bicicleta 2018", "Viagens Bicicleta 4%",
+                              "Viagens Bicicleta 10%"),
+                # extensions = "RowGroup",
+                extensions = "Responsive",
+                options = list(dom = "t",
+                               pageLength = 3,
+                               responsive = TRUE,
+                               # rowGroup = list(dataSrc = 0), #agrupar a primeira coluna
+                               extensions = c('Responsive'))) %>% 
+    DT::formatRound(c(2:5),0, mark = " ")
+
+```
+
+Para todos os detalhes sobre estes resultados, ver a página da [Área Metropolitana de Lisboa](aml/index.html){target="_blank"}
 
 
 <!-- ------------------------------------------------------------------------ -->
 
 ## Municípios
 
-Construir tabela com os dados de populacao, Bike, cyc4, ebike, etc, por municipio
+A tabela informa sobre o potencial ciclável em cada cenário considerado neste estudo, para ligações entre freguesias, realizáveis em bicicleta, e para percursos preferencialmente diretos.
 
-```{r}
-# Aim: Build table for homepage
-# dn = "popupCycleways/v1"
-# built_counties = list.files(dn)
-# set.seed(42)
-municipios_index %>%
+Para um maior detalhe sobre os resultados de cada município, consultar a página individual, carregando no link do município, na tabela seguinte.
+
+```{r dados}
+TRIPSmode_municipio = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_municipal.Rds"))
+
+TRIPSall_mun = TRIPSmode_municipio %>%
+  group_by(Origem) %>%
+  summarise(viagens = round(sum(viagens)))
+```
+
+```{r tabelamun}
+
+municipios_taburl = municipios_index %>%
   sf::st_drop_geometry() %>%
-  dplyr::left_join(HEAT_municipios_PPP_redux %>% filter(CodePath == 1304)) %>% 
-  dplyr::select(url, Pop21, Total, Bike, Bike_new, CO2eq10, Economic10) %>%
-  dplyr::mutate(Economic10 = Economic10/1000,
-                CO2eq10 = as.numeric(gsub(" ","", CO2eq10))) %>% 
-  # Population, "% cycling (Baseline)" = pcycle_baseline, "% cycling (Near Market)" = pcycle_near,  "% cycling (Climate Action Plan)" = pcycle_climate,  "% cycling (Go Dutch)" = pcycle_godutch,  "% cycling (Ebike)" = pcycle_ebike) %>%
-  dplyr::rename(Municipio = url) %>%
-  dplyr::arrange(Municipio) %>%
-  # dplyr::mutate_if(is.numeric, round, 1) %>%
-  DT::datatable(escape = -1, #para colocar os links, a contar com os rownames
+  dplyr::left_join(HEAT_municipios_PPP_redux) %>% 
+  mutate(Percursos = recode(LTS, `3` = "seguro", `4` = "direto")) %>% 
+  filter(Percursos == "direto") %>% 
+  left_join(TRIPSall_mun, by =c("Municipio" = "Origem")) %>% 
+  dplyr::select(url, Pop21, viagens, Total, Bike, Bike_new, Estrategia, Meta_ENMAC) %>%
+  pivot_wider(names_from = c(Estrategia,Meta_ENMAC),
+              values_from = c(Total, Bike, Bike_new)) %>% 
+  select(-c(5,7,9,11,13,15)) %>% 
+  select(c(1:3,4,7,10,11,5,8,12,13,6,9,14,15)) %>% 
+  select(-c(4,8,12)) %>% 
+  dplyr::rename(Municipio = url,
+                # Total_5km = `Total_ate 5 km_4%`,
+                Bike_5km = `Bike_ate 5 km_4%`,
+                Bike_new4_5km = `Bike_new_ate 5 km_4%`,
+                Bike_new10_5km = `Bike_new_ate 5 km_10%`,
+                # Total_10km = `Total_ate 10km e-bike_4%`,
+                Bike_10km = `Bike_ate 10km e-bike_4%`,
+                Bike_new4_10km = `Bike_new_ate 10km e-bike_4%`,
+                Bike_new10_10km = `Bike_new_ate 10km e-bike_10%`,
+                # Total_5km_intermod = `Total_intermodal ate 5km _4%`,
+                Bike_5km_intermod = `Bike_intermodal ate 5km _4%`,
+                Bike_new4_intermod = `Bike_new_intermodal ate 5km _4%`,
+                Bike_new10_intermod = `Bike_new_intermodal ate 5km _10%`
+                ) %>%
+  dplyr::arrange(Municipio)
+
+
+
+DT::datatable(municipios_taburl,
+                escape = -1, #para colocar os links, a contar com os rownames
                 filter = 'none',
                 rownames = FALSE,
-                colnames = c("Município", "População 2021", "Viagens /dia", "Viagens Bicicleta", "Novas Viagens Bicicleta 4%",
-                             "CO2eq evitado em 10 anos (ton)", "Benefícios estimados em 10 anos (milhares €)"),
+                colnames = c("Município", "População 2021", "Total Viagens /dia 2018",
+                             "Viagens Bicicleta 2018 até 5km", "Viagens Bicicleta 4% até 5km", "Viagens Bicicleta 10% até 5km", "Viagens Bicicleta 2018 até 10km e-bike", "Viagens Bicicleta 4% até 10km e-bike", "Viagens Bicicleta 10% até 10km e-bike","Viagens Bicicleta 2018 até 5km intermodal", "Viagens Bicicleta 4% até 5km intermodal", "Viagens Bicicleta 10% até 5km intermodal"),
                 options = list(dom = "t",
                                pageLength = 18,
-                               responsive = TRUE,
+                               # width = "100%",
+                               scrollX = TRUE,
+                               # responsive = TRUE,
                               extensions = c('Responsive'))) %>% 
-  DT::formatRound(c(2:7),0, mark = " ")
+  DT::formatRound(c(2:12),0, mark = " ")
 ```
 
 
