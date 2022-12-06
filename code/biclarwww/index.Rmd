@@ -318,8 +318,7 @@ tabelas_aml = tabelas_aml %>%
   filter(Percursos == "direto") %>% 
   select(c(1,5,6,7,3)) %>% 
   pivot_wider(names_from = Meta_ENMAC,
-              values_from = Bike_new) %>% 
-  arrange(Estrategia)
+              values_from = Bike_new) 
 ```
 
 A AML tem uma população de `r fmt_num(POPaml)`. Diariamente são realizadas 5.33 milhões de viagens, em vários modos de transporte, das quais apenas **25 479 são realizadas em bicicleta** (0.5%).
