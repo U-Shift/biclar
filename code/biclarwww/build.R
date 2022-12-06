@@ -21,7 +21,7 @@ i = "barreiro"
 
 for (i in municipios){
   
-  if (i = "vila franca de xira"){
+  if (i == "vila franca de xira"){
     pub_folder = paste0("biclarwww/", "vfxira")
       } else {
     pub_folder = paste0("biclarwww/", i) #this needs to be updated for each municipio

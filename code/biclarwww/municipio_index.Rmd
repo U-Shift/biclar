@@ -50,7 +50,8 @@ if (i == "setubal"){
   mun = "Setúbal"
 }
 
-dontrun = i %in% c("alcochete", "mafra", "montijo") # não mostrar mapa 3
+dontrun = !i %in% c("alcochete", "mafra", "montijo") # não mostrar mapa 3
+run = i %in% c("alcochete", "mafra", "montijo") # mostrar mensagem mapa 3
 
 proposicao = ifelse(mun %in% c("Amadora", "Moita"), "Na",
                     ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "No",
@@ -736,6 +737,12 @@ m3leaf
 
 ```
 
+```{r conditional_block, echo=FALSE, results='asis', eval=run}
+cat("
+
+> Lamentamos, mas nesta área não existe rede ciclável potencial para o cenário 3, com as caraceterísticas definidas.")
+```
+
 Ver mapa em [ecrã inteiro](mapa_cenario3.html).
 
 ```{r exportmaps}
@@ -788,12 +795,12 @@ DT::datatable(tabelas_mun,
                                extensions = c('Responsive'))) %>% 
     DT::formatRound(c(4:8),0, mark = " ")
 
-cicmacx4 = max(tabelas_mun$Bike_new[tabelas_mun$Meta_ENMAC=="4%"])
-cicmacx10 = max(tabelas_mun$Bike_new[tabelas_mun$Meta_ENMAC=="10%"])
-co2macx4 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="4%"])
-co2macx10 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="10%"])
-euromacx4 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="4%"])
-euromacx10 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="10%"])
+cicmacx4 = max(tabelas_mun$Bike_new[tabelas_mun$Meta_ENMAC=="4%"], na.rm = TRUE)
+cicmacx10 = max(tabelas_mun$Bike_new[tabelas_mun$Meta_ENMAC=="10%"], na.rm = TRUE)
+co2macx4 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="4%"], na.rm = TRUE)
+co2macx10 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="10%"], na.rm = TRUE)
+euromacx4 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="4%"], na.rm = TRUE)
+euromacx10 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="10%"], na.rm = TRUE)
 
 ```
 
