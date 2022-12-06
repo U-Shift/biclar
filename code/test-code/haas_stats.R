@@ -88,8 +88,6 @@ sum(HEAT_aml_PPP_redux_143$Economic) #37882000
 format(sum(HEAT_aml_PPP_redux_143$Economic10), scientific=F) #336.770.000
 
 
-
-
 HEAT_municipios_PPP_redux_2104 = HEAT_municipios_PPP_redux %>%
   filter(Estrategia == "ate 10km e-bike",
          Meta_ENMAC == "10%",
@@ -109,3 +107,8 @@ sum(as.numeric(gsub(" ","",HEAT_aml_PPP_redux_2104$Mortality))) #90
 sum(as.numeric(gsub(" ","",HEAT_aml_PPP_redux_2104$CO2eq))) #65420
 sum(HEAT_aml_PPP_redux_2104$Economic) #284690000
 format(sum(HEAT_aml_PPP_redux_2104$Economic10), scientific=F) #2.537.000.000
+
+
+
+
+saveRDS(HEAT_municipios_PPP_redux, "HEAT/HEAT_municipios_123_redux.Rds")

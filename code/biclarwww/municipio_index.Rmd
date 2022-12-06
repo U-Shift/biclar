@@ -44,7 +44,13 @@ mun = stringr::str_to_title(i)
 if (i == "vila franca de xira") {
     i = "vfxira"
     mun = "Vila Franca de Xira"
-  }
+}
+
+if (i == "setubal"){
+  mun = "Setúbal"
+}
+
+dontrun = i %in% c("alcochete", "mafra", "montijo") # não mostrar mapa 3
 
 proposicao = ifelse(mun %in% c("Amadora", "Moita"), "Na",
                     ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "No",
@@ -57,15 +63,15 @@ proposicaoD = ifelse(mun %in% c("Amadora", "Moita"), "da",
 ```{r dados}
 TRIPSmode_municipio = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_municipal.Rds"))
 
-TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Car"] = "Automovel"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Car"] = "Automóvel"
 TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Bike"] = "Bicicleta"
 TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Motorcycle"] = "Motociclo"
-TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Walk"] = "A Pe"
-TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Transit"] = "Transportes Publicos"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Walk"] = "A Pé"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Transit"] = "Transportes Públicos"
 TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Other"] = "Outro"
 
-# TRIPSmode_municipio$Origem[TRIPSmode_municipio$Origem == "Setubal"] = "Setúbal" #resolver o encoding!
-# TRIPSmode_municipio$Destino[TRIPSmode_municipio$Destino == "Setubal"] = "Setúbal"
+TRIPSmode_municipio$Origem[TRIPSmode_municipio$Origem == "Setubal"] = "Setúbal" # por causa do acento
+TRIPSmode_municipio$Destino[TRIPSmode_municipio$Destino == "Setubal"] = "Setúbal"
 
 
 TRIPSmode_mun = TRIPSmode_municipio %>%
@@ -310,8 +316,8 @@ Segundo o Inquérito à Mobilidade  ([IMOB](https://www.ine.pt/xportal/xmain?xpi
 # gráfico com caracterização viagens IMOB intra municipais e intermonicipais
 
 TRIPSmode_mun_intr$modo = factor(TRIPSmode_mun_intr$modo, 
-                                 levels = c("Automovel", "Transportes Publicos", "Motociclo", 
-                                            "Outro", "A Pe", "Bicicleta"))
+                                 levels = c("Automóvel", "Transportes Públicos", "Motociclo", 
+                                            "Outro", "A Pé", "Bicicleta"))
 
 col_modes = c("#fe5f55", "#ffd166", "#8E794A", "grey", "#457b9d", "#90be6d") 
 
@@ -484,8 +490,6 @@ m1leaf = tmap::tmap_leaflet(m1) %>%
 
 m1leaf
 
-htmlwidgets::saveWidget(m1leaf, file = paste0("biclarwww/", i,"/mapa_cenario1.html"))
-
 ```
 
 Ver mapa em [ecrã inteiro](mapa_cenario1.html).
@@ -608,8 +612,6 @@ m2leaf = tmap::tmap_leaflet(m2) %>%
 
 m2leaf
 
-htmlwidgets::saveWidget(m2leaf, file = paste0("biclarwww/", i,"/mapa_cenario2.html"))
-
 ```
 
 Ver mapa em [ecrã inteiro](mapa_cenario2.html).
@@ -619,7 +621,7 @@ Ver mapa em [ecrã inteiro](mapa_cenario2.html).
 
 Este mapa mostra os segmentos com mais de `r minimo3` viagens potenciais em bicicleta, em que parte da viagem é realizada em transportes públicos (barco, comboio, metro sul do Tejo, ou carris metropolitana). Os segmentos deste mapa dizem respeito apenas à parte da viagem que é realizada em bicicleta, num total de até 5 km no conjunto da primeira e última etapa da viagem intermodal. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
 
-```{r mapa3, cache=FALSE}
+```{r mapa3, cache=FALSE, eval=dontrun}
 m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
@@ -732,30 +734,72 @@ m3leaf = tmap::tmap_leaflet(m3) %>%
 
 m3leaf
 
-htmlwidgets::saveWidget(m3leaf, file = paste0("biclarwww/", i,"/mapa_cenario3.html"))
-
 ```
 
 Ver mapa em [ecrã inteiro](mapa_cenario3.html).
 
+```{r exportmaps}
+htmlwidgets::saveWidget(m1leaf, file = paste0("biclarwww/", i,"/mapa_cenario1.html"))
+
+htmlwidgets::saveWidget(m2leaf, file = paste0("biclarwww/", i,"/mapa_cenario2.html"))
+
+htmlwidgets::saveWidget(m3leaf, file = paste0("biclarwww/", i,"/mapa_cenario3.html"))
+```
+
 
 ## Resumo
 
-Tabela com potencial para cada cenário + estimativas impactes socio-ambientais.
+A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais, para cada meta da Estratégia Nacional ENMAC, para cada cenário, e para cada tipo de rotas otimizadas. 
+
+Para cada um destes cenários, é possível ver também de forma agregada qual o potencial socio-ambiental estimado, em toneladas de CO~2~eq evitado anualmente, e em benefícios sociais.
+
+<details>
+  <summary>**Como são estimados os benefícios socio-ambientais?**</summary>
+Os benefícios socio-ambientais são estimados em duas vertentes, utilizando os métodos e a ferramenta [_HEAT for Cycling_](https://www.heatwalkingcycling.org/), da Organização Mundial de Saúde.
+
+A componente ambiental é medida em toneladas de CO~2~eq evitado, por transferência de viagens equivalentes em automóvel, com a mesma origem e destino, mas não necessariamente com o mesmo percurso.
+
+Os impactes sociais agregados, na componente da saúde, são estimados em termos de redução/aumento da mortalidade por aumento de atividade física, por exposição à poluição atomosférica, e por exposição ao risco de sinistralidade rodoviária.  
+Este valor é por fim monetizado utilizando o _Valor Estatístico da Vida_ (€3.055.358, segundo [ANSR 2021](http://www.ansr.pt/Estatisticas/RelatoriosTematicos/Documents/O%20Impacto%20Economico%20e%20Social%20da%20Sinistralidade%20-%20PT.pdf)), estimado para 10 anos, com uma taxa de desconto de 5% e inflação de 3%. 
+</details>
+
+
 
 ```{r tabela}
 # tabela com potencial para cada cenario +  estimativas SE
 
-DT::datatable(head(iris),
-              rownames = FALSE,
-              filter = 'none',
-              options = list(dom = "t",
-                               pageLength = 5,
+tabelas_mun = readRDS("HEAT/tabelas_mun.Rds")
+tabelas_mun = tabelas_mun %>% filter(Municipio == mun) %>%
+  mutate(Percursos = recode(LTS, `3` = "seguro", `4` = "direto")) %>% 
+  select(c(4,2,11,6:10)) %>% 
+  arrange(Meta_ENMAC)
+
+DT::datatable(tabelas_mun,
+                filter = 'none',
+                rownames = FALSE,
+                colnames = c("Meta ENMAC", "Cenário", "Tipo de Percurso", "Total Viagens /dia",
+                             "Viagens Bicicleta 2018", "Novas Viagens Bicicleta",
+                             "CO2eq evitado (ton/ano)", "Benefícios estimados em 10 anos (milhares €)"),
+                extensions = "RowGroup",
+                options = list(dom = "t",
+                               pageLength = 12,
                                responsive = TRUE,
-                              extensions = c('Responsive'))
-)
+                               rowGroup = list(dataSrc = 0), #agrupar a primeira coluna
+                               extensions = c('Responsive'))) %>% 
+    DT::formatRound(c(4:8),0, mark = " ")
+
+cicmacx4 = max(tabelas_mun$Bike_new[tabelas_mun$Meta_ENMAC=="4%"])
+cicmacx10 = max(tabelas_mun$Bike_new[tabelas_mun$Meta_ENMAC=="10%"])
+co2macx4 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="4%"])
+co2macx10 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="10%"])
+euromacx4 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="4%"])
+euromacx10 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="10%"])
+
 ```
 
+`r proposicao` `r mun`, a **meta de 4%** de ciclistas diários equivale a ter **`r fmt_num(cicmacx4)` ciclistas** em viagens até 10 km, com uma redução potencial de **`r fmt_num(co2macx4)` toneladas** de CO~2~eq por ter menos viagens em automóvel na mesma razão, com potenciais benefícios para a sociedade de **`r fmt_num(euromacx4/1000)` milhões €** ao fim de 10 anos.  
+
+Já a **meta de 10%** de ciclistas diários equivale a ter **`r fmt_num(cicmacx10)` ciclistas** em viagens até 10 km, com uma redução potencial de **`r fmt_num(co2macx10)` toneladas** de CO~2~eq por ter menos viagens em automóvel na mesma razão, com potenciais benefícios para a sociedade de **`r fmt_num(euromacx10/1000)` milhões €** ao fim de 10 anos.
 
 ## Downloads
 
@@ -792,4 +836,4 @@ Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg
 
 Para cada município, os dados disponíveis para download referem-se à rede ciclável potencial com uma margem de 300 metros para além dos limites do município, para que sejam consideradas as ligações ao município vizinho. (_Exceto no cenário 3_) 
 
-A rede disponibilizada poderá não corresponder à que é apresentada nos mapas acima, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta. Para visualizar os segmentos dependendo do número de viagens potenciais, utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicileta.
+`r emo::ji("magnifying")` A rede disponibilizada poderá não corresponder à que é apresentada nos mapas acima, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta. Para visualizar os segmentos dependendo do número de viagens potenciais, utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicileta.
