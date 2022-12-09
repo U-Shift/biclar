@@ -409,8 +409,7 @@ Este valoriza a utilização da bicicleta como complemento ao transporte públic
 Ver página com detalhes, mapas e mais resultados para a Área Metropolitana de Lisboa: [AML](aml/index.html){target="_blank"}
 
 ```{r amlprep}
-# tabelas_aml = readRDS("HEAT/tabelas_aml.Rds")
-tabelas_aml = readRDS("D:/GIS/TML/biclar/HEAT/tabelas_aml.Rds")
+tabelas_aml = readRDS("HEAT/tabelas_aml.Rds")
 
 tabelas_aml$Estrategia = gsub("ate", "até", tabelas_aml$Estrategia)
 POPaml = tabelas_aml$Pop21[1]
@@ -425,7 +424,7 @@ tabelas_aml = tabelas_aml %>%
 
 A AML tem uma população de `r fmt_num(POPaml)`. Diariamente são realizadas 5.33 milhões de viagens, em vários modos de transporte, das quais apenas **25 479 são realizadas em bicicleta** (0.5%).
 
-A tabela informa sobre o potencial ciclável em cada cenário considerado neste estudo, para ligações entre freguesias, realizáveis em bicicleta, e para percursos preferencialmente diretos.
+A tabela informa sobre o potencial ciclável em cada [cenário](Cenários) considerado neste estudo, para ligações entre freguesias, realizáveis em bicicleta, e para percursos preferencialmente diretos.
 
 
 ```{r tabelaaml}
@@ -437,8 +436,9 @@ DT::datatable(tabelas_aml,
                              "Viagens Bicicleta 2018", "Viagens Bicicleta 4%",
                               "Viagens Bicicleta 10%"),
                 # extensions = "RowGroup",
-                extensions = "Responsive",
-                options = list(dom = "t",
+                extensions = c("Responsive", "Buttons"),
+                options = list(dom = "tB",
+                               buttons = list(list(extend='copy',text="Copiar"), "excel"),
                                pageLength = 3,
                                responsive = TRUE,
                                # rowGroup = list(dataSrc = 0), #agrupar a primeira coluna
@@ -519,7 +519,9 @@ DT::datatable(municipios_taburl,
                 filter = 'none',
                 rownames = FALSE,
                 container = sketch,
-                options = list(dom = "t",
+                extensions = "Buttons",
+                options = list(dom = "tB",
+                               buttons = list(list(extend='copy',text="Copiar"), "excel"),
                                pageLength = 18,
                                # width = "100%",
                                scrollX = TRUE,

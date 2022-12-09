@@ -50,8 +50,8 @@ if (i == "setubal"){
   mun = "Setúbal"
 }
 
-dontrun = !i %in% c("alcochete", "mafra", "montijo", "odivelas", "sesimbra") # não mostrar mapa 3
-run = i %in% c("alcochete", "mafra", "montijo", "odivelas", "sesimbra") # mostrar mensagem mapa 3
+dontrun = !i %in% c("alcochete", "mafra", "montijo", "odivelas") # não mostrar mapa 3
+run = i %in% c("alcochete", "mafra", "montijo", "odivelas") # mostrar mensagem mapa 3
 
 proposicao = ifelse(mun %in% c("Amadora", "Moita"), "Na",
                     ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "No",
@@ -138,7 +138,7 @@ if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
   
-} else if (i %in% c("lisboa")){
+} else if (i %in% c("lisboa", "amadora", "oeiras")){
   
   mapa11r = sf::st_read("export_rnet/rnet_aml_1404_100.gpkg", quiet = TRUE)
   mapa11r = mapa11r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
@@ -317,7 +317,7 @@ mapa32l = mapa32l[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_withi
 
 ```{r minimos}
 if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){ 
-  minimo1 = 15} else if (i %in% c("lisboa")){ 
+  minimo1 = 15} else if (i %in% c("lisboa", "amadora", "oeiras")){ 
     minimo1 = 100 
   } else {
     minimo1 = 50 
@@ -374,6 +374,26 @@ if (i == "lisboa"){
   scale_fill_manual(values = col_modes, name = "Modo") +
   scale_y_continuous("Viagens / dia", labels = scales::comma_format(big.mark = ' ')) +
   geom_text(aes(label = ifelse(viagens/1000 > 200, paste0(round(viagens/1000)," k"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(), legend.title = element_text("Modo"), legend.position = "right") +
+  coord_flip()
+} else if (i %in% c("amadora", "cascais", "loures", "oeiras")){
+  ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Modo") +
+  scale_y_continuous("Viagens / dia", labels = scales::comma_format(big.mark = ' ')) +
+  geom_text(aes(label = ifelse(viagens/1000 > 19, paste0(round(viagens/1000)," k"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(), legend.title = element_text("Modo"), legend.position = "right") +
+  coord_flip()
+} else if (i %in% c("sintra")){
+  ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Modo") +
+  scale_y_continuous("Viagens / dia", labels = scales::comma_format(big.mark = ' ')) +
+  geom_text(aes(label = ifelse(viagens/1000 > 25, paste0(round(viagens/1000)," k"), "")),
     position = position_stack(vjust = 0.5, reverse = FALSE))+
   theme_minimal() +
   theme(axis.title.y = element_blank(), legend.title = element_text("Modo"), legend.position = "right") +
@@ -682,12 +702,20 @@ if (i == "lisboa"){
   mapa32l = mapa32l %>% filter(cyc < 5400) #otherwise we cant see scale lwd
 }
 
+if (i == "sesimbra"){
+  scale1 = 20
+  scale2 = 30
+} else {
+  scale1 = 30
+  scale2 = 40
+}
+
 
 m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
                    alpha = 0.9,
-                   scale = 30,
+                   scale = scale1,
                    lwd_multiplier = 18,
                    popup.vars = c("Viagens 2018" = "Total",
                                   # "Em bicicleta 2018" = "Bike",
@@ -712,7 +740,7 @@ m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
                    alpha = 0.9,
-                   scale = 40,
+                   scale = scale1,
                    lwd_multiplier = 18,
                    popup.vars = c("Viagens 2018" = "Total",
                                   "Ciclistas cenário base" = "bike18",
@@ -735,7 +763,7 @@ m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
                    alpha = 0.9,
-                   scale = 30,
+                   scale = scale2,
                    lwd_multiplier = 18,
                    popup.vars = c("Viagens 2018" = "Total",
                                   "Ciclistas cenário base" = "bike18",
@@ -759,7 +787,7 @@ m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
                    alpha = 0.9,
-                   scale = 40,
+                   scale = scale2,
                    lwd_multiplier = 18,
                    popup.vars = c("Viagens 2018" = "Total",
                                   "Ciclistas cenário base" = "bike18",
@@ -852,8 +880,9 @@ DT::datatable(tabelas_mun,
                 colnames = c("Meta ENMAC", "Cenário", "Tipo de Percurso", "Total Viagens /dia",
                              "Viagens Bicicleta 2018", "Novas Viagens Bicicleta",
                              "CO2eq evitado (ton/ano)", "Benefícios estimados em 10 anos (milhares €)"),
-                extensions = "RowGroup",
-                options = list(dom = "t",
+                extensions = c("RowGroup", "Buttons"),
+                options = list(dom = "tB",
+                               buttons = list(list(extend='copy',text="Copiar"), "excel"),
                                pageLength = 12,
                                responsive = TRUE,
                                rowGroup = list(dataSrc = 0), #agrupar a primeira coluna

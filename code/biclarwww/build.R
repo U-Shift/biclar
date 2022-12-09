@@ -16,7 +16,7 @@ rmarkdown::render(input = "code/biclarwww/aml_index.Rmd", encoding = "UTF-8", ou
 # Create outputs for each region --------------------------------------------------------------
 
 
-
+i = "oeiras"
 i = "barreiro"
 i = "lisboa"
 i = "odivelas"
@@ -26,14 +26,21 @@ i = "setubal"
 
 for (i in municipios){
   
+  # dir.create(pub_folder) #comment this one after run first time
+  
   if (i == "vila franca de xira"){
     pub_folder = paste0("biclarwww/", "vfxira")
       } else {
     pub_folder = paste0("biclarwww/", i) #this needs to be updated for each municipio
-  }
-  # dir.create(pub_folder) #comment this one after run first time
+      }
+  
+  if (i %in% c("alcochete", "mafra", "montijo", "odivelas")){
+    rmarkdown::render(input = "code/biclarwww/municipio_minor_index.Rmd", encoding = "UTF-8", output_dir = pub_folder, output_file = "index.html")
+    
+  } else {
   rmarkdown::render(input = "code/biclarwww/municipio_index.Rmd", encoding = "UTF-8", output_dir = pub_folder, output_file = "index.html")
-
+  }
+  
   print(i)
 }
 
