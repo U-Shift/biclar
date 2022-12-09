@@ -83,6 +83,8 @@ municipios_index = readRDS(url("https://github.com/U-Shift/biclar/releases/downl
 )) 
 
 municipios_index$url[Municipio == "Vila Franca de Xira"] = paste0("<a href='vfxira/' target='_blank'>",  Municipio,  "</a>")
+municipios_index$url[Municipio == "Setubal"] = paste0("<a href='setubal/' target='_blank'>",  "Setúbal",  "</a>")
+
 
 municipios_index = sf::st_as_sf(municipios_index)
 
@@ -92,21 +94,6 @@ municipios_index = sf::st_as_sf(municipios_index)
 # {.tabset}
 
 ## Mapa
-
-
-test content
-
-```{r}
-#read data
-transit_all = sf::st_read("https://github.com/U-Shift/biclar/releases/download/0.0.1/transit.gpkg", quiet = TRUE)
-
-library(tidyverse)
-library(tmap)
-tmap_mode("view")
-
-tm_shape(transit_all) +
-  tm_sf(col = "mode", size = 0.3)
-```
 
 
 ```{r eval=FALSE, include=FALSE}
@@ -299,8 +286,120 @@ leaflet::leaflet(counties_index) %>%
     ")
 ```
 
+
+```{r mapahome}
+MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
+TRIPSmode_municipio = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_municipal.Rds"))
+municipios_index$url[municipios_index$Municipio == "Vila Franca de Xira"] = paste0("<a href='vfxira/' target='_blank'>", "Vila Franca de Xira",  "</a>")
+municipios_index$url[municipios_index$Municipio == "Setubal"] = paste0("<a href='setubal/' target='_blank'>",  "Setúbal",  "</a>")
+
+
+
+
+TRIPSall_mun = TRIPSmode_municipio %>%
+  group_by(Origem) %>%
+  summarise(viagens = round(sum(viagens))) %>% 
+  ungroup()
+
+TRIPSbike_mun = TRIPSmode_municipio %>%
+  group_by(Origem, modo) %>%
+  summarise(viagens = round(sum(viagens))) %>% 
+  filter(modo == "Bike") %>% 
+  rename(Bike = viagens) %>% 
+  left_join(TRIPSall_mun) %>% 
+  mutate(percent = 100*Bike/viagens) %>% 
+  rename(Municipio = Origem) 
+
+MUNICIPIOSgeo_mapa = municipios_index %>% left_join(TRIPSbike_mun) %>% select(-modo) %>% 
+  mutate(percent_label = paste0(round(percent,1), " %"))
+
+pal0 = colorNumeric("viridis", domain=MUNICIPIOSgeo_mapa$percent)
+
+m0 = leaflet::leaflet(MUNICIPIOSgeo_mapa) %>%
+  leaflet::addPolygons(
+    data = MUNICIPIOSgeo_mapa,
+    color = "white",
+    fillColor = ~pal0(percent),
+    group = "Municípios",
+    popup = paste0("Ver resultados: ", MUNICIPIOSgeo_mapa$url),
+    fillOpacity = 0.5,
+    opacity = 0.9,
+    weight = 1.5,
+    highlightOptions = highlightOptions(color = "black", bringToFront = TRUE, weight = 3),
+    label = ~ Municipio,
+    labelOptions = leaflet::labelOptions(noHide = F, permanent = TRUE, direction = "auto",sticky = FALSE, textsize = "1.5em")) %>%
+  leaflet::addLegend(
+    "bottomright",
+    pal = pal0,
+    values = ~percent,
+    opacity = 1.0,
+    title = "% viagens bicicleta 2018",
+    group = "Municípios"
+  ) %>%
+  leaflet::addLegend(
+    title = "Como começar:",
+    group = "Help",
+    position = "bottomleft",
+    colors = c("white",
+               "white"),
+    labels = c(
+      "Zoom para explorar a rede ciclável existente",
+      "Clicar num município para ver os resultados detalhados da rede potencial"
+    )
+  ) %>%
+    leaflet::addProviderTiles("Esri.WorldGrayCanvas", group = "Basemap cinza") %>%
+    leaflet::addProviderTiles("Esri.WorldImagery", group = "Satelite") %>% 
+    leaflet::addProviderTiles("OpenStreetMap.Mapnik", group = "OpenStreetMap") %>% 
+  leaflet::addLayersControl(baseGroups = c("Basemap cinza", "OpenStreetMap", "Satelite"),
+                            overlayGroups = c("Municípios", "Rede Ciclável existente"),
+                            options = layersControlOptions(collapsed = FALSE)) %>% 
+  leaflet::hideGroup(c("Rede Ciclável existente"))
+  # htmlwidgets::onRender("
+  #       function() {
+  #           $('.leaflet-control-layers-base').prepend('<label style=\"text-align:center;font-size:larger;\"><b>Base</b></label>');
+  #       }
+  #   ")
+
+m0
+```
+
+
 **O que mostra este mapa? **  
-Por enquanto nada.
+Este mapa mostra a percentagem de viagens com origem em cada município que são realizadas em biciceta.
+
+<!-- ------------------------------------------------------------------------ -->
+
+## Cenários
+
+Em que consistem os cenários utilizados nesta modelação?
+
+### Cenário Base
+
+Na AML, são realizadas cerca de 5 milhões de viagens todos os dias, em vários modos. O número de viagens em bicicleta, segundo o IMOB [2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
+
+Este é o cenário base, ou de referência, utilizado apenas para comparação com os cenários seguintes - de onde advém o **potencial ciclável**.
+
+### Cenário 1 - Viagens até 5 km
+
+Este cenário inclui todas as viagens que podem ser realizadas entre freguesias até 5 km em bicicleta.
+Inclui também viagens que utilizam o transporte fluvial (barcos) para unir ambas as margens, embora esse troço não seja considerado no total dos 5km.
+
+Este é um cenário conservador / realista.
+
+### Cenário 2 - Viagens até 10 km bicicleta elétrica
+
+Este cenário inclui todas as viagens que podem ser realizadas entre freguesias até 10 km em bicicleta, considerando para tal que os ciclistas poderão utilizar uma bicicleta elétrica.
+Inclui também viagens que utilizam o transporte fluvial (barcos) para unir ambas as margens, embora esse troço não seja considerado no total dos 10km.
+
+Este abrange uma maior gama de utilizadores, e tem em consideração possíveis políticas de incentivo à aquisição de bicicletas elétricas.
+
+### Cenário 3 - Viagens até 5 km de ou até uma interface de transportes públicos
+
+Este cenário inclui todas as viagens que podem ser realizadas entre freguesias em transportes públicos, cuja primeira e última _milha_ da viagem podem ser feitas em bicicleta, até uma extensão total de 5 km - por exemplo: 1 km de bicicleta até ao interface A, e 4 km de bicicleta entre o interface B e o destino.  
+Como transportes públicos, são considerados apenas o comboio, barco, metro sul do Tejo, e algumas carreiras da Carris Metropolitana. 
+De uma forma conservadora, assumimos também que não são possíveis transferências entre transportes ou entre linhas/carreiras.
+
+Este valoriza a utilização da bicicleta como complemento ao transporte público.
 
 
 <!-- ------------------------------------------------------------------------ -->
@@ -310,7 +409,9 @@ Por enquanto nada.
 Ver página com detalhes, mapas e mais resultados para a Área Metropolitana de Lisboa: [AML](aml/index.html){target="_blank"}
 
 ```{r amlprep}
-tabelas_aml = readRDS("HEAT/tabelas_aml.Rds")
+# tabelas_aml = readRDS("HEAT/tabelas_aml.Rds")
+tabelas_aml = readRDS("D:/GIS/TML/biclar/HEAT/tabelas_aml.Rds")
+
 tabelas_aml$Estrategia = gsub("ate", "até", tabelas_aml$Estrategia)
 POPaml = tabelas_aml$Pop21[1]
 tabelas_aml = tabelas_aml %>%
@@ -319,6 +420,7 @@ tabelas_aml = tabelas_aml %>%
   select(c(1,5,6,7,3)) %>% 
   pivot_wider(names_from = Meta_ENMAC,
               values_from = Bike_new) 
+
 ```
 
 A AML tem uma população de `r fmt_num(POPaml)`. Diariamente são realizadas 5.33 milhões de viagens, em vários modos de transporte, das quais apenas **25 479 são realizadas em bicicleta** (0.5%).
@@ -436,7 +538,16 @@ DT::datatable(municipios_taburl,
 
 ### Objetivos da ferramenta biclaR
 
-This information can be used to inform decisions about where best to invest in new or improved cycle routes.
+O biclar é uma ferramenta online que informa os decisores sobre o planeamento e investimentos em infraestrutura ciclável, de modo a atingir as metas da Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}).
+
+Na ótica do decisor, pretende-se que esta informe os decisores, em comparação com o cenário atual de utilização de bicicleta, sobre:
+
+*   Quais as ligações prioritárias e percursos entre Freguesias e entre Municípios, a investir com infraestrutura ciclável, consoante o cenário adotado e a rede (primária ou secundária);
+*   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
+*   Quais os impactes socioambientais previstos a médio e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado), e sociais .
+
+É também possível saber a informação agregada por [município](Municípios), para cada cenário escolhido, sobre todos os valores acima descritos.
+
 
 ### A equipa biclaR
 
@@ -456,7 +567,7 @@ This information can be used to inform decisions about where best to invest in n
 
 ### Feedback
 
-You can give feedback on the tool in the [online survey](nada).
+Para reportar algum problema com a ferramenta, ou colocar questões, pode abrir um _issue_ no nosso [repositório de dados abertos](https://github.com/U-Shift/biclarwww/issues).
 
 ### Contactos
 
@@ -467,8 +578,8 @@ Enviar um email para...
 
 ## FAQ
 
-Short answers to key frequently answered questions (FAQ) are provided below.
-See the full FAQ page for more details and answers to questions about how the tool works.
+Pergutas e respostas simplificadas.
+Ver o [relatório metodológico](nada) para mais detalhes sobre o funcionamento desta ferramenta..
 
 ### O que é a ferramenta biclar?
 
