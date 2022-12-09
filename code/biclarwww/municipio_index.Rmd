@@ -50,8 +50,8 @@ if (i == "setubal"){
   mun = "Setúbal"
 }
 
-dontrun = !i %in% c("alcochete", "mafra", "montijo") # não mostrar mapa 3
-run = i %in% c("alcochete", "mafra", "montijo") # mostrar mensagem mapa 3
+dontrun = !i %in% c("alcochete", "mafra", "montijo", "odivelas", "sesimbra") # não mostrar mapa 3
+run = i %in% c("alcochete", "mafra", "montijo", "odivelas", "sesimbra") # mostrar mensagem mapa 3
 
 proposicao = ifelse(mun %in% c("Amadora", "Moita"), "Na",
                     ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "No",
@@ -102,10 +102,16 @@ TRIPSmode_mun_intr = bind_rows(TRIPSmode_mun %>% mutate(Inter = "Todas"),  TRIPS
 ```
 
 ```{r makemaps}
+
+if (i == "setubal"){
+  mun = "Setubal"
+}
+
 MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
 
 HEAT_municipios_redux = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/HEAT_municipios_123_redux.Rds"))
 HEAT_mun = HEAT_municipios_redux %>% filter(Municipio == mun)
+
 
 # cenario 1
 
@@ -132,6 +138,29 @@ if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){
          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
          bike18 = paste0("(", Bikeper, ") ", Bike))
   
+} else if (i %in% c("lisboa")){
+  
+  mapa11r = sf::st_read("export_rnet/rnet_aml_1404_100.gpkg", quiet = TRUE)
+  mapa11r = mapa11r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa11l = sf::st_read("export_rnet/rnet_aml_1304_100.gpkg", quiet = TRUE)
+  mapa11l = mapa11l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa12r = sf::st_read("export_rnet/rnet_aml_1410_100.gpkg", quiet = TRUE)
+  mapa12r = mapa12r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa12l = sf::st_read("export_rnet/rnet_aml_1310_100.gpkg", quiet = TRUE)
+  mapa12l = mapa12l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+
 } else {
 
 mapa11r = sf::st_read("export_rnet/rnet_aml_1404_50.gpkg", quiet = TRUE)
@@ -288,7 +317,9 @@ mapa32l = mapa32l[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_withi
 
 ```{r minimos}
 if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){ 
-  minimo1 = 15} else {
+  minimo1 = 15} else if (i %in% c("lisboa")){ 
+    minimo1 = 100 
+  } else {
     minimo1 = 50 
   }
 
@@ -302,6 +333,10 @@ if (i %in% c("lisboa", "almada", "cascais", "amadora", "sintra", "oeiras")){
   minimo3 = 30} else {
     minimo3 = 10
   }
+
+if (i == "setubal"){
+  mun = "Setúbal"
+}
 
 ```
 
@@ -332,7 +367,19 @@ ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = percentagem/100, x = Inter)) +
   theme(axis.title.y = element_blank(), axis.title.x = element_blank(), legend.title = element_blank(), legend.position = "none") +
   coord_flip()
 
-ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
+
+if (i == "lisboa"){
+  ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Modo") +
+  scale_y_continuous("Viagens / dia", labels = scales::comma_format(big.mark = ' ')) +
+  geom_text(aes(label = ifelse(viagens/1000 > 200, paste0(round(viagens/1000)," k"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(), legend.title = element_text("Modo"), legend.position = "right") +
+  coord_flip()
+} else {
+  ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
   geom_bar(stat = "identity") +
   scale_fill_manual(values = col_modes, name = "Modo") +
   scale_y_continuous("Viagens / dia", labels = scales::comma_format(big.mark = ' ')) +
@@ -341,12 +388,18 @@ ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
   theme_minimal() +
   theme(axis.title.y = element_blank(), legend.title = element_text("Modo"), legend.position = "right") +
   coord_flip()
+}
+
+
+
+
+
 
 
 
 ```
 
-Das cerca de `r fmt_num(round(sum(TRIPSmode_mun$viagens)/1000))`mil viagens diárias `r stringr::str_to_lower(proposicao)` `r mun`, apenas **`r TRIPSmode_mun[3,3]`% das viagens são realizadas em bicicleta** (`r round(TRIPSmode_mun[3,2])`). `r round(TRIPSmode_mun[2,2]/1000)`mil são feitas em automóvel (`r TRIPSmode_mun[2,3]`%), `r round(TRIPSmode_mun[1,2]/1000)`mil a pé (`r TRIPSmode_mun[1,3]`%), `r round(TRIPSmode_mun[6,2]/1000)`mil em Transportes Públicos (`r TRIPSmode_mun[6,3]`%) e `r round(TRIPSmode_mun[4,2]+TRIPSmode_mun[5,2])` em outros modos (`r TRIPSmode_mun[4,3]+TRIPSmode_mun[5,3]`%).
+Das cerca de `r fmt_num(round(sum(TRIPSmode_mun$viagens)/1000))`mil viagens diárias `r stringr::str_to_lower(proposicao)` `r mun`, apenas **`r TRIPSmode_mun[3,3]`% das viagens são realizadas em bicicleta** (`r round(TRIPSmode_mun[3,2])`). `r round(TRIPSmode_mun[2,2]/1000)`mil são feitas em automóvel (`r TRIPSmode_mun[2,3]`%), `r round(TRIPSmode_mun[1,2]/1000)`mil a pé (`r TRIPSmode_mun[1,3]`%), `r round(TRIPSmode_mun[6,2]/1000)`mil em Transportes Públicos (`r TRIPSmode_mun[6,3]`%) e `r fmt_num(round(TRIPSmode_mun[4,2]+TRIPSmode_mun[5,2]))` em outros modos (`r TRIPSmode_mun[4,3]+TRIPSmode_mun[5,3]`%).
 
 Diariamente, cerca de `r fmt_num(round(viagensintra/1000))`mil viagens têm origem e destino `r stringr::str_to_lower(proposicao)` `r mun`, e cerca de `r fmt_num(round(viagensinter/1000))`mil viagens têm origem ou destino em municípios diferentes.
 
@@ -477,9 +530,8 @@ m1 = tmap::tm_shape(mapa11r, name = "Potencial 4% - direto") +
                    ) +
   tm_view(view.legend.position = c("right", "bottom"),
           control.position = c("right", "top")
-          # title = "Viagens até 5 km em bicicleta"
-          # leaflet.options = highlightOptions(color = "white", bringToFront = TRUE)
           )
+
 m1leaf = tmap::tmap_leaflet(m1) %>% 
   leaflet::addProviderTiles("Esri.WorldImagery", group = "Satelite") %>% 
   leaflet::addLayersControl(baseGroups = c("Esri.WorldGrayCanvas", "OpenStreetMap", "Satelite"),
@@ -623,12 +675,20 @@ Ver mapa em [ecrã inteiro](mapa_cenario2.html){target="_blank"}.
 Este mapa mostra os segmentos com mais de `r minimo3` viagens potenciais em bicicleta, em que parte da viagem é realizada em transportes públicos (barco, comboio, metro sul do Tejo, ou carris metropolitana). Os segmentos deste mapa dizem respeito apenas à parte da viagem que é realizada em bicicleta, num total de até 5 km no conjunto da primeira e última etapa da viagem intermodal. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
 
 ```{r mapa3, cache=FALSE, eval=dontrun}
+if (i == "lisboa"){
+  mapa31r = mapa31r %>% filter(cyc < 2400) #otherwise we cant see scale lwd
+  mapa31l = mapa31l %>% filter(cyc < 2400) #otherwise we cant see scale lwd
+  mapa32r = mapa32r %>% filter(cyc < 5400) #otherwise we cant see scale lwd
+  mapa32l = mapa32l %>% filter(cyc < 5400) #otherwise we cant see scale lwd
+}
+
+
 m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
                    alpha = 0.9,
-                   scale = 12,
-                   lwd_multiplier = 15,
+                   scale = 30,
+                   lwd_multiplier = 18,
                    popup.vars = c("Viagens 2018" = "Total",
                                   # "Em bicicleta 2018" = "Bike",
                                   "Ciclistas cenário base" = "bike18",
@@ -652,8 +712,8 @@ m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
                    alpha = 0.9,
-                   scale = 12,
-                   lwd_multiplier = 15,
+                   scale = 40,
+                   lwd_multiplier = 18,
                    popup.vars = c("Viagens 2018" = "Total",
                                   "Ciclistas cenário base" = "bike18",
                                   "Ciclistas cenário 4%" = "cyc",
@@ -675,7 +735,7 @@ m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
                    alpha = 0.9,
-                   scale = 15,
+                   scale = 30,
                    lwd_multiplier = 18,
                    popup.vars = c("Viagens 2018" = "Total",
                                   "Ciclistas cenário base" = "bike18",
@@ -699,7 +759,7 @@ m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
     tmap::tm_lines(id = "cyc",
                    lwd = "cyc",
                    alpha = 0.9,
-                   scale = 15,
+                   scale = 40,
                    lwd_multiplier = 18,
                    popup.vars = c("Viagens 2018" = "Total",
                                   "Ciclistas cenário base" = "bike18",
@@ -775,6 +835,10 @@ Este valor é por fim monetizado utilizando o _Valor Estatístico da Vida_ (€3
 ```{r tabela}
 # tabela com potencial para cada cenario +  estimativas SE
 
+if (i == "setubal"){
+  mun = "Setubal"
+}
+
 tabelas_mun = readRDS("HEAT/tabelas_mun.Rds")
 tabelas_mun$Estrategia = gsub("ate", "até", tabelas_mun$Estrategia)
 tabelas_mun = tabelas_mun %>% filter(Municipio == mun) %>%
@@ -803,6 +867,10 @@ co2macx10 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="10%"], na.rm = TRUE)
 euromacx4 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="4%"], na.rm = TRUE)
 euromacx10 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="10%"], na.rm = TRUE)
 
+
+if (i == "setubal"){
+  mun = "Setúbal"
+}
 ```
 
 `r proposicao` `r mun`, a **meta de 4%** de ciclistas diários equivale a ter **`r fmt_num(cicmacx4)` ciclistas** em viagens até 10 km, com uma redução potencial de **`r fmt_num(co2macx4)` toneladas** de CO~2~eq por ter menos viagens em automóvel na mesma razão, com potenciais benefícios para a sociedade de **`r fmt_num(euromacx4/1000)` milhões €** ao fim de 10 anos.  
