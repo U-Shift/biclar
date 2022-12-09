@@ -362,7 +362,7 @@ CAR_TP_TRANSF_lts4 = routes_r5r_100jit_car_TP_lts4_ONLYTPsegment %>% mutate(LTS 
 
 #Bind
 CAR_TP_TRANSF = rbind(CAR_TP_TRANSF_lts3, CAR_TP_TRANSF_lts4)
-
+saveRDS(CAR_TP_TRANSF, "HEAT/CAR_TP_TRANSF.Rds")
 
 
 
