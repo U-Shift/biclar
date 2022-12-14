@@ -442,7 +442,7 @@ Os mapas apresentam a informação gráfica para duas redes - a rede ciclável p
 A largura das linhas varia consoante o número de ciclistas potencial para cada um dos cenários (4% e 10% de ciclistas), e essa informação é visível ao passar com o rato em cima da linha.  
 A cor das linhas varia com o nível de tranquilidade ([_quietness_](https://www.cyclestreets.net/help/journey/howitworks/#quietness){target="_blank"}), sendo as mais escuras aquelas menos seguras para circular em bicicleta - indicando com maior clareza quais os segmentos que necessitam de intervenção para se tornarem mais seguros e potencialmente trazerem mais ciclistas: os **mais escuros e mais largos**.
 
-Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viagens estimadas que podem passar por aquele segmento, incluindo os benefícios socio-ambientais estimados, e as características físicas daquele segmento.
+Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viagens estimadas que podem passar por aquele segmento, incluindo os benefícios sociais e ambientais estimados, e as características físicas daquele segmento.
 
 É possível ver mais do que uma opção de rota em simultâneo (direta / segura), por exemplo para comparar alternativas, e níveis de potencial ciclável, estabelecidos pela Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}), em 4 e 10% nos centros urbanos, transferidos de viagens em automóvel. 
 </details>
@@ -846,11 +846,11 @@ htmlwidgets::saveWidget(m3leaf, file = paste0("biclarwww/", i,"/mapa_cenario3.ht
 
 A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais, para cada meta da Estratégia Nacional ENMAC, para cada cenário, e para cada tipo de rotas otimizadas. 
 
-Para cada um destes cenários, é possível ver também de forma agregada qual o potencial socio-ambiental estimado, em toneladas de CO~2~eq evitado anualmente, e em benefícios sociais.
+Para cada um destes cenários, é possível ver também de forma agregada qual o benefício potencial estimado, em toneladas de CO~2~eq evitado anualmente, e em benefícios sociais.
 
 <details>
-  <summary>**Como são estimados os benefícios socio-ambientais?**</summary>
-Os benefícios socio-ambientais são estimados em duas vertentes, utilizando os métodos e a ferramenta [_HEAT for Cycling_](https://www.heatwalkingcycling.org/){target="_blank"}, da Organização Mundial de Saúde.
+  <summary>**Como são estimados os benefícios sociais e ambientais?**</summary>
+Os benefícios potenciais são estimados em duas vertentes, utilizando os métodos e a ferramenta [_HEAT for Cycling_](https://www.heatwalkingcycling.org/){target="_blank"}, da Organização Mundial de Saúde.
 
 A componente ambiental é medida em toneladas de CO~2~eq evitado, por transferência de viagens equivalentes em automóvel, com a mesma origem e destino, mas não necessariamente com o mesmo percurso.
 

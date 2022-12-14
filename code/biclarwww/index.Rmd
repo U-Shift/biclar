@@ -546,7 +546,7 @@ Na ótica do decisor, pretende-se que esta informe os decisores, em comparação
 
 *   Quais as ligações prioritárias e percursos entre Freguesias e entre Municípios, a investir com infraestrutura ciclável, consoante o cenário adotado e a rede (primária ou secundária);
 *   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
-*   Quais os impactes socioambientais previstos a médio e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado), e sociais .
+*   Quais os impactes previstos a médio e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado), e sociais.
 
 É também possível saber a informação agregada por [município](Municípios), para cada cenário escolhido, sobre todos os valores acima descritos.
 
