@@ -503,6 +503,8 @@ m1leaf
 
 ```
 
+[![Mapa AML cenário 1](img/aml_cenario1_cover.png)](mapa_cenario1.html){target="_blank"}
+
 > Ver o mapa em [ecrã inteiro](mapa_cenario1.html){target="_blank"}.
 
 #### Até 10 km (e-bike)
@@ -623,6 +625,8 @@ m2leaf = tmap::tmap_leaflet(m2) %>%
 m2leaf
 
 ```
+
+[![Mapa AML cenário 2](img/aml_cenario2_cover.png)](mapa_cenario2.html){target="_blank"}
 
 > Ver o mapa em [ecrã inteiro](mapa_cenario2.html){target="_blank"}.
 
