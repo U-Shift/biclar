@@ -1,0 +1,900 @@
+---
+title: "Resultados por município"
+output:
+  html_document:
+    theme:
+      bg: "#FFFFFF"
+      fg: "#000000"
+      highlight: "#000000"
+      primary: "#000000"
+      base_font:
+        google: "Lexend"
+      code_font:
+        google: "JetBrains Mono"
+    css: css/style.css
+    includes:
+      after_body: img/footer.html
+---
+  
+
+```{r setup, include=FALSE, cache=FALSE}
+library(dplyr)
+library(tmap)
+tmap_mode("view")
+library(leaflet)
+
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      cache = TRUE, #hide if needed
+                      warning = FALSE
+                      )
+
+
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) #to use the project root as the working directory
+
+options(encoding = "UTF-8")
+
+fmt_num = function(x) format(round(sum(x)), big.mark=" ")
+```
+
+```{r chamadas}
+# i = "barreiro" #delete this when running for all!!!
+mun = stringr::str_to_title(i)
+
+dontrun = !i %in% c("alcochete", "mafra", "montijo", "odivelas", "sesimbra") # não mostrar mapa 3
+run = i %in% c("alcochete", "mafra", "montijo", "odivelas", "sesimbra") # mostrar mensagem mapa 3
+
+proposicao = ifelse(mun %in% c("Amadora", "Moita"), "Na",
+                    ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "No",
+                           "Em"))
+proposicaoD = ifelse(mun %in% c("Amadora", "Moita"), "da",
+                    ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "do",
+                           "de"))
+```
+
+```{r dados}
+TRIPSmode_municipio = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_municipal.Rds"))
+
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Car"] = "Automóvel"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Bike"] = "Bicicleta"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Motorcycle"] = "Motociclo"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Walk"] = "A Pé"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Transit"] = "Transportes Públicos"
+TRIPSmode_municipio$modo[TRIPSmode_municipio$modo == "Other"] = "Outro"
+
+TRIPSmode_municipio$Origem[TRIPSmode_municipio$Origem == "Setubal"] = "Setúbal" # por causa do acento
+TRIPSmode_municipio$Destino[TRIPSmode_municipio$Destino == "Setubal"] = "Setúbal"
+
+
+TRIPSmode_mun = TRIPSmode_municipio %>%
+  filter(Origem == mun | Destino == mun) %>% 
+  group_by(modo) %>%
+  summarise(viagens = round(sum(viagens))) %>% 
+  mutate(percentagem = round(100*viagens/sum(viagens),1))
+
+
+TRIPSmode_mun_intr = TRIPSmode_municipio %>%
+  filter(Origem == mun | Destino == mun)
+TRIPSmode_mun_intr$Inter[TRIPSmode_mun_intr$Origem == TRIPSmode_mun_intr$Destino] = "Intramunicipal"
+TRIPSmode_mun_intr$Inter[is.na(TRIPSmode_mun_intr$Inter)] = "Intermunicipal"
+TRIPSmode_mun_intr = TRIPSmode_mun_intr %>% 
+  group_by(modo, Inter) %>%
+  summarise(viagens = round(sum(viagens)))
+
+viagensinter = sum(TRIPSmode_mun_intr$viagens[TRIPSmode_mun_intr$Inter == "Intermunicipal"])
+viagensintra = sum(TRIPSmode_mun_intr$viagens[TRIPSmode_mun_intr$Inter == "Intramunicipal"])
+
+TRIPSmode_mun_intr$percentagem[TRIPSmode_mun_intr$Inter == "Intermunicipal"] =  round(100*TRIPSmode_mun_intr$viagens[TRIPSmode_mun_intr$Inter == "Intermunicipal"]/viagensinter, 1)
+
+TRIPSmode_mun_intr$percentagem[TRIPSmode_mun_intr$Inter == "Intramunicipal"] =  round(100*TRIPSmode_mun_intr$viagens[TRIPSmode_mun_intr$Inter == "Intramunicipal"]/viagensintra, 1)
+
+TRIPSmode_mun_intr = bind_rows(TRIPSmode_mun %>% mutate(Inter = "Todas"),  TRIPSmode_mun_intr)
+
+```
+
+```{r makemaps}
+
+if (i == "setubal"){
+  mun = "Setubal"
+}
+
+MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
+
+HEAT_municipios_redux = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/HEAT_municipios_123_redux.Rds"))
+HEAT_mun = HEAT_municipios_redux %>% filter(Municipio == mun)
+
+
+# cenario 1
+
+if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){
+
+  mapa11r = sf::st_read("export_rnet/rnet_aml_1404_15.gpkg", quiet = TRUE)
+  mapa11r = mapa11r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa11l = sf::st_read("export_rnet/rnet_aml_1304_15.gpkg", quiet = TRUE)
+  mapa11l = mapa11l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa12r = sf::st_read("export_rnet/rnet_aml_1410_15.gpkg", quiet = TRUE)
+  mapa12r = mapa12r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa12l = sf::st_read("export_rnet/rnet_aml_1310_15.gpkg", quiet = TRUE)
+  mapa12l = mapa12l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  
+} else if (i %in% c("lisboa")){
+  
+  mapa11r = sf::st_read("export_rnet/rnet_aml_1404_100.gpkg", quiet = TRUE)
+  mapa11r = mapa11r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa11l = sf::st_read("export_rnet/rnet_aml_1304_100.gpkg", quiet = TRUE)
+  mapa11l = mapa11l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa12r = sf::st_read("export_rnet/rnet_aml_1410_100.gpkg", quiet = TRUE)
+  mapa12r = mapa12r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+  mapa12l = sf::st_read("export_rnet/rnet_aml_1310_100.gpkg", quiet = TRUE)
+  mapa12l = mapa12l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+    mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+
+} else {
+
+mapa11r = sf::st_read("export_rnet/rnet_aml_1404_50.gpkg", quiet = TRUE)
+mapa11r = mapa11r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa11l = sf::st_read("export_rnet/rnet_aml_1304_50.gpkg", quiet = TRUE)
+mapa11l = mapa11l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa12r = sf::st_read("export_rnet/rnet_aml_1410_50.gpkg", quiet = TRUE)
+mapa12r = mapa12r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa12l = sf::st_read("export_rnet/rnet_aml_1310_50.gpkg", quiet = TRUE)
+mapa12l = mapa12l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+
+}
+
+
+# cenario 2
+
+if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){
+
+mapa21r = sf::st_read("export_rnet/rnet_aml_2404_50.gpkg", quiet = TRUE)
+mapa21r = mapa21r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa21l = sf::st_read("export_rnet/rnet_aml_2304_50.gpkg", quiet = TRUE)
+mapa21l = mapa21l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa22r = sf::st_read("export_rnet/rnet_aml_2410_50.gpkg", quiet = TRUE)
+mapa22r = mapa22r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa22l = sf::st_read("export_rnet/rnet_aml_2310_50.gpkg", quiet = TRUE)
+mapa22l = mapa22l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+
+} else if (i %in% c("almada", "oeiras", "lisboa", "odivelas", "amadora")){
+
+mapa21r = sf::st_read("export_rnet/rnet_aml_2404_200.gpkg", quiet = TRUE)
+mapa21r = mapa21r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa21l = sf::st_read("export_rnet/rnet_aml_2304_200.gpkg", quiet = TRUE)
+mapa21l = mapa21l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa22r = sf::st_read("export_rnet/rnet_aml_2410_200.gpkg", quiet = TRUE)
+mapa22r = mapa22r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa22l = sf::st_read("export_rnet/rnet_aml_2310_200.gpkg", quiet = TRUE)
+mapa22l = mapa22l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+
+} else {
+
+mapa21r = sf::st_read("export_rnet/rnet_aml_2404_100.gpkg", quiet = TRUE)
+mapa21r = mapa21r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa21l = sf::st_read("export_rnet/rnet_aml_2304_100.gpkg", quiet = TRUE)
+mapa21l = mapa21l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa22r = sf::st_read("export_rnet/rnet_aml_2410_100.gpkg", quiet = TRUE)
+mapa22r = mapa22r[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+mapa22l = sf::st_read("export_rnet/rnet_aml_2310_100.gpkg", quiet = TRUE)
+mapa22l = mapa22l[MUNICIPIOSgeo %>% filter(Concelho == mun) %>% sf::st_buffer(300), , op = sf::st_within] %>% 
+  mutate(tCO2eq = tCO2eq10/10,
+         quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+         bike18 = paste0("(", Bikeper, ") ", Bike))
+
+}
+
+
+# 
+# # cenario 3
+# 
+# if (i %in% c("lisboa", "almada", "cascais", "amadora", "sintra", "oeiras")){
+#   
+#   mapa31r = sf::st_read("export_rnet/rnet_aml_3404_30.gpkg", quiet = TRUE)
+# mapa31r = mapa31r[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_within] %>% 
+#   mutate(tCO2eq = tCO2eq10/10,
+#          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+#          bike18 = paste0("(", Bikeper, ") ", Bike))
+# mapa31l = sf::st_read("export_rnet/rnet_aml_3304_30.gpkg", quiet = TRUE)
+# mapa31l = mapa31l[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_within] %>% 
+#   mutate(tCO2eq = tCO2eq10/10,
+#          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+#          bike18 = paste0("(", Bikeper, ") ", Bike))
+# mapa32r = sf::st_read("export_rnet/rnet_aml_3410_30.gpkg", quiet = TRUE)
+# mapa32r = mapa32r[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_within] %>% 
+#   mutate(tCO2eq = tCO2eq10/10,
+#          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+#          bike18 = paste0("(", Bikeper, ") ", Bike))
+# mapa32l = sf::st_read("export_rnet/rnet_aml_3310_30.gpkg", quiet = TRUE)
+# mapa32l = mapa32l[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_within] %>% 
+#   mutate(tCO2eq = tCO2eq10/10,
+#          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+#          bike18 = paste0("(", Bikeper, ") ", Bike))
+#   
+#   
+# } else {
+# 
+# mapa31r = sf::st_read("export_rnet/rnet_aml_3404_10.gpkg", quiet = TRUE)
+# mapa31r = mapa31r[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_within] %>% 
+#   mutate(tCO2eq = tCO2eq10/10,
+#          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+#          bike18 = paste0("(", Bikeper, ") ", Bike))
+# mapa31l = sf::st_read("export_rnet/rnet_aml_3304_10.gpkg", quiet = TRUE)
+# mapa31l = mapa31l[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_within] %>% 
+#   mutate(tCO2eq = tCO2eq10/10,
+#          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+#          bike18 = paste0("(", Bikeper, ") ", Bike))
+# mapa32r = sf::st_read("export_rnet/rnet_aml_3410_10.gpkg", quiet = TRUE)
+# mapa32r = mapa32r[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_within] %>% 
+#   mutate(tCO2eq = tCO2eq10/10,
+#          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+#          bike18 = paste0("(", Bikeper, ") ", Bike))
+# mapa32l = sf::st_read("export_rnet/rnet_aml_3310_10.gpkg", quiet = TRUE)
+# mapa32l = mapa32l[MUNICIPIOSgeo %>% filter(Concelho == mun), , op = sf::st_within] %>% 
+#   mutate(tCO2eq = tCO2eq10/10,
+#          quietness = as.integer(quietness), #não funciona pra efeitos da legenda
+#          bike18 = paste0("(", Bikeper, ") ", Bike))
+# 
+# }
+
+```
+
+```{r minimos}
+if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){ 
+  minimo1 = 15} else if (i %in% c("lisboa")){ 
+    minimo1 = 100 
+  } else {
+    minimo1 = 50 
+  }
+
+if (i %in% c("mafra", "sesimbra", "alcochete", "palmela")){ 
+  minimo2 = 50} else if (i %in% c("almada", "oeiras", "lisboa", "odivelas", "amadora")){
+    minimo2 = 200 } else {
+    minimo2 = 100
+  }
+
+# if (i %in% c("lisboa", "almada", "cascais", "amadora", "sintra", "oeiras")){
+#   minimo3 = 30} else {
+#     minimo3 = 10
+#   }
+
+if (i == "setubal"){
+  mun = "Setúbal"
+}
+
+```
+
+
+
+<!-- landing page for each municipio -->
+
+# `r mun`
+
+Segundo o Inquérito à Mobilidade  ([IMOB](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) realizado em 2018 pelo INE, as viagens com origem e/ou destino `r stringr::str_to_lower(proposicao)` `r mun` têm as seguintes características.
+
+```{r mododist, fig.ncol=2, out.width="50%"}
+# gráfico com caracterização viagens IMOB intra municipais e intermonicipais
+
+TRIPSmode_mun_intr$modo = factor(TRIPSmode_mun_intr$modo, 
+                                 levels = c("Automóvel", "Transportes Públicos", "Motociclo", 
+                                            "Outro", "A Pé", "Bicicleta"))
+
+col_modes = c("#fe5f55", "#ffd166", "#8E794A", "grey", "#457b9d", "#90be6d") 
+
+ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = percentagem/100, x = Inter)) +
+  geom_bar(position = position_fill(reverse = FALSE), stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Modo") +
+  scale_y_continuous(labels = scales::percent) +
+  geom_text(aes(label = ifelse(percentagem > 6, paste0(percentagem,"%"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(), axis.title.x = element_blank(), legend.title = element_blank(), legend.position = "none") +
+  coord_flip()
+
+
+if (i %in% c("alcochete", "montijo")){
+  ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Modo") +
+  scale_y_continuous("Viagens / dia", labels = scales::comma_format(big.mark = ' ')) +
+  geom_text(aes(label = ifelse(viagens/1000 > 5, paste0(round(viagens/1000)," k"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(), legend.title = element_text("Modo"), legend.position = "right") +
+  coord_flip()
+} else {
+  ggplot(TRIPSmode_mun_intr, aes(fill = modo, y = viagens, x = Inter)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Modo") +
+  scale_y_continuous("Viagens / dia", labels = scales::comma_format(big.mark = ' ')) +
+  geom_text(aes(label = ifelse(viagens/1000 > 12, paste0(round(viagens/1000)," k"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(), legend.title = element_text("Modo"), legend.position = "right") +
+  coord_flip()
+}
+
+
+```
+
+Das cerca de `r fmt_num(round(sum(TRIPSmode_mun$viagens)/1000))`mil viagens diárias `r stringr::str_to_lower(proposicao)` `r mun`, apenas **`r TRIPSmode_mun[3,3]`% das viagens são realizadas em bicicleta** (`r round(TRIPSmode_mun[3,2])`). `r round(TRIPSmode_mun[2,2]/1000)`mil são feitas em automóvel (`r TRIPSmode_mun[2,3]`%), `r round(TRIPSmode_mun[1,2]/1000)`mil a pé (`r TRIPSmode_mun[1,3]`%), `r round(TRIPSmode_mun[6,2]/1000)`mil em Transportes Públicos (`r TRIPSmode_mun[6,3]`%) e `r fmt_num(round(TRIPSmode_mun[4,2]+TRIPSmode_mun[5,2]))` em outros modos (`r TRIPSmode_mun[4,3]+TRIPSmode_mun[5,3]`%).
+
+Diariamente, cerca de `r fmt_num(round(viagensintra/1000))`mil viagens têm origem e destino `r stringr::str_to_lower(proposicao)` `r mun`, e cerca de `r fmt_num(round(viagensinter/1000))`mil viagens têm origem ou destino em municípios diferentes.
+
+
+## Rede ciclável potencial
+
+Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMOB 2018), para **4%** de viagens em bicicleta (meta 2024), e para **10%** de viagens em bicicleta (meta 2030), transferidas diretamente de viagens em automóvel.
+
+Cada mapa refere-se a cada uma das 3 estimativas:
+
+* viagens até 5 km com ligação em bicicleta (_`r fmt_num(HEAT_mun[4,14])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
+* viagens até 10 km com ligação em bicicleta elétrica (_`r fmt_num(HEAT_mun[8,14])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
+<!-- * viagens até 5 km em bicicleta de ou até uma interface de transportes (_`r fmt_num(HEAT_mun[12,14])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_) -->
+
+<!-- Passar isto para FAQ? -->
+
+<details>
+  <summary>**Como ler estes mapas?**</summary>
+Os mapas apresentam a informação gráfica para duas redes - a rede ciclável para viagens mais diretas, e a rede para viagens mais seguras e tranquilas (conforme a rede viária existente).  
+A largura das linhas varia consoante o número de ciclistas potencial para cada um dos cenários (4% e 10% de ciclistas), e essa informação é visível ao passar com o rato em cima da linha.  
+A cor das linhas varia com o nível de tranquilidade ([_quietness_](https://www.cyclestreets.net/help/journey/howitworks/#quietness){target="_blank"}), sendo as mais escuras aquelas menos seguras para circular em bicicleta - indicando com maior clareza quais os segmentos que necessitam de intervenção para se tornarem mais seguros e potencialmente trazerem mais ciclistas: os **mais escuros e mais largos**.
+
+Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viagens estimadas que podem passar por aquele segmento, incluindo os benefícios sociais e ambientais estimados, e as características físicas daquele segmento.
+
+É possível ver mais do que uma opção de rota em simultâneo (direta / segura), por exemplo para comparar alternativas, e níveis de potencial ciclável, estabelecidos pela Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}), em 4 e 10% nos centros urbanos, transferidos de viagens em automóvel. 
+</details>
+
+#### Até 5 km
+
+Este mapa apresenta os segmentos com mais de `r minimo1` viagens potenciais em bicicleta. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
+
+```{r mapa1, cache=FALSE}
+m1 = tmap::tm_shape(mapa11r, name = "Potencial 4% - direto") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 12,
+                   lwd_multiplier = 15,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  # "Em bicicleta 2018" = "Bike",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 4%" = "cyc",
+                                  # "Novos ciclistas 4%" = "new_cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0), #
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-linear_yl_rd_bk", n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   textNA = "sem info",
+                   title.col = "Tranquilidade"
+                   ) +
+  tmap::tm_shape(mapa11l, name = "Potencial 4% - seguro") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 12,
+                   lwd_multiplier = 15,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 4%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0), #
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-mako", n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   textNA = "sem info",
+                   title.col = "Tranquilidade"
+                   ) +
+  tmap::tm_shape(mapa12r, name = "Potencial 10% - direto") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 15,
+                   lwd_multiplier = 18,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 10%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0),
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-linear_yl_rd_bk",  n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   legend.col.show = FALSE,
+                   textNA = "sem info",
+                   title.col = "Tranquilidade",
+                   ) +
+  tmap::tm_shape(mapa12l, name = "Potencial 10% - seguro") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 15,
+                   lwd_multiplier = 18,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 10%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0),
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-mako",  n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   legend.col.show = FALSE,
+                   textNA = "sem info",
+                   title.col = "Tranquilidade",
+                   ) +
+  tm_view(view.legend.position = c("right", "bottom"),
+          control.position = c("right", "top")
+          )
+
+m1leaf = tmap::tmap_leaflet(m1) %>% 
+  leaflet::addProviderTiles("Esri.WorldImagery", group = "Satelite") %>% 
+  leaflet::addLayersControl(baseGroups = c("Esri.WorldGrayCanvas", "OpenStreetMap", "Satelite"),
+                            overlayGroups = c("Potencial 4% - direto", "Potencial 10% - direto", 
+                                              "Potencial 4% - seguro", "Potencial 10% - seguro"),
+                            options = layersControlOptions(collapsed = FALSE)) %>% 
+  leaflet::hideGroup(c("Potencial 10% - direto", "Potencial 4% - seguro", "Potencial 10% - seguro"))
+
+
+m1leaf
+
+```
+
+Ver mapa em [ecrã inteiro](mapa_cenario1.html){target="_blank"}.
+
+
+#### Até 10 km (e-bike)
+
+Este mapa mostra os segmentos com mais de `r minimo2` viagens potenciais em bicicleta elétrica. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
+
+```{r mapa2, cache=FALSE}
+m2 = tmap::tm_shape(mapa21r, name = "Potencial 4% - direto") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 12,
+                   lwd_multiplier = 15,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  # "Em bicicleta 2018" = "Bike",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 4%" = "cyc",
+                                  # "Novos ciclistas 4%" = "new_cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0), #
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-reds3", n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   textNA = "sem info",
+                   title.col = "Tranquilidade"
+                   ) +
+  tmap::tm_shape(mapa21l, name = "Potencial 4% - seguro") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 12,
+                   lwd_multiplier = 15,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 4%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0), #
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-hokusai2", n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   textNA = "sem info",
+                   title.col = "Tranquilidade"
+                   ) +
+  tmap::tm_shape(mapa22r, name = "Potencial 10% - direto") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 15,
+                   lwd_multiplier = 18,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 10%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0),
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-reds3",  n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   legend.col.show = FALSE,
+                   textNA = "sem info",
+                   title.col = "Tranquilidade",
+                   ) +
+  tmap::tm_shape(mapa22l, name = "Potencial 10% - seguro") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 15,
+                   lwd_multiplier = 18,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 10%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0),
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-hokusai2",  n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   legend.col.show = FALSE,
+                   textNA = "sem info",
+                   title.col = "Tranquilidade",
+                   ) +
+  tm_view(view.legend.position = c("right", "bottom"),
+          control.position = c("right", "top")
+          # title = "Viagens até 5 km em bicicleta"
+          # leaflet.options = highlightOptions(color = "white", bringToFront = TRUE)
+          )
+m2leaf = tmap::tmap_leaflet(m2) %>% 
+  leaflet::addProviderTiles("Esri.WorldImagery", group = "Satelite") %>% 
+  leaflet::addLayersControl(baseGroups = c("Esri.WorldGrayCanvas", "OpenStreetMap", "Satelite"),
+                            overlayGroups = c("Potencial 4% - direto", "Potencial 10% - direto", 
+                                              "Potencial 4% - seguro", "Potencial 10% - seguro"),
+                            options = layersControlOptions(collapsed = FALSE)) %>% 
+  leaflet::hideGroup(c("Potencial 10% - direto", "Potencial 4% - seguro", "Potencial 10% - seguro"))
+
+
+m2leaf
+
+```
+
+Ver mapa em [ecrã inteiro](mapa_cenario2.html){target="_blank"}.
+
+
+#### Até 5 km intermodal
+
+<!-- Este mapa mostra os segmentos com mais de `r minimo3` viagens potenciais em bicicleta, em que parte da viagem é realizada em transportes públicos (barco, comboio, metro sul do Tejo, ou carris metropolitana). Os segmentos deste mapa dizem respeito apenas à parte da viagem que é realizada em bicicleta, num total de até 5 km no conjunto da primeira e última etapa da viagem intermodal. Para um maior ou menor detalhe da rede, ver a secção de [Downloads]. -->
+
+```{r mapa3, cache=FALSE, eval=dontrun}
+if (i == "lisboa"){
+  mapa31r = mapa31r %>% filter(cyc < 2400) #otherwise we cant see scale lwd
+  mapa31l = mapa31l %>% filter(cyc < 2400) #otherwise we cant see scale lwd
+  mapa32r = mapa32r %>% filter(cyc < 5400) #otherwise we cant see scale lwd
+  mapa32l = mapa32l %>% filter(cyc < 5400) #otherwise we cant see scale lwd
+}
+
+
+m3 = tmap::tm_shape(mapa31r, name = "Potencial 4% - direto") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 30,
+                   lwd_multiplier = 18,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  # "Em bicicleta 2018" = "Bike",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 4%" = "cyc",
+                                  # "Novos ciclistas 4%" = "new_cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0), #
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-burg", n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   textNA = "sem info",
+                   title.col = "Tranquilidade"
+                   ) +
+  tmap::tm_shape(mapa31l, name = "Potencial 4% - seguro") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 40,
+                   lwd_multiplier = 18,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 4%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0), #
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-dark_mint", n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   textNA = "sem info",
+                   title.col = "Tranquilidade"
+                   ) +
+  tmap::tm_shape(mapa32r, name = "Potencial 10% - direto") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 30,
+                   lwd_multiplier = 18,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 10%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0),
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-burg",  n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   legend.col.show = FALSE,
+                   textNA = "sem info",
+                   title.col = "Tranquilidade",
+                   ) +
+  tmap::tm_shape(mapa32l, name = "Potencial 10% - seguro") +
+    tmap::tm_lines(id = "cyc",
+                   lwd = "cyc",
+                   alpha = 0.9,
+                   scale = 40,
+                   lwd_multiplier = 18,
+                   popup.vars = c("Viagens 2018" = "Total",
+                                  "Ciclistas cenário base" = "bike18",
+                                  "Ciclistas cenário 10%" = "cyc",
+                                  "Benefícios a 10 anos [milhares €]" = "Beneficios10_keuro",
+                                  "CO2eq evitado [ton/ano]" = "tCO2eq",
+                                  "Tranquilidade" = "quietness",
+                                  "Velocidade auto [km/h]" = "carspeed",
+                                  "Declive médio" = "slope"
+                                  ),
+                   popup.format = list(big.mark = " ", digits = 0),
+                   col = "quietness",
+                   palette = cols4all::c4a(palette = "-dark_mint",  n = 4),
+                   breaks = c(0, 25, 50, 75, 100),
+                   legend.format = list(text.separator = "a"),
+                   legend.col.show = FALSE,
+                   textNA = "sem info",
+                   title.col = "Tranquilidade",
+                   ) +
+  tm_view(view.legend.position = c("right", "bottom"),
+          control.position = c("right", "top")
+          # title = "Viagens até 5 km em bicicleta"
+          # leaflet.options = highlightOptions(color = "white", bringToFront = TRUE)
+          )
+m3leaf = tmap::tmap_leaflet(m3) %>% 
+  leaflet::addProviderTiles("Esri.WorldImagery", group = "Satelite") %>% 
+  leaflet::addLayersControl(baseGroups = c("Esri.WorldGrayCanvas", "OpenStreetMap", "Satelite"),
+                            overlayGroups = c("Potencial 4% - direto", "Potencial 10% - direto", 
+                                              "Potencial 4% - seguro", "Potencial 10% - seguro"),
+                            options = layersControlOptions(collapsed = FALSE)) %>% 
+  leaflet::hideGroup(c("Potencial 10% - direto", "Potencial 4% - seguro", "Potencial 10% - seguro"))
+
+
+m3leaf
+
+```
+
+> Lamentamos, mas nesta área não existe rede ciclável potencial para o cenário 3, com as caraceterísticas definidas.
+
+<!-- Ver mapa em [ecrã inteiro](mapa_cenario3.html){target="_blank"}. -->
+
+```{r exportmaps}
+htmlwidgets::saveWidget(m1leaf, file = paste0("biclarwww/", i,"/mapa_cenario1.html"))
+
+htmlwidgets::saveWidget(m2leaf, file = paste0("biclarwww/", i,"/mapa_cenario2.html"))
+
+# htmlwidgets::saveWidget(m3leaf, file = paste0("biclarwww/", i,"/mapa_cenario3.html"))
+```
+
+
+## Resumo
+
+A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais, para cada meta da Estratégia Nacional ENMAC, para cada cenário, e para cada tipo de rotas otimizadas. 
+
+Para cada um destes cenários, é possível ver também de forma agregada qual o benefício potencial estimado, em toneladas de CO~2~eq evitado anualmente, e em benefícios sociais.
+
+<details>
+  <summary>**Como são estimados os benefícios sociais e ambientais?**</summary>
+Os benefícios potenciais são estimados em duas vertentes, utilizando os métodos e a ferramenta [_HEAT for Cycling_](https://www.heatwalkingcycling.org/){target="_blank"}, da Organização Mundial de Saúde.
+
+A componente ambiental é medida em toneladas de CO~2~eq evitado, por transferência de viagens equivalentes em automóvel, com a mesma origem e destino, mas não necessariamente com o mesmo percurso.
+
+Os impactes sociais agregados, na componente da saúde, são estimados em termos de redução/aumento da mortalidade por aumento de atividade física, por exposição à poluição atomosférica, e por exposição ao risco de sinistralidade rodoviária.  
+Este valor é por fim monetizado utilizando o _Valor Estatístico da Vida_ (€3.055.358, segundo [ANSR 2021](http://www.ansr.pt/Estatisticas/RelatoriosTematicos/Documents/O%20Impacto%20Economico%20e%20Social%20da%20Sinistralidade%20-%20PT.pdf){target="_blank"}), estimado para 10 anos, com uma taxa de desconto de 5% e inflação de 3%. 
+</details>
+
+
+
+```{r tabela}
+# tabela com potencial para cada cenario +  estimativas SE
+
+if (i == "setubal"){
+  mun = "Setubal"
+}
+
+tabelas_mun = readRDS("HEAT/tabelas_mun.Rds")
+tabelas_mun$Estrategia = gsub("ate", "até", tabelas_mun$Estrategia)
+tabelas_mun = tabelas_mun %>% filter(Municipio == mun) %>%
+  filter(Estrategia != "intermodal até 5km ") %>% #só nestes casos pequenos
+  mutate(Percursos = recode(LTS, `3` = "seguro", `4` = "direto")) %>% 
+  select(c(4,2,11,6:10)) %>% 
+  arrange(Meta_ENMAC)
+
+DT::datatable(tabelas_mun,
+                filter = 'none',
+                rownames = FALSE,
+                colnames = c("Meta ENMAC", "Cenário", "Tipo de Percurso", "Total Viagens /dia",
+                             "Viagens Bicicleta 2018", "Viagens Bicicleta Potencial",
+                             "CO2eq evitado (ton/ano)", "Benefícios estimados em 10 anos (milhares €)"),
+                extensions = c("RowGroup", "Buttons"),
+                options = list(dom = "tB",
+                               buttons = list(list(extend='copy',text="Copiar"), "excel"),
+                               pageLength = 12,
+                               responsive = TRUE,
+                               rowGroup = list(dataSrc = 0), #agrupar a primeira coluna
+                               extensions = c('Responsive'))) %>% 
+    DT::formatRound(c(4:8),0, mark = " ")
+
+cicmacx4 = max(tabelas_mun$Bike_new[tabelas_mun$Meta_ENMAC=="4%"], na.rm = TRUE)
+cicmacx10 = max(tabelas_mun$Bike_new[tabelas_mun$Meta_ENMAC=="10%"], na.rm = TRUE)
+co2macx4 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="4%"], na.rm = TRUE)
+co2macx10 = max(tabelas_mun$CO2eq[tabelas_mun$Meta_ENMAC=="10%"], na.rm = TRUE)
+euromacx4 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="4%"], na.rm = TRUE)
+euromacx10 = max(tabelas_mun$Economic10[tabelas_mun$Meta_ENMAC=="10%"], na.rm = TRUE)
+
+
+if (i == "setubal"){
+  mun = "Setúbal"
+}
+```
+
+`r proposicao` `r mun`, a **meta de 4%** de ciclistas diários equivale a ter **`r fmt_num(cicmacx4)` ciclistas** em viagens até 10 km, com uma redução potencial de **`r fmt_num(co2macx4)` toneladas** de CO~2~eq por ter menos viagens em automóvel na mesma razão, com potenciais benefícios para a sociedade de **`r fmt_num(euromacx4/1000)` milhões €** ao fim de 10 anos.  
+
+Já a **meta de 10%** de ciclistas diários equivale a ter **`r fmt_num(cicmacx10)` ciclistas** em viagens até 10 km, com uma redução potencial de **`r fmt_num(co2macx10)` toneladas** de CO~2~eq por ter menos viagens em automóvel na mesma razão, com potenciais benefícios para a sociedade de **`r fmt_num(euromacx10/1000)` milhões €** ao fim de 10 anos.
+
+## Downloads
+
+```{r downloads}
+
+path_sf_1r = paste0(i, "_rededireta_cenario1.gpkg") #how works best?
+path_sf_1l = paste0(i, "_redesegura_cenario1.gpkg")
+
+path_sf_2r = paste0(i, "_rededireta_cenario2.gpkg")
+path_sf_2l = paste0(i, "_redesegura_cenario2.gpkg")
+
+path_sf_3r = paste0(i, "_rededireta_cenario3.gpkg")
+path_sf_3l = paste0(i, "_redesegura_cenario3.gpkg")
+
+```
+
+
+Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg), que pode ser ligo em qualquer SIG moderno. É recomendável o software de acesso livre [QGIS](https://qgis.org/pt_PT/site/){target="_blank"} para leitura, visualização e análise de dados em detalhe.
+
+1.    **Viagens até 5 km em bicicleta**
+
+  *   [Rede direta](`r path_sf_1r`)
+  *   [Rede segura](`r path_sf_1l`)
+    
+2.    **Viagens até 10 km em bicicleta elétrica**
+
+  *   [Rede direta](`r path_sf_2r`)
+  *   [Rede segura](`r path_sf_2l`)
+    
+3.    **Viagens intermodais até 5 km em bicicleta**
+
+  *   _`r proposicao` `r mun` não existe um mínimo de segmentos suficientes com as características deste cenário._
+
+  <!-- *   [Rede direta](`r path_sf_3r`) -->
+  <!-- *   [Rede segura](`r path_sf_3l`) -->
+
+Para cada município, os dados disponíveis para download referem-se à rede ciclável potencial com uma margem de 300 metros para além dos limites do município, para que sejam consideradas as ligações ao município vizinho. 
+
+`r emo::ji("magnifying")` A rede disponibilizada poderá não corresponder à que é apresentada nos mapas acima, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta. Para visualizar os segmentos dependendo do número de viagens potenciais, utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicileta.
