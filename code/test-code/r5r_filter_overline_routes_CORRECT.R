@@ -853,7 +853,7 @@ rnet_allmodesNSub3_overline_morethan30_clean = rnet_allmodesNSub3_overline_moret
   filter(group %in% groupp) #more than 10 segments connected
 rm(rnet_allmodesNSub3_overline_morethan30_group, group)
 
-tm_rnet(rnet_allmodesNSub3_overline_morethan30_clean,
+tm_rnet(rnet_allmodesNSub3_overline_morethan10_clean,
         lwd = "Bike", #Baseline, ENMAC4, ENMAC10
         # col = "Quietness",
         palette = "-burg", # "linear_yl_rd_bk" "johnson", "mako", "burg", "reds" - reds for fastest, mako for quietest

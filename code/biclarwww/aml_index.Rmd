@@ -287,20 +287,15 @@ p2 = ggplot(routes_13r_plot) +
                               color="IMOB 2018", 
                               group =3,
                               text = paste("Distancia:", cyc_dist_km, "<br>Viagens em bicicleta:", trips_cyc_baseline_1))) +
-  geom_smooth(span = 0.2, aes(cyc_dist_km,
-                              cumsum(trips_cyc_baseline_1),
-                              color="IMOB 2018", 
-                              group =3,
-                              text = paste("Distancia:", cyc_dist_km, "<br>Viagens em bicicleta:", trips_cyc_baseline_1)), 
-              linetype = "dashed") +
   # geom_smooth(span = 0.2, aes(cyc_dist_km,
-  #                             trips_all_baseline_1,
-  #                             color="Todos os modos", 
+  #                             cumsum(trips_cyc_baseline_1),
+  #                             color="IMOB 2018", 
   #                             group =3,
-  #                             text = paste("Distancia:", cyc_dist_km, "<br>Viagens total:", trips_all_baseline_1))) +
+  #                             text = paste("Distancia:", cyc_dist_km, "<br>Viagens em bicicleta:", trips_cyc_baseline_1)), 
+  #             linetype = "dashed") +
   scale_y_continuous("Viagens em bicictela /dia", labels = label_number(suffix = " k", scale = 1e-3)) +
-  scale_x_continuous("Distancia de viagem (km)", breaks = seq(0,30, by=5)) +
-  labs(title="", color='Cenario') +
+  scale_x_continuous("Distância de viagem (km)", breaks = seq(0,30, by=5)) +
+  labs(title="", color='Cenário') +
   theme_minimal() +  
   guides(color=guide_legend(override.aes=list(fill=NA)), lty=guide_legend(override.aes=list(fill=NA))) +# removes the grey background in legend categories 
   scale_color_manual(values = c("blue", "darkgreen", "black", "red", "orange"))
@@ -310,7 +305,61 @@ ggplotly(p2) %>% config(displaylogo = FALSE) %>%
 
 ```
 
-A linha a tracejado representa os valor comulativo de número de viagens em bicicleta por dia do IMOB, para cada distância. Como se pode observar, o maior potencial de viagens em bicicleta situa-se em viagens até 10 km, sendo que os primeiros 5 km são muito expressivos.
+As linhas a tracejado, no gráfico seguinte, representam os valores comulativos de número de viagens em bicicleta por dia do IMOB, para cada distância. Como se pode observar, o maior potencial de viagens em bicicleta situa-se em viagens até 10 km, sendo que os primeiros 5 km são muito expressivos, e os ganhos potenciais após os 10 km são residuais.
+
+```{r plottly2}
+# gráfico com caracterização viagens IMOB intra municipais e intermonicipais
+
+
+p3 = ggplot(routes_13r_plot) + 
+  geom_smooth(span = 0.2, aes(cyc_dist_km,
+                              cumsum(trips_cyc_enmac10_1),
+                              color="ENMAC 10%",
+                              group =1,
+                              text = paste("Distancia:", cyc_dist_km, "<br>Viagens em bicicleta:", trips_cyc_enmac10_1)),
+              linetype = "dashed") +
+  geom_smooth(span = 0.2, aes(cyc_dist_km,
+                              cumsum(trips_cyc_enmac4_1),
+                              color="ENMAC 4%",
+                              group =2,
+                              text = paste("Distancia:", cyc_dist_km, "<br>Viagens em bicicleta:", trips_cyc_enmac4_1)),
+              linetype = "dashed") +
+  geom_smooth(span = 0.3, aes(cyc_dist_km,
+                              cumsum(trips_cyc_enmac10_3),
+                              color="Intermodal ENMAC 10%",
+                              group =1,
+                              text = paste("Distancia:", cyc_dist_km, "<br>Viagens em bicicleta:", trips_cyc_enmac10_3)),
+              linetype = "dashed") +
+  geom_smooth(span = 0.3, aes(cyc_dist_km,
+                              cumsum(trips_cyc_enmac4_3),
+                              color="Intermodal ENMAC 4%",
+                              group =2,
+                              text = paste("Distancia:", cyc_dist_km, "<br>Viagens em bicicleta:", trips_cyc_enmac4_3)),
+              linetype = "dashed")  +
+  geom_smooth(span = 0.2, aes(cyc_dist_km,
+                              cumsum(trips_cyc_baseline_1),
+                              color="IMOB 2018", 
+                              group =3,
+                              text = paste("Distancia:", cyc_dist_km, "<br>Viagens em bicicleta:", trips_cyc_baseline_1)), 
+              linetype = "dashed") +
+  scale_y_continuous("Viagens em bicictela /dia (cumulativo)", labels = label_number(suffix = " k", scale = 1e-3)) +
+  scale_x_continuous("Distância de viagem (km)", breaks = seq(0,30, by=5)) +
+  labs(title="", color='Cenário') +
+  theme_minimal() +  
+  guides(color=guide_legend(override.aes=list(fill=NA)), lty=guide_legend(override.aes=list(fill=NA))) +
+  scale_color_manual(values = c("blue", "darkgreen", "black", "red", "orange"))
+
+
+
+ggplotly(p3) %>% config(displaylogo = FALSE) %>% 
+  layout(hovermode = "x") %>% style(hoverinfo = "y")
+
+```
+
+<details>
+  <summary>**Porque é que não ha viagens com mais de 12 km no cenário intermodal?**</summary>
+Esta limitação tem a ver com a forma como foram estimadas as viagens passíveis de serem realizadas em bicicleta nos vários cenários, em que no cenário intermodal considerámos uma duração máxima razoável de 2 horas. A soma das distâncias da primeira e última _milha_ ("em cima de uma bicicleta") nessas viagens não ultrapassa os 12 km.
+</details>
 
 ## Rede ciclável potencial
 

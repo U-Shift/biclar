@@ -566,6 +566,7 @@ Na ótica do decisor, pretende-se que esta informe os decisores, em comparação
 *   Matheus Correia, OpenStreetMap Portugal
 *   CycleStreets
 *   r5r
+*   ATUMIE team
 
 ### Feedback
 
@@ -575,6 +576,9 @@ Para reportar algum problema com a ferramenta, ou colocar questões, pode abrir 
 
 Enviar um email para...
 
+### Última atualização
+
+Este website foi atualizado pela última vez a `r Sys.Date()`.
 
 <!-- ------------------------------------------------------------------------ -->
 
