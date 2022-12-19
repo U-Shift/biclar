@@ -551,6 +551,11 @@ Na ótica do decisor, pretende-se que esta informe os decisores, em comparação
 *   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
 *   Quais os impactes previstos a médio e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado), e sociais.
 
+### O biclaR faz um estudo de procura para o modo ciclável na AML?
+
+Não. Como explicado na questão anterior, o biclaR identifica quais as ligações prioritárias a estabelecer entre pares origem-destino numa determinada geografia por forma a acomodar a transferência de viagens em modos motorizados para a bicicleta. Para tal são definidos cenários e pressupostos para essa transferência potencial.  
+Um estudo de procura implicaria uma estimativa da probabilidade de transferência dos modos motorizados para a bicicleta, não sendo esse o objectivo deste projeto.
+
 ### Como ler os mapas disponibilizados?
 
 Os mapas apresentam a informação gráfica para duas redes - a rede ciclável para viagens mais diretas, e a rede para viagens mais seguras e tranquilas (conforme a rede viária existente).  
@@ -559,17 +564,17 @@ A cor das linhas varia com o nível de tranquilidade ([_quietness_](https://www.
 
 Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viagens estimadas que podem passar por aquele segmento, incluindo os benefícios sociais e ambientais estimados, e as características físicas daquele segmento.
 
-É possível ver mais do que uma opção de rota em simultâneo (direta / segura), por exemplo para comparar alternativas, e níveis de potencial ciclável, estabelecidos pela Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}), em 4 e 10% nos centros urbanos, transferidos de viagens em automóvel. 
+É possível ver mais do que uma opção de rota em simultâneo (direta / segura). Por exemplo, podem-se comparar alternativas e cenários de transferência de 4% e 10% das viagens em automóvel privado para a bicicleta, nos centros urbanos, tal como estabelecido pela Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}). 
 
 ### Posso descarregar os mapas em formato tipo _shapefile_?
 
-Sim! Na secção de downloas de cada página individual dos municípios, ou de toda a AML.
+Sim! Na secção de downloads de cada página individual dos municípios, ou de toda a AML.
 
-Os mapas acima estão disponíveis em formato _GeoPackage_ (.gpkg), que pode ser ligo em qualquer SIG moderno. É recomendável o software de acesso livre QGIS para leitura, visualização e análise de dados em detalhe.
+Estes mapas estão disponíveis em formato _GeoPackage_ (.gpkg), que pode ser ligo em qualquer SIG moderno. É recomendável o software de acesso livre QGIS para leitura, visualização e análise de dados em detalhe.
 
 ### Quero ver uma rede com mais detalhe, é possível?
 
-A rede disponibilizada poderá não corresponder à que é apresentada nos mapas, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta no cenrário de 4%. Disponibilizamos a rede com maior detalhe possível para todos os cenários, com um mínimo de **15** viagens/segmento no cenário 1, **50** viagens/segmento no cenário 2, e **10** viagens/segmento no cenário 3.   
+A rede disponibilizada poderá não corresponder à que é apresentada nos mapas, que mostram apenas os segmentos com uma quantidade mínima de viagens potenciais em bicicleta no cenário de 4%. Disponibilizamos a rede com maior detalhe possível para todos os cenários, com um mínimo de **15** viagens/segmento no cenário 1, **50** viagens/segmento no cenário 2, e **10** viagens/segmento no cenário 3.   
 Poderíamos disponibilizar a rede sem qualquer mínimo, mas em termos de planeamento de infraestruturas cicláveis, consideramos que é mais útil informar sobre aquelas com maior potencial de transferência modal.
 
 Para visualizar os segmentos dependendo do número de viagens potenciais: utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicicleta.
@@ -586,11 +591,17 @@ O nível de tranquilidade é estimado numa escala de 0 a 100 (em que o 100 é o 
 
 Os caminhos fora de estrada, por exemplo em parques e jardins, têm o nível máximo de tranquilidade. Ruas calmas e com infrastrutura ciclável terão um nível ligeiramente inferior, e ruas principais com muito tráfego terão níveis muito baixos de tranquilidade.
 
-### As linhas dos mapas sugerem que devo panlear uma infraestrutura ciclável exatamente ali?
+### As linhas dos mapas sugerem que devo planear uma infraestrutura ciclável exatamente ali?
 
 Não. Os mapas mostram **sugestões de percursos**, mais diretos ou mais seguros, entre freguesias. Poderá haver outras soluções a ter em conta, como por exemplo a construção de uma ponte ou de uma passagem inferior, a abertura de um caminho inexistente por um jardim, etc.
 
 Para cada contexto poderão ser tomadas decisões e escolhidas soluções de entre uma variada panóplia.   Recomendamos a consulta dos mais recentes manuais internacionais para ajudar a decidir sobre o tipo de solução escolhida.
+
+### Como posso avaliar se uma rua ou avenida é adequada para incluir na rede ciclável futura?
+
+Deverá localizar esse segmento da rede viária nos mapas que identificam as ligações prioritárias e percursos para os vários cenários que pretende analisar, e verificar se foi selecionado nessa rede, ou se é uma boa alternativa (próxima) a uma das ligações identificadas.  
+
+Poderá avaliar igualmente qual o potencial de transferência que oferece, se se trata de uma ligação mais segura ou mais direta, e que impactes potenciais se pode esperar, designadamente em termos de impactes sociais e ambientais.
 
 ### Como são estimados os benefícios sociais e ambientais?
 
@@ -605,7 +616,7 @@ Este valor é por fim monetizado utilizando o _Valor Estatístico da Vida_ (€3
 
 Claro!
 
-Este é um dos pontos-chave deste projeto: a sua reproducibilidade, transparência, e adaptação para outros contextos ou novos cenários.
+Este é um dos pontos-chave deste projeto: a sua reprodutibilidade, transparência, e adaptação para outros contextos ou novos cenários.
 
 Todo o código utilizado está disponivel no repositório de dados abertos criado com este projeto, em [github.com/U-Shift/biclar](https://github.com/U-Shift/biclar){target="_blank"}.
 
