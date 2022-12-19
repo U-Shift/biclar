@@ -31,6 +31,7 @@ knitr::opts_chunk$set(
 
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file()) #to use the project root as the working directory
 
+library(tidyverse)
 library(sf)
 library(stringr)
 library(dplyr)
@@ -553,7 +554,8 @@ Na ótica do decisor, pretende-se que esta informe os decisores, em comparação
 
 ### O biclaR faz um estudo de procura para o modo ciclável na AML?
 
-Não. Como explicado na questão anterior, o biclaR identifica quais as ligações prioritárias a estabelecer entre pares origem-destino numa determinada geografia por forma a acomodar a transferência de viagens em modos motorizados para a bicicleta. Para tal são definidos cenários e pressupostos para essa transferência potencial.  
+Não. Como explicado na questão anterior, o biclaR identifica quais as ligações prioritárias a estabelecer entre pares origem-destino numa determinada geografia por forma a acomodar a transferência de viagens em modos motorizados para a bicicleta. Para tal são definidos cenários e pressupostos para essa transferência potencial.
+
 Um estudo de procura implicaria uma estimativa da probabilidade de transferência dos modos motorizados para a bicicleta, não sendo esse o objectivo deste projeto.
 
 ### Como ler os mapas disponibilizados?
