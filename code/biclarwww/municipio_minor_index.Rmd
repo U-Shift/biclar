@@ -897,4 +897,4 @@ Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg
 
 Para cada município, os dados disponíveis para download referem-se à rede ciclável potencial com uma margem de 300 metros para além dos limites do município, para que sejam consideradas as ligações ao município vizinho. 
 
-`r emo::ji("magnifying")` A rede disponibilizada poderá não corresponder à que é apresentada nos mapas acima, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta. Para visualizar os segmentos dependendo do número de viagens potenciais, utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicileta.
+`r emo::ji("magnifying")` A rede disponibilizada poderá não corresponder à que é apresentada nos mapas acima, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta. Para visualizar os segmentos dependendo do número de viagens potenciais, utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicicleta.

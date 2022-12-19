@@ -181,6 +181,8 @@ minimo3 = 50
 
 # `r mun`
 
+## Cenário Base
+
 Segundo o Inquérito à Mobilidade  ([IMOB](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) realizado em 2018 pelo INE, as viagens dentro da `r mun` têm as seguintes características.
 
 ```{r mododist, fig.ncol=2, out.width="50%"}
@@ -358,8 +360,16 @@ ggplotly(p3) %>% config(displaylogo = FALSE) %>%
 
 <details>
   <summary>**Porque é que não ha viagens com mais de 12 km no cenário intermodal?**</summary>
-Esta limitação tem a ver com a forma como foram estimadas as viagens passíveis de serem realizadas em bicicleta nos vários cenários, em que no cenário intermodal considerámos uma duração máxima razoável de 2 horas. A soma das distâncias da primeira e última _milha_ ("em cima de uma bicicleta") nessas viagens não ultrapassa os 12 km.
+Esta limitação tem a ver com a forma como foram estimadas as viagens passíveis de serem realizadas em bicicleta nos vários cenários, em que no cenário intermodal considerámos uma duração máxima razoável de 2 horas. A soma das distâncias e durações da primeira e última _milha_ ("em cima de uma bicicleta") nessas viagens não ultrapassa os 12 km.
 </details>
+
+```{r sideplottly}
+plotly::subplot(p2, p3) %>% 
+  config(displaylogo = FALSE) %>% 
+  layout(hovermode = "x") %>%
+  style(hoverinfo = "y")
+```
+
 
 ## Rede ciclável potencial
 
@@ -830,10 +840,7 @@ HEAT_aml_results2 = readRDS("HEAT/HEAT_aml_results.Rds")
 
 TPtable_car = CAR_TP_TRANSF %>%
   group_by(LTS, mode_TP) %>% 
-  summarise(TP_4 = sum(TP_4), TP_10 = sum(TP_10)
-            # Total = sum(Total), Bike = sum(Bike), Car = sum(Car), TP = sum(TP), 
-            # Bike_4 = sum(Bike_4), Bike_10 = sum(Bike_10)
-            ) %>% 
+  summarise(TP_4 = sum(TP_4), TP_10 = sum(TP_10)) %>% 
   ungroup() %>% 
   pivot_longer(c(3,4), names_to = "ENMAC", values_to = "viagens") %>% 
   pivot_wider(names_from = mode_TP, values_from = viagens) %>% 
@@ -929,4 +936,4 @@ Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg
   *   [Rede segura](`r path_sf_3l`)
 
 
-`r emo::ji("magnifying")` A rede disponibilizada poderá não corresponder à que é apresentada nos mapas acima, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta. Para visualizar os segmentos dependendo do número de viagens potenciais, utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicileta.
+`r emo::ji("magnifying")` A rede disponibilizada poderá não corresponder à que é apresentada nos mapas acima, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta. Para visualizar os segmentos dependendo do número de viagens potenciais, utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicicleta.

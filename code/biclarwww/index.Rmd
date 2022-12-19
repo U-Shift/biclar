@@ -375,7 +375,7 @@ Em que consistem os cenários utilizados nesta modelação?
 
 ### Cenário Base
 
-Na AML, são realizadas cerca de 5 milhões de viagens todos os dias, em vários modos. O número de viagens em bicicleta, segundo o IMOB [2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
+Na AML, são realizadas cerca de 5 milhões de viagens todos os dias, em vários modos. O número de viagens em bicicleta, segundo o IMOB ([2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
 
 Este é o cenário base, ou de referência, utilizado apenas para comparação com os cenários seguintes - de onde advém o **potencial ciclável**.
 
@@ -533,8 +533,98 @@ DT::datatable(municipios_taburl,
 ```
 
 
+<!-- ------------------------------------------------------------------------ -->
+
+## FAQ
+
+Pergutas e respostas simplificadas.
+
+### O que é a ferramenta biclar?
+
+O biclar é uma ferramenta online que informa os decisores sobre o planeamento e investimentos em infraestrutura ciclável, de modo a atingir as metas da Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}).
+
+### Qual o objetivo da ferramenta biclar?
+
+Na ótica do decisor, pretende-se que esta informe os decisores, em comparação com o cenário atual de utilização de bicicleta, sobre:
+
+*   Quais as ligações prioritárias e percursos entre Freguesias e entre Municípios, a investir com infraestrutura ciclável, consoante o cenário adotado e a rede (primária ou secundária);
+*   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
+*   Quais os impactes previstos a médio e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado), e sociais.
+
+### Como ler os mapas disponibilizados?
+
+Os mapas apresentam a informação gráfica para duas redes - a rede ciclável para viagens mais diretas, e a rede para viagens mais seguras e tranquilas (conforme a rede viária existente).  
+A largura das linhas varia consoante o número de ciclistas potencial para cada um dos cenários (4% e 10% de ciclistas), e essa informação é visível ao passar com o rato em cima da linha.  
+A cor das linhas varia com o nível de tranquilidade ([_quietness_](https://www.cyclestreets.net/help/journey/howitworks/#quietness){target="_blank"}), sendo as mais escuras aquelas menos seguras para circular em bicicleta - indicando com maior clareza quais os segmentos que necessitam de intervenção para se tornarem mais seguros e potencialmente trazerem mais ciclistas: os **mais escuros e mais largos**.
+
+Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viagens estimadas que podem passar por aquele segmento, incluindo os benefícios sociais e ambientais estimados, e as características físicas daquele segmento.
+
+É possível ver mais do que uma opção de rota em simultâneo (direta / segura), por exemplo para comparar alternativas, e níveis de potencial ciclável, estabelecidos pela Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}), em 4 e 10% nos centros urbanos, transferidos de viagens em automóvel. 
+
+### Posso descarregar os mapas em formato tipo _shapefile_?
+
+Sim! Na secção de downloas de cada página individual dos municípios, ou de toda a AML.
+
+Os mapas acima estão disponíveis em formato _GeoPackage_ (.gpkg), que pode ser ligo em qualquer SIG moderno. É recomendável o software de acesso livre QGIS para leitura, visualização e análise de dados em detalhe.
+
+### Quero ver uma rede com mais detalhe, é possível?
+
+A rede disponibilizada poderá não corresponder à que é apresentada nos mapas, que mostram apenas os segmentos com mais de X viagens potenciais em bicicleta no cenrário de 4%. Disponibilizamos a rede com maior detalhe possível para todos os cenários, com um mínimo de **15** viagens/segmento no cenário 1, **50** viagens/segmento no cenário 2, e **10** viagens/segmento no cenário 3.   
+Poderíamos disponibilizar a rede sem qualquer mínimo, mas em termos de planeamento de infraestruturas cicláveis, consideramos que é mais útil informar sobre aquelas com maior potencial de transferência modal.
+
+Para visualizar os segmentos dependendo do número de viagens potenciais: utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens, ou todos os segmentos com mais de 10 viagens em bicicleta.
+
+### Quero ver a rede ciclável com maior potencial de transferência modal, é possível?
+
+Sim, tal como descrito na questão anterior, para visualizar os segmentos dependendo do número de viagens potenciais: utilizar os filtros do SIG, por exemplo, para visualizar só os segmentos com mais de 500 viagens. Quanto maior for o número mínimo de viagens a visualizar, mais importante ou prioritária é a rede (em termos de potencial de viagens transferidas do automóvel).
+
+Mas atenção que convém olhar também para os níveis de tranquilidade dos segmentos, cruzanto ambas as informações para encontrar a rede prioritária: aquela com maior potencial de tranferência & aquela que é atualmente menos segura para circular em bicicleta.
+
+### O que é o nível de tranquilidade?
+
+O nível de tranquilidade é estimado numa escala de 0 a 100 (em que o 100 é o nível mais tranquilo), e é definido pelo _CycleStreets_ (ver [_quietness_](https://www.cyclestreets.net/help/journey/howitworks/#quietness){target="_blank"}).
+
+Os caminhos fora de estrada, por exemplo em parques e jardins, têm o nível máximo de tranquilidade. Ruas calmas e com infrastrutura ciclável terão um nível ligeiramente inferior, e ruas principais com muito tráfego terão níveis muito baixos de tranquilidade.
+
+### As linhas dos mapas sugerem que devo panlear uma infraestrutura ciclável exatamente ali?
+
+Não. Os mapas mostram **sugestões de percursos**, mais diretos ou mais seguros, entre freguesias. Poderá haver outras soluções a ter em conta, como por exemplo a construção de uma ponte ou de uma passagem inferior, a abertura de um caminho inexistente por um jardim, etc.
+
+Para cada contexto poderão ser tomadas decisões e escolhidas soluções de entre uma variada panóplia.   Recomendamos a consulta dos mais recentes manuais internacionais para ajudar a decidir sobre o tipo de solução escolhida.
+
+### Como são estimados os benefícios sociais e ambientais?
+
+Os benefícios potenciais são estimados em duas vertentes, utilizando os métodos e a ferramenta [_HEAT for Cycling_](https://www.heatwalkingcycling.org/){target="_blank"}, da Organização Mundial de Saúde.
+
+A componente ambiental é medida em toneladas de CO~2~eq evitado, por transferência de viagens equivalentes em automóvel, com a mesma origem e destino, mas não necessariamente com o mesmo percurso.
+
+Os impactes sociais agregados, na componente da saúde, são estimados em termos de redução/aumento da mortalidade por aumento de atividade física, por exposição à poluição atomosférica, e por exposição ao risco de sinistralidade rodoviária.  
+Este valor é por fim monetizado utilizando o _Valor Estatístico da Vida_ (€3.055.358, segundo [ANSR 2021](http://www.ansr.pt/Estatisticas/RelatoriosTematicos/Documents/O%20Impacto%20Economico%20e%20Social%20da%20Sinistralidade%20-%20PT.pdf){target="_blank"}), estimado para 10 anos, com uma taxa de desconto de 5% e inflação de 3%. 
+
+### Posso fazer o mesmo tipo de análise para outra cidade ou área metropolitana?
+
+Claro!
+
+Este é um dos pontos-chave deste projeto: a sua reproducibilidade, transparência, e adaptação para outros contextos ou novos cenários.
+
+Todo o código utilizado está disponivel no repositório de dados abertos criado com este projeto, em [github.com/U-Shift/biclar](https://github.com/U-Shift/biclar){target="_blank"}.
+
+Tendo dados de viagens para caracterizar o cenário base (ou dados simulados), e mais alguns necessários dependendo dos cenários a considerar, é possível sim.
+
+### Gostava de avaliar o potencial ciclável para um outro cenário, é possível?
+
+Sim, ver a resposta à questão anterior.
+
+Sugerimos começar por fazer download do [projeto e scripts utilizados](https://github.com/U-Shift/biclar){target="_blank"}, carregando em _Code_ e _Download ZIP_. Alguns dados estão disponíveis na parte de [_Releases_](https://github.com/U-Shift/biclar/releases){target="_blank"}. Sendo um utilizador GitHub, é também possível simplesmente fazer um [_Fork_](https://github.com/U-Shift/biclar/fork){target="_blank"} ao projeto para a sua conta.  
+A partir daí, e tendo algumas noções de _R_, é possível adaptar o código para criar outros cenários.
+
+Se considerar que o novo cenário desenvolvido deveria também constar nesta ferramenta, é possível fazer um [_pull request_](https://github.com/U-Shift/biclar/pulls){target="_blank"}, e a equipa biclaR irá avaliar os contributos e decidir sobre a sua integração. Esta é a beleza do código-aberto e da colaboração `r emo::ji("slightly_smiling_face")`.
+
+> Ver o [relatório metodológico](nada) para mais detalhes sobre o funcionamento desta ferramenta.
+
 
 <!-- ------------------------------------------------------------------------ -->
+
 
 ## Sobre
 
@@ -548,7 +638,7 @@ Na ótica do decisor, pretende-se que esta informe os decisores, em comparação
 *   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
 *   Quais os impactes previstos a médio e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado), e sociais.
 
-É também possível saber a informação agregada por [município](Municípios), para cada cenário escolhido, sobre todos os valores acima descritos.
+É também possível saber a informação agregada por [município](Municípios) ou para toda a [AML](AML), para cada cenário escolhido, sobre todos os valores acima descritos.
 
 
 ### A equipa biclaR
@@ -562,7 +652,7 @@ Na ótica do decisor, pretende-se que esta informe os decisores, em comparação
 ### Agradecimentos
 
 *   Grupo de Trabalho: ...
-*   Conselho Consultuvo: ....
+*   Conselho Consultivo: ....
 *   Matheus Correia, OpenStreetMap Portugal
 *   CycleStreets
 *   r5r
@@ -578,22 +668,7 @@ Enviar um email para...
 
 ### Última atualização
 
-Este website foi atualizado pela última vez a `r Sys.Date()`.
-
-<!-- ------------------------------------------------------------------------ -->
-
-## FAQ
-
-Pergutas e respostas simplificadas.
-Ver o [relatório metodológico](nada) para mais detalhes sobre o funcionamento desta ferramenta..
-
-### O que é a ferramenta biclar?
-
-tal tal.
-
-### Qual o objetivo da ferramenta biclar?
-
-tal tal tal.
+Este website foi atualizado pela última vez a `r Sys.Date()`, pelas `r format(as.POSIXct(Sys.time()), format = "%H:%M")`.
 
 
 <!-- ------------------------------------------------------------------------ -->

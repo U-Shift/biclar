@@ -220,3 +220,33 @@ p2 = ggplot(routes_13r_plot) +
   scale_color_manual(values = c("blue", "darkgreen", "black", "red", "orange")) #add  "black" if using all_modes
 ggplotly(p2) %>% config(displaylogo = FALSE) %>% 
   layout(hovermode = "x") %>% style(hoverinfo = "y")
+
+
+
+
+# Car -----------------------------------------------------------------------------------------
+
+
+routescar_plot = routes1r %>% 
+  mutate(length_km = distance/1000) %>% 
+  mutate(distance_band = cut(length_km, 0:20)) %>% 
+  group_by(distance_band) %>% 
+  summarise(cyc_dist_km = mean(length_km),
+            trips_cyc_baseline_1 = sum(Bike),
+            trips_car_baseline_1 = sum(Car),
+            trips_cyc_enmac4_1 = sum(cyc4),
+            trips_cyc_enmac10_1 = sum(cyc10),
+            trips_all_baseline_1 = sum(Total)) %>% 
+  mutate_if(is.numeric, round, digits = 2) %>% 
+  mutate_at(c(3:7), round, digits = 0)
+
+
+
+# juntar
+routes_car_plot =
+  routes1r_plot %>% 
+  left_join(routescar_plot %>% select(-cyc_dist_km))
+
+routes_car_plot2 =
+  routescar_plot %>% 
+  left_join(routes1r_plot %>% select(-cyc_dist_km))
