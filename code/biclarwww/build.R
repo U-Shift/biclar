@@ -1,7 +1,7 @@
 # Build the website 
 
 
-# Read in data --------------------------------------------------------------------------------
+# Main pages ----------------------------------------------------------------------------------
 
 
 # página principal
@@ -15,12 +15,11 @@ rmarkdown::render(input = "code/biclarwww/aml_index.Rmd", encoding = "UTF-8", ou
 
 # Create outputs for each region --------------------------------------------------------------
 
-
-i = "oeiras"
+# i = "oeiras"
 i = "barreiro"
-i = "lisboa"
-i = "odivelas"
-i = "setubal"
+# i = "lisboa"
+# i = "odivelas"
+# i = "setubal"
 
 # for (i in municipios){
 
