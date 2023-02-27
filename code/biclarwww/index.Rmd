@@ -548,13 +548,13 @@ O biclar é uma ferramenta online que informa os decisores sobre o planeamento e
 
 ### Qual o objetivo da ferramenta biclar?
 
-Na ótica do decisor, pretende-se que esta informe os decisores, em comparação com o cenário atual de utilização de bicicleta, sobre:
+Pretende-se que esta ferramenta informe os decisores, em comparação com o cenário atual de utilização de bicicleta, sobre:
 
 *   Quais as ligações prioritárias e percursos entre Freguesias e entre Municípios, a investir com infraestrutura ciclável, consoante o cenário adotado e a rede (primária ou secundária);
 *   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
-*   Quais os impactes previstos a médio e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado), e sociais.
+*   Quais os impactes previstos a curto e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado) e sociais.
 
-### O biclaR faz um estudo de procura para o modo ciclável na AML?
+### O biclaR faz um estudo de procura para o modo ciclável na área metropolitana de Lisboa?
 
 Não. Como explicado na questão anterior, o biclaR identifica quais as ligações prioritárias a estabelecer entre pares origem-destino numa determinada geografia por forma a acomodar a transferência de viagens em modos motorizados para a bicicleta. Para tal são definidos cenários e pressupostos para essa transferência potencial.
 
@@ -614,7 +614,7 @@ Os benefícios potenciais são estimados em duas vertentes, utilizando os métod
 A componente ambiental é medida em toneladas de CO~2~eq evitado, por transferência de viagens equivalentes em automóvel, com a mesma origem e destino, mas não necessariamente com o mesmo percurso.
 
 Os impactes sociais agregados, na componente da saúde, são estimados em termos de redução/aumento da mortalidade por aumento de atividade física, por exposição à poluição atomosférica, e por exposição ao risco de sinistralidade rodoviária.  
-Este valor é por fim monetizado utilizando o _Valor Estatístico da Vida_ (€3.055.358, segundo [ANSR 2021](http://www.ansr.pt/Estatisticas/RelatoriosTematicos/Documents/O%20Impacto%20Economico%20e%20Social%20da%20Sinistralidade%20-%20PT.pdf){target="_blank"}), estimado para 10 anos, com uma taxa de desconto de 5% e inflação de 3%. 
+Este valor é, por fim, monetizado utilizando o _Valor Estatístico da Vida_ (€3.055.358, segundo [ANSR 2021](http://www.ansr.pt/Estatisticas/RelatoriosTematicos/Documents/O%20Impacto%20Economico%20e%20Social%20da%20Sinistralidade%20-%20PT.pdf){target="_blank"}), estimado para 10 anos, com uma taxa de desconto de 5% e inflação de 3%. 
 
 ### Posso fazer o mesmo tipo de análise para outra cidade ou área metropolitana?
 
@@ -622,7 +622,7 @@ Claro!
 
 Este é um dos pontos-chave deste projeto: a sua reprodutibilidade, transparência, e adaptação para outros contextos ou novos cenários.
 
-Todo o código utilizado está disponivel no repositório de dados abertos criado com este projeto, em [github.com/U-Shift/biclar](https://github.com/U-Shift/biclar){target="_blank"}.
+Todo o código utilizado está disponível no repositório de dados abertos criado com este projeto, em [github.com/U-Shift/biclar](https://github.com/U-Shift/biclar){target="_blank"}.
 
 Tendo dados de viagens para caracterizar o cenário base (ou dados simulados), e mais alguns necessários dependendo dos cenários a considerar, é possível sim.
 
@@ -658,20 +658,20 @@ Pretende-se que esta ferramenta informe os decisores, em comparação com o cen�
 
 ### A equipa biclaR
 
-*   TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A. (coordenação): António Sérgio Manso Pinheiro (Diretor do Departamento de Estudos e Projetos), Catarina Tavares Marcelino (Coordenadora), Camila Garcia, Conceição Bandarrinha, Luísa Nogueira, Pedro Machado.
+*   **Coordenação**: TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A. - António Sérgio Manso Pinheiro (Diretor do Departamento de Estudos e Projetos), Catarina Tavares Marcelino (Coordenadora), Camila Garcia, Conceição Bandarrinha, Luísa Nogueira, Pedro Machado.
 
-*   Instituto Superior Técnico - Universidade de Lisboa (desenvolvimento): Filipe Moura, Rosa Félix.
+*   **Desenvolvimento**: Instituto Superior Técnico - Universidade de Lisboa - Filipe Moura, Rosa Félix.
 
-*   Institute for Transport Studies - University of Leeds (apoio ao desenvolvimento): Robin Lovelace.
+*   **Apoio ao desenvolvimento**: Institute for Transport Studies - University of Leeds - Robin Lovelace.
 
 ### Agradecimentos
 
-*   Grupo de Trabalho: ...
-*   Conselho Consultivo: ....
-*   Matheus Correia, OpenStreetMap Portugal
+*   Grupo de Trabalho dos Municípios, composto por representantes e técnicos dos 18 municípios da área metropolitana de Lisboa
+*   Comissão de Acompanhamento do projeto biclaR, composto por várias entidades e instituições de caráter público e associativo, organizado pela TML
+*   Matheus Correia - OpenStreetMap Portugal
+*   Rafael Pereira - r5r
+*   Thomas Götshi - HEAT for Cycling
 *   CycleStreets
-*   r5r
-*   Thomas Götshi, HEAT for Cycling
 *   ATUMIE team
 
 ### Feedback
@@ -680,7 +680,7 @@ Para reportar algum problema com a ferramenta, ou colocar questões, pode abrir 
 
 ### Contactos
 
-Enviar um email para...
+Para qualquer esclarecimento adicional, por favor enviar um email para info @tmlmobilidade.pt com o assunto _biclaR_.
 
 ### Última atualização
 
