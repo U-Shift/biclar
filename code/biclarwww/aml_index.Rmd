@@ -183,10 +183,10 @@ minimo3 = 50
 
 ## Cenário Base
 
-Segundo o Inquérito à Mobilidade  ([IMOB](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) realizado em 2018 pelo INE, as viagens dentro da `r mun` têm as seguintes características.
+Segundo o Inquérito à Mobilidade  ([IMob](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) realizado em 2018 pelo INE, as viagens dentro da `r mun` têm as seguintes características.
 
 ```{r mododist, fig.ncol=2, out.width="50%"}
-#gráfico com bistribuição de viagens por modo na AML segundo IMOB 2018
+#gráfico com bistribuição de viagens por modo na AML segundo IMob 2018
 
 TRIPSmode_aml_intr$modo = factor(TRIPSmode_aml_intr$modo, 
                                  levels = c("Automóvel", "Transportes Públicos", "Motociclo", 
@@ -355,7 +355,7 @@ plotly::subplot(p2, p3, shareX = TRUE, titleY = TRUE) %>%
   style(hoverinfo = "y")
 ```
 
-As linhas a tracejado representam os valores comulativos de número de viagens em bicicleta por dia do IMOB, para cada distância. Como se pode observar, o maior potencial de viagens em bicicleta situa-se em viagens até 10 km, sendo que os primeiros 5 km são muito expressivos, e os ganhos potenciais após os 10 km são residuais.
+As linhas a tracejado representam os valores comulativos de número de viagens em bicicleta por dia do IMob, para cada distância. Como se pode observar, o maior potencial de viagens em bicicleta situa-se em viagens até 10 km, sendo que os primeiros 5 km são muito expressivos, e os ganhos potenciais após os 10 km são residuais.
 
 <details>
   <summary>**Porque é que não ha viagens com mais de 12 km no cenário intermodal?**</summary>
@@ -364,7 +364,7 @@ Esta limitação tem a ver com a forma como foram estimadas as viagens passívei
 
 ## Rede ciclável potencial
 
-Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMOB 2018), para **4%** de viagens em bicicleta (meta 2024), e para **10%** de viagens em bicicleta (meta 2030), transferidas diretamente de viagens em automóvel.
+Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMob 2018), para **4%** de viagens em bicicleta (meta 2024), e para **10%** de viagens em bicicleta (meta 2030), transferidas diretamente de viagens em automóvel.
 
 Cada mapa refere-se a cada uma das 3 estimativas:
 

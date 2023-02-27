@@ -337,7 +337,7 @@ if (i == "setubal"){
 
 # `r mun`
 
-Segundo o Inquérito à Mobilidade  ([IMOB](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) realizado em 2018 pelo INE, as viagens com origem e/ou destino `r stringr::str_to_lower(proposicao)` `r mun` têm as seguintes características.
+Segundo o Inquérito à Mobilidade  ([IMob](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) realizado em 2018 pelo INE, as viagens com origem e/ou destino `r stringr::str_to_lower(proposicao)` `r mun` têm as seguintes características.
 
 ```{r mododist, fig.ncol=2, out.width="50%"}
 # gráfico com caracterização viagens IMOB intra municipais e intermonicipais
@@ -391,7 +391,7 @@ Diariamente, cerca de `r fmt_num(round(viagensintra/1000))`mil viagens têm orig
 
 ## Rede ciclável potencial
 
-Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMOB 2018), para **4%** de viagens em bicicleta (meta 2024), e para **10%** de viagens em bicicleta (meta 2030), transferidas diretamente de viagens em automóvel.
+Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMob 2018), para **4%** de viagens em bicicleta (meta 2024), e para **10%** de viagens em bicicleta (meta 2030), transferidas diretamente de viagens em automóvel.
 
 Cada mapa refere-se a cada uma das 3 estimativas:
 

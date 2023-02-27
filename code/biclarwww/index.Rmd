@@ -376,7 +376,7 @@ Em que consistem os cenários utilizados nesta modelação?
 
 ### Cenário Base
 
-Na AML, são realizadas cerca de 5 milhões de viagens todos os dias, em vários modos. O número de viagens em bicicleta, segundo o IMOB ([2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
+Na AML, são realizadas cerca de 5 milhões de viagens todos os dias, em vários modos. O número de viagens em bicicleta, segundo o IMob ([2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
 
 Este é o cenário base, ou de referência, utilizado apenas para comparação com os cenários seguintes - de onde advém o **potencial ciclável**.
 
