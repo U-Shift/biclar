@@ -922,7 +922,7 @@ path_sf_3l = paste0(i, "_redesegura_cenario3.gpkg")
 ```
 
 
-Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg), que pode ser ligo em qualquer SIG moderno. É recomendável o software de acesso livre [QGIS](https://qgis.org/pt_PT/site/){target="_blank"} para leitura, visualização e análise de dados em detalhe.
+Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg), que pode ser lido em qualquer SIG moderno. É recomendável o software de acesso livre [QGIS](https://qgis.org/pt_PT/site/){target="_blank"} para leitura, visualização e análise de dados em detalhe.
 
 1.    **Viagens até 5 km em bicicleta**
 

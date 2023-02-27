@@ -823,7 +823,7 @@ euromacx10 = max(tabelas_aml$Economic10[tabelas_aml$Meta_ENMAC=="10%"])
 Já a **meta de 10%** de ciclistas diários equivale a ter **`r fmt_num(cicmacx10/1000)` mil ciclistas** em viagens até 10 km, com uma redução potencial de **`r fmt_num(co2macx10/1000)` mil toneladas** de CO~2~eq por ter menos viagens em automóvel na mesma razão, com potenciais benefícios para a sociedade de **`r round(euromacx10/1000000, 1)` mil milhões €** ao fim de 10 anos.
 
 
-Relativamente ao cenário 3, de transferência modal de viagens em automóvel que são passíveis de serem realizadas em **intermodalidade entre bicicleta + transportes públicos** (viáveis), e cuja distância em bicicleta não é superior a 5km no total da primeira e última parte da viagem, a tabela seguinte mostra o potencial de transferência estimado para cada modo de transporte público, bem como as **estimativas de consumo de CO~2~eq evitado anualmente** por trasferência do automóvel, considerando também o consumo dos transportes públicos, no cômputo dessas viagens.
+Relativamente ao cenário 3, de transferência modal de viagens em automóvel que são passíveis de serem realizadas em **intermodalidade entre bicicleta + transportes públicos**, e cuja distância em bicicleta não é superior a 5km no total da primeira e última parte da viagem, a tabela seguinte mostra o potencial de transferência estimado para cada modo de transporte público, bem como as **estimativas de consumo de CO~2~eq evitado anualmente** por transferência do automóvel, considerando também o consumo dos transportes públicos, no cômputo dessas viagens.
 
 ```{r tabela2}
 CAR_TP_TRANSF = readRDS("HEAT/CAR_TP_TRANSF.Rds")
@@ -887,11 +887,11 @@ DT::datatable(TPtable_aml,
 
 ```
 
-Estes resultados indicam que a transferência da viagem em automóvel para bicicleta + transportes públicos, dentro dos critétrios considerados (max 5km em bicicleta na soma da primeira e última _milha_, e sem transferências de modo ou linha), poderá ter **benefícios potenciais estimados entre `r round(TPtable_aml[1,13]/1000000,1)` e `r round(TPtable_aml[4,13]/1000000,1)` milhões de €**.
+Estes resultados indicam que a transferência da viagem em automóvel para bicicleta + transportes públicos, dentro dos critérios considerados (max 5 km em bicicleta na soma da primeira e última _milha_, e sem transferências de modo ou linha), poderá ter **benefícios potenciais estimados entre `r round(TPtable_aml[1,13]/1000000,1)` e `r round(TPtable_aml[4,13]/1000000,1)` milhões de €**.
 
 Neste cenário, `r fmt_num(round(min(TPtable_aml$Total/1000)))`mil a `r fmt_num(round(max(TPtable_aml$Total/1000)))`mil viagens podem ser substituídas do automóvel para Bicicleta + Transportes Públicos.
 
-O modo com maior potencial de transferência modal, em complemento com a bicicleta, é o **comboio**, com `r round(TPtable_aml[2,5]/1000)`mil viagens
+O modo com maior potencial de transferência modal, em complemento com a bicicleta, é o **comboio**, com `r round(TPtable_aml[2,5]/1000)` mil viagens
 
 ## Downloads
 
@@ -909,7 +909,7 @@ path_sf_3l = paste0(i, "_redesegura_cenario3.gpkg")
 ```
 
 
-Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg), que pode ser ligo em qualquer SIG moderno. É recomendável o software de acesso livre [QGIS](https://qgis.org/pt_PT/site/){target="_blank"} para leitura, visualização e análise de dados em detalhe.
+Os mapas acima estão disponíveis para download, em formato _GeoPackage_ (.gpkg), que pode ser lido em qualquer SIG moderno. É recomendável o software de acesso livre [QGIS](https://qgis.org/pt_PT/site/){target="_blank"} para leitura, visualização e análise de dados em detalhe.
 
 1.    **Viagens até 5 km em bicicleta**
 
