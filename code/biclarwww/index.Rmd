@@ -376,7 +376,7 @@ Em que consistem os cenários utilizados nesta modelação?
 
 ### Cenário Base
 
-Na AML, são realizadas cerca de 5 milhões de viagens todos os dias, em vários modos. O número de viagens em bicicleta, segundo o IMob ([2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
+Na área metropolitana de Lisboa são realizadas diariamente cerca de 5.3 milhões de viagens, em vários modos. O número de viagens em bicicleta, segundo o Inquérito à Mobilidade ([IMob 2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
 
 Este é o cenário base, ou de referência, utilizado apenas para comparação com os cenários seguintes - de onde advém o **potencial ciclável**.
 
@@ -407,7 +407,7 @@ Este valoriza a utilização da bicicleta como complemento ao transporte públic
 
 ## AML
 
-Ver página com detalhes, mapas e mais resultados para a área metropolitana de Lisboa: [AML](aml/index.html){target="_blank"}
+Ver página com detalhes, mapas e mais resultados para a área metropolitana de Lisboa em [AML](aml/index.html){target="_blank"}
 
 ```{r amlprep}
 tabelas_aml = readRDS("HEAT/tabelas_aml.Rds")
@@ -423,9 +423,9 @@ tabelas_aml = tabelas_aml %>%
 
 ```
 
-A AML tem uma população de `r fmt_num(POPaml)`. Diariamente são realizadas 5.33 milhões de viagens, em vários modos de transporte, das quais apenas **25 479 são realizadas em bicicleta** (0.5%).
+A área metropolitana de Lisboa tem uma população de `r fmt_num(POPaml)` habitantes, segundo os Censos 2021. Diariamente são realizadas 5.33 milhões de viagens, em vários modos de transporte, das quais apenas **25 479 são realizadas em bicicleta** (0.5%).
 
-A tabela informa sobre o potencial ciclável em cada [cenário](Cenários) considerado neste estudo, para ligações entre freguesias, realizáveis em bicicleta, e para percursos preferencialmente diretos.
+A tabela seguinte informa sobre o potencial ciclável em cada [cenário](#Cenários) considerado neste estudo, para ligações entre freguesias, realizáveis em bicicleta, e para percursos preferencialmente diretos.
 
 
 ```{r tabelaaml}
@@ -651,7 +651,7 @@ Pretende-se que esta ferramenta informe os decisores, em comparação com o cen�
 *   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
 *   Quais os impactes previstos a curto e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado) e sociais.
 
-É também possível saber a informação agregada por [município](Municípios) ou para toda a [AML](AML), para cada cenário escolhido, sobre todos os valores acima descritos.
+É também possível saber a informação agregada por [município](#Municípios) ou para toda a [AML](#AML), para cada cenário escolhido, sobre todos os valores acima descritos.
 
 
 ### A equipa biclaR
