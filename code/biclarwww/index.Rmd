@@ -425,7 +425,7 @@ tabelas_aml = tabelas_aml %>%
 
 A área metropolitana de Lisboa tem uma população de `r fmt_num(POPaml)` habitantes, segundo os Censos 2021. Diariamente são realizadas 5.33 milhões de viagens, em vários modos de transporte, das quais apenas **25 479 são realizadas em bicicleta** (0.5%).
 
-A tabela seguinte informa sobre o potencial ciclável em cada [cenário](#Cenários) considerado neste estudo, para ligações entre freguesias, realizáveis em bicicleta, e para percursos preferencialmente diretos.
+A tabela seguinte informa sobre o potencial ciclável em cada [cenário](#cenários) considerado neste estudo, para ligações entre freguesias, realizáveis em bicicleta, e para percursos preferencialmente diretos.
 
 
 ```{r tabelaaml}
@@ -651,7 +651,7 @@ Pretende-se que esta ferramenta informe os decisores, em comparação com o cen�
 *   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
 *   Quais os impactes previstos a curto e longo prazo (1 e 10 anos) em termos ambientais (CO~2~eq evitado) e sociais.
 
-É também possível saber a informação agregada por [município](#Municípios) ou para toda a [AML](#AML), para cada cenário escolhido, sobre todos os valores acima descritos.
+É também possível saber a informação agregada por [município](#municípios) ou para toda a [AML](#aml), para cada cenário escolhido, sobre todos os valores acima descritos.
 
 
 ### A equipa biclaR
