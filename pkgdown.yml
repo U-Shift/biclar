@@ -1,5 +1,5 @@
-pandoc: 2.7.3
-pkgdown: 2.0.6
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   0_baseline_scenario: 0_baseline_scenario.html
@@ -8,7 +8,7 @@ articles:
   3_ebikes_scenario: 3_ebikes_scenario.html
   imob: imob.html
   propotype: propotype.html
-last_built: 2022-10-13T22:30Z
+last_built: 2023-02-27T15:56Z
 urls:
   reference: https://u-shift.github.io/biclar/reference
   article: https://u-shift.github.io/biclar/articles
