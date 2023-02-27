@@ -47,7 +47,7 @@ fmt_num = function(x) format(round(sum(x)), big.mark=" ")
 
 ```{r chamadas}
 i = "aml"
-mun = "Área Metropolitana de Lisboa"
+mun = "área metropolitana de Lisboa"
 
 proposicao = "Na"
 proposicaoD = "Da"

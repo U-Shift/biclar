@@ -44,7 +44,7 @@ fmt_num = function(x) format(round(sum(x)), big.mark=" ")
 ```
 
 
-<h2 style="text-align: center;">Ferramenta de apoio ao planeamento da rede ciclável<br> na Área Metropolitana de Lisboa</h2>
+<h2 style="text-align: center;">Ferramenta de apoio ao planeamento da rede ciclável<br> na área metropolitana de Lisboa</h2>
 
 ##### Nota: este projeto está em fase _beta_ e a informação deste site deve ser considerada como _work in progress_. 
 
@@ -366,7 +366,7 @@ m0
 
 
 **O que mostra este mapa? **  
-Este mapa mostra a percentagem de viagens com origem em cada município que são realizadas em biciceta.
+Este mapa mostra a percentagem de viagens com origem em cada município que são realizadas em bicicleta.
 
 <!-- ------------------------------------------------------------------------ -->
 
@@ -407,7 +407,7 @@ Este valoriza a utilização da bicicleta como complemento ao transporte públic
 
 ## AML
 
-Ver página com detalhes, mapas e mais resultados para a Área Metropolitana de Lisboa: [AML](aml/index.html){target="_blank"}
+Ver página com detalhes, mapas e mais resultados para a área metropolitana de Lisboa: [AML](aml/index.html){target="_blank"}
 
 ```{r amlprep}
 tabelas_aml = readRDS("HEAT/tabelas_aml.Rds")
@@ -448,7 +448,7 @@ DT::datatable(tabelas_aml,
 
 ```
 
-Para todos os detalhes sobre estes resultados, ver a página da [Área Metropolitana de Lisboa](aml/index.html){target="_blank"}
+Para todos os detalhes sobre estes resultados, ver a página da [área metropolitana de Lisboa](aml/index.html){target="_blank"}
 
 
 <!-- ------------------------------------------------------------------------ -->
