@@ -633,7 +633,7 @@ m2leaf
 
 #### Até 5 km intermodal
 
-Este mapa mostra os segmentos com mais de `r minimo3` viagens potenciais em bicicleta, em que parte da viagem é realizada em transportes públicos (barco, comboio, metro sul do Tejo, ou carris metropolitana). Os segmentos deste mapa dizem respeito apenas à parte da viagem que é realizada em bicicleta, num total de até 5 km no conjunto da primeira e última etapa da viagem intermodal. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
+Este mapa mostra os segmentos com mais de `r minimo3` viagens potenciais em bicicleta, em que parte da viagem é realizada em transportes públicos (barco, comboio, metro sul do Tejo, ou Carris Metropolitana). Os segmentos deste mapa dizem respeito apenas à parte da viagem que é realizada em bicicleta, num total de até 5 km no conjunto da primeira e última etapa da viagem intermodal. Para um maior ou menor detalhe da rede, ver a secção de [Downloads].
 
 ```{r mapa3, cache=FALSE}
 mapa31r = mapa31r %>% filter(cyc < 2400) #otherwise we cant see scale lwd
@@ -768,7 +768,7 @@ htmlwidgets::saveWidget(m3leaf, file = paste0("biclarwww/", i,"/mapa_cenario3.ht
 
 ## Resumo
 
-A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais, para cada meta da Estratégia Nacional ENMAC, para cada cenário, e para cada tipo de rotas otimizadas. 
+A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais diárias, para cada meta da Estratégia Nacional ENMAC, para cada cenário, e para cada tipo de rotas otimizadas. 
 
 Para cada um destes cenários, é possível ver também de forma agregada qual o benefício potencial estimado, em toneladas de CO~2~eq evitado anualmente, e em benefícios sociais.
 

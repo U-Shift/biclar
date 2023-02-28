@@ -797,7 +797,7 @@ htmlwidgets::saveWidget(m2leaf, file = paste0("biclarwww/", i,"/mapa_cenario2.ht
 
 ## Resumo
 
-A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais, para cada meta da Estratégia Nacional ENMAC, para cada cenário, e para cada tipo de rotas otimizadas. 
+A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais diárias, para cada meta da Estratégia Nacional ENMAC, para cada cenário, e para cada tipo de rotas otimizadas. 
 
 Para cada um destes cenários, é possível ver também de forma agregada qual o benefício potencial estimado, em toneladas de CO~2~eq evitado anualmente, e em benefícios sociais.
 

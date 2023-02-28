@@ -676,7 +676,7 @@ Pretende-se que esta ferramenta informe os decisores, em comparação com o cen�
 
 ### Feedback
 
-Para reportar algum problema com a ferramenta, ou colocar questões, pode abrir um _issue_ no nosso [repositório de dados abertos](https://github.com/U-Shift/biclarwww/issues).
+Para reportar algum problema com a ferramenta, ou colocar questões, pode abrir um _issue_ no nosso [repositório de dados abertos](https://github.com/U-Shift/biclarwww/issues){target="_blank"}.
 
 ### Contactos
 
