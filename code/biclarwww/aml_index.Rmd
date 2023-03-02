@@ -183,7 +183,7 @@ minimo3 = 50
 
 ## Cenário Base
 
-Segundo o Inquérito à Mobilidade  ([IMob](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) realizado em 2018 pelo INE, as viagens dentro da `r mun` têm as seguintes características.
+Segundo o Inquérito à Mobilidade ([IMob 2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) realizado em 2017 pelo INE, as viagens dentro da `r mun` têm as seguintes características:
 
 ```{r mododist, fig.ncol=2, out.width="50%"}
 #gráfico com bistribuição de viagens por modo na AML segundo IMob 2018
@@ -220,15 +220,15 @@ ggplot(TRIPSmode_aml_intr, aes(fill = modo, y = viagens, x = Inter)) +
 
 Das cerca de `r round(sum(TRIPSmode_aml$viagens)/1000000,1)` milhões de viagens diárias `r stringr::str_to_lower(proposicao)` `r mun`, apenas `r TRIPSmode_aml[3,3]`% das viagens são realizadas em bicicleta (`r fmt_num(round(TRIPSmode_aml[3,2]))`). `r round(TRIPSmode_aml[2,2]/1000000,1)` milhões são feitas em automóvel (`r TRIPSmode_aml[2,3]`%), `r round(TRIPSmode_aml[1,2]/1000000,1)` milhões a pé (`r TRIPSmode_aml[1,3]`%), `r fmt_num(round(TRIPSmode_aml[6,2]/1000))`mil em Transportes Públicos (`r TRIPSmode_aml[6,3]`%) e `r round((TRIPSmode_aml[4,2]+TRIPSmode_aml[5,2])/1000)`mil em outros modos (`r TRIPSmode_aml[4,3]+TRIPSmode_aml[5,3]`%).
 
-A figura seguinte mostra a proporção de viagens que é realizada com origem e destino no mesmo município (`r round(viagensintra/1000000,1)` milhões viagens), e as viagens com origem e destino em municípios diferentes (`r round(viagensinter/1000000,1)` milhões viagens). Como se pode observar, para todos os municípios, a maioria das viagens realizadas é intra municipal, emboras as viagens intermunicipais são bastante expressivas, principalmente em municípios como Odivelas, Oeiras, Amadora e Loures.
+A figura seguinte mostra a proporção de viagens que é realizada com origem e destino no mesmo município (`r round(viagensintra/1000000,1)` milhões viagens), e as viagens com origem e destino em municípios diferentes (`r round(viagensinter/1000000,1)` milhões viagens). Como se pode observar, para todos os municípios, a maioria das viagens realizadas é intra municipal, embora as viagens intermunicipais sejam bastante expressivas, principalmente em municípios como Odivelas, Oeiras, Amadora e Loures.
 
 ```{r circus, out.width="50%", fig.align='center'}
 circus = "https://github.com/U-Shift/biclar/raw/master/man/figures/aml_circos.png"
 knitr::include_graphics(circus, error = FALSE)
 ```
 
-As metas da Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}), estabelecem que dentro dos centros urbanos **4%** das viagens devem ser realizadas em bicicleta até 2024, e **10%** até 2030, e que as mesmas devem ser substituídas de viagens atualmente realizadas em automóvel.
-Partindo do número de viagens realizadas em bicicleta em 2018 (cenário de referência, ou _cenário base_), é possível estimar o número de viagens com potencial para serem substituídas do automóvel para a bicicleta para cada cenário aqui avaliado.
+As metas da Estratégia Nacional para a Mobilidade Ativa Ciclável 2020-2030 ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}) estabelecem que dentro dos centros urbanos **4%** das viagens devem ser realizadas em bicicleta até 2025, e **10%** até 2030, e que as mesmas devem ser transferidas de viagens atualmente realizadas em automóvel.
+Partindo do número de viagens realizadas em bicicleta em 2018 (cenário de referência, ou _cenário base_), é possível estimar o número de viagens com potencial para serem transferidas do automóvel para a bicicleta para cada cenário aqui avaliado.
 
 O gráfico seguinte mostra o potencial de viagens a serem realizadas em bicicleta diariamente, por gama de distâncias de viagem, e para os cenários avaliados.
 
@@ -364,13 +364,13 @@ Esta limitação tem a ver com a forma como foram estimadas as viagens passívei
 
 ## Rede ciclável potencial
 
-Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMob 2018), para **4%** de viagens em bicicleta (meta 2024), e para **10%** de viagens em bicicleta (meta 2030), transferidas diretamente de viagens em automóvel.
+Os mapas seguintes mostram as ligações cicláveis com maior potencial, para o **cenário base** (viagens do IMob 2018), para **4%** de viagens em bicicleta (meta ENMAC 2025), e para **10%** de viagens em bicicleta (meta ENMAC 2030), transferidas diretamente de viagens em automóvel.
 
 Cada mapa refere-se a cada uma das 3 estimativas:
 
 * viagens até 5 km com ligação em bicicleta (_`r fmt_num(HEAT_aml_redux[4,13])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
 * viagens até 10 km com ligação em bicicleta elétrica (_`r fmt_num(HEAT_aml_redux[8,13])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
-* viagens até 5 km em bicicleta de ou até uma interface de transportes (_`r fmt_num(HEAT_aml_redux[12,13])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
+* viagens até 5 km em bicicleta até ou desde uma interface de transportes (_`r fmt_num(HEAT_aml_redux[12,13])` viagens `r stringr::str_to_lower(proposicao)` `r mun`_)
 
 <!-- Passar isto para FAQ? -->
 
@@ -768,7 +768,7 @@ htmlwidgets::saveWidget(m3leaf, file = paste0("biclarwww/", i,"/mapa_cenario3.ht
 
 ## Resumo
 
-A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais diárias, para cada meta da Estratégia Nacional ENMAC, para cada cenário, e para cada tipo de rotas otimizadas. 
+A tabela mostra o potencial ciclável `r stringr::str_to_lower(proposicao)` `r mun` em número de novas viagens em bicicleta potenciais diárias, para cada meta da Estratégia Nacional ENMAC (4% e 10%), para cada um dos três cenários, e para cada tipo de rotas otimizadas. 
 
 Para cada um destes cenários, é possível ver também de forma agregada qual o benefício potencial estimado, em toneladas de CO~2~eq evitado anualmente, e em benefícios sociais.
 
@@ -778,7 +778,7 @@ Os benefícios potenciais são estimados em duas vertentes, utilizando os métod
 
 A componente ambiental é medida em toneladas de CO~2~eq evitado, por transferência de viagens equivalentes em automóvel, com a mesma origem e destino, mas não necessariamente com o mesmo percurso.
 
-Os impactes sociais agregados, na componente da saúde, são estimados em termos de redução/aumento da mortalidade por aumento de atividade física, por exposição à poluição atomosférica, e por exposição ao risco de sinistralidade rodoviária.  
+Os impactes sociais agregados, na componente da saúde, são estimados em termos de redução/aumento da mortalidade por aumento de atividade física, por exposição à poluição atmosférica, e por exposição ao risco de sinistralidade rodoviária.  
 Este valor é por fim monetizado utilizando o _Valor Estatístico da Vida_ (€3.055.358, segundo [ANSR 2021](http://www.ansr.pt/Estatisticas/RelatoriosTematicos/Documents/O%20Impacto%20Economico%20e%20Social%20da%20Sinistralidade%20-%20PT.pdf){target="_blank"}), estimado para 10 anos, com uma taxa de desconto de 5% e inflação de 3%. 
 </details>
 

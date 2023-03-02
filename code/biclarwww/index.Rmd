@@ -366,7 +366,7 @@ m0
 
 
 **O que mostra este mapa? **  
-Este mapa mostra a percentagem de viagens com origem em cada município que são realizadas em bicicleta.
+Este mapa mostra a percentagem de viagens que são realizadas em bicicleta com origem em cada município .
 
 <!-- ------------------------------------------------------------------------ -->
 
@@ -376,31 +376,31 @@ Em que consistem os cenários utilizados nesta modelação?
 
 ### Cenário Base
 
-Na área metropolitana de Lisboa são realizadas diariamente cerca de 5.3 milhões de viagens, em vários modos. O número de viagens em bicicleta, segundo o Inquérito à Mobilidade ([IMob 2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
+Na área metropolitana de Lisboa são realizadas diariamente cerca de 5.3 milhões de viagens, em vários modos. O número de viagens em bicicleta, segundo o Inquérito à Mobilidade realizado em 2017 ([IMob 2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
 
 Este é o cenário base, ou de referência, utilizado apenas para comparação com os cenários seguintes - de onde advém o **potencial ciclável**.
 
 ### Cenário 1 - Viagens até 5 km
 
-Este cenário inclui todas as viagens que podem ser realizadas entre freguesias até 5 km em bicicleta.
+Este cenário inclui todas as viagens que podem ser realizadas por bicicleta entre freguesias, até 5 km.
 Inclui também viagens que utilizam o transporte fluvial (barcos) para unir ambas as margens, embora esse troço não seja considerado no total dos 5km.
 
-Este é um cenário conservador / realista.
+Este é um **cenário conservador / realista**.
 
 ### Cenário 2 - Viagens até 10 km bicicleta elétrica
 
-Este cenário inclui todas as viagens que podem ser realizadas entre freguesias até 10 km em bicicleta, considerando para tal que os ciclistas poderão utilizar uma bicicleta elétrica.
+Este cenário inclui todas as viagens que podem ser realizadas por bicicleta entre freguesias, até 10 km - considerando para tal que os ciclistas poderão utilizar uma **bicicleta elétrica**.
 Inclui também viagens que utilizam o transporte fluvial (barcos) para unir ambas as margens, embora esse troço não seja considerado no total dos 10km.
 
-Este abrange uma maior gama de utilizadores, e tem em consideração possíveis políticas de incentivo à aquisição de bicicletas elétricas.
+Este abrange uma maior gama de utilizadores, e tem em consideração eventuais políticas de incentivo à aquisição de bicicletas elétricas.
 
 ### Cenário 3 - Viagens até 5 km de ou até uma interface de transportes públicos
 
-Este cenário inclui todas as viagens que podem ser realizadas entre freguesias em transportes públicos, cuja primeira e última _milha_ da viagem podem ser feitas em bicicleta, até uma extensão total de 5 km - por exemplo: 1 km de bicicleta até ao interface A, e 4 km de bicicleta entre o interface B e o destino.  
-Como transportes públicos, são considerados apenas o comboio, barco, metro sul do Tejo, e algumas carreiras da Carris Metropolitana. 
+Este cenário inclui todas as viagens que podem ser realizadas em transportes públicos, cuja primeira e última _milha_ da viagem podem ser feitas em bicicleta, entre freguesias até uma extensão total de 5 km - por exemplo: 1 km de bicicleta até ao interface A, e 4 km de bicicleta entre o interface B e o destino.  
+Como transportes públicos, são considerados o comboio, barco, metro sul do Tejo, e algumas carreiras da Carris Metropolitana - em que é possível transportar uma bicicleta de forma prática.. 
 De uma forma conservadora, assumimos também que não são possíveis transferências entre transportes ou entre linhas/carreiras.
 
-Este valoriza a utilização da bicicleta como complemento ao transporte público.
+Este valoriza a utilização da bicicleta como **complemento ao transporte público**.
 
 
 <!-- ------------------------------------------------------------------------ -->
@@ -544,7 +544,7 @@ Perguntas e respostas simplificadas.
 
 ### O que é a ferramenta biclar?
 
-O biclar é uma ferramenta online que informa os decisores sobre o planeamento e investimentos em infraestrutura ciclável, de modo a atingir as metas da Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}).
+O biclaR é uma ferramenta online que informa os decisores sobre o planeamento e investimentos em infraestrutura ciclável, de modo a atingir as metas da Estratégia Nacional de Mobilidade Ativa Ciclável 2020-2030 ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}), que definem que até 2025 4% das viagens realizadas em meio urbano deverão ser feitas em bicicleta, e 10% até 2030 - sendo as mesmas transferidas de viagens atualmente realizadas em automóvel.
 
 ### Qual o objetivo da ferramenta biclar?
 
