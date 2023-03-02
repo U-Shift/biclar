@@ -13,7 +13,7 @@ output:
         google: "JetBrains Mono"
     css: css/style.css
     includes:
-      after_body: img/footer.html
+      after_body: img/footer_button.html
 ---
   
 

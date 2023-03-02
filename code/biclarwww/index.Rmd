@@ -366,7 +366,7 @@ m0
 
 
 **O que mostra este mapa? **  
-Este mapa mostra a percentagem de viagens que são realizadas em bicicleta com origem em cada município .
+Este mapa mostra a percentagem de viagens que são realizadas em bicicleta com origem em cada município.
 
 <!-- ------------------------------------------------------------------------ -->
 
@@ -535,6 +535,7 @@ DT::datatable(municipios_taburl,
 
 ```
 
+> Nota: Os valores de população são os constantes nos resultados _provisórios_ dos Censos 2021. A diferença para os resultados definitivos é de menos de 0.02% - cerca de 500 indivíduos.
 
 <!-- ------------------------------------------------------------------------ -->
 
@@ -548,7 +549,7 @@ O biclaR é uma ferramenta online que informa os decisores sobre o planeamento e
 
 ### Qual o objetivo da ferramenta biclar?
 
-Pretende-se que esta ferramenta informe os decisores, em comparação com o cenário atual de utilização de bicicleta, sobre:
+Pretende-se que esta ferramenta informe os decisores, em comparação com o cenário atual de utilização de bicicleta ([IMob 2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), sobre:
 
 *   Quais as ligações prioritárias e percursos entre Freguesias e entre Municípios, a investir com infraestrutura ciclável, consoante o cenário adotado e a rede (primária ou secundária);
 *   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);
@@ -647,7 +648,7 @@ Se considerar que o novo cenário desenvolvido deveria também constar nesta fer
 
 O biclaR é uma ferramenta online que informa os decisores sobre o planeamento e investimentos em infraestrutura ciclável, de modo a atingir as metas da Estratégia Nacional para a Mobilidade Ativa Ciclável 2020-2030 ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}).
 
-Pretende-se que esta ferramenta informe os decisores, em comparação com o cenário atual de utilização de bicicleta, sobre:
+Pretende-se que esta ferramenta informe os decisores, em comparação com o cenário atual de utilização de bicicleta ([IMob 2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), sobre:
 
 *   Quais as ligações prioritárias e percursos entre Freguesias e entre Municípios, a investir com infraestrutura ciclável, consoante o cenário adotado e a rede (primária ou secundária);
 *   Qual o incremento potencial de utilizadores de bicicleta de cada infraestrutura ciclável, bem como qual a substituição modal (redução de outros modos);

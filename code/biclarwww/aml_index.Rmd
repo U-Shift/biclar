@@ -17,7 +17,7 @@ output:
     # toc_depth: 3
     css: css/style.css
     includes:
-      after_body: img/footer.html
+      after_body: img/footer_button.html
 ---
 
 <!-- landing page for aml --> 
@@ -179,7 +179,7 @@ minimo3 = 50
 ```
 
 
-# `r mun`
+# Área metropolitana de Lisboa
 
 ## Cenário Base
 
