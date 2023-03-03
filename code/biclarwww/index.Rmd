@@ -96,198 +96,6 @@ municipios_index = sf::st_as_sf(municipios_index)
 
 ## Mapa
 
-
-```{r eval=FALSE, include=FALSE}
-tippy::tippy_this(elementId = "word", tooltip = "At low zoom, the map shows the % cycle uptake per county; at high zoom, it displays a cycle friendliness measure, with a score between 0 (very unfriendly) and 100 (very friendly). Both measures are shown for each given scenario. See the FAQs for more details")
-palette = c(
-  '#d73027',
-  '#f46d43',
-  '#fdae61',
-  '#fee090',
-  '#ffffbf',
-  '#e0f3f8',
-  '#abd9e9',
-  '#74add1',
-  '#4575b4'
-)
-breaks = c(0, 1, 2, 3, 5, 10, 20, 30, 40, Inf)
-pal_baseline = leaflet::colorBin(palette, bins = breaks,
-                                 domain = counties_index$pcycle_baseline)
-pal_near = leaflet::colorBin(palette, bins = breaks,
-                             domain = counties_index$pcycle_near)
-pal_climate = leaflet::colorBin(palette, bins = breaks,
-                                domain = counties_index$pcycle_climate)
-pal_dutch = leaflet::colorBin(palette, bins = breaks,
-                              domain = counties_index$pcycle_godutch)
-pal_ebike = leaflet::colorBin(palette, bins = breaks,
-                              domain = counties_index$pcycle_ebike)
-schools_raw = readRDS("schools_all.Rds")
-# main map
-leaflet::leaflet(counties_index) %>%
-  leaflet::addProviderTiles(
-    providers$CartoDB.Positron,
-    group = "Grey basemap",
-    options = leaflet::providerTileOptions(minZoom = 5, maxZoom = 22)
-  ) %>%
-  leaflet::addPolygons(
-    data = counties_index %>% sf::st_transform(crs = 4326),
-    color = "black",
-    fillColor = "transparent",
-    group = "Borders",
-    popup = paste0("View county results: ", counties_index$url),
-    opacity = 0.7,
-    weight = 1.2,
-    label = ~ Name,
-    labelOptions = leaflet::labelOptions(noHide = F, permanent = TRUE, direction = "auto",sticky = FALSE, textsize = "1.5em")) %>%
-  leaflet::addCircles(
-    data = schools_raw,
-    group = "Schools",
-    color = "black",
-    opacity = 0.8,
-    fillOpacity = 0.3
-  ) %>%
-  #polygons
-  mapboxapi::addMapboxTiles(
-    style_id = "cl77hy22i000m14pa2r440vgi",
-    username = "nathanaelisamapper",
-    group = "Baseline scenario",
-    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>%
-  mapboxapi::addMapboxTiles(
-    style_id = "cl77h0i4v001u15o1cp39sk37",
-    username = "nathanaelisamapper",
-    group = "Near Market",
-    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>%
-  mapboxapi::addMapboxTiles(
-    style_id = "cl77hqtom000214qrk6ceqeur",
-    username = "nathanaelisamapper",
-    group = "Climate Action Plan",
-    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>%
-  mapboxapi::addMapboxTiles(
-    style_id = "cl77hvhpx000d14nz0uhmsp40",
-    username = "nathanaelisamapper",
-    group = "Ebike",
-    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>%
-  mapboxapi::addMapboxTiles(
-    style_id = "cl77i0bqh003i16n2cijgn6r1",
-    username = "nathanaelisamapper",
-    group = "Go Dutch",
-    options = leaflet::providerTileOptions(minZoom = 1, maxZoom = 9),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>%
-  #rnet
-  mapboxapi::addMapboxTiles(
-    style_id = "cl66fjj97000a15ru2hhss06g",
-    username = "nathanaelisamapper",
-    group = "Baseline scenario",
-    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>%
-  mapboxapi::addMapboxTiles(
-    style_id = "cl66f8ax6001i14ti630sk73z",
-    username = "nathanaelisamapper",
-    group = "Climate Action Plan",
-    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>%   mapboxapi::addMapboxTiles(
-    style_id = "cl66foarr001d14lmc88wyu42",
-    username = "nathanaelisamapper",
-    group = "Near Market",
-    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  )  %>% mapboxapi::addMapboxTiles(
-    style_id = "cl66flaic000114t385c8spxn",
-    username = "nathanaelisamapper",
-    group = "Ebike",
-    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>% mapboxapi::addMapboxTiles(
-    style_id = "cl66fmn9j001g14lkbone3hye",
-    username = "nathanaelisamapper",
-    group = "Go Dutch",
-    options = leaflet::providerTileOptions(minZoom = 9, maxZoom = 22),
-    access_token = Sys.getenv("MAPBOX_PUBLIC_TOKEN")
-  ) %>%
-  leaflet::setView(lng = -8.2,
-                   lat = 53.5,
-                   zoom = 7) %>%
-  leaflet::addLegend(
-    "bottomleft",
-    colors = c("#882255",  "#CC6677", "#44AA99", "#117733"),
-    labels = c("0 to 25", "25 to 50", "50 to 75", "75 to 100"),
-    title = "Cycle friendliness",
-    group = "Friend",
-    opacity = 0.7
-  ) %>%
-  leaflet::addLegend(
-    "bottomleft",
-    colors = c(
-      '#d73027',
-      '#f46d43',
-      '#fdae61',
-      '#fee090',
-      '#ffffbf',
-      '#e0f3f8',
-      '#abd9e9',
-      '#74add1',
-      '#4575b4'
-    ),
-    labels = c(
-      "0 to 1",
-      "1 to 2",
-      "2 to 3",
-      "3 to 5",
-      "5 to 10",
-      "10 to 20",
-      "20 to 30",
-      "30 to 40",
-      "40 to more"
-    ),
-    title = "Percent cycling",
-    group = "Base",
-    opacity = 0.7
-  ) %>%
-  leaflet::addLegend(
-    title = "Get Started:",
-    group = "Help",
-    position = "bottomright",
-    colors = c("white",
-               "white"),
-    labels = c(
-      "Zoom in to explore the network",
-      "Click on a county for detailed results"
-    )
-  ) %>%
-  addLayersControl(
-    baseGroups  = c(
-      "Baseline scenario",
-      "Near Market",
-      "Climate Action Plan",
-      "Go Dutch",
-      "Ebike"
-    ),
-    overlayGroups = c("Schools"),
-    options = leaflet::layersControlOptions(collapsed = FALSE)
-  ) %>%
-  leaflet::groupOptions(group = "Help", zoomLevels = 7:8)  %>%
-    leaflet::groupOptions(group = "Base", zoomLevels = 1:9) %>%
-  leaflet::groupOptions(group = "Friend", zoomLevels = 10:20) %>%
-  leaflet::hideGroup("Schools")  %>%
-  htmlwidgets::onRender("
-        function() {
-            $('.leaflet-control-layers-base').prepend('<label style=\"text-align:center;font-size:larger;\"><b>Scenarios</b></label>');
-        }
-    ")
-```
-
-
 ```{r mapahome}
 MUNICIPIOSgeo = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/MUNICIPIOSgeo.Rds"))
 TRIPSmode_municipio = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_municipal.Rds"))
@@ -316,8 +124,14 @@ MUNICIPIOSgeo_mapa = municipios_index %>% left_join(TRIPSbike_mun) %>% select(-m
 
 pal0 = colorNumeric("viridis", domain=MUNICIPIOSgeo_mapa$percent)
 
-REDEexistente = sf::st_read("data-raw/RedeExistente.gpkg", quiet = TRUE) %>% sf::st_transform(4326)
-REDEproposta = sf::st_read("data-raw/RedePrevista.gpkg", quiet = TRUE) %>% sf::st_transform(4326)
+REDEexistente = sf::st_read("https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistente.gpkg", quiet = TRUE) %>%
+  sf::st_transform(4326) %>%
+  arrange(., desc(Tipologia)) #para as nao dedicadas ficarem em baixo nas intersecções
+REDEproposta = sf::st_read("https://ushift.tecnico.ulisboa.pt/content/tml/RedePrevista.gpkg", quiet = TRUE) %>%
+  sf::st_transform(4326) %>%
+  filter(!ID %in% c("1105", "2104")) %>% #troços previstos em Mafra com overlap de existentes (?)
+  group_by(Municipio, Estado) %>%
+  summarise()
 
 greys2 =c("grey30", "grey70")
 greys2_factor = colorFactor(greys2, REDEexistente$Tipologia)
@@ -327,24 +141,27 @@ m0 = leaflet::leaflet(MUNICIPIOSgeo_mapa) %>%
  leaflet::addProviderTiles("OpenStreetMap.Mapnik", group = "OpenStreetMap") %>% 
       leaflet::addProviderTiles("Esri.WorldImagery", group = "Satelite") %>% 
       leaflet::addProviderTiles("Esri.WorldGrayCanvas", group = "Basemap cinza") %>%
-  
+
+   leaflet::addPolylines(
+    data = REDEproposta,
+    color = "#E3879E",
+    dashArray = "3",
+    group = "Rede Ciclável planeada",
+    weight = 1.3,
+    opacity = 0.8,
+    label = ~Municipio,
+    labelOptions = leaflet::labelOptions(textsize = "1.2em")
+    ) %>% # Está a impedir que tudo o resto seja mostrado. Talvez tenha de juntar ambas as layers e definir simbologia só numa
+
   leaflet::addPolylines(
     data = REDEexistente,
     group = "Rede Ciclável existente",
     color = ~greys2_factor(Tipologia),
     label = ~Municipio,
+    labelOptions = leaflet::labelOptions(textsize = "1.2em"),
     opacity = 1,
     weight = 2
     ) %>% 
-  
-  # leaflet::addPolylines(
-  #   data = REDEproposta,
-  #   color = "#E3879E",
-  #   dashArray = "3",
-  #   group = "Rede Ciclável planeada",
-  #   weight = 1.3,
-  #   opacity = 0.8
-  #   ) %>%
   
   leaflet::addPolygons(
     data = MUNICIPIOSgeo_mapa,
@@ -369,8 +186,11 @@ m0 = leaflet::leaflet(MUNICIPIOSgeo_mapa) %>%
   ) %>%  
   leaflet::addLegend(
     "bottomright",
-    colors = greys2, 
+    pal = greys2_factor, 
+    values = ~REDEexistente$Tipologia,
     labels = c("Dedicada", "Não-dedicada"),
+    # title = "Rede Ciclável existente",
+    title = "",
     group = "Rede Ciclável existente"
   ) %>%
   leaflet::addLegend(
@@ -406,43 +226,84 @@ m0
 
 
 **O que mostra este mapa? **  
-Este mapa mostra a percentagem de viagens que são realizadas em bicicleta com origem em cada município, em escala de cor.
+Este mapa mostra a percentagem de viagens que são realizadas em bicicleta com origem em cada município, em escala de cor.  
 Seleccionado outras camadas, é possível visualizar a rede ciclável existente e planeada, à data de 2022.
 
 <!-- ------------------------------------------------------------------------ -->
 
 ## Cenários
 
-Em que consistem os cenários utilizados nesta modelação?
+Em que consistem os [cenários](#cenarios2), [metas](#metas), e [tipos de percurso](#percurso) utilizados nesta modelação?
 
-### **Cenário Base**
+### Cenários {#cenarios2}
 
-Na área metropolitana de Lisboa são realizadas diariamente cerca de 5.3 milhões de viagens, em vários modos. O número de viagens em bicicleta, segundo o Inquérito à Mobilidade realizado em 2017 ([IMob 2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}), é de cerca de 25 mil viagens/dia.
+#### **Cenário Base**
+
+As características das viagens Inquérito à Mobilidade realizado em 2017/2018 ([IMob 2018](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt){target="_blank"}) constituem o cenário base deste projeto. Apesar de ter sido realizado em período pré-pandemia, este conjunto de dados é a melhor e mais recente informação que temos em termos de mobilidade urbana nas áreas metropolitanas.
+
+Na área metropolitana de Lisboa são realizadas diariamente cerca de 5.3 milhões de viagens, em vários modos. O número de viagens em bicicleta é de cerca de 25 mil viagens/dia.
 
 Este é o cenário base, ou de referência, utilizado apenas para comparação com os cenários seguintes - de onde advém o **potencial ciclável**.
 
-### **Cenário 1** - Viagens até 5 km
+#### **Cenário 1** - Viagens até 5 km
 
 Este cenário inclui todas as viagens que podem ser realizadas por bicicleta entre freguesias, até 5 km.
 Inclui também viagens que utilizam o transporte fluvial (barcos) para unir ambas as margens, embora esse troço não seja considerado no total dos 5km.
 
-Este é um **cenário conservador / realista**.
+Considera-se este um **cenário conservador**, por ter em conta apenas viagens inferiores a 5 km (“em cima de uma bicicleta”).  
+Para uma primeira abordagem de captação de transferência modal, este cenário é o mais realista.
 
-### **Cenário 2** - Viagens até 10 km bicicleta elétrica
+#### **Cenário 2** - Viagens até 10 km bicicleta elétrica
 
 Este cenário inclui todas as viagens que podem ser realizadas por bicicleta entre freguesias, até 10 km - considerando para tal que os ciclistas poderão utilizar uma **bicicleta elétrica**.
 Inclui também viagens que utilizam o transporte fluvial (barcos) para unir ambas as margens, embora esse troço não seja considerado no total dos 10km.
 
 Este abrange uma maior gama de utilizadores, e tem em consideração eventuais políticas de incentivo à aquisição de bicicletas elétricas.
 
-### **Cenário 3** - Viagens até 5 km de ou até uma interface de transportes públicos
+#### **Cenário 3** - Viagens até 5 km de ou até uma interface de transportes públicos
 
 Este cenário inclui todas as viagens que podem ser realizadas em transportes públicos, cuja primeira e última _milha_ da viagem podem ser feitas em bicicleta, entre freguesias até uma extensão total de 5 km - por exemplo: 1 km de bicicleta até ao interface A, e 4 km de bicicleta entre o interface B e o destino.  
-Como transportes públicos, são considerados o comboio, barco, metro sul do Tejo, e algumas carreiras da Carris Metropolitana - em que é possível transportar uma bicicleta de forma prática.. 
+Como transportes públicos, são considerados o comboio, barco, metro sul do Tejo, e algumas carreiras da Carris Metropolitana - em que é possível transportar uma bicicleta de forma prática. 
 De uma forma conservadora, assumimos também que não são possíveis transferências entre transportes ou entre linhas/carreiras.
 
 Este valoriza a utilização da bicicleta como **complemento ao transporte público**.
 
+>Estes cenários partem do pressuposto que o número de viagens realizadas se mantém constante ao longo dos anos, fazendo-se apenas variar o seu modo de transporte.
+
+
+### Metas {#metas}
+
+As metas são as estabelecidas pela Estratégia Nacional de Mobilidade Ativa Ciclável 2020-2030 ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}).
+
+#### 4%
+
+Em **2025**, 4% das viagens em meio urbano deverão ser realizadas em bicicleta, resultando exclusivamente da redução da utilização do transporte automóvel privado.
+
+#### 10 %
+
+Em **2030**, 10% das viagens em meio urbano deverão ser realizadas em bicicleta, resultando exclusivamente da redução da utilização do transporte automóvel privado.
+
+### Tipos de percurso {#percurso}
+
+A identificação dos percursos entre as origens e destinos (para as linhas de desejo, ligando Freguesias da AML) são um aspeto fundamental da modelação da rede ciclável nesta metodologia, uma vez que o IMob não identifica os percursos realizados por cada viagem, sendo necessário estimá-los.
+
+A modelação dos percursos cicláveis depende das variáveis consideradas, assim como das restrições pré-definidas. Estas restrições podem privilegiar aspetos como velocidade e volumes baixos, rotas mais diretas, percursos menos declivosos, entre outros, adequados à utilização da bicicleta, sendo que o algoritmo segue uma avaliação que resulta da ponderação das variáveis consideradas. Mesmo o percurso menos declivoso, mas com maior volume de tráfego, poderá ser o indicado se a função assim o definir.
+
+O algoritmo de escolha de percursos utilizado foi o [r5r](https://ipeagit.github.io/r5r/reference/detailed_itineraries.html){target="_blank"}, que é muito flexível nas configurações de tipo de percursos estimados, nomeadamente por permitir estimar com probabilidade e incerteza os percursos que usam transportes públicos (considerando os seus horários).
+
+O r5r facilita a identificação de percursos mais diretos ou mais seguros, recorrendo para isso ao nível de stress de tráfego (_Level of Traffic Stress_, ou [LTS](https://docs.conveyal.com/learn-more/traffic-stress){target="_blank"}). Este varia de 1 a 4, sendo o 1 mais tranquilo - correspondendo, por exemplo, a pistas cicláveis fora de estrada, e o 4 menos tranquilo - correspondendo, por exemplo, a percursos partilhados com o tráfego motorizado.
+
+#### Direto
+
+Os percursos diretos foram estimados usando como nível de stress máximo permitido o LTS 4.
+
+#### Seguro
+
+Os percursos diretos foram estimados usando como nível de stress máximo permitido o LTS 3.  
+Por vezes não é possível encontrar um caminho de bicicleta com estas características (ente a origem e o destino), e daí o número de viagens estimadas poder ser menor para este tipo de percursos.
+
+O nível de **tranquilidade** (ou _quietness_) é outro indicador, e é estimado para cada troço com base no número de vias, velocidade máxima permitida, arborização, hierarquia e tráfego (quando a informação correspondente existe nas etiquetas do OpenStreetMap).  
+Este indicador, desenvolvido pelo [Cyclestreets](https://www.cyclestreets.net/help/journey/howitworks/#quietness){target="_blank"}, é apresentado numa escala de 0 a 100, em que o zero corresponde ao nível menos seguro para se circular de bicicleta, e o 100 ao nível mais seguro e tranquilo - normalmente correspondendo a troços que incluem já infraestrutura ciclável segregada do tráfego motorizado.
 
 <!-- ------------------------------------------------------------------------ -->
 
@@ -475,7 +336,7 @@ DT::datatable(tabelas_aml,
                 filter = 'none',
                 rownames = FALSE,
                 colnames = c("Cenário", "Total Viagens /dia",
-                             "Viagens Bicicleta 2018", "Viagens Bicicleta 4%",
+                             "Viagens Bicicleta Base", "Viagens Bicicleta 4%",
                               "Viagens Bicicleta 10%"),
                 # extensions = "RowGroup",
                 extensions = c("Responsive", "Buttons"),
@@ -552,7 +413,7 @@ sketch = htmltools::withTags(table( #repetir header
       th(colspan = 3, 'Viagens Bicicleta até 5km intermodal')
     ),
     tr(
-      lapply(rep(c("2018", "Meta 4%", "Meta 10%"), 3), th)
+      lapply(rep(c("Base", "Meta 4%", "Meta 10%"), 3), th)
     )
   )
 ))
@@ -576,7 +437,9 @@ DT::datatable(municipios_taburl,
 
 ```
 
-> Nota: Os valores de população são os constantes nos resultados _provisórios_ dos Censos 2021. A diferença para os resultados definitivos é de menos de 0.02% - cerca de 500 indivíduos.
+> Nota 1: Os valores de população são os constantes nos resultados _provisórios_ dos Censos 2021. A diferença para os resultados definitivos é de menos de 0.02% - cerca de 500 indivíduos.
+
+> Nota 2: Para alguns municípios não é possível estimar viagens intermodais com recurso à bicicleta, para os critérios mínumos definidos (valores _em branco_).
 
 <!-- ------------------------------------------------------------------------ -->
 
@@ -706,8 +569,9 @@ Pretende-se que esta ferramenta informe os decisores, em comparação com o cen�
 
 *   **Apoio ao desenvolvimento**: Institute for Transport Studies - University of Leeds - Robin Lovelace.
 
-> Forma sugerida de citação:
-<!-- Félix, R., Lovelace, R., Moura, F., Pinheiro, S., Marcelino, C., Garcia, C., Bandarrinha, C., Nogueira, L., Machado, P. (2022). biclaR: Ferramenta de apoio ao planeamento da rede ciclável na área metropolitana de Lisboa. CERIS - Instituto Superior Técnico e Transportes Metropolitanos de Lisboa. Lisboa, Dezembro. -->
+Forma sugerida de citação:
+
+>Félix, R., Lovelace, R., Moura, F. (2022). **biclaR: Ferramenta de apoio ao planeamento da rede ciclável na área metropolitana de Lisboa**. CERIS - Instituto Superior Técnico e Transportes Metropolitanos de Lisboa. [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt). Lisboa, Dezembro.
 
 ### Agradecimentos
 
