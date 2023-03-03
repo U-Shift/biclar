@@ -1,0 +1,187 @@
+
+.loader-bg {
+position: fixed;
+z-index: 999999;
+background: #fff;
+width: 100%;
+height: 100%
+}
+
+.loader {
+border: 0 solid transparent;
+border-radius: 50%;
+width: 150px;
+height: 150px;
+position: absolute;
+top: calc(50vh - 75px);
+left: calc(50vw - 75px)
+}
+
+.loader:after,
+.loader:before {
+content: '';
+border: 1em solid #ff5733;
+border-radius: 50%;
+width: inherit;
+height: inherit;
+position: absolute;
+top: 0;
+left: 0;
+animation: loader 2s linear infinite;
+opacity: 0
+}
+
+.loader:before {
+animation-delay: .5s
+}
+
+@Keyframes loader {
+0% {
+transform: scale(0);
+opacity: 0
+}
+
+50% {
+opacity: 1
+}
+
+100% {
+transform: scale(1);
+opacity: 0
+}
+}
+.title{
+text-align:center !important
+}
+
+.html-widget {
+margin: auto;
+width: 100% !important;
+}
+/*img {
+width: 85%;
+padding: 2em;
+}*/
+/* isto fazia com que as imagens do footer ficasses muito grandes. será necessário noutras coisas? */
+
+
+.main-container{
+max-width: 70% !important;
+}
+
+.iframe{
+display: block;
+margin: auto;
+}
+#the-cycle-route-uptake-scenario-estimation-tool-for-transport-infrastructure-ireland > h2:nth-child(1){
+text-align:center !important;
+margin-top: -0.5em !important;
+}
+.leaflet-popup-content {
+font-size: medium;
+color: black;
+}
+.leaflet-popup-content > a:nth-child(1){
+font-size: large;
+}
+.leaflet-marker-label {
+width: auto !important;
+height: auto !important;
+position: fixed;
+top: 0;
+right: 0;
+}
+.nav-link, .nav-tabs > li > a, .nav-pills > li > a, ul.nav.navbar-nav > li > a {
+display: block;
+padding: .5rem 1rem;
+color: #919592;
+text-decoration: none;
+-webkit-text-decoration: none;
+-moz-text-decoration: none;
+-ms-text-decoration: none;
+-o-text-decoration: none;
+transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out;
+}
+
+/* este é a cor do popup no mapa
+.leaflet-popup-content-wrapper, .leaflet-popup-tip{
+background-color: #919592 !important;
+}
+*/
+
+.nav:not(.nav-hidden):not(.nav-stacked):not(.flex-column) {
+float: none !important;
+font-size: larger;
+z-index: 1;
+justify-content: center;
+}
+h1.title, .title.h1 {
+font-size: 3.875rem!important;
+font-weight: bolder;
+}
+
+#cycle-route-uptake-scenario-estimation {
+text-align: center !important;
+font-style: italic;
+margin-top: -1em;
+}
+@media screen and (max-width: 1000px) {
+h1.title, .title.h1 {
+margin-top: 1.25rem;
+font-size: 3.875rem;
+font-weight: bolder;
+}
+img{
+height: 3em;
+max-width: 6em;
+padding: 1em;
+}
+}
+
+h3, .h3 {
+    margin-top: 3rem;
+}
+
+
+/* links */
+a { 
+  color: #069ee4;
+  text-decoration: none;
+}
+
+a:hover {
+ color: #0e5a7e; /* darker color when hovering */
+ text-decoration: underline;
+}
+
+
+.botaohome{
+/*height: 200px;
+ width: 500px; 
+  border: 2px solid black;
+  margin-left: 100px;*/
+  padding: 15px 25px;
+  margin-top: 30px;
+  text-align: center;
+  border: 0px;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+  background-color: #069ee4;
+  color: #fff;
+  font-size:16px;
+}
+
+
+.botaohome:hover {
+  background-color: #0e5a7e;
+  color: #fff;
+}
+
+
+.site-footer {
+/*  background: lightgray;
+  position: absolute;
+  width: 100%;
+*/
+}
+
