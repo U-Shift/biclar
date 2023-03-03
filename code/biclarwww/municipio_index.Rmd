@@ -411,12 +411,6 @@ if (i == "lisboa"){
 }
 
 
-
-
-
-
-
-
 ```
 
 Das cerca de `r fmt_num(round(sum(TRIPSmode_mun$viagens)/1000))`mil viagens diárias `r stringr::str_to_lower(proposicao)` `r mun`, apenas **`r TRIPSmode_mun[3,3]`% das viagens são realizadas em bicicleta** (`r round(TRIPSmode_mun[3,2])`). `r round(TRIPSmode_mun[2,2]/1000)`mil são feitas em automóvel (`r TRIPSmode_mun[2,3]`%), `r round(TRIPSmode_mun[1,2]/1000)`mil a pé (`r TRIPSmode_mun[1,3]`%), `r round(TRIPSmode_mun[6,2]/1000)`mil em Transportes Públicos (`r TRIPSmode_mun[6,3]`%) e `r fmt_num(round(TRIPSmode_mun[4,2]+TRIPSmode_mun[5,2]))` em outros modos (`r TRIPSmode_mun[4,3]+TRIPSmode_mun[5,3]`%).
@@ -878,7 +872,7 @@ DT::datatable(tabelas_mun,
                 filter = 'none',
                 rownames = FALSE,
                 colnames = c("Meta ENMAC", "Cenário", "Tipo de Percurso", "Total Viagens /dia",
-                             "Viagens Bicicleta 2018", "Viagens Bicicleta Potencial",
+                             "Viagens Bicicleta Base", "Viagens Bicicleta Potencial",
                              "CO2eq evitado (ton/ano)", "Benefícios estimados em 10 anos (milhares €)"),
                 extensions = c("RowGroup", "Buttons"),
                 options = list(dom = "tB",
