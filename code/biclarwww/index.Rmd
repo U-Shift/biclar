@@ -124,10 +124,13 @@ MUNICIPIOSgeo_mapa = municipios_index %>% left_join(TRIPSbike_mun) %>% select(-m
 
 pal0 = colorNumeric("viridis", domain=MUNICIPIOSgeo_mapa$percent)
 
-REDEexistente = sf::st_read("https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistente.gpkg", quiet = TRUE) %>%
+# REDEexistente = sf::st_read("https://ushift.tecnico.ulisboa.pt/content/tml/RedeExistente.gpkg") %>% sf::st_transform(4326)
+# REDEproposta = sf::st_read("https://ushift.tecnico.ulisboa.pt/content/tml/RedePrevista.gpkg") %>% sf::st_transform(4326)
+
+REDEexistente = sf::st_read("data-raw/RedeExistente.gpkg", quiet = TRUE) %>%
   sf::st_transform(4326) %>%
   arrange(., desc(Tipologia)) #para as nao dedicadas ficarem em baixo nas intersecções
-REDEproposta = sf::st_read("https://ushift.tecnico.ulisboa.pt/content/tml/RedePrevista.gpkg", quiet = TRUE) %>%
+REDEproposta = sf::st_read("data-raw/RedePrevista.gpkg", quiet = TRUE) %>%
   sf::st_transform(4326) %>%
   filter(!ID %in% c("1105", "2104")) %>% #troços previstos em Mafra com overlap de existentes (?)
   group_by(Municipio, Estado) %>%
