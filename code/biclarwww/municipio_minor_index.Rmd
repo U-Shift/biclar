@@ -41,8 +41,8 @@ fmt_num = function(x) format(round(sum(x)), big.mark=" ")
 # i = "barreiro" #delete this when running for all!!!
 mun = stringr::str_to_title(i)
 
-dontrun = !i %in% c("alcochete", "mafra", "montijo", "odivelas", "sesimbra") # não mostrar mapa 3
-run = i %in% c("alcochete", "mafra", "montijo", "odivelas", "sesimbra") # mostrar mensagem mapa 3
+dontrun = !i %in% c("alcochete", "mafra", "montijo", "odivelas") # não mostrar mapa 3
+run = i %in% c("alcochete", "mafra", "montijo", "odivelas") # mostrar mensagem mapa 3
 
 proposicao = ifelse(mun %in% c("Amadora", "Moita"), "Na",
                     ifelse(mun %in% c("Barreiro", "Montijo", "Seixal"), "No",
@@ -789,12 +789,11 @@ m3leaf
   <summary>**Porque é que nalguns municípios não surge uma rede potencial para o cenário 3?**</summary>
 
 Apesar de ter sido estimada rede ciclável potencial no cenário 3 - intermodalidade até 5km, em alguns municípios, o processo de limpeza da rede resulta em que não surja uma rede (ou segmentos) com um mínimo potencial de transferência modal nos seus territórios.
-São eles os municípios de Alcochete, Mafra, Montijo, Odivelas e Sesimbra.
-
 Isto deve-se a:
 
 *   Possibilidade de não existir interface de transportes públicos considerados nesse território;
 *   Possibilidade de as interfaces consideradas não servirem as origens-destino do IMob;
+*   Possibilidade de não ser possível estimar um percurso em bicicleta até à interface;
 *   Possibilidade de as etapas em bicicleta das viagens intermodais estimadas terem mais de 5km de extensão na sua totalidade; e/ou
 *   Possibilidade de o potencial de rede ciclável estimado não ter um mínimo de 10 viagens em cada segmento.
 </details>

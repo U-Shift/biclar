@@ -516,14 +516,17 @@ Poderá avaliar igualmente qual o potencial de transferência que oferece, se se
 ### Porque é que nalguns municípios não surge uma rede potencial para o cenário 3?
 
 Apesar de ter sido estimada rede ciclável potencial no cenário 3 - intermodalidade até 5km, em alguns municípios, o processo de limpeza da rede resulta em que não surja uma rede (ou segmentos) com um mínimo potencial de transferência modal nos seus territórios.
-São eles os municípios de Alcochete, Mafra, Montijo, Odivelas e Sesimbra.
+São eles os municípios de Alcochete, Mafra, Montijo e Odivelas.
 
 Isto deve-se a:
 
 *   Possibilidade de não existir interface de transportes públicos considerados nesse território;
 *   Possibilidade de as interfaces consideradas não servirem as origens-destino do IMob;
+*   Possibilidade de não ser possível estimar um percurso em bicicleta até à interface;
 *   Possibilidade de as etapas em bicicleta das viagens intermodais estimadas terem mais de 5km de extensão na sua totalidade; e/ou
 *   Possibilidade de o potencial de rede ciclável estimado não ter um mínimo de 10 viagens em cada segmento.
+
+Nalguns casos, é no entanto possível ver a rede com critérios abaixo do mínimo de viagens por segmento definidos para efeito de visualização, fazendo [download do SIG para a AML](aml/index.html#downloads) e visualizando toda a rede estimada para o cenário 3.
 
 Em todo o caso, é possível estimar cenários menos conservadores de intermodalidade (por exemplo com viagens até 7.5 km), em que essas redes cicláveis potenciais tenham um mínimo razoável de X viagens por segmento.
 

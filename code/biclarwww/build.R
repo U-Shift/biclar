@@ -20,6 +20,7 @@ rmarkdown::render(input = "code/biclarwww/aml_index.Rmd", encoding = "UTF-8", ou
 # i = "lisboa"
 # i = "odivelas"
 # i = "setubal"
+#sesimbra é pequeno ou não?
 
 # for (i in municipios){
 
