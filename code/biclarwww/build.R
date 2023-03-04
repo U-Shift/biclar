@@ -16,7 +16,7 @@ rmarkdown::render(input = "code/biclarwww/aml_index.Rmd", encoding = "UTF-8", ou
 # Create outputs for each region --------------------------------------------------------------
 
 # i = "oeiras"
-i = "barreiro"
+# i = "barreiro"
 # i = "lisboa"
 # i = "odivelas"
 # i = "setubal"
