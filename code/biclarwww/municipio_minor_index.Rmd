@@ -785,6 +785,19 @@ m3leaf
 > Lamentamos, mas nesta área não existe rede ciclável potencial para o cenário 3, com as caraceterísticas mínimas definidas.
 
 <!-- Ver mapa em [ecrã inteiro](mapa_cenario3.html){target="_blank"}. -->
+<details>
+  <summary>**Porque é que nalguns municípios não surge uma rede potencial para o cenário 3?**</summary>
+
+Apesar de ter sido estimada rede ciclável potencial no cenário 3 - intermodalidade até 5km, em alguns municípios, o processo de limpeza da rede resulta em que não surja uma rede (ou segmentos) com um mínimo potencial de transferência modal nos seus territórios.
+São eles os municípios de Alcochete, Mafra, Montijo, Odivelas e Sesimbra.
+
+Isto deve-se a:
+
+*   Possibilidade de não existir interface de transportes públicos considerados nesse território;
+*   Possibilidade de as interfaces consideradas não servirem as origens-destino do IMob;
+*   Possibilidade de as etapas em bicicleta das viagens intermodais estimadas terem mais de 5km de extensão na sua totalidade; e/ou
+*   Possibilidade de o potencial de rede ciclável estimado não ter um mínimo de 10 viagens em cada segmento.
+</details>
 
 ```{r exportmaps}
 htmlwidgets::saveWidget(m1leaf, file = paste0("biclarwww/", i,"/mapa_cenario1.html"))

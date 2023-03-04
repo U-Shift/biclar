@@ -445,7 +445,8 @@ DT::datatable(municipios_taburl,
 
 ## FAQ
 
-Perguntas e respostas simplificadas.
+Perguntas e respostas simplificadas.  
+Ver o [relatório metodológico](nada) para mais detalhes sobre os métodos e funcionamento desta ferramenta.
 
 ### O que é a ferramenta biclar?
 
@@ -511,6 +512,20 @@ Para cada contexto poderão ser tomadas decisões e escolhidas soluções de ent
 Deverá localizar esse segmento da rede viária nos mapas que identificam as ligações prioritárias e percursos para os vários cenários que pretende analisar, e verificar se foi selecionado nessa rede, ou se é uma boa alternativa (próxima) a uma das ligações identificadas.  
 
 Poderá avaliar igualmente qual o potencial de transferência que oferece, se se trata de uma ligação mais segura ou mais direta, e que impactes potenciais se pode esperar, designadamente em termos de impactes sociais e ambientais.
+
+### Porque é que nalguns municípios não surge uma rede potencial para o cenário 3?
+
+Apesar de ter sido estimada rede ciclável potencial no cenário 3 - intermodalidade até 5km, em alguns municípios, o processo de limpeza da rede resulta em que não surja uma rede (ou segmentos) com um mínimo potencial de transferência modal nos seus territórios.
+São eles os municípios de Alcochete, Mafra, Montijo, Odivelas e Sesimbra.
+
+Isto deve-se a:
+
+*   Possibilidade de não existir interface de transportes públicos considerados nesse território;
+*   Possibilidade de as interfaces consideradas não servirem as origens-destino do IMob;
+*   Possibilidade de as etapas em bicicleta das viagens intermodais estimadas terem mais de 5km de extensão na sua totalidade; e/ou
+*   Possibilidade de o potencial de rede ciclável estimado não ter um mínimo de 10 viagens em cada segmento.
+
+Em todo o caso, é possível estimar cenários menos conservadores de intermodalidade (por exemplo com viagens até 7.5 km), em que essas redes cicláveis potenciais tenham um mínimo razoável de X viagens por segmento.
 
 ### Como são estimados os benefícios sociais e ambientais?
 
