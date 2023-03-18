@@ -302,11 +302,13 @@ Os percursos diretos foram estimados usando como nível de stress máximo permit
 
 #### Seguro
 
-Os percursos diretos foram estimados usando como nível de stress máximo permitido o LTS 3.  
+Os percursos seguros foram estimados usando como nível de stress máximo permitido o LTS 3.  
 Por vezes não é possível encontrar um caminho de bicicleta com estas características (ente a origem e o destino), e daí o número de viagens estimadas poder ser menor para este tipo de percursos.
 
 O nível de **tranquilidade** (ou _quietness_) é outro indicador, e é estimado para cada troço com base no número de vias, velocidade máxima permitida, arborização, hierarquia e tráfego (quando a informação correspondente existe nas etiquetas do OpenStreetMap).  
 Este indicador, desenvolvido pelo [Cyclestreets](https://www.cyclestreets.net/help/journey/howitworks/#quietness){target="_blank"}, é apresentado numa escala de 0 a 100, em que o zero corresponde ao nível menos seguro para se circular de bicicleta, e o 100 ao nível mais seguro e tranquilo - normalmente correspondendo a troços que incluem já infraestrutura ciclável segregada do tráfego motorizado.
+
+Chama-se a atenção que o _percurso seguro_ não é necessariamente "seguro" para circular em bicicleta nas condições atuais. É o caminho **mais** seguro, recomendado pelo algoritmo de escolha de percursos.
 
 <!-- ------------------------------------------------------------------------ -->
 
