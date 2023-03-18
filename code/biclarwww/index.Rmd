@@ -142,7 +142,7 @@ greys2_factor = colorFactor(greys2, REDEexistente$Tipologia)
 
 m0 = leaflet::leaflet(MUNICIPIOSgeo_mapa) %>%
  leaflet::addProviderTiles("OpenStreetMap.Mapnik", group = "OpenStreetMap") %>% 
-      leaflet::addProviderTiles("Esri.WorldImagery", group = "Satelite") %>% 
+      leaflet::addProviderTiles("Esri.WorldImagery", group = "Satélite") %>% 
       leaflet::addProviderTiles("Esri.WorldGrayCanvas", group = "Basemap cinza") %>%
 
    leaflet::addPolylines(
@@ -214,7 +214,7 @@ m0 = leaflet::leaflet(MUNICIPIOSgeo_mapa) %>%
     )
   ) %>% 
   
-  leaflet::addLayersControl(baseGroups = c("Basemap cinza", "OpenStreetMap", "Satelite"),
+  leaflet::addLayersControl(baseGroups = c("Basemap cinza", "OpenStreetMap", "Satélite"),
                             overlayGroups = c("Municípios", "Rede Ciclável existente", "Rede Ciclável planeada"),
                             options = layersControlOptions(collapsed = FALSE)) %>% 
   leaflet::hideGroup(c("Rede Ciclável existente", "Rede Ciclável planeada")) 
@@ -478,6 +478,14 @@ A cor das linhas varia com o nível de tranquilidade ([_quietness_](https://www.
 Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viagens estimadas que podem passar por aquele segmento, incluindo os benefícios sociais e ambientais estimados, e as características físicas daquele segmento.
 
 É possível ver mais do que uma opção de rota em simultâneo (direta / segura). Por exemplo, podem-se comparar alternativas e cenários de transferência de 4% e 10% das viagens em automóvel privado para a bicicleta, nos centros urbanos, tal como estabelecido pela Estratégia Nacional de Mobilidade Ativa Ciclável ([ENMAC](https://files.dre.pt/1s/2019/08/14700/0004600081.pdf){target="_blank"}). 
+
+### Como comparar as redes resultantes com a rede planeada?
+
+É possível fazê-lo de várias formas. Uma delas é abrindo o mapa em ecrã inteiro (existe um link em baixo de cada mapa que o permite fazer), e lá irá encontrar mais duas camadas de informação: a rede planeada, e a rede existente dedicada - i.e., ciclovias e pistas cicláveis existentes.
+
+Outra forma é utilizando um SIG, e descarregando os mapas dos resultados e da rede planeada e existente, que se encontra na secção de [Downloads na página da AML](aml/index.html#downloads){target="_blank"}.
+
+Atenção que, dependendo do cenário que estamos a analisar, a rede potencial pode cobrir maior ou menor parte da rede planeada por cada Município, sendo que valerá a pena confrontar os resultados dos vários cenários.
 
 ### Posso descarregar os mapas em formato tipo _shapefile_?
 
