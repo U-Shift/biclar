@@ -442,7 +442,7 @@ DT::datatable(municipios_taburl,
 
 > Nota 1: Os valores de população são os constantes nos resultados _provisórios_ dos Censos 2021. A diferença para os resultados definitivos é de menos de 0.02% - cerca de 500 indivíduos.
 
-> Nota 2: Para alguns municípios não é possível estimar viagens intermodais com recurso à bicicleta, para os critérios mínumos definidos (valores _em branco_).
+> Nota 2: Para alguns municípios não é possível estimar viagens intermodais com recurso à bicicleta, para os critérios mínimos definidos (valores _em branco_).
 
 <!-- ------------------------------------------------------------------------ -->
 
