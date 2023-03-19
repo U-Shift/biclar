@@ -46,7 +46,8 @@ fmt_num = function(x) format(round(sum(x)), big.mark=" ")
 
 <h2 style="text-align: center;">Ferramenta de apoio ao planeamento da rede ciclável<br> na área metropolitana de Lisboa</h2>
 
-##### Nota: este projeto está em fase _beta_ e a informação deste site deve ser considerada como _work in progress_. 
+<!-- ##### Nota: este projeto está em fase _beta_ e a informação deste site deve ser considerada como _work in progress_.  -->
+\br
 
 <!-- Content for landing page-->
 
@@ -483,7 +484,7 @@ Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viage
 
 ### Como comparar as redes resultantes com a rede planeada?
 
-É possível fazê-lo de várias formas. Uma delas é abrindo o mapa em ecrã inteiro (existe um link em baixo de cada mapa que o permite fazer), e lá irá encontrar mais duas camadas de informação: a rede planeada, e a rede existente dedicada - i.e., ciclovias e pistas cicláveis existentes.
+É possível fazê-lo de várias formas. Uma delas é abrindo o mapa em ecrã inteiro (existe um link em baixo de cada mapa que o permite fazer), e lá irá encontrar mais duas camadas de informação: a rede planeada, e a rede existente dedicada - i.e., ciclovias e pistas cicláveis existentes. Esta opção está disponível nas páginas individuais de cada Município.
 
 Outra forma é utilizando um SIG, e descarregando os mapas dos resultados e da rede planeada e existente, que se encontra na secção de [Downloads na página da AML](aml/index.html#downloads){target="_blank"}.
 
