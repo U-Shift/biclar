@@ -577,7 +577,7 @@ m1leaf_more = tmap::tmap_leaflet(m1) %>%
   ) %>%
     leaflet::addLegend(
     "bottomright",
-    colors = "#4d4d4d", 
+    colors = "#1A7832", 
     labels = "Existente dedicada",
     group = "Rede Ciclável existente"
   ) %>%
@@ -591,7 +591,7 @@ m1leaf_more = tmap::tmap_leaflet(m1) %>%
 
 ```
 
-Ver mapa em [ecrã inteiro](mapa_cenario1.html){target="_blank"}.
+Vendo o mapa em [ecrã inteiro](mapa_cenario1.html){target="_blank"} é possível comparar os resultados com a rede existente e planeada.
 
 
 #### Até 10 km (e-bike)
@@ -745,7 +745,7 @@ m2leaf_more = tmap::tmap_leaflet(m2) %>%
   ) %>%
     leaflet::addLegend(
     "bottomright",
-    colors = "#4d4d4d", 
+    colors = "#1A7832", 
     labels = "Existente dedicada",
     group = "Rede Ciclável existente"
   ) %>%
@@ -921,7 +921,7 @@ m3leaf_more = tmap::tmap_leaflet(m3) %>%
   ) %>%
     leaflet::addLegend(
     "bottomright",
-    colors = "#4d4d4d", 
+    colors = "#1A7832", 
     labels = "Existente dedicada",
     group = "Rede Ciclável existente"
   ) %>%
