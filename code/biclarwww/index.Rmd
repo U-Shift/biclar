@@ -489,6 +489,7 @@ Ao clicar em cada linha, uma janela abre-se com mais informação sobre as viage
 Outra forma é utilizando um SIG, e descarregando os mapas dos resultados e da rede planeada e existente, que se encontra na secção de [Downloads na página da AML](aml/index.html#downloads){target="_blank"}.
 
 Atenção que, dependendo do cenário que estamos a analisar, a rede potencial pode cobrir maior ou menor parte da rede planeada por cada Município, sendo que valerá a pena confrontar os resultados dos vários cenários.
+Uma vez que a rede potencial visível no site tem um mínimo de viagens por segmento, recomenda-se que uma comparação mais fina seja feita em SIG com as camadas de rede potencial completas (ver restantes FAQ).
 
 ### Posso descarregar os mapas em formato tipo _shapefile_?
 
