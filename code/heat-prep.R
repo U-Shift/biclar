@@ -482,3 +482,15 @@ HEATbind_municipios_intermodal_PPP = HEATbind_municipios_intermodal
 
 
 
+
+# Join scenarios 1,2,3 ----------------------------------------------------
+
+HEAT_municipios_PPP_redux = bind_rows(HEATbind_municipios_PPP, HEATbind_municipios_intermodal_PPP) %>% 
+  select(-c(routes_filepath, rnet_filepath, car_routes_filepath)) %>% 
+  mutate(Estrategia = substr(CodePath, 1,1),
+         LTS = substr(CodePath, 2,2)) %>%
+  mutate(Meta_ENMAC = factor(ENMAC, levels = c(0.04, 0.10), labels = c("4%", "10%")),
+         Estrategia = factor(Estrategia, levels = c("1", "2", "3"), labels =c("ate 5 km", "ate 10km e-bike","intermodal ate 5km ")),
+  )
+
+saveRDS(HEAT_municipios_PPP_redux, "HEAT/HEAT_municipios_123_redux.Rds")
