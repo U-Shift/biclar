@@ -452,7 +452,7 @@ DT::datatable(municipios_taburl,
 ## FAQ
 
 Perguntas e respostas simplificadas.  
-Ver o [relatório metodológico](nada) para mais detalhes sobre os métodos e funcionamento desta ferramenta.
+Ver o [relatório metodológico](https://ushift.tecnico.ulisboa.pt/content/tml/biclar/biclaR_RelatorioFinal_RedeCiclavelMetropolitana_Metodologia.pdf){target="_blank"} para mais detalhes sobre os métodos e funcionamento desta ferramenta.
 
 ### O que é a ferramenta biclar?
 
@@ -573,7 +573,7 @@ A partir daí, e tendo algumas noções de _R_, é possível adaptar o código p
 
 Se considerar que o novo cenário desenvolvido deveria também constar nesta ferramenta, é possível fazer um [_pull request_](https://github.com/U-Shift/biclar/pulls){target="_blank"}, e a equipa biclaR irá avaliar os contributos e decidir sobre a sua integração. Esta é a beleza do código-aberto e da colaboração `r emo::ji("slightly_smiling_face")`.
 
-> Ver o [relatório metodológico](nada) para mais detalhes sobre o funcionamento desta ferramenta.
+> Ver o [relatório metodológico](https://ushift.tecnico.ulisboa.pt/content/tml/biclar/biclaR_RelatorioFinal_RedeCiclavelMetropolitana_Metodologia.pdf){target="_blank"} para mais detalhes sobre o funcionamento desta ferramenta.
 
 
 <!-- ------------------------------------------------------------------------ -->
