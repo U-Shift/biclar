@@ -90,6 +90,7 @@ bibliography: bibliography.bib
 
 header-includes: |
 
+
 output: rticles::springer_article
 ---
 
@@ -161,6 +162,8 @@ Conclusions may be used to restate your hypothesis or research question, restate
 
 In some disciplines use of Discussion or 'Conclusion' is interchangeable. It is not mandatory to use both. Please refer to Journal-level guidance for any specific requirements.
 
+This is a test @felix2023 to check if they show up.
+
 \backmatter
 
 
@@ -187,5 +190,3 @@ Some journals require declarations to be submitted in a standardised format. Ple
 \noindent
 If any of the sections are not relevant to your manuscript, please include the heading and write `Not applicable' for that section.
 
-
-# References {.unnumbered}
