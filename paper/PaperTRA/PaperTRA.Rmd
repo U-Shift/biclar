@@ -55,7 +55,6 @@ output:
 
 urlcolor: blue
 linkcolor: blue
-
 ---
 
 ```{r setup, include=FALSE}
@@ -67,29 +66,45 @@ knitr::opts_chunk$set(echo = FALSE,
 
 <!-- **full paper**: 4-6 pages in length (typically up to 3,000 words). -->
 
-Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can significantly replace private car trips. This approach requires interventions and programs to make bicycling more appealing, and the resulting public investments can have significant social and environmental benefits. 
+Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can significantly replace private car trips.
+This approach requires interventions and programs to make bicycling more appealing, and the resulting public investments can have significant social and environmental benefits.
 
-According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle. Car modal share was 58.4%, while PT accounted for 15.5%. The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips. This exceeds the number of inter-municipal trips (1.8 million trips), involving travel between different municipalities. Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
+According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle.
+Car modal share was 58.4%, while PT accounted for 15.5%.
+The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips.
+This exceeds the number of inter-municipal trips (1.8 million trips), involving travel between different municipalities.
+Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
 
 <!-- Plot of  AML trips by mode and inter/intra %? -->
 
-To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced _biclaR_^[See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/)], a decision support tool that facilitates the design and development of a metropolitan cycling network [@felix2023]. 
+To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced *biclaR*[^1], a decision support tool that facilitates the design and development of a metropolitan cycling network [@felix2023].
+
+[^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/)
 
 *biclar* builds on the Propensity to Cycle Tool (PCT), a web application and research project funded by the UK's Department for Transport in 2015 which launched nationally in 2017 as part of the government's Cycling and Walking Investment Strategy.
-The PCT initially used only origin-destination data for commuting trips as the basis of estimates of cycling potential at zone, route and route network levels [@Lovelace2017].
+The PCT initially used only origin-destination data for commuting trips as the basis of estimates of cycling potential at zone, route and route network levels [@lovelace2017].
+The PCT has been extended to include cycling potential for travel to school in England [@goodman2019] and other trip types in other countries.[^2]
+However, to the best of our knowledge, this is the first time that the method has been integrated with public transport data using multi-modal routing to estimate the potential and benefits of multi-stage cycling and PT trips.
 
-This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA. After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
+[^2]:  See <https://www.npt.scot> and <https://cruse.bike> for examples of the PCT in Scotland and Ireland that include estimates of cycling for other purposes.
+
+This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA.
+After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
 
 # Methods
 
 ## Modeling Origin-Destination trips
 
-The mobility survey data [@IMOB] is the basis for this project and defines the baseline scenario. Despite being conducted in the pre-pandemic period (2017), this dataset represents the most comprehensive and up-to-date information on urban mobility in Portuguese metropolitan areas (Lisbon and Porto).
+The mobility survey data [@IMOB] is the basis for this project and defines the baseline scenario.
+Despite being conducted in the pre-pandemic period (2017), this dataset represents the most comprehensive and up-to-date information on urban mobility in Portuguese metropolitan areas (Lisbon and Porto).
 
-We used a method for disaggregating the origins and destinations of trips between the centroids of two districts (same as "parish") to ensure that a district is not solely characterized by a single point of origin and destination for its trips. Aggregating all trips into centroids renders the exercise less realistic, as it excludes a significant portion of short-distance trips, a prevalent characteristic of active mode travel [@Lovelace2022Jittering]. The OD Jittering method breaks down a single point (i.e., the centroid of an area) into multiple random points on the existing and neighboring road network, using OpenStreetMap as a reference. This method then distributes the volume of trips within the district among the randomly generated origin-destination pairs.
+We used a method for disaggregating the origins and destinations of trips between the centroids of two districts (same as "parish") to ensure that a district is not solely characterized by a single point of origin and destination for its trips.
+Aggregating all trips into centroids renders the exercise less realistic, as it excludes a significant portion of short-distance trips, a prevalent characteristic of active mode travel [@Lovelace2022Jittering].
+The OD Jittering method breaks down a single point (i.e., the centroid of an area) into multiple random points on the existing and neighboring road network, using OpenStreetMap as a reference.
+This method then distributes the volume of trips within the district among the randomly generated origin-destination pairs.
 
-Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we employed a maximum disaggregation level of 100 trips per O-D pair for this project. Figure \ref{fig:jitter} illustrates the contrast between trip representation through the traditional method, which connects a single desire line between each district, and the presentation achieved through the randomization and disaggregation of trips between districts, specifically for the Lisbon metropolitan area. 
-
+Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we employed a maximum disaggregation level of 100 trips per O-D pair for this project.
+Figure \ref{fig:jitter} illustrates the contrast between trip representation through the traditional method, which connects a single desire line between each district, and the presentation achieved through the randomization and disaggregation of trips between districts, specifically for the Lisbon metropolitan area.
 
 ```{r jitter, fig.align='center', fig.cap="Representation of OD pairs in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).", out.width="100%"}
 
@@ -108,16 +123,25 @@ Although this method provides a more realistic representation of the trips under
 
 ## Modeling routes
 
-The mobility survey collects the origin and destination of trips but does not include the respective routes. Modeling the realistic cycling + PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces. Other constraints regarding the behavior of potential cyclists determine the routing results. For example, such restrictions can favor low speed, low traffic streets, more direct routes, and less steep paths, among others, suitable for cycling.
+The mobility survey collects the origin and destination of trips but does not include the respective routes.
+Modeling the realistic cycling + PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces.
+Other constraints regarding the behavior of potential cyclists determine the routing results.
+For example, such restrictions can favor low speed, low traffic streets, more direct routes, and less steep paths, among others, suitable for cycling.
 
 <!-- When comparing ground-truth dataset from 67 count locations distributed throughout the city of Lisbon with differemt routing providers and options, @Lovelace2022exploring found that jittering and disaggregating OD data, combined with routing using low level of traffic stress (quieter) preferences resulted in the most accurate route networks. -->
 
 The selected route choice algorithm was the [`r5r` R package](https://ipeagit.github.io/r5r/) [@r5r], which allows for great flexibility in configuring estimated route types, and which proven to provide most accurate route networks for the city of Lisbon [@Lovelace2022exploring].
-`r5r` can calculate multi-modal routes using PT combined with other modes. It enables the identification of the most direct or safest cycling routes, using the Level of Traffic Stress^[see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress)] (LTS) scale, ranging from 1 to 4, where 1 corresponds to the quietest (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g., routes shared with motorized traffic). The routes were estimated for the base scenario for both types of networks: *direct* and *safe*, using LTS 4 and LTS 3, respectively.
+`r5r` can calculate multi-modal routes using PT combined with other modes.
+It enables the identification of the most direct or safest cycling routes, using the Level of Traffic Stress[^3] (LTS) scale, ranging from 1 to 4, where 1 corresponds to the quietest (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g., routes shared with motorized traffic).
+The routes were estimated for the base scenario for both types of networks: *direct* and *safe*, using LTS 4 and LTS 3, respectively.
+
+[^3]: see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress)
 
 <!-- The quietness level^[see https://www.cyclestreets.net/help/journey/howitworks/#quietness] was another indicator estimated by [CycleStreets](https://www.cyclestreets.org/) for each route section, based on road network variables xisting on OpenStreetMap labels, such as the number of lanes, maximum allowed speed, trees, or road hierarchy. Values vary on a scale of 0 to 100, where zero corresponds to the least safe level for cycling and 100 corresponds to the safest and quietest level, usually corresponding to sections that already include segregated cycling infrastructure away from motorized traffic.  I THINK THIS IS NOT RELEVANT FOR THIS SHORT PAPER, AS IT IS MOST USEFUL FOR VIZUALIZATION PURPOSES ON BICLAR TOOL-->
 
-The `r5r` model used the OpenStreetMap road network and the GTFS metropolitan data agregated and validated. This information is crucial for an accurate PT trip and route estimation. A digital elevation model from the European Space Agency's COPERNICUS mission, with a 25m spatial resolution, was used to include street gradient information, as a weight in cycling routing. 
+The `r5r` model used the OpenStreetMap road network and the GTFS metropolitan data agregated and validated.
+This information is crucial for an accurate PT trip and route estimation.
+A digital elevation model from the European Space Agency's COPERNICUS mission, with a 25m spatial resolution, was used to include street gradient information, as a weight in cycling routing.
 The cycling potential trips for the two ENMAC targets (4% and 10%) was estimated from the values for cycling and car trips (both as a driver and as a passenger) from the 2017 base scenario.
 
 The routes were then overlaid and aggregated by segments, using [`stplanr overline()` R function](https://docs.ropensci.org/stplanr/reference/overline.html).
@@ -125,7 +149,10 @@ The routes were then overlaid and aggregated by segments, using [`stplanr overli
 
 ## Modeling intermodality
 
-The intermodality scenario considers trips combining PT and cycling for the first and last legs. In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km or up to 25 minutes on bike. Furthermore, we have imposed restrictions on PT usage to include only trips with no PT transfers, and up to 2 hours (120 min). Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}). 
+The intermodality scenario considers trips combining PT and cycling for the first and last legs.
+In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km or up to 25 minutes on bike.
+Furthermore, we have imposed restrictions on PT usage to include only trips with no PT transfers, and up to 2 hours (120 min).
+Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}).
 
 ```{r map1, out.width="60%", fig.cap="Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area", fig.align='center'}
 knitr::include_graphics("img/map1.png", error = FALSE)
@@ -140,70 +167,75 @@ knitr::include_graphics("img/map2.png", error = FALSE)
 ## Assessing socio-environmental benefits - CONTINUE FROM HERE
 
 Socio-environmental impacts were estimated for a short term time horizon (i.e., one year) and the long term (i.e., ten years).
-using the HEAT for Cycling and the HEAT as a Service^[see https://github.com/HEAT-WHO/HEAT_heatr_api] tools, from the WHO. 
+using the HEAT for Cycling and the HEAT as a Service[^4] tools, from the WHO.
 
- Os impactes foram avaliados para cada cenário e para diferentes escalas territoriais:
+[^4]: see https://github.com/HEAT-WHO/HEAT_heatr_api
 
-* Desagregado à escala municipal para cada segmento de rede:
-  + Ambientais (emissões de CO~2~eq evitadas);
-  + Balanço monetarizado dos impactes socioeconómicos totais (considerando o balanço dos impactes ambientais e sociais);
-* Agregado à escala metropolitana:
-  + Ambientais (emissões de CO~2~eq evitadas);
-  + Balanço monetarizado dos impactes socioeconómicos totais (considerando o balanço dos impactes ambientais e sociais);
-  + Ambientais (emissões de CO~2~eq, CO, PM10, NOx, e VOC11, evitadas por substituição dos modos motorizados, considerando as emissões geradas na transferência para transportes públicos).
+Os impactes foram avaliados para cada cenário e para diferentes escalas territoriais:
+
+-   Desagregado à escala municipal para cada segmento de rede:
+    -   Ambientais (emissões de CO~2~eq evitadas);
+    -   Balanço monetarizado dos impactes socioeconómicos totais (considerando o balanço dos impactes ambientais e sociais);
+-   Agregado à escala metropolitana:
+    -   Ambientais (emissões de CO~2~eq evitadas);
+    -   Balanço monetarizado dos impactes socioeconómicos totais (considerando o balanço dos impactes ambientais e sociais);
+    -   Ambientais (emissões de CO~2~eq, CO, PM10, NOx, e VOC11, evitadas por substituição dos modos motorizados, considerando as emissões geradas na transferência para transportes públicos).
 
 Para todos os cenários, recorreu-se à ferramenta HEAT for cycling, da Organização Mundial de Saúde, para estimativa dos impactes sociais e ambientais da transferência de viagens em automóvel para viagens em bicicleta, nas componentes de: a) Social - Saúde, Atividade Física, Exposição a poluição atmosférica, Exposição ao risco de sinistralidade rodoviária; b) Ambiental - Emissão de gases CO~2~eq.
 
-Additionally, we estimate the impacts of shifting car trips to PT for the second leg of the journey with EMEP/EEA’s COPERT methodology and monetize them with the EU Guide to cost-benefit analysis.
+Additionally, we estimate the impacts of shifting car trips to PT for the second leg of the journey with EMEP/EEA's COPERT methodology and monetize them with the EU Guide to cost-benefit analysis.
 
-A estimativa dos impactes ambientais resulta em toneladas de CO~2~eq, e a estimativa dos impactes sociais resulta em mortalidade prematura evitada. Ambas as unidades são por fim monetizadas em €, segundo os valores da literatura utilizada em estudos semelhantes.
+A estimativa dos impactes ambientais resulta em toneladas de CO~2~eq, e a estimativa dos impactes sociais resulta em mortalidade prematura evitada.
+Ambas as unidades são por fim monetizadas em €, segundo os valores da literatura utilizada em estudos semelhantes.
 Para além dos impactes sociais e ambientais resultantes da transferência do automóvel para a bicicleta (na primeira e na última parte da viagem, de e para a interface de TP), estimou-se também o impacte ambiental adicional, resultante da transferência do automóvel para os vários transportes públicos (na segunda etapa da viagem, entre as interfaces).
 Como tal, foi necessário caracterizar o universo dos modos motorizados a serem considerados para os cálculos dos respetivos fatores de emissões de gases poluentes e atmosféricos.
 
 Os fatores de consumo e de emissão dos automóveis e transportes públicos deve ser tido em conta relativamente ao número de passageiros transportados (por passageiro.km) e não ao veículo (que seria veículo.km).
 No caso do automóvel, para contabilizar a emissão de gases evitados pela transferência de viagens em automóvel para os transportes públicos, teve-se em conta o valor de referência de 1.61 passageiros/automóvel reportados pelo Inquérito à Mobilidade (INE 2017).
 
-As emissões evitadas por cada viagem em transportes públicos que substitui o automóvel correspondem às emissões equivalentes de um automóvel com características correspondentes à média da frota em circulação em Lisboa, para 2 tipos de combustível: gasolina e gasóleo. Utilizou-se a metodologia e valores de referência do software COPERT (Ntziachristos and Samaras 2020), v5.0, da Agência Europeia do Ambiente, para um nível de detalhe 3 (Tier 3) na estimativa de consumo de emissões para o automóvel, nestes dois tipos de combustível.
-Optou-se por usar um veículo de dimensão familiar, norma EURO, e tipo de combustível gasolina ou diesel. Considerou-se que as viagens foram todas realizadas em condições urbanas (com as respetivas implicações no regime médio de condução) e a uma velocidade média de 15km/h, nos períodos de hora de ponta. Uma vez que a distância média percorrida por viagem influencia o nível de sobreconsumo e emissões decorrentes da operação do motor a frio – ou seja, distâncias maiores diluem a importância deste sobreconsumo face ao fator de consumo com o motor a operar a quente, foram estimados os consumos para diferentes gamas de viagem, em intervalos de 500 metros.
-As emissões são estimadas para os seguintes poluentes atmosféricos: CO (monóxido de carbono), NO X (Óxidos de Azoto), COV (Compostos Orgânicos Voláteis), PM (material particulado). Também é estimada as emissões dos principais gases com efeito de estufa: CO2 (dióxido de carbono); CH4 (metano) e N2O (Óxido nitroso), assim como o CO~2~eq equivalente.
+As emissões evitadas por cada viagem em transportes públicos que substitui o automóvel correspondem às emissões equivalentes de um automóvel com características correspondentes à média da frota em circulação em Lisboa, para 2 tipos de combustível: gasolina e gasóleo.
+Utilizou-se a metodologia e valores de referência do software COPERT (Ntziachristos and Samaras 2020), v5.0, da Agência Europeia do Ambiente, para um nível de detalhe 3 (Tier 3) na estimativa de consumo de emissões para o automóvel, nestes dois tipos de combustível.
+Optou-se por usar um veículo de dimensão familiar, norma EURO, e tipo de combustível gasolina ou diesel.
+Considerou-se que as viagens foram todas realizadas em condições urbanas (com as respetivas implicações no regime médio de condução) e a uma velocidade média de 15km/h, nos períodos de hora de ponta.
+Uma vez que a distância média percorrida por viagem influencia o nível de sobreconsumo e emissões decorrentes da operação do motor a frio -- ou seja, distâncias maiores diluem a importância deste sobreconsumo face ao fator de consumo com o motor a operar a quente, foram estimados os consumos para diferentes gamas de viagem, em intervalos de 500 metros.
+As emissões são estimadas para os seguintes poluentes atmosféricos: CO (monóxido de carbono), NO X (Óxidos de Azoto), COV (Compostos Orgânicos Voláteis), PM (material particulado).
+Também é estimada as emissões dos principais gases com efeito de estufa: CO2 (dióxido de carbono); CH4 (metano) e N2O (Óxido nitroso), assim como o CO~2~eq equivalente.
 
 Relativamente aos transportes públicos, recorreu-se aos fatores de emissão reportados nos relatórios de sustentabilidade dos respetivos operadores (Carris 2020; Metropolitano de Lisboa 2020; CP 2020, Grupo Transtejo 2014).
 
-a conversão das emissões evitadas em perda de bem-estar evitado, através da respetiva valorização monetária. a partir dos valores de referência para os vários gases contabilizados, atualizados para 2022 15, com base nas fontes: Bickel et al. (2006), Nash and others (2003), Sartori et al. (2014).
-
+a conversão das emissões evitadas em perda de bem-estar evitado, através da respetiva valorização monetária.
+a partir dos valores de referência para os vários gases contabilizados, atualizados para 2022 15, com base nas fontes: Bickel et al. (2006), Nash and others (2003), Sartori et al. (2014).
 
 # Results and Discussion
 
+A Tabela 4 apresenta o número de viagens diárias do cenário base e potenciais, passíveis de serem realizadas até 5 km em bicicleta em complemento com TP, por tipo de percurso.
+Para as redes segura e direta, as viagens do cenário base até 5 km em bicicleta + TP correspondem a 20% do total de viagens reportadas no inquérito.
 
-A Tabela 4 apresenta o número de viagens diárias do cenário base e potenciais, passíveis de serem realizadas
-até 5 km em bicicleta em complemento com TP, por tipo de percurso. Para as redes segura e direta, as viagens
-do cenário base até 5 km em bicicleta + TP correspondem a 20% do total de viagens reportadas no inquérito.
+Este cenário valoriza a utilização da bicicleta como complemento ao transporte público, com potencial de aumentar as viagens em TP realizadas na área metropolitana de Lisboa em até 12% (acrescentando às 825 mil do IMob 2017).
+Estes resultados sugerem que o potencial de transferência de viagens em automóvel para bicicleta + TP poderá ser quase ou tão importante quanto a transferência para viagens utilizando apenas a bicicleta.
 
-Este cenário valoriza a utilização da bicicleta como complemento ao transporte público, com potencial de
-aumentar as viagens em TP realizadas na área metropolitana de Lisboa em até 12% (acrescentando às 825 mil
-do IMob 2017).
-Estes resultados sugerem que o potencial de transferência de viagens em automóvel para bicicleta + TP poderá
-ser quase ou tão importante quanto a transferência para viagens utilizando apenas a bicicleta.
+Para este cenário foram estimados os impactes ambientais de transferência do automóvel para os transportes públicos, para além dos impactes ambientais e sociais da transferência para a bicicleta
 
-Para este cenário foram estimados os impactes ambientais de transferência do automóvel para os transportes
-públicos, para além dos impactes ambientais e sociais da transferência para a bicicleta
+Foram então calculadas as emissões dos poluentes para cada viagem substituída, tendo em conta o modo de transporte, distâncias e velocidade.
+A tabela 11 apresenta a estimativa anual de gases emitidos e evitados por transferência do automóvel para os outros modos de transporte público, como exemplo para o cenário com a meta de 4%, usando a rede ciclável "direta".
 
-Foram então calculadas as emissões dos poluentes para cada viagem substituída, tendo em conta o modo de transporte, distâncias e velocidade. A tabela 11 apresenta a estimativa anual de gases emitidos e evitados por transferência do automóvel para os outros modos de transporte público, como exemplo para o cenário com a meta de 4%, usando a rede ciclável “direta”.
-
-[Tabela 11]
+\[Tabela 11\]
 
 Para esse cenário com essas características, é estimada uma poupança de 8 702 toneladas de CO~2~eq por via da transferência de viagens motorizadas com combustíveis fósseis e eletricidade, numa perspetiva de ciclo de vida da produção de eletricidade.
 
-A valorização monetária das emissões (em toneladas) é apresentada na tabela seguinte, para o cenário 3 (apenas a segunda parte da viagem, em transportes públicos), com as metas de 4% e 10%, e usando as redes cicláveis “direta” e “segura”, para 365 dias (1 ano).
+A valorização monetária das emissões (em toneladas) é apresentada na tabela seguinte, para o cenário 3 (apenas a segunda parte da viagem, em transportes públicos), com as metas de 4% e 10%, e usando as redes cicláveis "direta" e "segura", para 365 dias (1 ano).
 
-[Tabela 13]
+\[Tabela 13\]
 
+<!-- Meta ENMAC Cenário Tipo de Percurso    Total Viagens /dia  Viagens Bicicleta Base  Viagens Bicicleta Potencial CO~2~eq evitado (ton/ano)   Benefícios estimados em 10 anos (milhares €) -->
 
-<!-- Meta ENMAC	Cenário	Tipo de Percurso	Total Viagens /dia	Viagens Bicicleta Base	Viagens Bicicleta Potencial	CO~2~eq evitado (ton/ano)	Benefícios estimados em 10 anos (milhares €) -->
-<!-- 4%	intermodal até 5km	seguro	1 077 028	4 624	40 770	5 920	230 270 -->
-<!-- 4%	intermodal até 5km	direto	1 001 761	4 547	37 889	6 011	223 720 -->
-<!-- 10%	intermodal até 5km	seguro	1 077 028	4 624	104 647	15 192	591 790 -->
-<!-- 10%	intermodal até 5km	direto	1 001 761	4 547	97 218	15 414	574 200 -->
+<!-- 4% intermodal até 5km  seguro  1 077 028   4 624   40 770  5 920   230 270 -->
+
+<!-- 4% intermodal até 5km  direto  1 001 761   4 547   37 889  6 011   223 720 -->
+
+<!-- 10%    intermodal até 5km  seguro  1 077 028   4 624   104 647 15 192  591 790 -->
+
+<!-- 10%    intermodal até 5km  direto  1 001 761   4 547   97 218  15 414  574 200 -->
 
 ```{r summary1, out.width="100%", fig.cap="Summary of the cycling potencial of intermodality scenario."}
 knitr::include_graphics("img/table1.png", error = FALSE)
@@ -213,26 +245,31 @@ knitr::include_graphics("img/table1.png", error = FALSE)
 knitr::include_graphics("img/table2.png", error = FALSE)
 ```
 
-<!-- Tipo de Percurso	Meta ENMAC	Total	Barco	Comboio	Autocarro	Metro superfície	CO~2~eq	CO	PM10	NOx	VOC	Valorização monetária (€) -->
-<!-- seguro	4%	192 214	5 167	169 984	4 163	12 900	8 593	17	1.9	27	0.8	1 424 620 -->
-<!-- seguro	10%	224 152	5 594	197 857	5 042	15 659	20 627	42	4.6	65	2.0	3 430 552 -->
-<!-- direto	4%	189 846	5 795	171 534	4 879	7 639	8 702	18	2.0	28	0.8	1 452 820 -->
-<!-- direto	10%	219 511	6 263	198 373	5 806	9 069	20 793	42	4.7	66	1.9	3 487 282 -->
+<!-- Tipo de Percurso   Meta ENMAC  Total   Barco   Comboio Autocarro   Metro superfície    CO~2~eq CO  PM10    NOx VOC Valorização monetária (€) -->
+
+<!-- seguro 4%  192 214 5 167   169 984 4 163   12 900  8 593   17  1.9 27  0.8 1 424 620 -->
+
+<!-- seguro 10% 224 152 5 594   197 857 5 042   15 659  20 627  42  4.6 65  2.0 3 430 552 -->
+
+<!-- direto 4%  189 846 5 795   171 534 4 879   7 639   8 702   18  2.0 28  0.8 1 452 820 -->
+
+<!-- direto 10% 219 511 6 263   198 373 5 806   9 069   20 793  42  4.7 66  1.9 3 487 282 -->
 
 Em suma, o impacte socioeconómico das emissões de gases poluentes e de gases de efeito estufa pode ser valorizado numa poupança potencial de entre 1.4 a 3.5 milhões €, a acrescentar aos impactes estimados na secção anterior.
 
-The results indicate that 20% of the current trips can be made with the bicycle + PT combination, with an additional 12% of PT trips being potentially replaced. Shifting to cycling for the first-and-last mile can reduce annual CO~2~eq emissions by 6,000 to 15,000 tons/day, and the 10-year socio-environmental benefits account for €230 to €590 million, depending on the cycling targets. For the PT leg, the transfer from car results in the avoidance of 8,500 to 20,800 tons of CO~2~eq emissions per year, or €1.4 to €3.5 million over 10 years, with trains offering the greatest potential for substitution (88%).
-
+The results indicate that 20% of the current trips can be made with the bicycle + PT combination, with an additional 12% of PT trips being potentially replaced.
+Shifting to cycling for the first-and-last mile can reduce annual CO~2~eq emissions by 6,000 to 15,000 tons/day, and the 10-year socio-environmental benefits account for €230 to €590 million, depending on the cycling targets.
+For the PT leg, the transfer from car results in the avoidance of 8,500 to 20,800 tons of CO~2~eq emissions per year, or €1.4 to €3.5 million over 10 years, with trains offering the greatest potential for substitution (88%).
 
 # Conclusion
 
-By making the research process publicly accessible in a code repository, this study enables the replication of similar estimates for socio-environmental impacts resulting from a modal shift from cars to bicycles + PT in other metropolitan areas. The provided information on socio-economic benefits can support policymakers in prioritizing interventions to reduce the reliance on individual motorized transportation and effectively communicate their decisions.
-
+By making the research process publicly accessible in a code repository, this study enables the replication of similar estimates for socio-environmental impacts resulting from a modal shift from cars to bicycles + PT in other metropolitan areas.
+The provided information on socio-economic benefits can support policymakers in prioritizing interventions to reduce the reliance on individual motorized transportation and effectively communicate their decisions.
 
 ### Acknowledgements {.unnumbered}
+
 Please place your acknowledgments at the end of the paper, preceded by an unnumbered run-in heading (i.e. 3rd-level heading).
 
 Thomas Götshi - HAAS.
-
 
 # References {.unnumbered}
