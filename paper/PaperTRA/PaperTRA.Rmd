@@ -69,11 +69,11 @@ knitr::opts_chunk$set(echo = FALSE,
 
 Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can significantly replace private car trips. This approach requires interventions and programs to make bicycling more appealing, and the resulting public investments can have significant social and environmental benefits. 
 
-According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle. Car modal share was 58.4%, while PT accounted for 15.5%. The number of intra-municipal trips - with origin and destination in the same municipality - amounts to 3.5 million trips, exceeding the number of inter-municipal trips (1.8 million trips) - involving travel between different municipalities. Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
+According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle. Car modal share was 58.4%, while PT accounted for 15.5%. The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips. This exceeds the number of inter-municipal trips (1.8 million trips), involving travel between different municipalities. Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
 
 <!-- Plot of  AML trips by mode and inter/intra %? -->
 
-To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced _biclaR_^[see [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/)], a decision support tool that facilitates the design and development of a metropolitan cycling network [@felix2023]. 
+To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced _biclaR_^[See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/)], a decision support tool that facilitates the design and development of a metropolitan cycling network [@felix2023]. 
 
 <!-- Robin: include here a paragraph about pct, and how biclar adds up -->
 **(RL)** The methods of Propensity to Cycle Tool  
