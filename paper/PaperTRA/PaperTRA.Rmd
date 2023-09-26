@@ -24,7 +24,7 @@ institutes:
 abstract: | 
   A high proportion of car trips can be replaced by a combination of public transit and cycling for the first-and-last mile. This paper estimates the potential for cycling combined with public transit (PT) as a substitute for car trips in the Lisbon metropolitan area and assesses its socio-environmental impacts using open data and open source tools.
   A decision support tool that facilitates the design and development of a metropolitan cycling network was developed (_biclaR_). The social and environmental impacts were assessed using the _HEAT for Cycling_ and the _HEAT as a Service_ tools. The impacts of shifting car trips to PT were also estimated and monetized.
-  The results indicate that 20% of cart trips could switch to the bicycle + PT combination. Shifting to cycling for the first-and-last mile stages can reduce annual CO~2~eq emissions from 6,000 tons/day, with benefits over 10 years of €230 million. For the PT leg, the transfer from car avoids of at least 8,500 tons of CO~2~eq emissions per year.
+  The results indicate that 20% of car trips could switch to the bicycle + PT combination. Shifting to cycling for the first-and-last mile stages can reduce annual CO~2~eq emissions from 6,000 tons/day, with benefits over 10 years of €230 million. For the PT leg, the transfer from car avoids of at least 8,500 tons of CO~2~eq emissions per year.
   This evidence can support policymakers to prioritize interventions that reduce the reliance on private motor vehicles.
 keywords: 
   - Active transport
