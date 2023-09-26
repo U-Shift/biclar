@@ -90,26 +90,23 @@ LS2 9JT, UK}
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-In metropolitan areas, car trips can be replaced by a combination of
+A high proportion of car trips can be replaced by a combination of
 public transit and cycling for the first-and-last mile. This paper
-estimates the potential for cycling + public transit (PT) as a
-substitute for car trips in the Lisbon metropolitan area and assesses
+estimates the potential for cycling combined with public transit (PT) as
+a substitute for car trips in the Lisbon metropolitan area and assesses
 its socio-environmental impacts using open data and open source tools. A
 decision support tool that facilitates the design and development of a
-metropolitan cycling network was developed (\emph{biclaR}). A scenario
-of intermodality introduced, and its socio-environmental impacts were
-assessed using the \emph{HEAT for Cycling} and the \emph{HEAT as a
-Service} tools. The impacts of shifting car trips to PT were also
-estimated and monetized. The results indicate that 20\% of the current
-trips can be made with the bicycle + PT combination. Shifting to cycling
-for the first-and-last mile can reduce annual CO\textsubscript{2}eq
-emissions from 6,000 tons/day, and the 10-year socio-environmental
-benefits account from €230 million. For the PT leg, the transfer from
-car avoids of at least 8,500 tons of CO\textsubscript{2}eq emissions per
-year. The information on socio-economic benefits can support
-policymakers in prioritizing interventions to reduce the reliance on
-individual motorized transportation and effectively communicate their
-decisions.
+metropolitan cycling network was developed (\emph{biclaR}). The social
+and environmental impacts were assessed using the \emph{HEAT for
+Cycling} and the \emph{HEAT as a Service} tools. The impacts of shifting
+car trips to PT were also estimated and monetized. The results indicate
+that 20\% of car trips could switch to the bicycle + PT combination.
+Shifting to cycling for the first-and-last mile stages can reduce annual
+CO\textsubscript{2}eq emissions from 6,000 tons/day, with benefits over
+10 years of €230 million. For the PT leg, the transfer from car avoids
+of at least 8,500 tons of CO\textsubscript{2}eq emissions per year. This
+evidence can support policymakers to prioritize interventions that
+reduce the reliance on private motor vehicles.
 
 \keywords{Active transport \and Intermodality \and First and last
 mile \and Health economic assessment \and Environmental
@@ -129,24 +126,28 @@ social and environmental benefits.
 According to the latest mobility survey conducted in 2018 {[}1{]}, the
 LMA registered a total of 5.3 million daily trips, with only 0.5\% by
 bicycle. Car modal share was 58.4\%, while PT accounted for 15.5\%. The
-number of intra-municipal trips - with origin and destination in the
-same municipality - amounts to 3.5 million trips, exceeding the number
-of inter-municipal trips (1.8 million trips) - involving travel between
-different municipalities. Cars and public transport are the most used
-modes for intercity trips, with cars being the predominant choice for
-all journeys.
+number of intra-municipal trips --- with origin and destination in the
+same municipality --- amounts to 3.5 million trips. This exceeds the
+number of inter-municipal trips (1.8 million trips), involving travel
+between different municipalities. Cars and public transport are the most
+used modes for intercity trips, with cars being the predominant choice
+for all journeys.
 
 To achieve the cycling targets set by the Portuguese national cycling
 strategy for 2025 and 2030 (4\% and 10\%, respectively) {[}2{]}, the
 Lisbon's Metropolitan Department of Transport introduced
-\emph{biclaR}\footnote{see
+\emph{biclaR}\footnote{See
   \href{https://biclar.tmlmobilidade.pt/}{biclar.tmlmobilidade.pt}}, a
 decision support tool that facilitates the design and development of a
 metropolitan cycling network {[}3{]}.
 
-\textbf{(RL)} The methods of Propensity to Cycle Tool\\
-adding up an intermodality scenario to estimate cycling potential to
-public transit interfaces.
+\emph{biclar} builds on the Propensity to Cycle Tool (PCT), a web
+application and research project funded by the UK's Department for
+Transport in 2015 which launched nationally in 2017 as part of the
+government's Cycling and Walking Investment Strategy. The PCT initially
+used only origin-destination data for commuting trips as the basis of
+estimates of cycling potential at zone, route and route network levels
+{[}\textbf{Lovelace2017?}{]}.
 
 This paper estimates the potential for combining cycling and PT to
 substitute car trips in the LMA. After presenting the methods used, it
@@ -275,21 +276,15 @@ the main PT interfaces in the LMA.
 \caption{Bike routes with highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool).}\label{fig:map2}
 \end{figure}
 
-\hypertarget{assessing-socio-environmental-benefits}{%
-\subsection{Assessing socio-environmental
-benefits}\label{assessing-socio-environmental-benefits}}
+\hypertarget{assessing-socio-environmental-benefits---continue-from-here}{%
+\subsection{Assessing socio-environmental benefits - CONTINUE FROM
+HERE}\label{assessing-socio-environmental-benefits---continue-from-here}}
 
-Socio-environmental impacts were assessed using the HEAT for Cycling and
-the HEAT as a Service\footnote{see
+Socio-environmental impacts were estimated for a short term time horizon
+(i.e., one year) and the long term (i.e., ten years). using the HEAT for
+Cycling and the HEAT as a Service\footnote{see
   \url{https://github.com/HEAT-WHO/HEAT_heatr_api}} tools, from the WHO.
-Additionally, we estimate the impacts of shifting car trips to PT for
-the second leg of the journey with EMEP/EEA's COPERT methodology and
-monetize them with the EU Guide to cost-benefit analysis.
 
-Como referido na introdução, a ferramenta biclaR pretende estimar os
-impactes sociais e ambientais associados ao potencial ciclável dos
-vários cenários analisados. O horizonte temporal considerado para esta
-análise foi o curto prazo (i.e., 1 ano) e o longo prazo (i.e., 10 anos).
 Os impactes foram avaliados para cada cenário e para diferentes escalas
 territoriais:
 
@@ -329,6 +324,10 @@ ambientais da transferência de viagens em automóvel para viagens em
 bicicleta, nas componentes de: a) Social - Saúde, Atividade Física,
 Exposição a poluição atmosférica, Exposição ao risco de sinistralidade
 rodoviária; b) Ambiental - Emissão de gases CO\textsubscript{2}eq.
+
+Additionally, we estimate the impacts of shifting car trips to PT for
+the second leg of the journey with EMEP/EEA's COPERT methodology and
+monetize them with the EU Guide to cost-benefit analysis.
 
 A estimativa dos impactes ambientais resulta em toneladas de
 CO\textsubscript{2}eq, e a estimativa dos impactes sociais resulta em

@@ -75,9 +75,8 @@ According to the latest mobility survey conducted in 2018 [@IMOB], the LMA regis
 
 To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced _biclaR_^[See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/)], a decision support tool that facilitates the design and development of a metropolitan cycling network [@felix2023]. 
 
-<!-- Robin: include here a paragraph about pct, and how biclar adds up -->
-**(RL)** The methods of Propensity to Cycle Tool  
-adding up an intermodality scenario to estimate cycling potential to public transit interfaces.
+*biclar* builds on the Propensity to Cycle Tool (PCT), a web application and research project funded by the UK's Department for Transport in 2015 which launched nationally in 2017 as part of the government's Cycling and Walking Investment Strategy.
+The PCT initially used only origin-destination data for commuting trips as the basis of estimates of cycling potential at zone, route and route network levels [@Lovelace2017].
 
 This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA. After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
 
