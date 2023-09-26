@@ -22,9 +22,9 @@ institutes:
   - name: "Institute for Transport Studies, University of Leeds. 34-40 University Rd, Leeds LS2 9JT, UK"
 
 abstract: | 
-  In metropolitan areas, car trips can be replaced by a combination of public transit and cycling for the first-and-last mile. This paper focuses on estimating the potential for cycling + PT as a substitute for car trips in the Lisbon metropolitan area and assessing its socio-environmental impacts using open data and open source tools.
-  A decision support tool that facilitates the design and development of a metropolitan cycling network was developed (_biclaR_). A scenario of intermodality introduced, and its socio-environmental impacts were assessed using the _HEAT for Cycling_ and the _HEAT as a Service_ tools. Additionally, the impacts of shifting car trips to PT were estimated and monetized.
-  The results indicate that 20% of the current trips can be made with the bicycle + PT combination. Shifting to cycling for the first-and-last mile can reduce annual CO~2~eq emissions from 6,000 tons/day, and the 10-year socio-environmental benefits account from €230 million. For the PT leg, the transfer from car results in the avoidance of at lest 8,500 tons of CO~2~eq emissions per year.
+  In metropolitan areas, car trips can be replaced by a combination of public transit and cycling for the first-and-last mile. This paper estimates the potential for cycling + public transit (PT) as a substitute for car trips in the Lisbon metropolitan area and assesses its socio-environmental impacts using open data and open source tools.
+  A decision support tool that facilitates the design and development of a metropolitan cycling network was developed (_biclaR_). A scenario of intermodality introduced, and its socio-environmental impacts were assessed using the _HEAT for Cycling_ and the _HEAT as a Service_ tools. The impacts of shifting car trips to PT were also estimated and monetized.
+  The results indicate that 20% of the current trips can be made with the bicycle + PT combination. Shifting to cycling for the first-and-last mile can reduce annual CO~2~eq emissions from 6,000 tons/day, and the 10-year socio-environmental benefits account from €230 million. For the PT leg, the transfer from car avoids of at least 8,500 tons of CO~2~eq emissions per year.
   The information on socio-economic benefits can support policymakers in prioritizing interventions to reduce the reliance on individual motorized transportation and effectively communicate their decisions.
 keywords: 
   - Active transport
@@ -35,17 +35,27 @@ keywords:
   - Open data and methods
 bibliography: bibliography.bib
 # Use csl when using default citation_package for Pandoc citeproc
-# csl: https://www.zotero.org/styles/springer-lecture-notes-in-computer-science
+csl: https://www.zotero.org/styles/springer-lecture-notes-in-computer-science
 # citations with arabic numbers is prefered when using natbib
 natbiboptions: numbers
 
 header-includes:
-  - \usepackage[hidelinks]{hyperref}
+  # - \usepackage[hidelinks]{hyperref} #this is to remove the annoying boxes. but how to make them blue?
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks = TRUE,  urlcolor = blue, linkcolor = blue, citecolor = blue}
+   #Colours links instead of ugly boxes
+  #Colour for external hyperlinks
+  #Colour of internal links
+  #Colour of citations
 
 output:
   rticles::lncs_article:
-    citation_package: default # or natbib
+    citation_package: default # or natbib DEFINE LATER
 # output: word_document
+
+urlcolor: blue
+linkcolor: blue
+
 ---
 
 ```{r setup, include=FALSE}
@@ -55,102 +65,85 @@ knitr::opts_chunk$set(echo = FALSE,
 
 # Introduction
 
-**full paper**: 4-6 pages in length (typically up to 3,000 words).
+<!-- **full paper**: 4-6 pages in length (typically up to 3,000 words). -->
 
-In metropolitan areas, car trips can be replaced by a combination of public transit (PT) and cycling for the first-and-last mile. This approach requires interventions and programs to make bicycling more appealing, and the resulting public investments can have significant social and environmental benefits. This paper focuses on estimating the potential for cycling + PT as a substitute for car trips in the Lisbon metropolitan area (LMA) and assessing its socio-environmental impacts using open data and open source tools.
+Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can significantly replace private car trips. This approach requires interventions and programs to make bicycling more appealing, and the resulting public investments can have significant social and environmental benefits. 
 
-According to the latest mobility survey conducted in 2018, the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle. Car modal share is 58.4%, while PT accounts for 15.5%.
-To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively), the Department of Transport introduced biclaR, a decision support tool that facilitates the design and development of a metropolitan cycling network. 
+According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle. Car modal share was 58.4%, while PT accounted for 15.5%. The number of intra-municipal trips - with origin and destination in the same municipality - amounts to 3.5 million trips, exceeding the number of inter-municipal trips (1.8 million trips) - involving travel between different municipalities. Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
 
-This research aims to present and discuss the methods used to estimate…
+<!-- Plot of  AML trips by mode and inter/intra %? -->
 
-Propensity to Cycle Tool
+To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced _biclaR_^[see [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/)], a decision support tool that facilitates the design and development of a metropolitan cycling network [@felix2023]. 
 
-adding up an intermodality scenario to estimate cycling potential to public transit interfaces, and thus to support planning and prioritize investments in the cycling network.
+<!-- Robin: include here a paragraph about pct, and how biclar adds up -->
+**(RL)** The methods of Propensity to Cycle Tool  
+adding up an intermodality scenario to estimate cycling potential to public transit interfaces.
 
+This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA. After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
 
 # Methods
 
-## Case Study
-
-As características das viagens do IMob, constituem o cenário base deste projeto. Este inquérito à mobilidade foi realizado em 2017. Apesar de ter sido realizado em período pré-pandemia, este conjunto de dados é a melhor e mais recente informação que temos em termos de mobilidade urbana nas áreas metropolitanas.
-
-Segundo o IMob (2017), das cerca de 5.3 milhões de viagens diárias na área metropolitana de Lisboa, apenas
-25 479 das viagens são realizadas em bicicleta (0,5%), enquanto 3.1 milhões são feitas em automóvel (58.4%),
-1.3 milhões a pé (23.9%), 825 mil em transportes públicos (15.5%) e 96 mil em outros modos (1.8%).
-
-O número de viagens intramunicipais - ou que são realizadas com origem e destino no mesmo município (3.5
-milhões viagens) - é superior ao número de viagens intermunicipais - com origem e destino em municípios
-diferentes (1.8 milhões viagens). O automóvel e os transportes públicos são os modos maioritariamente
-utilizados em viagens intermunicipais. O automóvel é o modo mais utilizado em qualquer tipologia de viagem.
-
-Este é o cenário base, ou de referência, utilizado apenas para comparação com os cenários seguintes - de onde advém o potencial ciclável.
-
 ## Modeling Origin-Destination trips
 
-imob data
+The mobility survey data [@IMOB] is the basis for this project and defines the baseline scenario. Despite being conducted in the pre-pandemic period (2017), this dataset represents the most comprehensive and up-to-date information on urban mobility in Portuguese metropolitan areas (Lisbon and Porto).
 
-Aplicou-se um método de desagregação das origens e destinos das viagens entre o centróide de uma freguesia para o centróide de outra freguesia, para que uma freguesia não esteja representada apenas por um único local de origem e destino das suas viagens (centróides).
+We used a method for disaggregating the origins and destinations of trips between the centroids of two districts (same as "parish") to ensure that a district is not solely characterized by a single point of origin and destination for its trips. Aggregating all trips into centroids renders the exercise less realistic, as it excludes a significant portion of short-distance trips, a prevalent characteristic of active mode travel [@Lovelace2022Jittering]. The OD Jittering method breaks down a single point (i.e., the centroid of an area) into multiple random points on the existing and neighboring road network, using OpenStreetMap as a reference. This method then distributes the volume of trips within the district among the randomly generated origin-destination pairs.
 
-Ao agregar as viagens todas em centróides, tornamos o exercício menos realista pois elimina um conjunto
-importante de viagens de curta distância, o que é uma característica de viagens em modos ativos [@ef1, @ref2]. Para tal, recorreu-se ao método OD Jittering, que utiliza uma desagregação de um único ponto (por exemplo o centróide de uma área) em vários pontos aleatórios da rede viária existente, com
-base no OpenStreetMap, e divide o volume de viagens dessa freguesia pelos pares origem-destino gerados
-aleatoriamente.
+Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we employed a maximum disaggregation level of 100 trips per O-D pair for this project. Figure \ref{fig:jitter} illustrates the contrast between trip representation through the traditional method, which connects a single desire line between each district, and the presentation achieved through the randomization and disaggregation of trips between districts, specifically for the Lisbon metropolitan area. 
 
-Para este projeto, utilizou-se um nível de desagregação máxima de 100 viagens por par O-D. Isto significa que, por exemplo, para um par O-D de 2.000 viagens entre duas freguesias ligadas entre os seus centróides, o método jittering dispersa aleatoriamente as 2.000 viagens em 20 pares de 100 viagens entre 20 origens e 20 destinos nas duas freguesias.
 
-A figura 3 ilustra a diferença entre a representação de viagens utilizando o método tradicional de ligação entre um único local entre cada freguesia, e a representação com a aleatorização e desagregação de viagens entre freguesias, para a área metropolitana de Lisboa.
-Figura 3 - Representação de pares OD na área metropolitana de Lisboa entre freguesias, sem jittering (à esquerda), e com jittering (à direita).
+```{r jitter, fig.align='center', fig.cap="Representation of OD pairs in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).", out.width="100%"}
 
-O resultado da utilização deste método, em vez do tradicional uso de centróides de grandes áreas, é que torna mais realistas a representação de viagens realizadas, não correspondendo, no entanto, aos pares O-D reais das viagens realizadas (por motivos de proteção de dados definidos pelo INE).
-Para uma melhor compreensão do método utilizado, consultar Jittering: A Computationally Efficient Method for
-Generating Realistic Route Networks from Origin-Destination Data (Lovelace, Félix, and Carlino 2022)
+# od_all = readRDS("paper/paperTRA/load/od_all.Rds")
+# od_jittered_filter = readRDS("paper/paperTRA/load/od_jittered_filter.Rds")
+# 
+# par(mfrow = c(1, 2))
+# plot(od_all$geometry, lwd = 0.1)
+# plot(od_jittered_filter$geometry, lwd = 0.1)
+
+knitr::include_graphics("img/jitter.png", error = FALSE)
+
+```
+
+Although this method provides a more realistic representation of the trips undertaken compared to the traditional approach, it does not fully align with the actual O-D pairs of trips, which remain unknown due to data privacy regulations.
 
 ## Modeling routes
 
-A identificação dos percursos entre as origens e destinos (para as linhas de desejo) são um aspeto fundamental da modelação da rede ciclável nesta metodologia, uma vez que o IMob não identifica os percursos realizados por cada viagem, sendo necessário estimá-los. A respetiva modelação depende do cenário escolhido e tem em conta toda a restante informação disponível (como os declives, ou localização de interfaces de transporte público), para além da informação viária base.
+The mobility survey collects the origin and destination of trips but does not include the respective routes. Modeling the realistic cycling + PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces. Other constraints regarding the behavior of potential cyclists determine the routing results. For example, such restrictions can favor low speed, low traffic streets, more direct routes, and less steep paths, among others, suitable for cycling.
 
-A partir das linhas de desejo do cenário base, traçam-se os percursos modelados para o modo ciclável com base na rede viária (equivalente à afetação das viagens à rede, 4.º e último passo do modelo clássico dos 4 passos em sistemas de transportes). A modelação dos percursos cicláveis depende das variáveis consideradas, assim como das restrições pré-definidas. Estas restrições podem privilegiar aspetos como velocidade e volumes baixos, rotas mais diretas, percursos menos declivosos, entre outros, adequados à utilização da bicicleta, sendo que o algoritmo segue uma avaliação que resulta da ponderação das variáveis consideradas. Mesmo o percurso menos declivoso, mas com maior volume de tráfego, poderá ser o indicado se a função assim o definir.
+<!-- When comparing ground-truth dataset from 67 count locations distributed throughout the city of Lisbon with differemt routing providers and options, @Lovelace2022exploring found that jittering and disaggregating OD data, combined with routing using low level of traffic stress (quieter) preferences resulted in the most accurate route networks. -->
 
-O algoritmo de escolha de percurso escolhido foi o do r5r que é um algoritmo que permite muita flexibilidade nas configurações de tipo de percursos estimados, nomeadamente por permitir estimar com probabilidade e incerteza os percursos que usam transportes públicos (considerando os seus horários). O r5r permite a identificação de percursos mais diretos ou mais seguros, recorrendo para isso ao nível de stress de tráfego (Level of Traffic Stress, ou LTS), que varia de 1 a 4, sendo o 1 mais tranquilo - correspondendo, por exemplo, a pistas cicláveis fora de estrada, e o 4 menos tranquilo - correspondendo, por exemplo, a percursos que partilham o tráfego motorizado.
-Os percursos foram estimados para o cenário base, para ambos os tipos de rede, direto e seguro, usando para isso o LTS 4 e LTS 3 respetivamente.
+The selected route choice algorithm was the [`r5r` R package](https://ipeagit.github.io/r5r/) [@r5r], which allows for great flexibility in configuring estimated route types, and which proven to provide most accurate route networks for the city of Lisbon [@Lovelace2022exploring].
+`r5r` can calculate multi-modal routes using PT combined with other modes. It enables the identification of the most direct or safest cycling routes, using the Level of Traffic Stress^[see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress)] (LTS) scale, ranging from 1 to 4, where 1 corresponds to the quietest (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g., routes shared with motorized traffic). The routes were estimated for the base scenario for both types of networks: *direct* and *safe*, using LTS 4 and LTS 3, respectively.
 
-O nível de tranquilidade^[see https://www.cyclestreets.net/help/journey/howitworks/#quietness] é outro indicador estimado pelo CycleStreets para cada troço, com base no número de vias, velocidade máxima permitida, arborização, hierarquia e tráfego (quando a informação correspondente existe nas etiquetas do OpenStreetMap). É apresentado numa escala de 0 a 100, em que o zero corresponde ao nível menos seguro para se circular de bicicleta, e o 100 ao nível mais seguro e tranquilo - normalmente correspondendo a troços que incluem já infraestrutura ciclável segregada do tráfego motorizado.
+<!-- The quietness level^[see https://www.cyclestreets.net/help/journey/howitworks/#quietness] was another indicator estimated by [CycleStreets](https://www.cyclestreets.org/) for each route section, based on road network variables xisting on OpenStreetMap labels, such as the number of lanes, maximum allowed speed, trees, or road hierarchy. Values vary on a scale of 0 to 100, where zero corresponds to the least safe level for cycling and 100 corresponds to the safest and quietest level, usually corresponding to sections that already include segregated cycling infrastructure away from motorized traffic.  I THINK THIS IS NOT RELEVANT FOR THIS SHORT PAPER, AS IT IS MOST USEFUL FOR VIZUALIZATION PURPOSES ON BICLAR TOOL-->
 
-Foi utilizado um modelo digital do terreno de 25m de resolução espacial e erro médio de altimetria vertical de 2.12m8 em Portugal, da Agência Espacial Europeia, na sua missão COPERNICUS, para incluir impedâncias 9 de declives no modelo.
-O modelo r5r utiliza a rede viária do OpenStreetMap (extraída a 22 de outubro 2022), e os dados de GTFS criados e validados para o efeito.
-Foi estimado o número de viagens em bicicleta potencial para as duas metas ENMAC (5% e 10%) a partir dos valores de viagens em bicicleta e em automóvel (como condutor e como passageiro) do cenário base de 2017.
+The `r5r` model used the OpenStreetMap road network and the GTFS metropolitan data agregated and validated. This information is crucial for an accurate PT trip and route estimation. A digital elevation model from the European Space Agency's COPERNICUS mission, with a 25m spatial resolution, was used to include street gradient information, as a weight in cycling routing. 
+The cycling potential trips for the two ENMAC targets (4% and 10%) was estimated from the values for cycling and car trips (both as a driver and as a passenger) from the 2017 base scenario.
 
-Os percursos ou rotas foram depois sobrepostos e agregados por segmentos, juntando a informação de várias rotas que se sobrepõem em certos segmentos (overline). Por exemplo, foram somados os volumes de viagens em bicicleta estimados e a transferência do automóvel, e foi feita a média da velocidade automóvel e do nível de tranquilidade, ponderadas pela distância dos segmentos.
-
+The routes were then overlaid and aggregated by segments, using [`stplanr overline()` R function](https://docs.ropensci.org/stplanr/reference/overline.html).
+<!-- For example, the estimated volumes of bicycle trips and car transfers were aggregated, and the average car speed and quietness level, weighted by the distance of the segments, were calculated. -->
 
 ## Modeling intermodality
 
-The intermodality scenario considers trips that can combine PT and cycling for the first-and-last legs. Conservatively, we considered the sum of first-and-last legs up to 5 km. Furthermore, we restricted PT use to unimodal trips without transfers (although they can be included in future modeling). [@bib2, @felix2023]
+The intermodality scenario considers trips combining PT and cycling for the first and last legs. In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km or up to 25 minutes on bike. Furthermore, we have imposed restrictions on PT usage to include only trips with no PT transfers, and up to 2 hours (120 min). Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}). 
 
-Finally, we only included PT modes that can practically accommodate bicycles, such as trains, ferries, trams, and intermunicipal bus lines with bike racks (\ \ref{fig:map1}).
-
-Foram recolhidos os dados de transportes públicos da AML, em formato GTFS, tendo sido necessário o trabalho de limpeza, união, e validação prévio. Esta informação é indispensável para saber que terminais de transporte público (TP) se ligam a que origens ou destinos, e em que horários, para não se considerar de forma generalista que uma interface se liga a todo o sistema e que pode servir todas as viagens (origens e destinos), o que não seria realista.
-
-```{r map1, out.width="60%", fig.cap="Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area"}
-knitr::include_graphics("img/map1.png")
+```{r map1, out.width="60%", fig.cap="Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area", fig.align='center'}
+knitr::include_graphics("img/map1.png", error = FALSE)
 ```
 
-To obtain reliable results, we used the OpenStreetMap road network and GTFS data. The r5r R package estimated the trip duration and distance for both the original modes and the bicycle + PT combination, while the od jittering R package estimated the OD locations based on a centroid-based OD matrix.
+Figure \ref{fig:map2} illustrates the resulting bicycle routes to access the main PT interfaces in the LMA.
 
-Para a modelação dos percursos definiu-se como janela temporal viagens até 120 minutos (2h). Para além disso considerou-se como duração máxima 25 minutos em bicicleta.
-
-Map result (\ \ref{fig:map2}).
-
-```{r map2, out.width="80%", fig.cap="Bike routes with highest potential to serve as first and last mile when replacing cycling and PT from car trips (screenshot of the interactive online tool)."}
-knitr::include_graphics("img/map2.png")
+```{r map2, out.width="80%", fig.cap="Bike routes with highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool).", fig.align='center'}
+knitr::include_graphics("img/map2.png", error = FALSE)
 ```
 
-## Assessing socio-environmental benefits
+## Assessing socio-environmental benefits - CONTINUE FROM HERE
 
-Socio-environmental impacts were assessed using the HEAT for Cycling and the HEAT as a Service^[see https://github.com/HEAT-WHO/HEAT_heatr_api] tools, from the WHO. Additionally, we estimate the impacts of shifting car trips to PT for the second leg of the journey with EMEP/EEA’s COPERT methodology and monetize them with the EU Guide to cost-benefit analysis.
+Socio-environmental impacts were estimated for a short term time horizon (i.e., one year) and the long term (i.e., ten years).
+using the HEAT for Cycling and the HEAT as a Service^[see https://github.com/HEAT-WHO/HEAT_heatr_api] tools, from the WHO. 
 
-Como referido na introdução, a ferramenta biclaR pretende estimar os impactes sociais e ambientais associados ao potencial ciclável dos vários cenários analisados. O horizonte temporal considerado para esta análise foi o curto prazo (i.e., 1 ano) e o longo prazo (i.e., 10 anos). Os impactes foram avaliados para cada cenário e para diferentes escalas territoriais:
+ Os impactes foram avaliados para cada cenário e para diferentes escalas territoriais:
 
 * Desagregado à escala municipal para cada segmento de rede:
   + Ambientais (emissões de CO~2~eq evitadas);
@@ -161,6 +154,8 @@ Como referido na introdução, a ferramenta biclaR pretende estimar os impactes 
   + Ambientais (emissões de CO~2~eq, CO, PM10, NOx, e VOC11, evitadas por substituição dos modos motorizados, considerando as emissões geradas na transferência para transportes públicos).
 
 Para todos os cenários, recorreu-se à ferramenta HEAT for cycling, da Organização Mundial de Saúde, para estimativa dos impactes sociais e ambientais da transferência de viagens em automóvel para viagens em bicicleta, nas componentes de: a) Social - Saúde, Atividade Física, Exposição a poluição atmosférica, Exposição ao risco de sinistralidade rodoviária; b) Ambiental - Emissão de gases CO~2~eq.
+
+Additionally, we estimate the impacts of shifting car trips to PT for the second leg of the journey with EMEP/EEA’s COPERT methodology and monetize them with the EU Guide to cost-benefit analysis.
 
 A estimativa dos impactes ambientais resulta em toneladas de CO~2~eq, e a estimativa dos impactes sociais resulta em mortalidade prematura evitada. Ambas as unidades são por fim monetizadas em €, segundo os valores da literatura utilizada em estudos semelhantes.
 Para além dos impactes sociais e ambientais resultantes da transferência do automóvel para a bicicleta (na primeira e na última parte da viagem, de e para a interface de TP), estimou-se também o impacte ambiental adicional, resultante da transferência do automóvel para os vários transportes públicos (na segunda etapa da viagem, entre as interfaces).
@@ -212,11 +207,11 @@ A valorização monetária das emissões (em toneladas) é apresentada na tabela
 <!-- 10%	intermodal até 5km	direto	1 001 761	4 547	97 218	15 414	574 200 -->
 
 ```{r summary1, out.width="100%", fig.cap="Summary of the cycling potencial of intermodality scenario."}
-knitr::include_graphics("img/table1.png")
+knitr::include_graphics("img/table1.png", error = FALSE)
 ```
 
 ```{r summary2, out.width="100%", fig.cap="Potencial de transferência estimado para cada modo de transporte público, bem como as estimativas de consumo de CO~2~eq evitado anualmente por transferência do automóvel."}
-knitr::include_graphics("img/table2.png")
+knitr::include_graphics("img/table2.png", error = FALSE)
 ```
 
 <!-- Tipo de Percurso	Meta ENMAC	Total	Barco	Comboio	Autocarro	Metro superfície	CO~2~eq	CO	PM10	NOx	VOC	Valorização monetária (€) -->
@@ -241,4 +236,4 @@ Please place your acknowledgments at the end of the paper, preceded by an unnumb
 Thomas Götshi - HAAS.
 
 
-# References (test) {.unnumbered}
+# References {.unnumbered}
