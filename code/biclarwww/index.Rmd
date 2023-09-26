@@ -449,6 +449,20 @@ DT::datatable(municipios_taburl,
 
 <!-- ------------------------------------------------------------------------ -->
 
+## Videos
+
+Vídeos auxiliares sobre a metodologia adotada no biclaR, e sobre como se usa esta ferramenta. 
+
+### Parte I: Metodologia
+
+<div align="center"><iframe width="1000" height="563" src="https://www.youtube.com/embed/SsvoYPZwrFs" title="YouTube video player" frameborder="0" data-external="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
+### Parte II: Como usar o biclaR?
+
+(*comming soon!*)
+
+<!-- ------------------------------------------------------------------------ -->
+
 ## FAQ
 
 Perguntas e respostas simplificadas.  
