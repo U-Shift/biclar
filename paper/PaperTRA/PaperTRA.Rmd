@@ -79,14 +79,14 @@ Cars and public transport are the most used modes for intercity trips, with cars
 
 To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced *biclaR*[^1], a decision support tool that facilitates the design and development of a metropolitan cycling network [@felix2023].
 
-[^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/)
+[^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/).
 
 *biclaR* builds on the Propensity to Cycle Tool[^2] (PCT), a web application and research project funded by the UK's Department for Transport in 2015 which launched nationally in 2017 as part of the government's Cycling and Walking Investment Strategy.
 The PCT initially used only origin-destination data for commuting trips as the basis of estimates of cycling potential at zone, route and route network levels [@lovelace2017].
 The PCT has been extended to include cycling potential for travel to school in England [@goodman2019] and other trip types in other countries.[^3]
 However, to the best of our knowledge, this is the first time that the method has been integrated with public transport data using multi-modal routing to estimate the potential and benefits of multi-stage cycling and PT trips.
 
-[^2]: See [pct.bike](https://www.pct.bike/)
+[^2]: See [pct.bike](https://www.pct.bike/).
 
 [^3]:  See [npt.scot](https://www.npt.scot) and [cruse.bike](https://cruse.bike) for examples of the PCT in Scotland and Ireland that include estimates of cycling for other purposes.
 
@@ -137,7 +137,7 @@ The selected route choice algorithm was the [`r5r` R package](https://ipeagit.gi
 It enables the identification of the most direct or safest cycling routes, using the Level of Traffic Stress[^4] (LTS) scale, ranging from 1 to 4, where 1 corresponds to the quietest (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g., routes shared with motorized traffic).
 The routes were estimated for the base scenario for both types of networks: *direct* and *safe*, using LTS 4 and LTS 3, respectively.
 
-[^4]: see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress)
+[^4]: see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress).
 
 <!-- The quietness level^[see https://www.cyclestreets.net/help/journey/howitworks/#quietness] was another indicator estimated by [CycleStreets](https://www.cyclestreets.org/) for each route section, based on road network variables xisting on OpenStreetMap labels, such as the number of lanes, maximum allowed speed, trees, or road hierarchy. Values vary on a scale of 0 to 100, where zero corresponds to the least safe level for cycling and 100 corresponds to the safest and quietest level, usually corresponding to sections that already include segregated cycling infrastructure away from motorized traffic.  I THINK THIS IS NOT RELEVANT FOR THIS SHORT PAPER, AS IT IS MOST USEFUL FOR VIZUALIZATION PURPOSES ON BICLAR TOOL-->
 
@@ -166,47 +166,40 @@ Figure \ref{fig:map2} illustrates the resulting bicycle routes to access the mai
 knitr::include_graphics("img/map2.png", error = FALSE)
 ```
 
-## Assessing socio-environmental benefits - CONTINUE FROM HERE
+## Assessing socio-environmental benefits
 
-Socio-environmental impacts were estimated for a short term time horizon (i.e., one year) and the long term (i.e., ten years).
-using the HEAT for Cycling and the HEAT as a Service[^5] tools, from the WHO.
+<!-- The impacts were assessed for the total metro area. -->
 
-[^5]: see https://github.com/HEAT-WHO/HEAT_heatr_api
+For the cycling legs of the journey (first and last legs), socio-environmental impacts were estimated, using the HEAT for Cycling tool v5.0 [@HEAT] and the [`HEATaaS` R package](https://github.com/HEAT-WHO/HEAT_heatr_api)[^5] from the World Health Organization.
+The HEAT tool provided estimates on the shifting from car to cycling for a short term time horizon (i.e., one year) and the long term (i.e., ten years).
+We considered two dimensions: *social* — including the physical activity of cyclists, air pollution exposure, and road casualties; *environmental* — including CO~2~eq emissions and other pollutants. 
 
-Os impactes foram avaliados para cada cenário e para diferentes escalas territoriais:
+[^5]: `HEATaaS` is under development. For more information contact [heatwalkingcycling.org](https://heatwalkingcycling.org).
 
--   Desagregado à escala municipal para cada segmento de rede:
-    -   Ambientais (emissões de CO~2~eq evitadas);
-    -   Balanço monetarizado dos impactes socioeconómicos totais (considerando o balanço dos impactes ambientais e sociais);
--   Agregado à escala metropolitana:
-    -   Ambientais (emissões de CO~2~eq evitadas);
-    -   Balanço monetarizado dos impactes socioeconómicos totais (considerando o balanço dos impactes ambientais e sociais);
-    -   Ambientais (emissões de CO~2~eq, CO, PM10, NOx, e VOC11, evitadas por substituição dos modos motorizados, considerando as emissões geradas na transferência para transportes públicos).
+<!-- For the full paper, consider refer the input HEAT values (tabela 6) -->
+<!-- Explain why the use of the HaaS tool instead of the website (3 scenarios, 18 municipalities, 2 routing profiles) -->
+<!-- Also consider put the FE formula and emmission factor values - see report -->
 
-Para todos os cenários, recorreu-se à ferramenta HEAT for cycling, da Organização Mundial de Saúde, para estimativa dos impactes sociais e ambientais da transferência de viagens em automóvel para viagens em bicicleta, nas componentes de: a) Social - Saúde, Atividade Física, Exposição a poluição atmosférica, Exposição ao risco de sinistralidade rodoviária; b) Ambiental - Emissão de gases CO~2~eq.
+For the second leg of the journey, we estimate the additional environmental impacts of shifting car trips to PT (between the PT interfaces).
 
-Additionally, we estimate the impacts of shifting car trips to PT for the second leg of the journey with EMEP/EEA's COPERT methodology and monetize them with the EU Guide to cost-benefit analysis.
+To estimate the car emissions, we used the EMEP/EEA's COPERT software v5 methods and reference values [@COPERT] for a Tier 3 detail level. 
+We used a family-size vehicle, EURO standard, and gasoline or diesel fuel.
+All trips were considered to be made under urban conditions and at an average speed of 15 km/h during rush hour periods.
+Since the average distance traveled per trip influences the overconsumption and emissions from cold-start engine operation, we estimated energy and emission factors for different ranges of trips at 500-meter intervals.
+In addition, we assumed an occupancy rate of 1.61 passengers *per* car [@IMOB].
 
-A estimativa dos impactes ambientais resulta em toneladas de CO~2~eq, e a estimativa dos impactes sociais resulta em mortalidade prematura evitada.
-Ambas as unidades são por fim monetizadas em €, segundo os valores da literatura utilizada em estudos semelhantes.
-Para além dos impactes sociais e ambientais resultantes da transferência do automóvel para a bicicleta (na primeira e na última parte da viagem, de e para a interface de TP), estimou-se também o impacte ambiental adicional, resultante da transferência do automóvel para os vários transportes públicos (na segunda etapa da viagem, entre as interfaces).
-Como tal, foi necessário caracterizar o universo dos modos motorizados a serem considerados para os cálculos dos respetivos fatores de emissões de gases poluentes e atmosféricos.
+Regarding the PT, we considered the emission factor values reported in the environmental and sustainability reports of the PT operators in the LMA [@Carris2019s; @Metro2019s; @CP2019s; @Transtejo2014].
 
-Os fatores de consumo e de emissão dos automóveis e transportes públicos deve ser tido em conta relativamente ao número de passageiros transportados (por passageiro.km) e não ao veículo (que seria veículo.km).
-No caso do automóvel, para contabilizar a emissão de gases evitados pela transferência de viagens em automóvel para os transportes públicos, teve-se em conta o valor de referência de 1.61 passageiros/automóvel reportados pelo Inquérito à Mobilidade (INE 2017).
+Emissions were estimated for the following atmospheric pollutants: CO~2~eq, CO, PM10, NOx, and VOC.
+In particular, for the urban train and tram -- with 100% electric traction -- only CO~2~eq emissions were considered (resulting from the production of electricity, considering a "well-to-tank" approach), since the other pollutants are not emitted locally.
 
-As emissões evitadas por cada viagem em transportes públicos que substitui o automóvel correspondem às emissões equivalentes de um automóvel com características correspondentes à média da frota em circulação em Lisboa, para 2 tipos de combustível: gasolina e gasóleo.
-Utilizou-se a metodologia e valores de referência do software COPERT (Ntziachristos and Samaras 2020), v5.0, da Agência Europeia do Ambiente, para um nível de detalhe 3 (Tier 3) na estimativa de consumo de emissões para o automóvel, nestes dois tipos de combustível.
-Optou-se por usar um veículo de dimensão familiar, norma EURO, e tipo de combustível gasolina ou diesel.
-Considerou-se que as viagens foram todas realizadas em condições urbanas (com as respetivas implicações no regime médio de condução) e a uma velocidade média de 15km/h, nos períodos de hora de ponta.
-Uma vez que a distância média percorrida por viagem influencia o nível de sobreconsumo e emissões decorrentes da operação do motor a frio -- ou seja, distâncias maiores diluem a importância deste sobreconsumo face ao fator de consumo com o motor a operar a quente, foram estimados os consumos para diferentes gamas de viagem, em intervalos de 500 metros.
-As emissões são estimadas para os seguintes poluentes atmosféricos: CO (monóxido de carbono), NO X (Óxidos de Azoto), COV (Compostos Orgânicos Voláteis), PM (material particulado).
-Também é estimada as emissões dos principais gases com efeito de estufa: CO2 (dióxido de carbono); CH4 (metano) e N2O (Óxido nitroso), assim como o CO~2~eq equivalente.
+The conversion of avoided emissions into avoided welfare loss and respective monetary valuation was based on the EU Guide to Cost-benefit Analysis [@EuropeanCommission2014] and the best up-to-date reference values for the various gases [@EuropeanCommission2014; @bickel2006; @UNITE].
+The social impacts are in avoided premature mortality. This result is finally monetized using the *Statistical Value of Life* for Portugal [@ANSR2021].
+We updated all the monetary reference values of the literature based on the annual inflation rate in Portugal for 2022[^6], and our 10-years estimations assumed a with a discount rate of 5% and inflation of 3%. 
 
-Relativamente aos transportes públicos, recorreu-se aos fatores de emissão reportados nos relatórios de sustentabilidade dos respetivos operadores (Carris 2020; Metropolitano de Lisboa 2020; CP 2020, Grupo Transtejo 2014).
+[^6]: See [Statistics Portugal tool for inflation rate estimates between years](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ipc).
 
-a conversão das emissões evitadas em perda de bem-estar evitado, através da respetiva valorização monetária.
-a partir dos valores de referência para os vários gases contabilizados, atualizados para 2022 15, com base nas fontes: Bickel et al. (2006), Nash and others (2003), Sartori et al. (2014).
+<!-- For the environmental impacts, using conversion values by the ton, suggested by Bickel et al. (2006), Nash et al. (2003), Sartori et al. (2014) : 8.44 €/ton for CO, 2,867.85 €/ton for NOX, 340,969.27 €/ton for PM10, 7,169.62 €/ton for VOC and 35.85 €/ton for CO2eq. -->
 
 # Results and Discussion
 
@@ -219,9 +212,6 @@ Estes resultados sugerem que o potencial de transferência de viagens em automó
 Para este cenário foram estimados os impactes ambientais de transferência do automóvel para os transportes públicos, para além dos impactes ambientais e sociais da transferência para a bicicleta
 
 Foram então calculadas as emissões dos poluentes para cada viagem substituída, tendo em conta o modo de transporte, distâncias e velocidade.
-A tabela 11 apresenta a estimativa anual de gases emitidos e evitados por transferência do automóvel para os outros modos de transporte público, como exemplo para o cenário com a meta de 4%, usando a rede ciclável "direta".
-
-\[Tabela 11\]
 
 Para esse cenário com essas características, é estimada uma poupança de 8 702 toneladas de CO~2~eq por via da transferência de viagens motorizadas com combustíveis fósseis e eletricidade, numa perspetiva de ciclo de vida da produção de eletricidade.
 

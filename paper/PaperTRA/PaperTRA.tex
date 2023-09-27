@@ -137,12 +137,12 @@ To achieve the cycling targets set by the Portuguese national cycling
 strategy for 2025 and 2030 (4\% and 10\%, respectively) {[}2{]}, the
 Lisbon's Metropolitan Department of Transport introduced
 \emph{biclaR}\footnote{See
-  \href{https://biclar.tmlmobilidade.pt/}{biclar.tmlmobilidade.pt}}, a
+  \href{https://biclar.tmlmobilidade.pt/}{biclar.tmlmobilidade.pt}.}, a
 decision support tool that facilitates the design and development of a
 metropolitan cycling network {[}3{]}.
 
 \emph{biclaR} builds on the Propensity to Cycle Tool\footnote{See
-  \href{https://www.pct.bike/}{pct.bike}} (PCT), a web application and
+  \href{https://www.pct.bike/}{pct.bike}.} (PCT), a web application and
 research project funded by the UK's Department for Transport in 2015
 which launched nationally in 2017 as part of the government's Cycling
 and Walking Investment Strategy. The PCT initially used only
@@ -231,7 +231,7 @@ Lisbon {[}8{]}. \texttt{r5r} can calculate multi-modal routes using PT
 combined with other modes. It enables the identification of the most
 direct or safest cycling routes, using the Level of Traffic
 Stress\footnote{see
-  \href{https://docs.conveyal.com/learn-more/traffic-stress}{docs.conveyal.com/learn-more/traffic-stress}}
+  \href{https://docs.conveyal.com/learn-more/traffic-stress}{docs.conveyal.com/learn-more/traffic-stress}.}
 (LTS) scale, ranging from 1 to 4, where 1 corresponds to the quietest
 (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g.,
 routes shared with motorized traffic). The routes were estimated for the
@@ -286,114 +286,62 @@ the main PT interfaces in the LMA.
 \caption{Bike routes with highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool).}\label{fig:map2}
 \end{figure}
 
-\hypertarget{assessing-socio-environmental-benefits---continue-from-here}{%
-\subsection{Assessing socio-environmental benefits - CONTINUE FROM
-HERE}\label{assessing-socio-environmental-benefits---continue-from-here}}
+\hypertarget{assessing-socio-environmental-benefits}{%
+\subsection{Assessing socio-environmental
+benefits}\label{assessing-socio-environmental-benefits}}
 
-Socio-environmental impacts were estimated for a short term time horizon
-(i.e., one year) and the long term (i.e., ten years). using the HEAT for
-Cycling and the HEAT as a Service\footnote{see
-  \url{https://github.com/HEAT-WHO/HEAT_heatr_api}} tools, from the WHO.
+For the cycling legs of the journey (first and last legs),
+socio-environmental impacts were estimated, using the HEAT for Cycling
+tool v5.0 {[}9{]} and the
+\href{https://github.com/HEAT-WHO/HEAT_heatr_api}{\texttt{HEATaaS} R
+package}\footnote{\texttt{HEATaaS} is under development. For more
+  information contact
+  \href{https://heatwalkingcycling.org}{heatwalkingcycling.org}.} from
+the World Health Organization. The HEAT tool provided estimates on the
+shifting from car to cycling for a short term time horizon (i.e., one
+year) and the long term (i.e., ten years). We considered two dimensions:
+\emph{social} --- including the physical activity of cyclists, air
+pollution exposure, and road casualties; \emph{environmental} ---
+including CO\textsubscript{2}eq emissions and other pollutants.
 
-Os impactes foram avaliados para cada cenário e para diferentes escalas
-territoriais:
+For the second leg of the journey, we estimate the additional
+environmental impacts of shifting car trips to PT (between the PT
+interfaces).
 
-\begin{itemize}
-\tightlist
-\item
-  Desagregado à escala municipal para cada segmento de rede:
+To estimate the car emissions, we used the EMEP/EEA's COPERT software v5
+methods and reference values {[}10{]} for a Tier 3 detail level. We used
+a family-size vehicle, EURO standard, and gasoline or diesel fuel. All
+trips were considered to be made under urban conditions and at an
+average speed of 15 km/h during rush hour periods. Since the average
+distance traveled per trip influences the overconsumption and emissions
+from cold-start engine operation, we estimated energy and emission
+factors for different ranges of trips at 500-meter intervals. In
+addition, we assumed an occupancy rate of 1.61 passengers \emph{per} car
+{[}1{]}.
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Ambientais (emissões de CO\textsubscript{2}eq evitadas);
-  \item
-    Balanço monetarizado dos impactes socioeconómicos totais
-    (considerando o balanço dos impactes ambientais e sociais);
-  \end{itemize}
-\item
-  Agregado à escala metropolitana:
+Regarding the PT, we considered the emission factor values reported in
+the environmental and sustainability reports of the PT operators in the
+LMA {[}11--14{]}.
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Ambientais (emissões de CO\textsubscript{2}eq evitadas);
-  \item
-    Balanço monetarizado dos impactes socioeconómicos totais
-    (considerando o balanço dos impactes ambientais e sociais);
-  \item
-    Ambientais (emissões de CO\textsubscript{2}eq, CO, PM10, NOx, e
-    VOC11, evitadas por substituição dos modos motorizados, considerando
-    as emissões geradas na transferência para transportes públicos).
-  \end{itemize}
-\end{itemize}
+Emissions were estimated for the following atmospheric pollutants:
+CO\textsubscript{2}eq, CO, PM10, NOx, and VOC. In particular, for the
+urban train and tram -- with 100\% electric traction -- only
+CO\textsubscript{2}eq emissions were considered (resulting from the
+production of electricity, considering a ``well-to-tank'' approach),
+since the other pollutants are not emitted locally.
 
-Para todos os cenários, recorreu-se à ferramenta HEAT for cycling, da
-Organização Mundial de Saúde, para estimativa dos impactes sociais e
-ambientais da transferência de viagens em automóvel para viagens em
-bicicleta, nas componentes de: a) Social - Saúde, Atividade Física,
-Exposição a poluição atmosférica, Exposição ao risco de sinistralidade
-rodoviária; b) Ambiental - Emissão de gases CO\textsubscript{2}eq.
-
-Additionally, we estimate the impacts of shifting car trips to PT for
-the second leg of the journey with EMEP/EEA's COPERT methodology and
-monetize them with the EU Guide to cost-benefit analysis.
-
-A estimativa dos impactes ambientais resulta em toneladas de
-CO\textsubscript{2}eq, e a estimativa dos impactes sociais resulta em
-mortalidade prematura evitada. Ambas as unidades são por fim monetizadas
-em €, segundo os valores da literatura utilizada em estudos semelhantes.
-Para além dos impactes sociais e ambientais resultantes da transferência
-do automóvel para a bicicleta (na primeira e na última parte da viagem,
-de e para a interface de TP), estimou-se também o impacte ambiental
-adicional, resultante da transferência do automóvel para os vários
-transportes públicos (na segunda etapa da viagem, entre as interfaces).
-Como tal, foi necessário caracterizar o universo dos modos motorizados a
-serem considerados para os cálculos dos respetivos fatores de emissões
-de gases poluentes e atmosféricos.
-
-Os fatores de consumo e de emissão dos automóveis e transportes públicos
-deve ser tido em conta relativamente ao número de passageiros
-transportados (por passageiro.km) e não ao veículo (que seria
-veículo.km). No caso do automóvel, para contabilizar a emissão de gases
-evitados pela transferência de viagens em automóvel para os transportes
-públicos, teve-se em conta o valor de referência de 1.61
-passageiros/automóvel reportados pelo Inquérito à Mobilidade (INE 2017).
-
-As emissões evitadas por cada viagem em transportes públicos que
-substitui o automóvel correspondem às emissões equivalentes de um
-automóvel com características correspondentes à média da frota em
-circulação em Lisboa, para 2 tipos de combustível: gasolina e gasóleo.
-Utilizou-se a metodologia e valores de referência do software COPERT
-(Ntziachristos and Samaras 2020), v5.0, da Agência Europeia do Ambiente,
-para um nível de detalhe 3 (Tier 3) na estimativa de consumo de emissões
-para o automóvel, nestes dois tipos de combustível. Optou-se por usar um
-veículo de dimensão familiar, norma EURO, e tipo de combustível gasolina
-ou diesel. Considerou-se que as viagens foram todas realizadas em
-condições urbanas (com as respetivas implicações no regime médio de
-condução) e a uma velocidade média de 15km/h, nos períodos de hora de
-ponta. Uma vez que a distância média percorrida por viagem influencia o
-nível de sobreconsumo e emissões decorrentes da operação do motor a frio
--- ou seja, distâncias maiores diluem a importância deste sobreconsumo
-face ao fator de consumo com o motor a operar a quente, foram estimados
-os consumos para diferentes gamas de viagem, em intervalos de 500
-metros. As emissões são estimadas para os seguintes poluentes
-atmosféricos: CO (monóxido de carbono), NO X (Óxidos de Azoto), COV
-(Compostos Orgânicos Voláteis), PM (material particulado). Também é
-estimada as emissões dos principais gases com efeito de estufa: CO2
-(dióxido de carbono); CH4 (metano) e N2O (Óxido nitroso), assim como o
-CO\textsubscript{2}eq equivalente.
-
-Relativamente aos transportes públicos, recorreu-se aos fatores de
-emissão reportados nos relatórios de sustentabilidade dos respetivos
-operadores (Carris 2020; Metropolitano de Lisboa 2020; CP 2020, Grupo
-Transtejo 2014).
-
-a conversão das emissões evitadas em perda de bem-estar evitado, através
-da respetiva valorização monetária. a partir dos valores de referência
-para os vários gases contabilizados, atualizados para 2022 15, com base
-nas fontes: Bickel et al.~(2006), Nash and others (2003), Sartori et
-al.~(2014).
+The conversion of avoided emissions into avoided welfare loss and
+respective monetary valuation was based on the EU Guide to Cost-benefit
+Analysis {[}15{]} and the best up-to-date reference values for the
+various gases {[}15--17{]}. The social impacts are in avoided premature
+mortality. This result is finally monetized using the \emph{Statistical
+Value of Life} for Portugal {[}18{]}. We updated all the monetary
+reference values of the literature based on the annual inflation rate in
+Portugal for 2022\footnote{See
+  \href{https://www.ine.pt/xportal/xmain?xpid=INE\&xpgid=ipc}{Statistics
+  Portugal tool for inflation rate estimates between years}.}, and our
+10-years estimations assumed a with a discount rate of 5\% and inflation
+of 3\%.
 
 \hypertarget{results-and-discussion}{%
 \section{Results and Discussion}\label{results-and-discussion}}
@@ -418,12 +366,7 @@ impactes ambientais e sociais da transferência para a bicicleta
 
 Foram então calculadas as emissões dos poluentes para cada viagem
 substituída, tendo em conta o modo de transporte, distâncias e
-velocidade. A tabela 11 apresenta a estimativa anual de gases emitidos e
-evitados por transferência do automóvel para os outros modos de
-transporte público, como exemplo para o cenário com a meta de 4\%,
-usando a rede ciclável ``direta''.
-
-\[Tabela 11\]
+velocidade.
 
 Para esse cenário com essas características, é estimada uma poupança de
 8 702 toneladas de CO\textsubscript{2}eq por via da transferência de
@@ -495,10 +438,10 @@ Thomas Götshi - HAAS.
 \begin{CSLReferences}{0}{0}
 \leavevmode\vadjust pre{\hypertarget{ref-IMOB}{}}%
 \CSLLeftMargin{1. }%
-\CSLRightInline{INE: Mobilidade e funcionalidade do território nas
-{Áreas Metropolitanas do Porto e de Lisboa}: 2017,
-\url{https://www.ine.pt/xportal/xmain?xpid=INE\&xpgid=ine_publicacoes\&PUBLICACOESpub_boui=349495406\&PUBLICACOESmodo=2\&xlang=pt},
-(2018).}
+\CSLRightInline{INE:
+\href{https://www.ine.pt/xportal/xmain?xpid=INE\&xpgid=ine_publicacoes\&PUBLICACOESpub_boui=349495406\&PUBLICACOESmodo=2\&xlang=pt}{Mobilidade
+e funcionalidade do território nas {Áreas Metropolitanas do Porto e de
+Lisboa}: 2017}. {Instituto National de Estatística}, Lisboa (2018).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ENMAC}{}}%
 \CSLLeftMargin{2. }%
@@ -552,6 +495,80 @@ street level. The International Archives of the Photogrammetry, Remote
 Sensing and Spatial Information Sciences. XLVIII-4/W1-2022, 279--286
 (2022).
 https://doi.org/\href{https://doi.org/10.5194/isprs-archives-XLVIII-4-W1-2022-279-2022}{10.5194/isprs-archives-XLVIII-4-W1-2022-279-2022}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-HEAT}{}}%
+\CSLLeftMargin{9. }%
+\CSLRightInline{Kahlmeier, S., Götschi, T., Cavill, N., Castro
+Fernandez, A., Brand, C., Rojas Rueda, D., Woodcock, J., Kelly, P.,
+Lieb, C., Oja, P., others:
+\href{https://www.euro.who.int/__data/assets/pdf_file/0010/352963/Heat.pdf}{Health
+economic assessment tool ({HEAT}) for walking and for cycling: Methods
+and user guide on physical activity, air pollution, injuries and carbon
+impact assessments}. (2017).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-COPERT}{}}%
+\CSLLeftMargin{10. }%
+\CSLRightInline{Ntziachristos, L., Samaras, Z.: {EMEP/EEA} air pollutant
+emission inventory guidebook 2019,
+\url{https://www.emisia.com/utilities/copert/documentation/}, (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Carris2019s}{}}%
+\CSLLeftMargin{11. }%
+\CSLRightInline{Carris:
+\href{https://www.carris.pt/media/dkdp2wbg/dnf_carris2019_rv5.pdf}{Relatório
+de sustentabilidade 2019 - demostração não financeira}. {Carris -
+Companhia Carris de Ferro de Lisboa, E.M., S.A.} (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Metro2019s}{}}%
+\CSLLeftMargin{12. }%
+\CSLRightInline{Metropolitano de Lisboa:
+\href{https://www.metrolisboa.pt/wp-content/uploads/2021/01/relatorio_integrado_2019.pdf}{Relatório
+integrado 2019}. {Metropolitano de Lisboa, E.P.E.} (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-CP2019s}{}}%
+\CSLLeftMargin{13. }%
+\CSLRightInline{CP:
+\href{https://www.cp.pt/StaticFiles/Institucional/2_gestao_sustentavel/1_RelatoriosSustentabilidade/relatorio-de-sustentabilidade-2019.pdf}{Relatório
+de sustentabilidade 2019}. {CP - Comboios de Portugal, E.P.E.} (2020).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Transtejo2014}{}}%
+\CSLLeftMargin{14. }%
+\CSLRightInline{Transtejo:
+\href{https://ttsl.pt/wp-content/uploads/2018/01/rs_2014_min.pdf}{Relatório
+de sustentabilidade 2014}. {Grupo Transtejo, S.A.} (2014).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-EuropeanCommission2014}{}}%
+\CSLLeftMargin{15. }%
+\CSLRightInline{Sartori, D., Catalano, G., Genco, M., Pancotti, C.,
+Sirtori, E., Vignetti, S., Del Bo, C.:
+\href{https://ec.europa.eu/regional_policy/sources/docgener/studies/pdf/cba_guide.pdf}{Guide
+to cost-benefit analysis of investment projects. Economic apraisal tool
+for cohesion policy 2014-2020}. {European Commission - Directorate
+General for Regional and Urban Policy} (2014).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-bickel2006}{}}%
+\CSLLeftMargin{16. }%
+\CSLRightInline{Bickel, P., Friedrich, R., Burgess, A., Fagiani, P.,
+Hunt, A., Jong, G.D., Laird, J.:
+\href{https://trimis.ec.europa.eu/sites/default/files/project/documents/20130122_113653_88902_HEATCO_D5_summary.pdf}{{HEATCO
+- Developing Harmonised European Approaches for Transport Costing and
+Project Assessment. Deliverable 5, Proposal for Harmonised Guidelines.}}
+(2006).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-UNITE}{}}%
+\CSLLeftMargin{17. }%
+\CSLRightInline{Nash, C., others:
+\href{https://www.its.leeds.ac.uk/projects/unite/downloads/Unite\%20Final\%20Report.pdf}{UNIfication
+of accounts and marginal costs for transport efficiency: Final report}.
+{Institute for Transport Studies, University of Leeds} (2003).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ANSR2021}{}}%
+\CSLLeftMargin{18. }%
+\CSLRightInline{Silva, C., Bravo, J.V., Gonçalves, J.:
+\href{http://www.ansr.pt/Estatisticas/RelatoriosTematicos/Documents/O\%20Impacto\%20Economico\%20e\%20Social\%20da\%20Sinistralidade\%20-\%20PT.pdf}{{Impacto
+Económico e Social da Sinistralidade Rodoviária em Portugal}}. {CEGE -
+Centro de Estudos de Gestão do ISEG, Autoridade Nacional de Segurança
+Rodoviária (ANSR)} (2021).}
 
 \end{CSLReferences}
 
