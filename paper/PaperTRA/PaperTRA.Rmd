@@ -155,7 +155,7 @@ The routes were then overlaid and aggregated by segments, using [`stplanr overli
 ## Modeling intermodality
 
 The intermodality scenario considers trips combining PT and cycling for the first and last legs.
-In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km or up to 25 minutes on bike.
+In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km (for instance: 1 km from origin to interface A plus 4 km from interface B to destination) or up to 25 minutes on bike.
 Furthermore, we have imposed restrictions on PT usage to include only trips with no PT transfers, and up to 2 hours (120 min).
 Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}).
 
@@ -206,20 +206,11 @@ We updated all the monetary reference values of the literature based on the annu
 
 # Results and Discussion
 
-Table \ref{tab:summary1} presents the LMA total daily trips, the cycling combined with PT trips in the baseline scenario and corresponding potential trips to achieve the national strategy targets (4% and 10%), for different route profiles. 
+Table \ref{tab:summary1} presents the LMA total daily trips, the cycling combined with PT trips in the baseline scenario and corresponding new trips to achieve the national strategy targets (4% and 10%), for different route profiles. 
 For the cycling legs of the journey (first and last legs), the environmental avoided emmissions and monetized socio-environment benefits are also presented, resulting from replacing car trips with cycling.
 
-For both *direct* and *safe* route profiles, 20% of the daily car trips have the potential to be replaced by a combination of PT and cycling (up to 5 km on bike).
-
-<!-- Meta ENMAC Cenário Tipo de Percurso    Total Viagens /dia  Viagens Bicicleta Base  Viagens Bicicleta Potencial CO~2~eq evitado (ton/ano)   Benefícios estimados em 10 anos (milhares €) -->
-
-<!-- 4% intermodal até 5km  seguro  1 077 028   4 624   40 770  5 920   230 270 -->
-
-<!-- 4% intermodal até 5km  direto  1 001 761   4 547   37 889  6 011   223 720 -->
-
-<!-- 10%    intermodal até 5km  seguro  1 077 028   4 624   104 647 15 192  591 790 -->
-
-<!-- 10%    intermodal até 5km  direto  1 001 761   4 547   97 218  15 414  574 200 -->
+For both *direct* and *safe* route profiles, 20% of the daily car trips have the potential to be replaced by a combination of PT and cycling (up to 5 km on bike). 
+<!-- place in the end - here is not clear -->
 
 ```{r summary1old, eval=FALSE, out.width="100%", fig.cap="Summary of the cycling potencial of intermodality scenario."}
 knitr::include_graphics("img/table1.png", error = FALSE)
@@ -237,7 +228,7 @@ knitr::kable(summary1,
       col.names = c("Target", "Routing", "Total trips",
                     "Baseline Cycling + PT", "Potencial Cycling + PT",
                     "Avoided CO2eq (ton/yr)", "SE Benefits for 10 years (thousand €)"),
-      caption = "\\label{summary1old}Summary of the cycling potencial of intermodality scenario.",
+      caption = "\\label{summary1}Summary of the cycling potencial of intermodality scenario.",
       format="latex",
       booktabs = TRUE) |> 
   kableExtra::column_spec(column = c(4:7), width = "6em")
@@ -246,7 +237,7 @@ knitr::kable(summary1,
 
 ```
 
-This scenario unveils the potential of bicycles as a complementary mode of PT, with the prospective to uptake the number of PT trips within the LMA area by as much as 12% (in addition to the 825,000 reported in the mobility survey).
+This scenario unveils the potential of bicycles as a complementary mode of PT, with the potential to uptake the number of PT trips within the LMA area by as much as 12% (in addition to the 825,000 reported in the mobility survey).
 These findings indicate that transferring car trips to a combination of bicycle and PT could be nearly as substantial, if not equally significant, as the shift towards bicycle-only trips.
 
 A valorização monetária das emissões (em toneladas) é apresentada na tabela seguinte, para o cenário 3 (apenas a segunda parte da viagem, em transportes públicos), com as metas de 4% e 10%, e usando as redes cicláveis "direta" e "segura", para 365 dias (1 ano).
@@ -256,9 +247,38 @@ We estimate a reduction of 8,702 tons of CO2eq emissions by substituting motoriz
 
 impactes ambientais de transferência do automóvel para os transportes públicos (tabela 5), para além dos impactes ambientais e sociais da transferência para a bicicleta (tabela 4)
 
+Table \ref{tab:summary21} shows something that doesn't make sense.
+<!-- ???? -->
 
-```{r summary2, out.width="100%", fig.cap="Potencial de transferência estimado para cada modo de transporte público, bem como as estimativas de consumo de CO~2~eq evitado anualmente por transferência do automóvel."}
+```{r summary2old, eval=FALSE, out.width="100%", fig.cap="Potencial de transferência estimado para cada modo de transporte público, bem como as estimativas de consumo de CO~2~eq evitado anualmente por transferência do automóvel."}
 knitr::include_graphics("img/table2.png", error = FALSE)
+```
+
+```{r summary21}
+summary2 = readRDS("load/TPtable_aml.Rds")
+
+summary21 = summary2 %>%
+  mutate(LTS = recode(Percursos, "seguro" = "safe", "direto" = "direct")) |> 
+  select(Meta_ENMAC, LTS, Total, BUS, FERRY, RAIL, TRAM)
+
+knitr::kable(summary21,
+      digits = 0,
+      format.args = list(big.mark = " "),
+      col.names = c("Target", "Routing", "Total",
+                    "Bus", "Ferry", "Train", "Tram"),
+      caption = "\\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode.",
+      format="latex",
+      booktabs = TRUE)
+  # kableExtra::column_spec(column = c(4:7), width = "6em")
+  # kableExtra::kable_styling(full_width = TRUE)
+  
+```
+
+```{r summary22}
+
+summary22 = summary2 %>%
+  mutate(LTS = recode(Percursos, "seguro" = "safe", "direto" = "direct")) |> 
+  select(Meta_ENMAC, LTS, CO2eq_TP, CO_PT, PM10_PT, NOx_PT, VOC_PT, money_emissions_eur)
 ```
 
 <!-- Tipo de Percurso   Meta ENMAC  Total   Barco   Comboio Autocarro   Metro superfície    CO~2~eq CO  PM10    NOx VOC Valorização monetária (€) -->
