@@ -1,7 +1,7 @@
 ---
 classoption: "runningheads"
-title: "Estimating the socio-environmental impacts of car substitution by bicycle and public transit using open tools"
-shorttitle: "Estimating the SE impacts of car substitution by bicycle and public transit"
+title: "biclaR: Estimating the socio-environmental impacts of car substitution by bicycle and public transit using open tools"
+shorttitle: "biclaR: SE impacts of car substitution by bicycle and public transit"
 
 authors: 
   - name: "Rosa Félix"
@@ -81,12 +81,14 @@ To achieve the cycling targets set by the Portuguese national cycling strategy f
 
 [^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/)
 
-*biclar* builds on the Propensity to Cycle Tool (PCT), a web application and research project funded by the UK's Department for Transport in 2015 which launched nationally in 2017 as part of the government's Cycling and Walking Investment Strategy.
+*biclaR* builds on the Propensity to Cycle Tool[^2] (PCT), a web application and research project funded by the UK's Department for Transport in 2015 which launched nationally in 2017 as part of the government's Cycling and Walking Investment Strategy.
 The PCT initially used only origin-destination data for commuting trips as the basis of estimates of cycling potential at zone, route and route network levels [@lovelace2017].
-The PCT has been extended to include cycling potential for travel to school in England [@goodman2019] and other trip types in other countries.[^2]
+The PCT has been extended to include cycling potential for travel to school in England [@goodman2019] and other trip types in other countries.[^3]
 However, to the best of our knowledge, this is the first time that the method has been integrated with public transport data using multi-modal routing to estimate the potential and benefits of multi-stage cycling and PT trips.
 
-[^2]:  See <https://www.npt.scot> and <https://cruse.bike> for examples of the PCT in Scotland and Ireland that include estimates of cycling for other purposes.
+[^2]: See [pct.bike](https://www.pct.bike/)
+
+[^3]:  See [npt.scot](https://www.npt.scot) and [cruse.bike](https://cruse.bike) for examples of the PCT in Scotland and Ireland that include estimates of cycling for other purposes.
 
 This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA.
 After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
@@ -132,17 +134,17 @@ For example, such restrictions can favor low speed, low traffic streets, more di
 
 The selected route choice algorithm was the [`r5r` R package](https://ipeagit.github.io/r5r/) [@r5r], which allows for great flexibility in configuring estimated route types, and which proven to provide most accurate route networks for the city of Lisbon [@Lovelace2022exploring].
 `r5r` can calculate multi-modal routes using PT combined with other modes.
-It enables the identification of the most direct or safest cycling routes, using the Level of Traffic Stress[^3] (LTS) scale, ranging from 1 to 4, where 1 corresponds to the quietest (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g., routes shared with motorized traffic).
+It enables the identification of the most direct or safest cycling routes, using the Level of Traffic Stress[^4] (LTS) scale, ranging from 1 to 4, where 1 corresponds to the quietest (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g., routes shared with motorized traffic).
 The routes were estimated for the base scenario for both types of networks: *direct* and *safe*, using LTS 4 and LTS 3, respectively.
 
-[^3]: see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress)
+[^4]: see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress)
 
 <!-- The quietness level^[see https://www.cyclestreets.net/help/journey/howitworks/#quietness] was another indicator estimated by [CycleStreets](https://www.cyclestreets.org/) for each route section, based on road network variables xisting on OpenStreetMap labels, such as the number of lanes, maximum allowed speed, trees, or road hierarchy. Values vary on a scale of 0 to 100, where zero corresponds to the least safe level for cycling and 100 corresponds to the safest and quietest level, usually corresponding to sections that already include segregated cycling infrastructure away from motorized traffic.  I THINK THIS IS NOT RELEVANT FOR THIS SHORT PAPER, AS IT IS MOST USEFUL FOR VIZUALIZATION PURPOSES ON BICLAR TOOL-->
 
 The `r5r` model used the OpenStreetMap road network and the GTFS metropolitan data agregated and validated.
 This information is crucial for an accurate PT trip and route estimation.
 A digital elevation model from the European Space Agency's COPERNICUS mission, with a 25m spatial resolution, was used to include street gradient information, as a weight in cycling routing.
-The cycling potential trips for the two ENMAC targets (4% and 10%) was estimated from the values for cycling and car trips (both as a driver and as a passenger) from the 2017 base scenario.
+The cycling potential trips for the two national strategic targets (4% and 10%) was estimated from the values for cycling and car trips (both as a driver and as a passenger) from the 2017 base scenario.
 
 The routes were then overlaid and aggregated by segments, using [`stplanr overline()` R function](https://docs.ropensci.org/stplanr/reference/overline.html).
 <!-- For example, the estimated volumes of bicycle trips and car transfers were aggregated, and the average car speed and quietness level, weighted by the distance of the segments, were calculated. -->
@@ -167,9 +169,9 @@ knitr::include_graphics("img/map2.png", error = FALSE)
 ## Assessing socio-environmental benefits - CONTINUE FROM HERE
 
 Socio-environmental impacts were estimated for a short term time horizon (i.e., one year) and the long term (i.e., ten years).
-using the HEAT for Cycling and the HEAT as a Service[^4] tools, from the WHO.
+using the HEAT for Cycling and the HEAT as a Service[^5] tools, from the WHO.
 
-[^4]: see https://github.com/HEAT-WHO/HEAT_heatr_api
+[^5]: see https://github.com/HEAT-WHO/HEAT_heatr_api
 
 Os impactes foram avaliados para cada cenário e para diferentes escalas territoriais:
 
@@ -264,11 +266,14 @@ For the PT leg, the transfer from car results in the avoidance of 8,500 to 20,80
 # Conclusion
 
 By making the research process publicly accessible in a code repository, this study enables the replication of similar estimates for socio-environmental impacts resulting from a modal shift from cars to bicycles + PT in other metropolitan areas.
+
+The train with most potential (as seen from fig 2)
+
+The information available at the open access website can be downloaded, and used with any GIS software to, for instance, understant which cycling connections have the highest socioenvironmental impacts, in tons of avoided CO2eq emissions, or in long term social costs.
+
 The provided information on socio-economic benefits can support policymakers in prioritizing interventions to reduce the reliance on individual motorized transportation and effectively communicate their decisions.
 
 ### Acknowledgements {.unnumbered}
-
-Please place your acknowledgments at the end of the paper, preceded by an unnumbered run-in heading (i.e. 3rd-level heading).
 
 Thomas Götshi - HAAS.
 

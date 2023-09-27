@@ -63,11 +63,11 @@
 \begin{document}
 
 
-\title{Estimating the socio-environmental impacts of car substitution by
-bicycle and public transit using open tools}
+\title{biclaR: Estimating the socio-environmental impacts of car
+substitution by bicycle and public transit using open tools}
 %
-\titlerunning{Estimating the SE impacts of car substitution by bicycle
-and public transit}
+\titlerunning{biclaR: SE impacts of car substitution by bicycle and
+public transit}
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
@@ -141,13 +141,22 @@ Lisbon's Metropolitan Department of Transport introduced
 decision support tool that facilitates the design and development of a
 metropolitan cycling network {[}3{]}.
 
-\emph{biclar} builds on the Propensity to Cycle Tool (PCT), a web
-application and research project funded by the UK's Department for
-Transport in 2015 which launched nationally in 2017 as part of the
-government's Cycling and Walking Investment Strategy. The PCT initially
-used only origin-destination data for commuting trips as the basis of
-estimates of cycling potential at zone, route and route network levels
-{[}\textbf{Lovelace2017?}{]}.
+\emph{biclaR} builds on the Propensity to Cycle Tool\footnote{See
+  \href{https://www.pct.bike/}{pct.bike}} (PCT), a web application and
+research project funded by the UK's Department for Transport in 2015
+which launched nationally in 2017 as part of the government's Cycling
+and Walking Investment Strategy. The PCT initially used only
+origin-destination data for commuting trips as the basis of estimates of
+cycling potential at zone, route and route network levels {[}4{]}. The
+PCT has been extended to include cycling potential for travel to school
+in England {[}5{]} and other trip types in other countries.\footnote{See
+  \href{https://www.npt.scot}{npt.scot} and
+  \href{https://cruse.bike}{cruse.bike} for examples of the PCT in
+  Scotland and Ireland that include estimates of cycling for other
+  purposes.} However, to the best of our knowledge, this is the first
+time that the method has been integrated with public transport data
+using multi-modal routing to estimate the potential and benefits of
+multi-stage cycling and PT trips.
 
 This paper estimates the potential for combining cycling and PT to
 substitute car trips in the LMA. After presenting the methods used, it
@@ -173,7 +182,7 @@ ensure that a district is not solely characterized by a single point of
 origin and destination for its trips. Aggregating all trips into
 centroids renders the exercise less realistic, as it excludes a
 significant portion of short-distance trips, a prevalent characteristic
-of active mode travel {[}4{]}. The OD Jittering method breaks down a
+of active mode travel {[}6{]}. The OD Jittering method breaks down a
 single point (i.e., the centroid of an area) into multiple random points
 on the existing and neighboring road network, using OpenStreetMap as a
 reference. This method then distributes the volume of trips within the
@@ -215,10 +224,10 @@ restrictions can favor low speed, low traffic streets, more direct
 routes, and less steep paths, among others, suitable for cycling.
 
 The selected route choice algorithm was the
-\href{https://ipeagit.github.io/r5r/}{\texttt{r5r} R package} {[}5{]},
+\href{https://ipeagit.github.io/r5r/}{\texttt{r5r} R package} {[}7{]},
 which allows for great flexibility in configuring estimated route types,
 and which proven to provide most accurate route networks for the city of
-Lisbon {[}6{]}. \texttt{r5r} can calculate multi-modal routes using PT
+Lisbon {[}8{]}. \texttt{r5r} can calculate multi-modal routes using PT
 combined with other modes. It enables the identification of the most
 direct or safest cycling routes, using the Level of Traffic
 Stress\footnote{see
@@ -234,9 +243,10 @@ metropolitan data agregated and validated. This information is crucial
 for an accurate PT trip and route estimation. A digital elevation model
 from the European Space Agency's COPERNICUS mission, with a 25m spatial
 resolution, was used to include street gradient information, as a weight
-in cycling routing. The cycling potential trips for the two ENMAC
-targets (4\% and 10\%) was estimated from the values for cycling and car
-trips (both as a driver and as a passenger) from the 2017 base scenario.
+in cycling routing. The cycling potential trips for the two national
+strategic targets (4\% and 10\%) was estimated from the values for
+cycling and car trips (both as a driver and as a passenger) from the
+2017 base scenario.
 
 The routes were then overlaid and aggregated by segments, using
 \href{https://docs.ropensci.org/stplanr/reference/overline.html}{\texttt{stplanr\ overline()}
@@ -413,7 +423,7 @@ evitados por transferência do automóvel para os outros modos de
 transporte público, como exemplo para o cenário com a meta de 4\%,
 usando a rede ciclável ``direta''.
 
-{[}Tabela 11{]}
+\[Tabela 11\]
 
 Para esse cenário com essas características, é estimada uma poupança de
 8 702 toneladas de CO\textsubscript{2}eq por via da transferência de
@@ -425,7 +435,7 @@ tabela seguinte, para o cenário 3 (apenas a segunda parte da viagem, em
 transportes públicos), com as metas de 4\% e 10\%, e usando as redes
 cicláveis ``direta'' e ``segura'', para 365 dias (1 ano).
 
-{[}Tabela 13{]}
+\[Tabela 13\]
 
 \begin{figure}
 \includegraphics[width=1\linewidth,]{img/table1} \caption{Summary of the cycling potencial of intermodality scenario.}\label{fig:summary1}
@@ -457,17 +467,23 @@ CO\textsubscript{2}eq emissions per year, or €1.4 to €3.5 million over
 By making the research process publicly accessible in a code repository,
 this study enables the replication of similar estimates for
 socio-environmental impacts resulting from a modal shift from cars to
-bicycles + PT in other metropolitan areas. The provided information on
-socio-economic benefits can support policymakers in prioritizing
-interventions to reduce the reliance on individual motorized
-transportation and effectively communicate their decisions.
+bicycles + PT in other metropolitan areas.
+
+The train with most potential (as seen from fig 2)
+
+The information available at the open access website can be downloaded,
+and used with any GIS software to, for instance, understant which
+cycling connections have the highest socioenvironmental impacts, in tons
+of avoided CO2eq emissions, or in long term social costs.
+
+The provided information on socio-economic benefits can support
+policymakers in prioritizing interventions to reduce the reliance on
+individual motorized transportation and effectively communicate their
+decisions.
 
 \hypertarget{acknowledgements}{%
 \subsubsection*{Acknowledgements}\label{acknowledgements}}
 \addcontentsline{toc}{subsubsection}{Acknowledgements}
-
-Please place your acknowledgments at the end of the paper, preceded by
-an unnumbered run-in heading (i.e.~3rd-level heading).
 
 Thomas Götshi - HAAS.
 
@@ -496,22 +512,39 @@ conselho de ministros n.º 131/2019,
 de apoio ao planeamento da rede ciclável na área metropolitana de
 Lisboa}, \url{https://biclar.tmlmobilidade.pt}, (2022).}
 
-\leavevmode\vadjust pre{\hypertarget{ref-Lovelace2022Jittering}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-lovelace2017}{}}%
 \CSLLeftMargin{4. }%
+\CSLRightInline{Lovelace, R., Goodman, A., Aldred, R., Berkoff, N.,
+Abbas, A., Woodcock, J.: The Propensity to Cycle Tool: An open source
+online system for sustainable transport planning. Journal of Transport
+and Land Use. 10, (2017).
+https://doi.org/\href{https://doi.org/10.5198/jtlu.2016.862}{10.5198/jtlu.2016.862}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-goodman2019}{}}%
+\CSLLeftMargin{5. }%
+\CSLRightInline{Goodman, A., Rojas, I.F., Woodcock, J., Aldred, R.,
+Berkoff, N., Morgan, M., Abbas, A., Lovelace, R.: Scenarios of cycling
+to school in england, and associated health and carbon impacts:
+Application of the {`}propensity to cycle tool{'}. Journal of Transport
+\& Health. 12, 263--278 (2019).
+https://doi.org/\href{https://doi.org/10.1016/j.jth.2019.01.008}{10.1016/j.jth.2019.01.008}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Lovelace2022Jittering}{}}%
+\CSLLeftMargin{6. }%
 \CSLRightInline{Lovelace, R., Félix, R., Carlino, D.: Jittering: A
 computationally efficient method for generating realistic route networks
 from origin-destination data. Findings. (2022).
 https://doi.org/\href{https://doi.org/10.32866/001c.33873}{10.32866/001c.33873}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-r5r}{}}%
-\CSLLeftMargin{5. }%
+\CSLLeftMargin{7. }%
 \CSLRightInline{Pereira, R.H.M., Saraiva, M., Herszenhut, D., Braga,
 C.K.V., Conway, M.W.: r5r: Rapid realistic routing on multimodal
 transport networks with R5 in r. Findings. (2021).
 https://doi.org/\href{https://doi.org/10.32866/001c.21262}{10.32866/001c.21262}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Lovelace2022exploring}{}}%
-\CSLLeftMargin{6. }%
+\CSLLeftMargin{8. }%
 \CSLRightInline{Lovelace, R., Félix, R., Carlino, D.: Exploring
 jittering and routing options for converting origin-destination data
 into route networks: Towards accurate estimates of movement at the
