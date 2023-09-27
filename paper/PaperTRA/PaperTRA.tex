@@ -45,8 +45,25 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
+\usepackage{booktabs}
+\usepackage{siunitx}
 \usepackage{hyperref}
 \hypersetup{colorlinks = TRUE,  urlcolor = blue, linkcolor = blue, citecolor = blue}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 
 
 \usepackage{graphicx}
@@ -346,43 +363,53 @@ of 3\%.
 \hypertarget{results-and-discussion}{%
 \section{Results and Discussion}\label{results-and-discussion}}
 
-A Tabela 4 apresenta o número de viagens diárias do cenário base e
-potenciais, passíveis de serem realizadas até 5 km em bicicleta em
-complemento com TP, por tipo de percurso. Para as redes segura e direta,
-as viagens do cenário base até 5 km em bicicleta + TP correspondem a
-20\% do total de viagens reportadas no inquérito.
+Table \ref{tab:summary1} presents the LMA total daily trips, the cycling
+combined with PT trips in the baseline scenario and corresponding
+potential trips to achieve the national strategy targets (4\% and 10\%),
+for different route profiles. For the cycling legs of the journey (first
+and last legs), the environmental avoided emmissions and monetized
+socio-environment benefits are also presented, resulting from replacing
+car trips with cycling.
 
-Este cenário valoriza a utilização da bicicleta como complemento ao
-transporte público, com potencial de aumentar as viagens em TP
-realizadas na área metropolitana de Lisboa em até 12\% (acrescentando às
-825 mil do IMob 2017). Estes resultados sugerem que o potencial de
-transferência de viagens em automóvel para bicicleta + TP poderá ser
-quase ou tão importante quanto a transferência para viagens utilizando
-apenas a bicicleta.
+For both \emph{direct} and \emph{safe} route profiles, 20\% of the daily
+car trips have the potential to be replaced by a combination of PT and
+cycling (up to 5 km on bike).
 
-Para este cenário foram estimados os impactes ambientais de
-transferência do automóvel para os transportes públicos, para além dos
-impactes ambientais e sociais da transferência para a bicicleta
+\begin{table}
 
-Foram então calculadas as emissões dos poluentes para cada viagem
-substituída, tendo em conta o modo de transporte, distâncias e
-velocidade.
+\caption{\label{tab:summary1}\label{summary1old}Summary of the cycling potencial of intermodality scenario.}
+\centering
+\begin{tabular}[t]{llr>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}}
+\toprule
+Target & Routing & Total trips & Baseline Cycling + PT & Potencial Cycling + PT & Avoided CO2eq (ton/yr) & SE Benefits for 10 years (thousand €)\\
+\midrule
+4\% & safe & 1 077 028 & 4 624 & 40 770 & 5 920 & 230 270\\
+4\% & direct & 1 001 761 & 4 547 & 37 889 & 6 011 & 223 720\\
+10\% & safe & 1 077 028 & 4 624 & 104 647 & 15 192 & 591 790\\
+10\% & direct & 1 001 761 & 4 547 & 97 218 & 15 414 & 574 200\\
+\bottomrule
+\end{tabular}
+\end{table}
 
-Para esse cenário com essas características, é estimada uma poupança de
-8 702 toneladas de CO\textsubscript{2}eq por via da transferência de
-viagens motorizadas com combustíveis fósseis e eletricidade, numa
-perspetiva de ciclo de vida da produção de eletricidade.
+This scenario unveils the potential of bicycles as a complementary mode
+of PT, with the prospective to uptake the number of PT trips within the
+LMA area by as much as 12\% (in addition to the 825,000 reported in the
+mobility survey). These findings indicate that transferring car trips to
+a combination of bicycle and PT could be nearly as substantial, if not
+equally significant, as the shift towards bicycle-only trips.
 
 A valorização monetária das emissões (em toneladas) é apresentada na
 tabela seguinte, para o cenário 3 (apenas a segunda parte da viagem, em
 transportes públicos), com as metas de 4\% e 10\%, e usando as redes
 cicláveis ``direta'' e ``segura'', para 365 dias (1 ano).
 
-\[Tabela 13\]
+We estimate a reduction of 8,702 tons of CO2eq emissions by substituting
+motorized trips relying on fossil fuels and electricity. These
+estimations used an electricity production life cycle approach.
 
-\begin{figure}
-\includegraphics[width=1\linewidth,]{img/table1} \caption{Summary of the cycling potencial of intermodality scenario.}\label{fig:summary1}
-\end{figure}
+impactes ambientais de transferência do automóvel para os transportes
+públicos (tabela 5), para além dos impactes ambientais e sociais da
+transferência para a bicicleta (tabela 4)
 
 \begin{figure}
 \includegraphics[width=1\linewidth,]{img/table2} \caption{Potencial de transferência estimado para cada modo de transporte público, bem como as estimativas de consumo de CO~2~eq evitado anualmente por transferência do automóvel.}\label{fig:summary2}
@@ -404,15 +431,33 @@ CO\textsubscript{2}eq emissions per year, or €1.4 to €3.5 million over
 10 years, with trains offering the greatest potential for substitution
 (88\%).
 
+The estimated socio-economic impacts stemming from the avoided
+pollutants and greenhouse gases vary from €1.4 million to €3.5 million.
+Our findings suggest that a bicycle and PT combination could viably
+replace 20\% of current trips, with an additional 12\% of PT journeys
+prone to further substitution. The adoption of cycling for
+first-and-last-mile travel can curtail annual CO2 equivalent emissions
+by 6,000 to 15,000 tons per day. Over a decade, the resulting
+socio-environmental benefits could accrue to an estimated range of €230
+million to €590 million, contingent upon the targeted cycling
+modalities. Regarding the PT segment, the shift from private car usage
+would lead to the mitigation of CO2 equivalent emissions to 8,500 to
+20,800 tons annually, translating to a monetary value of €1.4 million to
+€3.5 million over a decade. Trains exhibit the highest potential for
+substitution, accounting for 88\% of this benefit.
+
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
 By making the research process publicly accessible in a code repository,
 this study enables the replication of similar estimates for
-socio-environmental impacts resulting from a modal shift from cars to
-bicycles + PT in other metropolitan areas.
+socio-environmental impacts resulting from a modal shift from car to
+bicycle in combination with PT in other metropolitan areas.
 
 The train with most potential (as seen from fig 2)
+
+Different routing profiles for different city cycling maturity levels
+{[}19{]}.
 
 The information available at the open access website can be downloaded,
 and used with any GIS software to, for instance, understant which
@@ -421,7 +466,7 @@ of avoided CO2eq emissions, or in long term social costs.
 
 The provided information on socio-economic benefits can support
 policymakers in prioritizing interventions to reduce the reliance on
-individual motorized transportation and effectively communicate their
+individual motorized transportation and better communicate their
 decisions.
 
 \hypertarget{acknowledgements}{%
@@ -569,6 +614,13 @@ of accounts and marginal costs for transport efficiency: Final report}.
 Económico e Social da Sinistralidade Rodoviária em Portugal}}. {CEGE -
 Centro de Estudos de Gestão do ISEG, Autoridade Nacional de Segurança
 Rodoviária (ANSR)} (2021).}
+
+\leavevmode\vadjust pre{\hypertarget{ref-felix2017}{}}%
+\CSLLeftMargin{19. }%
+\CSLRightInline{Félix, R., Moura, F., Clifton, K.J.: Typologies of urban
+cyclists: Review of market segmentation methods for planning practice.
+Transportation Research Record. 2662, 125--133 (2017).
+https://doi.org/\href{https://doi.org/10.3141/2662-14}{10.3141/2662-14}.}
 
 \end{CSLReferences}
 
