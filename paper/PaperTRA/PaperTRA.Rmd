@@ -310,7 +310,7 @@ The sum of CO~2~eq avoided emissions from the potential car trips shifted to bik
 summaryall = summary1 |> left_join(summary22) |> 
   select(c(1, 2, 6, 7, 8, 13)) |> 
   mutate(CO2eq = co2 + CO2eq,
-         value1 = monet/1000 + Value, # this is NOT CORRECT, need to inflate - see original table
+         value1 = monet/10 + Value, # this is NOT CORRECT, need to inflate - see original table
          value10 = monet + Value*10) |> # this is NOT CORRECT, need to deflate
   select(Estrategia, LTS, CO2eq, value1, value10)
 
