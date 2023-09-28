@@ -275,12 +275,13 @@ R function}.
 The intermodality scenario considers trips combining PT and cycling for
 the first and last legs. In a conservative approach, we have restricted
 our analysis to the first and last legs with a combined length of up to
-5 km or up to 25 minutes on bike. Furthermore, we have imposed
-restrictions on PT usage to include only trips with no PT transfers, and
-up to 2 hours (120 min). Additionally, we have only included PT modes
-that can easily accommodate bicycles, such as trains, ferries, trams,
-and inter-municipal bus lines equipped with bike racks (Figure
-\ref{fig:map1}).
+5 km (for instance: 1 km from origin to interface A plus 4 km from
+interface B to destination) or up to 25 minutes on bike. Furthermore, we
+have imposed restrictions on PT usage to include only trips with no PT
+transfers, and up to 2 hours (120 min). Additionally, we have only
+included PT modes that can easily accommodate bicycles, such as trains,
+ferries, trams, and inter-municipal bus lines equipped with bike racks
+(Figure \ref{fig:map1}).
 
 \begin{figure}
 
@@ -364,10 +365,10 @@ of 3\%.
 \section{Results and Discussion}\label{results-and-discussion}}
 
 Table \ref{tab:summary1} presents the LMA total daily trips, the cycling
-combined with PT trips in the baseline scenario and corresponding
-potential trips to achieve the national strategy targets (4\% and 10\%),
-for different route profiles. For the cycling legs of the journey (first
-and last legs), the environmental avoided emmissions and monetized
+combined with PT trips in the baseline scenario and corresponding new
+trips to achieve the national strategy targets (4\% and 10\%), for
+different route profiles. For the cycling legs of the journey (first and
+last legs), the environmental avoided emmissions and monetized
 socio-environment benefits are also presented, resulting from replacing
 car trips with cycling.
 
@@ -377,7 +378,7 @@ cycling (up to 5 km on bike).
 
 \begin{table}
 
-\caption{\label{tab:summary1}\label{summary1old}Summary of the cycling potencial of intermodality scenario.}
+\caption{\label{tab:summary1}\label{summary1}Summary of the cycling potencial of intermodality scenario.}
 \centering
 \begin{tabular}[t]{llr>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}}
 \toprule
@@ -392,7 +393,7 @@ Target & Routing & Total trips & Baseline Cycling + PT & Potencial Cycling + PT 
 \end{table}
 
 This scenario unveils the potential of bicycles as a complementary mode
-of PT, with the prospective to uptake the number of PT trips within the
+of PT, with the potential to uptake the number of PT trips within the
 LMA area by as much as 12\% (in addition to the 825,000 reported in the
 mobility survey). These findings indicate that transferring car trips to
 a combination of bicycle and PT could be nearly as substantial, if not
@@ -411,9 +412,41 @@ impactes ambientais de transferência do automóvel para os transportes
 públicos (tabela 5), para além dos impactes ambientais e sociais da
 transferência para a bicicleta (tabela 4)
 
-\begin{figure}
-\includegraphics[width=1\linewidth,]{img/table2} \caption{Potencial de transferência estimado para cada modo de transporte público, bem como as estimativas de consumo de CO~2~eq evitado anualmente por transferência do automóvel.}\label{fig:summary2}
-\end{figure}
+Table \ref{tab:summary21} shows something that doesn't make sense.
+
+\begin{table}
+
+\caption{\label{tab:summary21}\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode.}
+\centering
+\begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}}
+\toprule
+Target & Routing & Total & Bus & Ferry & Train & Tram\\
+\midrule
+4\% & safe & 192 214 & 4 163 & 5 167 & 169 984 & 12 900\\
+10\% & safe & 224 152 & 5 042 & 5 594 & 197 857 & 15 659\\
+4\% & direct & 189 846 & 4 879 & 5 795 & 171 534 & 7 639\\
+10\% & direct & 219 511 & 5 806 & 6 263 & 198 373 & 9 069\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table \ref{tab:summary22} is fine.
+
+\begin{table}
+
+\caption{\label{tab:summary22}\label{summary21}Summary of the avoided emmissions (ton/year) and corresponding monetization (thousand €) by replacing car trips with PT, in the second leg.}
+\centering
+\begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}r}
+\toprule
+Target & Routing & CO2eq & CO & PM10 & NOx & VOC & Value (k€)\\
+\midrule
+4\% & safe & 8 593 & 17 & 1.9 & 27 & 0.8 & 1 425\\
+10\% & safe & 20 627 & 42 & 4.6 & 65 & 2.0 & 3 431\\
+4\% & direct & 8 702 & 18 & 2.0 & 28 & 0.8 & 1 453\\
+10\% & direct & 20 793 & 42 & 4.7 & 66 & 1.9 & 3 487\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 Em suma, o impacte socioeconómico das emissões de gases poluentes e de
 gases de efeito estufa pode ser valorizado numa poupança potencial de

@@ -93,6 +93,8 @@ However, to the best of our knowledge, this is the first time that the method ha
 
 [^3]:  See [npt.scot](https://www.npt.scot) and [cruse.bike](https://cruse.bike) for examples of the PCT in Scotland and Ireland that include estimates of cycling for other purposes.
 
+<!-- For the full paper, explain that we had 3 scenarios, and describe them. But in this paper we focous on the intermodality one. -->
+
 This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA.
 After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
 
@@ -232,8 +234,6 @@ knitr::kable(summary1,
       format="latex",
       booktabs = TRUE) |> 
   kableExtra::column_spec(column = c(4:7), width = "6em")
-  # kableExtra::kable_styling(full_width = TRUE)
-  
 
 ```
 
@@ -255,11 +255,12 @@ knitr::include_graphics("img/table2.png", error = FALSE)
 ```
 
 ```{r summary21}
-summary2 = readRDS("load/TPtable_aml.Rds")
+summary2 = readRDS("load/summary2.Rds")
 
 summary21 = summary2 %>%
-  mutate(LTS = recode(Percursos, "seguro" = "safe", "direto" = "direct")) |> 
-  select(Meta_ENMAC, LTS, Total, BUS, FERRY, RAIL, TRAM)
+  mutate(LTS = recode(LTS, "seguro" = "safe", "direto" = "direct")) |> 
+  mutate(Estrategia = paste0(`Meta ENMAC`*100,"%")) |> 
+  select(Estrategia, LTS, Total, Autocarro, Barco, Comboio, `Metro superfície`)
 
 knitr::kable(summary21,
       digits = 0,
@@ -268,28 +269,32 @@ knitr::kable(summary21,
                     "Bus", "Ferry", "Train", "Tram"),
       caption = "\\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode.",
       format="latex",
-      booktabs = TRUE)
-  # kableExtra::column_spec(column = c(4:7), width = "6em")
-  # kableExtra::kable_styling(full_width = TRUE)
+      booktabs = TRUE) |> 
+  kableExtra::column_spec(column = c(3:7), width = "4em")
   
 ```
+
+Table \ref{tab:summary22} is fine.
 
 ```{r summary22}
 
 summary22 = summary2 %>%
-  mutate(LTS = recode(Percursos, "seguro" = "safe", "direto" = "direct")) |> 
-  select(Meta_ENMAC, LTS, CO2eq_TP, CO_PT, PM10_PT, NOx_PT, VOC_PT, money_emissions_eur)
+  mutate(LTS = recode(LTS, "seguro" = "safe", "direto" = "direct")) |> 
+  mutate(Estrategia = paste0(`Meta ENMAC`*100,"%")) |> 
+  mutate(Value = `Valorização monetária (€)`/1000) |> 
+  select(Estrategia, LTS, CO2eq, CO, PM10, NOx, VOC, Value)
+
+knitr::kable(summary22,
+      digits = c(0,0,0,0,1,0,1,0),
+      format.args = list(big.mark = " "),
+      col.names = c("Target", "Routing", "CO2eq",
+                    "CO", "PM10", "NOx", "VOC", "Value (k€)"),
+      caption = "\\label{summary21}Summary of the avoided emmissions (ton/year) and corresponding monetization (thousand €) by replacing car trips with PT, in the second leg.",
+      format="latex",
+      booktabs = TRUE) |> 
+  kableExtra::column_spec(column = c(3:7), width = "3.5em")
 ```
 
-<!-- Tipo de Percurso   Meta ENMAC  Total   Barco   Comboio Autocarro   Metro superfície    CO~2~eq CO  PM10    NOx VOC Valorização monetária (€) -->
-
-<!-- seguro 4%  192 214 5 167   169 984 4 163   12 900  8 593   17  1.9 27  0.8 1 424 620 -->
-
-<!-- seguro 10% 224 152 5 594   197 857 5 042   15 659  20 627  42  4.6 65  2.0 3 430 552 -->
-
-<!-- direto 4%  189 846 5 795   171 534 4 879   7 639   8 702   18  2.0 28  0.8 1 452 820 -->
-
-<!-- direto 10% 219 511 6 263   198 373 5 806   9 069   20 793  42  4.7 66  1.9 3 487 282 -->
 
 Em suma, o impacte socioeconómico das emissões de gases poluentes e de gases de efeito estufa pode ser valorizado numa poupança potencial de entre 1.4 a 3.5 milhões €, a acrescentar aos impactes estimados na secção anterior.
 
