@@ -135,12 +135,12 @@ impacts \and Open data and methods}
 \section{Introduction}\label{introduction}}
 
 Combining public transportation (PT) and cycling for the first and last
-mile in metropolitan areas can significantly replace private car trips.
-This approach requires interventions and programs to make bicycling more
-appealing, and the resulting public investments can have significant
-social and environmental benefits.
+mile in metropolitan areas can significantly replace private car trips
+{[}1, 2{]}. This approach requires interventions and programs to make
+bicycling more appealing, and the resulting public investments can have
+significant social and environmental benefits.
 
-According to the latest mobility survey conducted in 2018 {[}1{]}, the
+According to the latest mobility survey conducted in 2018 {[}3{]}, the
 LMA registered a total of 5.3 million daily trips, with only 0.5\% by
 bicycle. Car modal share was 58.4\%, while PT accounted for 15.5\%. The
 number of intra-municipal trips --- with origin and destination in the
@@ -151,12 +151,12 @@ used modes for intercity trips, with cars being the predominant choice
 for all journeys.
 
 To achieve the cycling targets set by the Portuguese national cycling
-strategy for 2025 and 2030 (4\% and 10\%, respectively) {[}2{]}, the
+strategy for 2025 and 2030 (4\% and 10\%, respectively) {[}4{]}, the
 Lisbon's Metropolitan Department of Transport introduced
 \emph{biclaR}\footnote{See
   \href{https://biclar.tmlmobilidade.pt/}{biclar.tmlmobilidade.pt}.}, a
 decision support tool that facilitates the design and development of a
-metropolitan cycling network {[}3{]}.
+metropolitan cycling network {[}5{]}.
 
 \emph{biclaR} builds on the Propensity to Cycle Tool\footnote{See
   \href{https://www.pct.bike/}{pct.bike}.} (PCT), a web application and
@@ -164,9 +164,9 @@ research project funded by the UK's Department for Transport in 2015
 which launched nationally in 2017 as part of the government's Cycling
 and Walking Investment Strategy. The PCT initially used only
 origin-destination data for commuting trips as the basis of estimates of
-cycling potential at zone, route and route network levels {[}4{]}. The
+cycling potential at zone, route and route network levels {[}6{]}. The
 PCT has been extended to include cycling potential for travel to school
-in England {[}5{]} and other trip types in other countries.\footnote{See
+in England {[}7{]} and other trip types in other countries.\footnote{See
   \href{https://www.npt.scot}{npt.scot} and
   \href{https://cruse.bike}{cruse.bike} for examples of the PCT in
   Scotland and Ireland that include estimates of cycling for other
@@ -187,7 +187,7 @@ tools.
 \subsection{Modeling Origin-Destination
 trips}\label{modeling-origin-destination-trips}}
 
-The mobility survey data {[}1{]} is the basis for this project and
+The mobility survey data {[}3{]} is the basis for this project and
 defines the baseline scenario. Despite being conducted in the
 pre-pandemic period (2017), this dataset represents the most
 comprehensive and up-to-date information on urban mobility in Portuguese
@@ -199,7 +199,7 @@ ensure that a district is not solely characterized by a single point of
 origin and destination for its trips. Aggregating all trips into
 centroids renders the exercise less realistic, as it excludes a
 significant portion of short-distance trips, a prevalent characteristic
-of active mode travel {[}6{]}. The OD Jittering method breaks down a
+of active mode travel {[}8{]}. The OD Jittering method breaks down a
 single point (i.e., the centroid of an area) into multiple random points
 on the existing and neighboring road network, using OpenStreetMap as a
 reference. This method then distributes the volume of trips within the
@@ -241,10 +241,10 @@ restrictions can favor low speed, low traffic streets, more direct
 routes, and less steep paths, among others, suitable for cycling.
 
 The selected route choice algorithm was the
-\href{https://ipeagit.github.io/r5r/}{\texttt{r5r} R package} {[}7{]},
+\href{https://ipeagit.github.io/r5r/}{\texttt{r5r} R package} {[}9{]},
 which allows for great flexibility in configuring estimated route types,
 and which proven to provide most accurate route networks for the city of
-Lisbon {[}8{]}. \texttt{r5r} can calculate multi-modal routes using PT
+Lisbon {[}10{]}. \texttt{r5r} can calculate multi-modal routes using PT
 combined with other modes. It enables the identification of the most
 direct or safest cycling routes, using the Level of Traffic
 Stress\footnote{see
@@ -253,7 +253,9 @@ Stress\footnote{see
 (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g.,
 routes shared with motorized traffic). The routes were estimated for the
 base scenario for both types of networks: \emph{direct} and \emph{safe},
-using LTS 4 and LTS 3, respectively.
+using LTS 4 and LTS 3, respectively. Different routing profiles enable
+decision-makers to plan for different bicycle user typologies and/or for
+different city cycling maturity levels {[}11{]}.
 
 The \texttt{r5r} model used the OpenStreetMap road network and the GTFS
 metropolitan data agregated and validated. This information is crucial
@@ -310,7 +312,7 @@ benefits}\label{assessing-socio-environmental-benefits}}
 
 For the cycling legs of the journey (first and last legs),
 socio-environmental impacts were estimated, using the HEAT for Cycling
-tool v5.0 {[}9{]} and the
+tool v5.0 {[}12{]} and the
 \href{https://github.com/HEAT-WHO/HEAT_heatr_api}{\texttt{HEATaaS} R
 package}\footnote{\texttt{HEATaaS} is under development. For more
   information contact
@@ -327,7 +329,7 @@ environmental impacts of shifting car trips to PT (between the PT
 interfaces).
 
 To estimate the car emissions, we used the EMEP/EEA's COPERT software v5
-methods and reference values {[}10{]} for a Tier 3 detail level. We used
+methods and reference values {[}13{]} for a Tier 3 detail level. We used
 a family-size vehicle, EURO standard, and gasoline or diesel fuel. All
 trips were considered to be made under urban conditions and at an
 average speed of 15 km/h during rush hour periods. Since the average
@@ -335,11 +337,11 @@ distance traveled per trip influences the overconsumption and emissions
 from cold-start engine operation, we estimated energy and emission
 factors for different ranges of trips at 500-meter intervals. In
 addition, we assumed an occupancy rate of 1.61 passengers \emph{per} car
-{[}1{]}.
+{[}3{]}.
 
 Regarding the PT, we considered the emission factor values reported in
 the environmental and sustainability reports of the PT operators in the
-LMA {[}11--14{]}.
+LMA {[}14--17{]}.
 
 Emissions were estimated for the following atmospheric pollutants:
 CO\textsubscript{2}eq, CO, PM10, NOx, and VOC. In particular, for the
@@ -350,10 +352,10 @@ since the other pollutants are not emitted locally.
 
 The conversion of avoided emissions into avoided welfare loss and
 respective monetary valuation was based on the EU Guide to Cost-benefit
-Analysis {[}15{]} and the best up-to-date reference values for the
-various gases {[}15--17{]}. The social impacts are in avoided premature
+Analysis {[}18{]} and the best up-to-date reference values for the
+various gases {[}18--20{]}. The social impacts are in avoided premature
 mortality. This result is finally monetized using the \emph{Statistical
-Value of Life} for Portugal {[}18{]}. We updated all the monetary
+Value of Life} for Portugal {[}21{]}. We updated all the monetary
 reference values of the literature based on the annual inflation rate in
 Portugal for 2022\footnote{See
   \href{https://www.ine.pt/xportal/xmain?xpid=INE\&xpgid=ipc}{Statistics
@@ -369,8 +371,8 @@ combined with PT trips in the baseline scenario and corresponding new
 trips to achieve the national strategy targets (4\% and 10\%), for
 different route profiles. For the cycling legs of the journey (first and
 last legs), the environmental avoided emissions and monetized
-socio-environment benefits are also presented, resulting from replacing
-car trips with cycling.
+socio-environment (SE) benefits are also presented, resulting from
+replacing car trips with cycling.
 
 \begin{table}
 
@@ -390,10 +392,8 @@ Target & Routing & Total trips & Baseline Cycling + PT & Potencial Cycling + PT 
 
 For both \emph{direct} and \emph{safe} route profiles, 20\% of the daily
 car trips have the potential to be replaced by a combination of PT and
-cycling (up to 5 km on bike).
-
-\emph{Table \ref{tab:summary21} shows something that doesn't make
-sense.}
+cycling (up to 5 km on bike). \emph{Table \ref{tab:summary21} shows
+something that doesn't make sense.}
 
 \begin{table}
 
@@ -478,28 +478,30 @@ CO\textsubscript{2}eq emissions by 14,000 to 36,000 tons per year, and
 the 10-year socio-environmental benefits account for €235 million to
 €620 million, depending on the cycling targets.
 
-\emph{Say something about the avoided C02eq emissions in the first and
-last legs (bike) is about 3/4 of the PT leg avoided emissions, which is
-(expected?) and should not be overlooked when promoting the use of PT.
-Making the accessibility to PT interfaces more atractive to cycling and
-providing bicycle-friendly equipments (parking) can reduce more 75\%
-CO2eq emissions than the shifted car to PT trip} (FM/RL help)
+The emissions of CO\textsubscript{2}eq that are avoided during both the
+initial and final journey segments account for about 75\% of the
+emissions avoided during the PT segment. This finding, while expected --
+due the zero cycling emissions, should not be overlooked when promoting
+the PT use. Improving the safe accessibility to PT interfaces to
+cyclists and providing bicycle-friendly amenities such as parking
+facilities can potentially lead to a higher reduction in
+CO\textsubscript{2}eq emissions, compared to a scenario where
+individuals shift from car travel to car + PT combination.
 
-Our findings suggest that a bicycle and PT combination could viably
-replace 20\% of current LMA trips, with an additional 12\% of PT
-journeys prone to further substitution.
+The social impacts from replacing car trips to bicycle in first-and-last
+legs, represent 95\% of the total socio-environmental benefits estimated
+for all journey legs. Our findings suggest that a bicycle and PT
+combination could viably replace 20\% of current LMA trips, with an
+additional 12\% of PT journeys prone to further substitution.
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
 The information on socio-economic benefits can support policy-makers in
 prioritizing interventions to reduce the reliance on individual
-motorized transportation, and better communicate their decisions by
+motorized transportation, and to better communicate their decisions by
 providing the expected avoided GHG and air pollutant emissions and the
-monetized socio-economic benefits for short and long terms. Different
-routing profiles enable decision-makers to plan for different bicycle
-user typologies and/or for different city cycling maturity levels
-{[}19{]}.
+monetized socio-economic benefits for short and long terms.
 
 The information available at \emph{biclaR} tool -- an open access
 website -- can be downloaded and used with any GIS software to, for
@@ -512,9 +514,9 @@ this research enables the replication of similar estimates for
 socio-environmental impacts, resulting from a modal shift from car to
 bicycle in combination with PT, in other metropolitan areas.
 
-\hypertarget{acknowledgements}{%
-\subsubsection*{Acknowledgements}\label{acknowledgements}}
-\addcontentsline{toc}{subsubsection}{Acknowledgements}
+\hypertarget{acknowledgements.}{%
+\subsubsection*{Acknowledgements.}\label{acknowledgements.}}
+\addcontentsline{toc}{subsubsection}{Acknowledgements.}
 
 This research was funded by the Lisbon's Metropolitan Department of
 Transport (TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A.),
@@ -531,27 +533,41 @@ providing access to HaaS tool, which is under development.
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-IMOB}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-MARTENS2007326}{}}%
 \CSLLeftMargin{1. }%
+\CSLRightInline{Martens, K.: Promoting bike-and-ride: The dutch
+experience. Transportation Research Part A: Policy and Practice. 41,
+326--338 (2007).
+https://doi.org/\href{https://doi.org/10.1016/j.tra.2006.09.010}{10.1016/j.tra.2006.09.010}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-RIETVELD200071}{}}%
+\CSLLeftMargin{2. }%
+\CSLRightInline{Rietveld, P.: The accessibility of railway stations: The
+role of the bicycle in the netherlands. Transportation Research Part D:
+Transport and Environment. 5, 71--75 (2000).
+https://doi.org/\href{https://doi.org/10.1016/S1361-9209(99)00019-X}{10.1016/S1361-9209(99)00019-X}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-IMOB}{}}%
+\CSLLeftMargin{3. }%
 \CSLRightInline{INE:
 \href{https://www.ine.pt/xportal/xmain?xpid=INE\&xpgid=ine_publicacoes\&PUBLICACOESpub_boui=349495406\&PUBLICACOESmodo=2\&xlang=pt}{Mobilidade
 e funcionalidade do território nas {Áreas Metropolitanas do Porto e de
 Lisboa}: 2017}. {Instituto National de Estatística}, Lisboa (2018).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ENMAC}{}}%
-\CSLLeftMargin{2. }%
+\CSLLeftMargin{4. }%
 \CSLRightInline{Presidência do Conselho de Ministros: Resolução do
 conselho de ministros n.º 131/2019,
 \url{https://files.dre.pt/1s/2019/08/14700/0004600081.pdf}, (2019).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-felix2023}{}}%
-\CSLLeftMargin{3. }%
+\CSLLeftMargin{5. }%
 \CSLRightInline{Félix, R., Lovelace, R., Moura, F.: {biclaR - Ferramenta
 de apoio ao planeamento da rede ciclável na área metropolitana de
 Lisboa}, \url{https://biclar.tmlmobilidade.pt}, (2022).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-lovelace2017}{}}%
-\CSLLeftMargin{4. }%
+\CSLLeftMargin{6. }%
 \CSLRightInline{Lovelace, R., Goodman, A., Aldred, R., Berkoff, N.,
 Abbas, A., Woodcock, J.: The Propensity to Cycle Tool: An open source
 online system for sustainable transport planning. Journal of Transport
@@ -559,7 +575,7 @@ and Land Use. 10, (2017).
 https://doi.org/\href{https://doi.org/10.5198/jtlu.2016.862}{10.5198/jtlu.2016.862}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-goodman2019}{}}%
-\CSLLeftMargin{5. }%
+\CSLLeftMargin{7. }%
 \CSLRightInline{Goodman, A., Rojas, I.F., Woodcock, J., Aldred, R.,
 Berkoff, N., Morgan, M., Abbas, A., Lovelace, R.: Scenarios of cycling
 to school in england, and associated health and carbon impacts:
@@ -568,21 +584,21 @@ Application of the {`}propensity to cycle tool{'}. Journal of Transport
 https://doi.org/\href{https://doi.org/10.1016/j.jth.2019.01.008}{10.1016/j.jth.2019.01.008}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Lovelace2022Jittering}{}}%
-\CSLLeftMargin{6. }%
+\CSLLeftMargin{8. }%
 \CSLRightInline{Lovelace, R., Félix, R., Carlino, D.: Jittering: A
 computationally efficient method for generating realistic route networks
 from origin-destination data. Findings. (2022).
 https://doi.org/\href{https://doi.org/10.32866/001c.33873}{10.32866/001c.33873}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-r5r}{}}%
-\CSLLeftMargin{7. }%
+\CSLLeftMargin{9. }%
 \CSLRightInline{Pereira, R.H.M., Saraiva, M., Herszenhut, D., Braga,
 C.K.V., Conway, M.W.: r5r: Rapid realistic routing on multimodal
 transport networks with R5 in r. Findings. (2021).
 https://doi.org/\href{https://doi.org/10.32866/001c.21262}{10.32866/001c.21262}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Lovelace2022exploring}{}}%
-\CSLLeftMargin{8. }%
+\CSLLeftMargin{10. }%
 \CSLRightInline{Lovelace, R., Félix, R., Carlino, D.: Exploring
 jittering and routing options for converting origin-destination data
 into route networks: Towards accurate estimates of movement at the
@@ -591,8 +607,15 @@ Sensing and Spatial Information Sciences. XLVIII-4/W1-2022, 279--286
 (2022).
 https://doi.org/\href{https://doi.org/10.5194/isprs-archives-XLVIII-4-W1-2022-279-2022}{10.5194/isprs-archives-XLVIII-4-W1-2022-279-2022}.}
 
+\leavevmode\vadjust pre{\hypertarget{ref-felix2017}{}}%
+\CSLLeftMargin{11. }%
+\CSLRightInline{Félix, R., Moura, F., Clifton, K.J.: Typologies of urban
+cyclists: Review of market segmentation methods for planning practice.
+Transportation Research Record. 2662, 125--133 (2017).
+https://doi.org/\href{https://doi.org/10.3141/2662-14}{10.3141/2662-14}.}
+
 \leavevmode\vadjust pre{\hypertarget{ref-HEAT}{}}%
-\CSLLeftMargin{9. }%
+\CSLLeftMargin{12. }%
 \CSLRightInline{Kahlmeier, S., Götschi, T., Cavill, N., Castro
 Fernandez, A., Brand, C., Rojas Rueda, D., Woodcock, J., Kelly, P.,
 Lieb, C., Oja, P., others:
@@ -602,38 +625,38 @@ and user guide on physical activity, air pollution, injuries and carbon
 impact assessments}. (2017).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-COPERT}{}}%
-\CSLLeftMargin{10. }%
+\CSLLeftMargin{13. }%
 \CSLRightInline{Ntziachristos, L., Samaras, Z.: {EMEP/EEA} air pollutant
 emission inventory guidebook 2019,
 \url{https://www.emisia.com/utilities/copert/documentation/}, (2020).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Carris2019s}{}}%
-\CSLLeftMargin{11. }%
+\CSLLeftMargin{14. }%
 \CSLRightInline{Carris:
 \href{https://www.carris.pt/media/dkdp2wbg/dnf_carris2019_rv5.pdf}{Relatório
 de sustentabilidade 2019 - demostração não financeira}. {Carris -
 Companhia Carris de Ferro de Lisboa, E.M., S.A.} (2020).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Metro2019s}{}}%
-\CSLLeftMargin{12. }%
+\CSLLeftMargin{15. }%
 \CSLRightInline{Metropolitano de Lisboa:
 \href{https://www.metrolisboa.pt/wp-content/uploads/2021/01/relatorio_integrado_2019.pdf}{Relatório
 integrado 2019}. {Metropolitano de Lisboa, E.P.E.} (2020).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-CP2019s}{}}%
-\CSLLeftMargin{13. }%
+\CSLLeftMargin{16. }%
 \CSLRightInline{CP:
 \href{https://www.cp.pt/StaticFiles/Institucional/2_gestao_sustentavel/1_RelatoriosSustentabilidade/relatorio-de-sustentabilidade-2019.pdf}{Relatório
 de sustentabilidade 2019}. {CP - Comboios de Portugal, E.P.E.} (2020).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Transtejo2014}{}}%
-\CSLLeftMargin{14. }%
+\CSLLeftMargin{17. }%
 \CSLRightInline{Transtejo:
 \href{https://ttsl.pt/wp-content/uploads/2018/01/rs_2014_min.pdf}{Relatório
 de sustentabilidade 2014}. {Grupo Transtejo, S.A.} (2014).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-EuropeanCommission2014}{}}%
-\CSLLeftMargin{15. }%
+\CSLLeftMargin{18. }%
 \CSLRightInline{Sartori, D., Catalano, G., Genco, M., Pancotti, C.,
 Sirtori, E., Vignetti, S., Del Bo, C.:
 \href{https://ec.europa.eu/regional_policy/sources/docgener/studies/pdf/cba_guide.pdf}{Guide
@@ -642,7 +665,7 @@ for cohesion policy 2014-2020}. {European Commission - Directorate
 General for Regional and Urban Policy} (2014).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bickel2006}{}}%
-\CSLLeftMargin{16. }%
+\CSLLeftMargin{19. }%
 \CSLRightInline{Bickel, P., Friedrich, R., Burgess, A., Fagiani, P.,
 Hunt, A., Jong, G.D., Laird, J.:
 \href{https://trimis.ec.europa.eu/sites/default/files/project/documents/20130122_113653_88902_HEATCO_D5_summary.pdf}{{HEATCO
@@ -651,26 +674,19 @@ Project Assessment. Deliverable 5, Proposal for Harmonised Guidelines.}}
 (2006).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-UNITE}{}}%
-\CSLLeftMargin{17. }%
+\CSLLeftMargin{20. }%
 \CSLRightInline{Nash, C., others:
 \href{https://www.its.leeds.ac.uk/projects/unite/downloads/Unite\%20Final\%20Report.pdf}{UNIfication
 of accounts and marginal costs for transport efficiency: Final report}.
 {Institute for Transport Studies, University of Leeds} (2003).}
 
 \leavevmode\vadjust pre{\hypertarget{ref-ANSR2021}{}}%
-\CSLLeftMargin{18. }%
+\CSLLeftMargin{21. }%
 \CSLRightInline{Silva, C., Bravo, J.V., Gonçalves, J.:
 \href{http://www.ansr.pt/Estatisticas/RelatoriosTematicos/Documents/O\%20Impacto\%20Economico\%20e\%20Social\%20da\%20Sinistralidade\%20-\%20PT.pdf}{{Impacto
 Económico e Social da Sinistralidade Rodoviária em Portugal}}. {CEGE -
 Centro de Estudos de Gestão do ISEG, Autoridade Nacional de Segurança
 Rodoviária (ANSR)} (2021).}
-
-\leavevmode\vadjust pre{\hypertarget{ref-felix2017}{}}%
-\CSLLeftMargin{19. }%
-\CSLRightInline{Félix, R., Moura, F., Clifton, K.J.: Typologies of urban
-cyclists: Review of market segmentation methods for planning practice.
-Transportation Research Record. 2662, 125--133 (2017).
-https://doi.org/\href{https://doi.org/10.3141/2662-14}{10.3141/2662-14}.}
 
 \end{CSLReferences}
 

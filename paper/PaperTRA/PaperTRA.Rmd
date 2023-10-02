@@ -60,11 +60,10 @@ linkcolor: blue
 ---
 
 <!-- TODO: -->
-<!-- improve sentence in the end of discussion -->
-<!-- update € values in 10yr period with inflation and discount rate (i have that at home) -->
 <!-- understand where the values from table 2 come from -->
+<!-- check the % of social impacts vs. environmental -->
 <!-- make sure of the reference cls -->
-
+<!-- see where we can cut to 1 less paragraph -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
@@ -76,8 +75,9 @@ library(dplyr)
 
 <!-- **full paper**: 4-6 pages in length (typically up to 3,000 words). we have 2849 words before references, or 2278 words without tables -->
 
-Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can significantly replace private car trips.
+Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can significantly replace private car trips [@MARTENS2007326; @RIETVELD200071].
 This approach requires interventions and programs to make bicycling more appealing, and the resulting public investments can have significant social and environmental benefits.
+<!-- Many studies refer to the potential of cycling and bike-sharing to replace car and PT trips, but not to the potential of serving as first and last miles. --> 
 
 According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle.
 Car modal share was 58.4%, while PT accounted for 15.5%.
@@ -100,7 +100,7 @@ However, to the best of our knowledge, this is the first time that the method ha
 
 [^3]:  See [npt.scot](https://www.npt.scot) and [cruse.bike](https://cruse.bike) for examples of the PCT in Scotland and Ireland that include estimates of cycling for other purposes.
 
-<!-- For the full paper, explain that we had 3 scenarios, and describe them. But in this paper we focous on the intermodality one. -->
+<!-- For the full paper, explain that we had 3 scenarios, and describe them. But in this paper we focus on the intermodality one. -->
 
 This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA.
 After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
@@ -148,6 +148,7 @@ The selected route choice algorithm was the [`r5r` R package](https://ipeagit.gi
 `r5r` can calculate multi-modal routes using PT combined with other modes.
 It enables the identification of the most direct or safest cycling routes, using the Level of Traffic Stress[^4] (LTS) scale, ranging from 1 to 4, where 1 corresponds to the quietest (e.g., off-road cycle paths) and 4 corresponds to the least quiet (e.g., routes shared with motorized traffic).
 The routes were estimated for the base scenario for both types of networks: *direct* and *safe*, using LTS 4 and LTS 3, respectively.
+Different routing profiles enable decision-makers to plan for different bicycle user typologies and/or for different city cycling maturity levels [@felix2017]. <!-- move this to conclusions? -->
 
 [^4]: see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress).
 
@@ -216,7 +217,7 @@ We updated all the monetary reference values of the literature based on the annu
 # Results and Discussion
 
 Table \ref{tab:summary1} presents the LMA total daily trips, the cycling combined with PT trips in the baseline scenario and corresponding new trips to achieve the national strategy targets (4% and 10%), for different route profiles. 
-For the cycling legs of the journey (first and last legs), the environmental avoided emissions and monetized socio-environment benefits are also presented, resulting from replacing car trips with cycling.
+For the cycling legs of the journey (first and last legs), the environmental avoided emissions and monetized socio-environment (SE) benefits are also presented, resulting from replacing car trips with cycling.
 
 
 ```{r summary1old, eval=FALSE, out.width="100%", fig.cap="Summary of the cycling potencial of intermodality scenario."}
@@ -244,7 +245,6 @@ knitr::kable(summary1,
 
 For both *direct* and *safe* route profiles, 20% of the daily car trips have the potential to be replaced by a combination of PT and cycling (up to 5 km on bike). 
 <!-- place in the end - here is not clear -->
-
 *Table \ref{tab:summary21} shows something that doesn't make sense.*
 <!-- ???? -->
 
@@ -335,22 +335,22 @@ knitr::kable(summaryall,
 Shifting from car to cycling + PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year, 
 and the 10-year socio-environmental benefits account for €235 million to €620 million, depending on the cycling targets.
 
-*Say something about the avoided C02eq emissions in the first and last legs (bike) is about 3/4 of the PT leg avoided emissions, which is (expected?) and should not be overlooked when promoting the use of PT. Making the accessibility to PT interfaces more atractive to cycling and providing bicycle-friendly equipments (parking) can reduce more 75% CO2eq emissions than the shifted car to PT trip* (FM/RL help)
+The emissions of CO~2~eq that are avoided during both the initial and final journey segments account for about 75% of the emissions avoided during the PT segment. This finding, while expected -- due the zero cycling emissions, should not be overlooked when promoting the PT use. Improving the safe accessibility to PT interfaces to cyclists and providing bicycle-friendly amenities such as parking facilities can potentially lead to a higher reduction in CO~2~eq emissions, compared to a scenario where individuals shift from car travel to car + PT combination.
 
+The social impacts from replacing car trips to bicycle in first-and-last legs, represent 95% of the total socio-environmental benefits estimated for all journey legs. <!-- sCheck the % of SOCIAL - original heat tables -->
 Our findings suggest that a bicycle and PT combination could viably replace 20% of current LMA trips, with an additional 12% of PT journeys prone to further substitution. 
 <!-- repeated? -->
 
 # Conclusion
 
-The information on socio-economic benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation, and better communicate their decisions by providing the expected avoided GHG and air pollutant emissions and the monetized socio-economic benefits for short and long terms.
-Different routing profiles enable decision-makers to plan for different bicycle user typologies and/or for different city cycling maturity levels [@felix2017].
+The information on socio-economic benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation, and to better communicate their decisions by providing the expected avoided GHG and air pollutant emissions and the monetized socio-economic benefits for short and long terms.
 
-The information available at *biclaR* tool -- an open access website -- can be downloaded and used with any GIS software to, for instance, understand which potential cycling connections have the highest socio-environmental impacts, in tons of avoided CO~2~eq emissions, or in long term social benefits.
+The information available at *biclaR* tool -- an open access website -- can be downloaded and used with any GIS software to, for instance, understand which potential cycling connections have the highest socio-environmental impacts, in tons of avoided CO~2~eq emissions, or in long term social benefits. <!-- move to introduction? -->
 
 By making the research process publicly accessible in a code repository, this research enables the replication of similar estimates for socio-environmental impacts, resulting from a modal shift from car to bicycle in combination with PT, in other metropolitan areas.
 
 
-### Acknowledgements {.unnumbered}
+### Acknowledgements. {.unnumbered}
 This research was funded by the Lisbon's Metropolitan Department of Transport (TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A.), under the *biclaR* Project.
 This work is part of the research activity carried out at Civil Engineering Research and Innovation for Sustainability (CERIS) and has been funded by Fundação para a Ciência e a Tecnologia (FCT), Portugal in the framework of project UIDB/04625/2020. 
 The authors thank Thomas Götschi (HEAT for Cycling) for providing access to HaaS tool, which is under development.
