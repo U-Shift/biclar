@@ -307,11 +307,16 @@ knitr::kable(summary22,
 The sum of CO~2~eq avoided emissions from the potential car trips shifted to bike (first-and-last legs) in combination with PT (second leg) in the LMA is presented on Table \ref{tab:summaryall}, for both national cycling strategy targets and routing profiles, and the socio-environmental benefits monetized in €, for a 1-year and 10-year time periods.
 
 ```{r summaryall, message=FALSE, warning=FALSE}
+summary0 = readRDS("load/HEAT_aml_results.Rds") |> slice_tail(n = 4)
+rate = ((1+0.03)^10)/((1+0.05)^10) # inflation rate 3% discount rate 5%
+
 summaryall = summary1 |> left_join(summary22) |> 
-  select(c(1, 2, 6, 7, 8, 13)) |> 
+  mutate(Code = c(3304, 3404, 3310, 3410)) |> 
+  left_join(summary0 |> select(Code, Economic), by = "Code") |> 
+  select(c(1, 2, 6, 7, 8, 13, 15)) |> 
   mutate(CO2eq = co2 + CO2eq,
-         value1 = monet/10 + Value, # this is NOT CORRECT, need to inflate - see original table
-         value10 = monet + Value*10) |> # this is NOT CORRECT, need to deflate
+         value1 = Economic/1000 + Value, # this is CORRECT
+         value10 = monet + Value*10*rate) |> # this is CORRECT
   select(Estrategia, LTS, CO2eq, value1, value10)
 
 knitr::kable(summaryall,
@@ -326,9 +331,9 @@ knitr::kable(summaryall,
 
 ```
 
-<!-- correct the € numbers after inflation -->
+<!-- separate the Socio impacts from the Environemtal ones? It shouldn't be ok to sum them -->
 Shifting from car to cycling + PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year, 
-and the 10-year socio-environmental benefits account for €238 to €626 million, depending on the cycling targets.
+and the 10-year socio-environmental benefits account for €235 million to €620 million, depending on the cycling targets.
 
 *Say something about the avoided C02eq emissions in the first and last legs (bike) is about 3/4 of the PT leg avoided emissions, which is (expected?) and should not be overlooked when promoting the use of PT. Making the accessibility to PT interfaces more atractive to cycling and providing bicycle-friendly equipments (parking) can reduce more 75% CO2eq emissions than the shifted car to PT trip* (FM/RL help)
 
