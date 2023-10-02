@@ -78,7 +78,11 @@ pois terá sido feito um sum em todos.
 Este erro será apenas referente ao intermodal, para a parte da bicicleta.
 Isto deve-se a ter deixado as rotas separadas - o que faz todo o sentido - e depois ter pegado nesse ficheiro para o heat.
 
-
+O código estava de facto bem escrito (heat-prep.R, linha 273-286)! mas ele está a dar o seguinte aviso, que indica que continuam a aparecer 2 linhas por segmento
+# Warning message:
+#   Returning more (or less) than 1 row per `summarise()` group was deprecated in dplyr 1.1.0.
+# ℹ Please use `reframe()` instead.
+# ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()` always returns an ungrouped data frame and adjust accordingly.
 
 
 ### Por enquanto refazer a tabela 2. Depois tentar calcular de novo as emissões

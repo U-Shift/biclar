@@ -251,11 +251,11 @@ HEATbind_aml_PPP = HEATbind
 
 
 ## For Intermodality ---------------------------------------------------------------------------
-
+# RUN THIS AGAIN WHEN API GETS LIVE
 
 Code_Hass = CENARIOS$Code[9:12] #fazer por enquanto só AML e senários 1 e 2
 
-HEATbind_intermodal = HEAT
+HEATbind_intermodal_correct = HEAT
 
 for (i in Code_Hass){
   
@@ -271,14 +271,15 @@ for (i in Code_Hass){
     mutate(ENMAC = ENMAC/100)
   
   HEAT_bike = readRDS(HEAT$routes_filepath) %>% 
-    ungroup() %>% 
     st_drop_geometry() %>%
-    group_by(id) %>% 
-    summarise(distance = sum(distance), 
+    ungroup() %>% 
+    group_by(id) %>%  # it shouldn't return two segments again.
+    summarise(distance = sum(distance),  # we need to put both segments distance together!
               Bike = Bike,
               Car = Car + CarP,
               Total = Total,
               Bikeper = Bike / Total) %>% 
+    unique() |> # NOT THE IDEAL BUT WORKS FOR THE PURPUSE (this was missing in the first version 2023)
     ungroup() %>% 
     mutate(
       cyc = ifelse(Bikeper >= HEAT$ENMAC, Bike, HEAT$ENMAC * Total),
@@ -438,7 +439,7 @@ for (i in Code_Hass){
     mutate(value_newcyc = round(Economic10/Bike_new),
            value_newcyc_eur = round(Economic10/Bike_new*usd_to_eur))
   
-  HEATbind_intermodal = rbind(HEATbind_intermodal, HEAT)
+  HEATbind_intermodal_correct = rbind(HEATbind_intermodal_correct, HEAT)
   
   print(paste0(i, " done"))
   
@@ -446,6 +447,6 @@ for (i in Code_Hass){
   
 }
 
-# HEATbind_intermodal = HEATbind_intermodal[-1,]
-# HEATbind_intermodal_PPP = HEATbind_intermodal
-saveRDS(HEATbind_intermodal_PPP, "HEAT/HEAT_AML_intermodal_ppp.Rds")
+# HEATbind_intermodal_correct = HEATbind_intermodal_correct[-1,]
+# HEATbind_intermodal_correct_PPP = HEATbind_intermodal_correct
+saveRDS(HEATbind_intermodal_correct_PPP, "HEAT/HEAT_AML_intermodal_ppp.Rds")
