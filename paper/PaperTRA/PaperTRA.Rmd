@@ -36,6 +36,7 @@ keywords:
 bibliography: bibliography.bib
 # Use csl when using default citation_package for Pandoc citeproc
 csl: https://www.zotero.org/styles/springer-lecture-notes-in-computer-science
+# cls : svproc.csl
 # citations with arabic numbers is prefered when using natbib
 natbiboptions: numbers
 
@@ -61,9 +62,9 @@ linkcolor: blue
 
 <!-- TODO: -->
 <!-- understand where the values from table 2 come from -->
-<!-- check the % of social impacts vs. environmental -->
-<!-- make sure of the reference cls -->
+<!-- make sure of the reference cls - try the other cls -->
 <!-- see where we can cut to 1 less paragraph -->
+<!-- should we ignore the social benefits component? and only estimate and add the environmental ones? or estimate the car to tp transfer Social benefits? maybe to the next paper? -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
@@ -154,10 +155,10 @@ Different routing profiles enable decision-makers to plan for different bicycle 
 
 <!-- The quietness level^[see https://www.cyclestreets.net/help/journey/howitworks/#quietness] was another indicator estimated by [CycleStreets](https://www.cyclestreets.org/) for each route section, based on road network variables xisting on OpenStreetMap labels, such as the number of lanes, maximum allowed speed, trees, or road hierarchy. Values vary on a scale of 0 to 100, where zero corresponds to the least safe level for cycling and 100 corresponds to the safest and quietest level, usually corresponding to sections that already include segregated cycling infrastructure away from motorized traffic.  I THINK THIS IS NOT RELEVANT FOR THIS SHORT PAPER, AS IT IS MOST USEFUL FOR VIZUALIZATION PURPOSES ON BICLAR TOOL-->
 
-The `r5r` model used the OpenStreetMap road network and the GTFS metropolitan data agregated and validated.
+The `r5r` model used the OpenStreetMap road network and the GTFS metropolitan data aggregated and validated.
 This information is crucial for an accurate PT trip and route estimation.
-A digital elevation model from the European Space Agency's COPERNICUS mission, with a 25m spatial resolution, was used to include street gradient information, as a weight in cycling routing.
-The cycling potential trips for the two national strategic targets (4% and 10%) was estimated from the values for cycling and car trips (both as a driver and as a passenger) from the 2017 base scenario.
+A digital elevation model, from the European Space Agency's COPERNICUS mission, was used to include street gradient information, as a weight in cycling routing. <!--  with a 25 m spatial resolution, -->
+The cycling potential trips for the two national strategic targets (4% and 10%) were estimated from the 2017 cycling and car trips (both as a driver and as a passenger), the baseline scenario.
 
 The routes were then overlaid and aggregated by segments, using [`stplanr overline()` R function](https://docs.ropensci.org/stplanr/reference/overline.html).
 <!-- For example, the estimated volumes of bicycle trips and car transfers were aggregated, and the average car speed and quietness level, weighted by the distance of the segments, were calculated. -->
@@ -335,9 +336,10 @@ knitr::kable(summaryall,
 Shifting from car to cycling + PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year, 
 and the 10-year socio-environmental benefits account for €235 million to €620 million, depending on the cycling targets.
 
-The emissions of CO~2~eq that are avoided during both the initial and final journey segments account for about 75% of the emissions avoided during the PT segment. This finding, while expected -- due the zero cycling emissions, should not be overlooked when promoting the PT use. Improving the safe accessibility to PT interfaces to cyclists and providing bicycle-friendly amenities such as parking facilities can potentially lead to a higher reduction in CO~2~eq emissions, compared to a scenario where individuals shift from car travel to car + PT combination.
+The social impacts represent 98% of the socio-environmental benefits (in value) from replacing car trips to bicycle in first-and-last legs. <!-- We should estimate the social impacts from replacing Car to PT in the second leg, for the other paper -->
+The emissions of CO~2~eq that are avoided during both the initial and final journey segments account for about 75% of the emissions avoided during the PT segment. This finding, while expected -- due the zero cycling emissions, should not be overlooked when promoting the PT use.
+Improving the safe accessibility to PT interfaces to cyclists and providing bicycle-friendly amenities such as parking facilities can potentially lead to a higher reduction in CO~2~eq emissions, compared to a scenario where individuals shift from car travel to car + PT combination.
 
-The social impacts from replacing car trips to bicycle in first-and-last legs, represent 95% of the total socio-environmental benefits estimated for all journey legs. <!-- sCheck the % of SOCIAL - original heat tables -->
 Our findings suggest that a bicycle and PT combination could viably replace 20% of current LMA trips, with an additional 12% of PT journeys prone to further substitution. 
 <!-- repeated? -->
 
