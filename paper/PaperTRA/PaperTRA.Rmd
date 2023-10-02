@@ -186,7 +186,7 @@ knitr::include_graphics("img/map2.png", error = FALSE)
 
 <!-- The impacts were assessed for the total metro area. -->
 
-For the cycling legs of the journey (first and last legs), socio-environmental impacts were estimated, using the HEAT for Cycling tool v5.0 [@HEAT] and the [`HEATaaS` R package](https://github.com/HEAT-WHO/HEAT_heatr_api)[^5] from the World Health Organization.
+For the cycling legs of the journey (first and last legs), socio-environmental impacts were estimated, using the HEAT for Cycling tool v5.0 [@HEAT] from the World Health Organization, and the [`HEATaaS` R package](https://github.com/HEAT-WHO/HEAT_heatr_api)[^5].
 The HEAT tool provided estimates on the shifting from car to cycling for a short term time horizon (i.e., one year) and the long term (i.e., ten years).
 We considered two dimensions: *social* — including the physical activity of cyclists, air pollution exposure, and road casualties; *environmental* — including CO~2~eq emissions and other pollutants. 
 
