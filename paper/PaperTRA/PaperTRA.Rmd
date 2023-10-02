@@ -68,7 +68,9 @@ linkcolor: blue
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
+                      # root.dir = "paper/PaperTRA/",
                       out.extra = "")  # This forces knitr to label all figures.
+
 library(dplyr)
 ```
 
@@ -220,10 +222,6 @@ We updated all the monetary reference values of the literature based on the annu
 Table \ref{tab:summary1} presents the LMA total daily trips, the cycling combined with PT trips in the baseline scenario and corresponding new trips to achieve the national strategy targets (4% and 10%), for different route profiles. 
 For the cycling legs of the journey (first and last legs), the environmental avoided emissions and monetized socio-environment (SE) benefits are also presented, resulting from replacing car trips with cycling.
 
-
-```{r summary1old, eval=FALSE, out.width="100%", fig.cap="Summary of the cycling potencial of intermodality scenario."}
-knitr::include_graphics("img/table1.png", error = FALSE)
-```
 ```{r summary1}
 summary1 = readRDS("load/summary1.Rds")
 
@@ -244,38 +242,34 @@ knitr::kable(summary1,
 
 ```
 
-For both *direct* and *safe* route profiles, 20% of the daily car trips have the potential to be replaced by a combination of PT and cycling (up to 5 km on bike). 
+For both *direct* and *safe* route profiles, 20% of the daily car trips have the potential to be replaced by a combination of PT and cycling (up to 5 km on bike). <!-- NOT CORRECT -->
 <!-- place in the end - here is not clear -->
-*Table \ref{tab:summary21} shows something that doesn't make sense.*
+Table \ref{tab:summary21} shows the PT modes with most potential of  in combination with cycling, by mode.
 <!-- ???? -->
-
-```{r summary2old, eval=FALSE, out.width="100%", fig.cap="Potencial de transferência estimado para cada modo de transporte público, bem como as estimativas de consumo de CO~2~eq evitado anualmente por transferência do automóvel."}
-knitr::include_graphics("img/table2.png", error = FALSE)
-```
 
 ```{r summary21}
 summary2 = readRDS("load/summary2.Rds")
 
-summary21 = summary2 %>%
-  mutate(LTS = recode(LTS, "seguro" = "safe", "direto" = "direct")) |> 
-  mutate(Estrategia = paste0(`Meta ENMAC`*100,"%")) |> 
-  select(Estrategia, LTS, Total, Autocarro, Barco, Comboio, `Metro superfície`) |> 
-  arrange(desc(Estrategia))
+summary21 = summary21 %>%
+  # mutate(LTS = recode(LTS, "seguro" = "safe", "direto" = "direct")) |> 
+  # mutate(Estrategia = paste0(`Meta ENMAC`*100,"%")) |> 
+  # select(Estrategia, LTS, Total, Autocarro, Barco, Comboio, `Metro superfície`) |> 
+  arrange(desc(Target))
 
-knitr::kable(summary21,
+knitr::kable(summary21 |> select(-Baseline),
       digits = 0,
       format.args = list(big.mark = " "),
-      col.names = c("Target", "Routing", "Total",
-                    "Bus", "Ferry", "Train", "Tram"),
+      # col.names = c("Target", "Routing", "Total",
+      #               "Bus", "Ferry", "Train", "Tram"),
       caption = "\\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode.",
       format="latex",
       booktabs = TRUE) |> 
-  kableExtra::column_spec(column = c(3:7), width = "4em")
+  kableExtra::column_spec(column = c(1:7), width = "4.5em")
   
 ```
 
-This scenario unveils the potential of cycling as a complementary mode of PT, with the potential to uptake the number of PT trips within the LMA area by as much as 12% (in addition to the 825 thousand PT trips reported in the mobility survey).
-These findings indicate that transferring car trips to a combination of bicycle and PT could be nearly as substantial, if not equally significant, as the shift towards bicycle-only trips.
+This scenario unveils the potential of cycling as a complementary mode of PT, with the potential to uptake the number of PT trips within the LMA area by as much as 6.3% (in addition to the 825 thousand PT trips reported in the mobility survey).
+<!-- These findings indicate that transferring car trips to a combination of bicycle and PT could be nearly as substantial, if not equally significant, as the shift towards bicycle-only trips. WE CANNOT SHOW THIS IN THIS PAPER WITH ONLY SCENARIO 3 DATA --> 
 
 When comparing the existing PT interfaces (Figure \ref{fig:map1}) with the bike routes with highest potential to serve as first and last legs (Figure \ref{fig:map2}) it becomes clear that the PT train interfaces are the ones that have the highest potential to attract car-to-PT substituting trips, if their accessibility by bicycle is improved to be safe. 
 
@@ -341,7 +335,7 @@ The emissions of CO~2~eq that are avoided during both the initial and final jour
 Improving the safe accessibility to PT interfaces to cyclists and providing bicycle-friendly amenities such as parking facilities can potentially lead to a higher reduction in CO~2~eq emissions, compared to a scenario where individuals shift from car travel to car + PT combination.
 
 Our findings suggest that a bicycle and PT combination could viably replace 20% of current LMA trips, with an additional 12% of PT journeys prone to further substitution. 
-<!-- repeated? -->
+<!-- repeated? not correct -->
 
 # Conclusion
 
