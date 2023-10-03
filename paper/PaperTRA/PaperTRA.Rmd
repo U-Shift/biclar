@@ -61,7 +61,7 @@ linkcolor: blue
 ---
 
 <!-- TODO: -->
-<!-- see where we can cut to 1 less paragraph -->
+<!-- check if HEAT estimates remain the same (the tool is not working atm) -->
 <!-- should we ignore the social benefits component? and only estimate and add the environmental ones? or estimate the car to tp transfer Social benefits? maybe to the next paper? -->
 
 ```{r setup, include=FALSE}
