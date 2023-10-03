@@ -250,7 +250,7 @@ Table \ref{tab:summary21} shows the PT modes with most potential of  in combinat
 ```{r summary21}
 summary2 = readRDS("load/summary2.Rds")
 
-summary21 = summary21 %>%
+summary21 = summary2 %>%
   # mutate(LTS = recode(LTS, "seguro" = "safe", "direto" = "direct")) |> 
   # mutate(Estrategia = paste0(`Meta ENMAC`*100,"%")) |> 
   # select(Estrategia, LTS, Total, Autocarro, Barco, Comboio, `Metro superfície`) |> 
@@ -280,13 +280,12 @@ Regarding the PT segment, the shift from private car usage would lead to the mit
 
 
 ```{r summary22}
-
-summary22 = summary2 %>%
-  mutate(LTS = recode(LTS, "seguro" = "safe", "direto" = "direct")) |> 
-  mutate(Estrategia = paste0(`Meta ENMAC`*100,"%")) |> 
-  mutate(Value = `Valorização monetária (€)`/1000) |> 
-  select(Estrategia, LTS, CO2eq, CO, PM10, NOx, VOC, Value) |> 
-  arrange(desc(Estrategia))
+summary22 = readRDS("load/TPtable_aml.Rds")
+summary22 = summary22 %>%
+  mutate(LTS = recode(Percursos, "seguro" = "safe", "direto" = "direct")) |> 
+  mutate(Value = money_emissions_eur/1000) |> 
+  select(Meta_ENMAC, LTS, CO2eq_TP, CO_PT, PM10_PT, NOx_PT, VOC_PT, Value) |> 
+  arrange(Meta_ENMAC)
 
 knitr::kable(summary22,
       digits = c(0,0,0,0,1,0,1,0),
@@ -305,11 +304,13 @@ The sum of CO~2~eq avoided emissions from the potential car trips shifted to bik
 summary0 = readRDS("load/HEAT_aml_results.Rds") |> slice_tail(n = 4)
 rate = ((1+0.03)^10)/((1+0.05)^10) # inflation rate 3% discount rate 5%
 
-summaryall = summary1 |> left_join(summary22) |> 
+summaryall = summary1 |> 
+  mutate(Meta_ENMAC = Estrategia) |>
+  left_join(summary22) |> 
   mutate(Code = c(3304, 3404, 3310, 3410)) |> 
   left_join(summary0 |> select(Code, Economic), by = "Code") |> 
-  select(c(1, 2, 6, 7, 8, 13, 15)) |> 
-  mutate(CO2eq = co2 + CO2eq,
+  select(Estrategia, LTS, co2, CO2eq_TP, monet, Value, Economic) |> 
+  mutate(CO2eq = co2 + CO2eq_TP,
          value1 = Economic/1000 + Value, # this is CORRECT
          value10 = monet + Value*10*rate) |> # this is CORRECT
   select(Estrategia, LTS, CO2eq, value1, value10)

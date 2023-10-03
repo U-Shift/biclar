@@ -258,14 +258,13 @@ decision-makers to plan for different bicycle user typologies and/or for
 different city cycling maturity levels {[}11{]}.
 
 The \texttt{r5r} model used the OpenStreetMap road network and the GTFS
-metropolitan data agregated and validated. This information is crucial
-for an accurate PT trip and route estimation. A digital elevation model
-from the European Space Agency's COPERNICUS mission, with a 25m spatial
-resolution, was used to include street gradient information, as a weight
-in cycling routing. The cycling potential trips for the two national
-strategic targets (4\% and 10\%) was estimated from the values for
-cycling and car trips (both as a driver and as a passenger) from the
-2017 base scenario.
+metropolitan data aggregated and validated. This information is crucial
+for an accurate PT trip and route estimation. A digital elevation model,
+from the European Space Agency's COPERNICUS mission, was used to include
+street gradient information, as a weight in cycling routing. The cycling
+potential trips for the two national strategic targets (4\% and 10\%)
+were estimated from the 2017 cycling and car trips (both as a driver and
+as a passenger), the baseline scenario.
 
 The routes were then overlaid and aggregated by segments, using
 \href{https://docs.ropensci.org/stplanr/reference/overline.html}{\texttt{stplanr\ overline()}
@@ -312,17 +311,17 @@ benefits}\label{assessing-socio-environmental-benefits}}
 
 For the cycling legs of the journey (first and last legs),
 socio-environmental impacts were estimated, using the HEAT for Cycling
-tool v5.0 {[}12{]} and the
+tool v5.0 {[}12{]} from the World Health Organization, and the
 \href{https://github.com/HEAT-WHO/HEAT_heatr_api}{\texttt{HEATaaS} R
 package}\footnote{\texttt{HEATaaS} is under development. For more
   information contact
-  \href{https://heatwalkingcycling.org}{heatwalkingcycling.org}.} from
-the World Health Organization. The HEAT tool provided estimates on the
-shifting from car to cycling for a short term time horizon (i.e., one
-year) and the long term (i.e., ten years). We considered two dimensions:
-\emph{social} --- including the physical activity of cyclists, air
-pollution exposure, and road casualties; \emph{environmental} ---
-including CO\textsubscript{2}eq emissions and other pollutants.
+  \href{https://heatwalkingcycling.org}{heatwalkingcycling.org}.}. The
+HEAT tool provided estimates on the shifting from car to cycling for a
+short term time horizon (i.e., one year) and the long term (i.e., ten
+years). We considered two dimensions: \emph{social} --- including the
+physical activity of cyclists, air pollution exposure, and road
+casualties; \emph{environmental} --- including CO\textsubscript{2}eq
+emissions and other pollutants.
 
 For the second leg of the journey, we estimate the additional
 environmental impacts of shifting car trips to PT (between the PT
@@ -392,32 +391,29 @@ Target & Routing & Total trips & Baseline Cycling + PT & Potencial Cycling + PT 
 
 For both \emph{direct} and \emph{safe} route profiles, 20\% of the daily
 car trips have the potential to be replaced by a combination of PT and
-cycling (up to 5 km on bike). \emph{Table \ref{tab:summary21} shows
-something that doesn't make sense.}
+cycling (up to 5 km on bike). Table \ref{tab:summary21} shows the PT
+modes with most potential of in combination with cycling, by mode.
 
 \begin{table}
 
 \caption{\label{tab:summary21}\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode.}
 \centering
-\begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}>{\raggedleft\arraybackslash}p{4em}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4.5em}>{\raggedright\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}}
 \toprule
-Target & Routing & Total & Bus & Ferry & Train & Tram\\
+Target & Routing & Potential & Bus & Ferry & Train & Tram\\
 \midrule
-4\% & safe & 192 214 & 4 163 & 5 167 & 169 984 & 12 900\\
-4\% & direct & 189 846 & 4 879 & 5 795 & 171 534 & 7 639\\
-10\% & safe & 224 152 & 5 042 & 5 594 & 197 857 & 15 659\\
-10\% & direct & 219 511 & 5 806 & 6 263 & 198 373 & 9 069\\
+4\% & safe & 20 385 & 573 & 285 & 17 716 & 1 811\\
+4\% & direct & 18 944 & 593 & 313 & 17 093 & 946\\
+10\% & safe & 52 323 & 1 452 & 712 & 45 588 & 4 571\\
+10\% & direct & 48 609 & 1 520 & 781 & 43 932 & 2 375\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 This scenario unveils the potential of cycling as a complementary mode
 of PT, with the potential to uptake the number of PT trips within the
-LMA area by as much as 12\% (in addition to the 825 thousand PT trips
-reported in the mobility survey). These findings indicate that
-transferring car trips to a combination of bicycle and PT could be
-nearly as substantial, if not equally significant, as the shift towards
-bicycle-only trips.
+LMA area by as much as 6.3\% (in addition to the 825 thousand PT trips
+reported in the mobility survey).
 
 When comparing the existing PT interfaces (Figure \ref{fig:map1}) with
 the bike routes with highest potential to serve as first and last legs
@@ -478,6 +474,8 @@ CO\textsubscript{2}eq emissions by 14,000 to 36,000 tons per year, and
 the 10-year socio-environmental benefits account for €235 million to
 €620 million, depending on the cycling targets.
 
+The social impacts represent 98\% of the socio-environmental benefits
+(in value) from replacing car trips to bicycle in first-and-last legs.
 The emissions of CO\textsubscript{2}eq that are avoided during both the
 initial and final journey segments account for about 75\% of the
 emissions avoided during the PT segment. This finding, while expected --
@@ -488,11 +486,9 @@ facilities can potentially lead to a higher reduction in
 CO\textsubscript{2}eq emissions, compared to a scenario where
 individuals shift from car travel to car + PT combination.
 
-The social impacts from replacing car trips to bicycle in first-and-last
-legs, represent 95\% of the total socio-environmental benefits estimated
-for all journey legs. Our findings suggest that a bicycle and PT
-combination could viably replace 20\% of current LMA trips, with an
-additional 12\% of PT journeys prone to further substitution.
+Our findings suggest that a bicycle and PT combination could viably
+replace 20\% of current LMA trips, with an additional 12\% of PT
+journeys prone to further substitution.
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
