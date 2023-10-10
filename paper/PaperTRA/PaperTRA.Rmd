@@ -204,7 +204,7 @@ In addition, we assumed an occupancy rate of 1.61 passengers *per* car [@IMOB].
 
 Regarding the PT, we considered the emission factor values reported in the environmental and sustainability reports of the PT operators in the LMA [@Carris2019s; @Metro2019s; @CP2019s; @Transtejo2014].
 
-Emissions were estimated for the following atmospheric pollutants: CO~2~eq, CO, PM10, NOx, and VOC.
+Emissions were estimated for the following atmospheric pollutants: CO, PM10, NOx, and VOC; and for the main green house gases: CO~2, CH~4, and N~2~O, converted in CO~2~eq.
 In particular, for the urban train and tram -- with 100% electric traction -- only CO~2~eq emissions were considered (resulting from the production of electricity, considering a "well-to-tank" approach), since the other pollutants are not emitted locally.
 
 The conversion of avoided emissions into avoided welfare loss and respective monetary valuation was based on the EU Guide to Cost-benefit Analysis [@EuropeanCommission2014] and the best up-to-date reference values for the various gases [@EuropeanCommission2014; @bickel2006; @UNITE].
@@ -236,7 +236,7 @@ knitr::kable(summary1,
       col.names = c("Target", "Routing", "Total trips",
                     "Baseline Cycling + PT", "Potencial Cycling + PT",
                     "Avoided CO2eq (ton/yr)", "SE Benefits for 10 years (thousand €)"),
-      caption = "\\label{summary1}Summary of the cycling potencial of intermodality scenario.",
+      caption = "\\label{summary1}Summary of the cycling potencial of intermodality scenario and its socio-environmental benefits for the cycling legs.",
       format="latex",
       booktabs = TRUE) |> 
   kableExtra::column_spec(column = c(4:7), width = "6em")
@@ -326,7 +326,7 @@ knitr::kable(summaryall,
 
 ```
 
-<!-- separate the Socio impacts from the Environemtal ones? It shouldn't be ok to sum them -->
+<!-- FOR OTHER PAPER: separate the Socio impacts from the Environmental ones? It shouldn't be ok to sum them -->
 Shifting from car to cycling + PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year, 
 and the 10-year socio-environmental benefits account for €235 million to €620 million, depending on the cycling targets.
 
