@@ -48,6 +48,8 @@ resp <-
 
 # convert from "jsonl-serialized" to R format
 from_serialized_json <- jsonlite::unserializeJSON(httr::content(resp, "text"))
+
+
 str(from_serialized_json$results)
 
 # Check final result value
@@ -76,6 +78,8 @@ resp <-
 
 # convert to R
 from_rds <- unserialize(httr::content(resp, "raw"))
+# check the response
+str(resp)
 
 # Check final result value
 res = as.numeric(gsub(" ","",from_rds$results$moneytotaldisc)) #remove spaces and convert to to numeric
@@ -84,6 +88,30 @@ res[26]-res[27]-res[28]+res[29]
 #> 
 #> # ESTE É o unico que dá resultados semelhantes com o do UI, pois usa o genericdata (onde tem o occupancy car rate, velocidades assumidas, e % de shifting de que modos
 # 
+
+
+ # TRY TO USE OTHER VALUES
+webapp_input[["raw_activemode_bike_ref_alltrips"]] # it use to be the sum of all TRIPS per day (not per person/day)
+
+totaltripspax = 2.6
+webapp_input[["raw_activemode_bike_ref_alltrips"]] = totaltripspax
+webapp_input[["raw_activemode_bike_cf_alltrips"]] = totaltripspax
+webapp_input[["raw_motorizedmode_car_ref_alltrips"]] = totaltripspax
+webapp_input[["raw_motorizedmode_car_cf_alltrips"]] = totaltripspax
+
+
+# DOESNT WORK
+resp_reprex <- 
+  httr::POST("https://api.heatwalkingcycling.org/apiv1/heat_5_0/calc_results?output_format=rds",
+             httr::set_cookies("user" = Sys.getenv("HEAT_COOKIE")),
+             body = jsonlite::toJSON(
+               list("webapp_input" = webapp_input,
+                    "generic_data_relevant" = genericdata)),
+             encode = "multipart")
+
+# convert to R
+from_rds_reprex <- unserialize(httr::content(resp_reprex, "raw"))
+
 
 
 

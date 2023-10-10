@@ -253,7 +253,7 @@ HEATbind_aml_PPP = HEATbind
 ## For Intermodality ---------------------------------------------------------------------------
 # RUN THIS AGAIN WHEN API GETS LIVE
 
-Code_Hass = CENARIOS$Code[9:12] #fazer por enquanto só AML e senários 1 e 2
+Code_Hass = CENARIOS$Code[9:12] #fazer por enquanto só AML e senários 3
 
 HEATbind_intermodal_correct = HEAT
 
@@ -275,11 +275,11 @@ for (i in Code_Hass){
     ungroup() %>% 
     group_by(id) %>%  # it shouldn't return two segments again.
     summarise(distance = sum(distance),  # we need to put both segments distance together!
-              Bike = Bike,
-              Car = Car + CarP,
-              Total = Total,
-              Bikeper = Bike / Total) %>% 
-    unique() |> # NOT THE IDEAL BUT WORKS FOR THE PURPUSE (this was missing in the first version 2023)
+              Bike = mean(Bike),
+              Car = mean(Car) + mean(CarP),
+              Total = mean(Total),
+              Bikeper = mean(Bike) / mean(Total)) %>% 
+    # unique() |> # NOT THE IDEAL BUT WORKS FOR THE PURPUSE (this was missing in the first version 2023)
     ungroup() %>% 
     mutate(
       cyc = ifelse(Bikeper >= HEAT$ENMAC, Bike, HEAT$ENMAC * Total),
@@ -292,10 +292,10 @@ for (i in Code_Hass){
     filter(id %in% unique(HEAT_bike$id)) %>% 
     group_by(id) %>% 
     summarise(distance = sum(distance), 
-              Bike = Bike,
-              Car = Car + CarP,
-              Total = Total,
-              Bikeper = Bike / Total) %>% 
+              Bike = mean(Bike),
+              Car = mean(Car) + mean(CarP),
+              Total = mean(Total),
+              Bikeper = mean(Bike) / mean(Total)) %>% 
     mutate(
       cyc = ifelse(Bikeper >= HEAT$ENMAC, Bike, HEAT$ENMAC * Total),
       new_cyc = ifelse(Bikeper >= HEAT$ENMAC, 0, cyc - Bike)) %>% 
