@@ -200,11 +200,11 @@ To estimate the car emissions, we used the EMEP/EEA's COPERT software v5 methods
 We used a family-size vehicle, EURO standard, and gasoline or diesel fuel.
 All trips were considered to be made under urban conditions and at an average speed of 15 km/h during rush hour periods.
 Since the average distance traveled per trip influences the overconsumption and emissions from cold-start engine operation, we estimated energy and emission factors for different ranges of trips at 500-meter intervals.
-In addition, we assumed an occupancy rate of 1.61 passengers *per* car [@IMOB].
+In addition, we assumed an occupancy rate of 1.6 passengers *per* car [@IMOB].
 
-Regarding the PT, we considered the emission factor values reported in the environmental and sustainability reports of the PT operators in the LMA [@Carris2019s; @Metro2019s; @CP2019s; @Transtejo2014].
+Regarding PT, we considered the emission factor values reported in the environmental and sustainability reports of the PT operators in the LMA [@Carris2019s; @Metro2019s; @CP2019s; @Transtejo2014].
 
-Emissions were estimated for the following atmospheric pollutants: CO, PM10, NOx, and VOC; and for the main green house gases: CO~2, CH~4, and N~2~O, converted in CO~2~eq.
+Emissions were estimated for the following atmospheric pollutants: CO, PM10, NOx, and VOC; and for the main green house gases: CO~2~, CH~4~, and N~2~O, converted in CO~2~eq.
 In particular, for the urban train and tram -- with 100% electric traction -- only CO~2~eq emissions were considered (resulting from the production of electricity, considering a "well-to-tank" approach), since the other pollutants are not emitted locally.
 
 The conversion of avoided emissions into avoided welfare loss and respective monetary valuation was based on the EU Guide to Cost-benefit Analysis [@EuropeanCommission2014] and the best up-to-date reference values for the various gases [@EuropeanCommission2014; @bickel2006; @UNITE].
@@ -335,7 +335,7 @@ The social impacts represent 98% of the socio-environmental benefits (in value) 
 The emissions of CO~2~eq that are avoided during both the initial and final journey segments account for about 75% of the emissions avoided during the PT segment. This finding, while expected -- due the zero cycling emissions, should not be overlooked when promoting the PT use.
 Improving the safe accessibility to PT interfaces to cyclists and providing bicycle-friendly amenities such as parking facilities can potentially lead to a higher reduction in CO~2~eq emissions, compared to a scenario where individuals shift from car travel to car + PT combination.
 
-Our findings suggest that a bicycle and PT combination could viably replace 20% of current LMA trips, with an additional 12% of PT journeys prone to further substitution. 
+Our findings suggest that cycling and PT *in combination* could viably replace 10% of current LMA trips, with an additional 6% of PT journeys prone to further substitution. 
 <!-- repeated? not correct -->
 
 # Conclusion
