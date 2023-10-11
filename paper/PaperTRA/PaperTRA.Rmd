@@ -335,7 +335,7 @@ The social impacts represent 98% of the socio-environmental benefits (in value) 
 The emissions of CO~2~eq that are avoided during both the initial and final journey segments account for about 75% of the emissions avoided during the PT segment. This finding, while expected -- due the zero cycling emissions, should not be overlooked when promoting the PT use.
 Improving the safe accessibility to PT interfaces to cyclists and providing bicycle-friendly amenities such as parking facilities can potentially lead to a higher reduction in CO~2~eq emissions, compared to a scenario where individuals shift from car travel to car + PT combination.
 
-Our findings suggest that a bicycle and PT combination could viably replace 20% of current LMA trips, with an additional 12% of PT journeys prone to further substitution. 
+Our findings suggest that cycling and PT *in combination* could viably replace 20% of current LMA trips, with an additional 12% of PT journeys prone to further substitution. 
 <!-- repeated? not correct -->
 
 # Conclusion
