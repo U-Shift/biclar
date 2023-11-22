@@ -64,17 +64,10 @@ linkcolor: blue
 # natbiboptions: longnamesfirst,angle,semicolon
 ---
 
-
-Please make sure that your manuscript follows the guidelines in the 
-Guide for Authors of the relevant journal. It is not necessary to 
-typeset your manuscript in exactly the same way as an article, 
-unless you are submitting to a camera-ready copy (CRC) journal.
-
-For detailed instructions regarding the elsevier article class, see   <https://www.elsevier.com/authors/policies-and-guidelines/latex-instructions>
-
 <!-- TODO: -->
 <!-- check if HEAT estimates remain the same (the tool is not working atm) -->
-<!-- should we ignore the social benefits component? and only estimate and add the environmental ones? or estimate the car to tp transfer Social benefits? maybe to the next paper? -->
+<!-- should we ignore the social benefits component? and only estimate and add the environmental ones? or estimate the car to PT transfer Social benefits? maybe to the next paper? -->
+<!-- should we keep both direct and safe routing is is it just noise? -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
@@ -100,7 +93,7 @@ Cars and public transport are the most used modes for intercity trips, with cars
 
 <!-- Plot of  AML trips by mode and inter/intra %? -->
 
-To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced *biclaR*[^1], a decision support tool that facilitates the design and development of a metropolitan cycling network [@felix2023].
+To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced *biclaR*[^1], a decision support tool that facilitates the planning, design, and development of a metropolitan cycling network [@felix2023].
 
 [^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/).
 
@@ -349,6 +342,13 @@ Improving the safe accessibility to PT interfaces to cyclists and providing bicy
 
 Our findings suggest that cycling and PT *in combination* could viably replace 10% of current LMA trips, with an additional 6% of PT journeys prone to further substitution. 
 <!-- repeated? not correct -->
+
+There are also social benefits form shifting car trips to PT, nevertheless those were not estimated in this research.
+One of the main socioenvironmetal benefits, valued after monetization, comes from the increase in physical activity [@Felix2023ES].
+The literature shows that the Metabolic Equivalent Tasks (MET) for "riding in a bus or a train" is 1.3 plus the "walking for transportation" is 3.5, while driving a car is 2.5. see https://golf.procon.org/met-values-for-800-activities/
+The difference is not that much between them.
+Future works should also encompass the estimation of the social impacts for the PT leg of the journey, shifting from car.
+
 
 # Conclusion
 
