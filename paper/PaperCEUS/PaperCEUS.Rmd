@@ -252,7 +252,7 @@ For both *direct* and *safe* route profiles, 10% of the daily trips have the pot
 <!-- place in the end - here is not clear -->
 
 Table \ref{tab:summary21} shows the potential trips by PT mode to replace the second leg of the journey, in combination with cycling.
-Trains offer the greatest potential for substitution (88%).
+Train offers the greatest potential for substitution (88%).
 When comparing the existing PT interfaces (Figure \ref{fig:map1}) with the bike routes with highest potential to serve as first and last legs (Figure \ref{fig:map2}) it becomes clear that the Train interfaces are the ones that have the highest potential to attract car-to-PT substituting trips, if their accessibility by bicycle is improved to be safe. 
 
 ```{r summary21}
@@ -281,7 +281,7 @@ knitr::kable(summary21 |> select(-Baseline),
 Table \ref{tab:summary22} presents the results of the avoided emissions and its monetization for the second leg of the journey, by replacing car trips with potential TP trips.
 <!-- We estimate a reduction of 8,702 tons of CO2eq emissions by substituting motorized trips relying on fossil fuels and electricity. These estimations used an electricity production life cycle approach. -->
 <!-- this table could be split into Social benefits and Environmental benefits -->
-Regarding the PT segment, the shift from private car usage would lead to the mitigation of CO~2~ equivalent emissions to 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly.
+Regarding the PT segment, the shift from private car would lead to the mitigation of CO~2~ equivalent emissions to 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly.
 
 ```{r summary22}
 summary22 = readRDS("load/TPtable_aml.Rds")
@@ -332,8 +332,8 @@ knitr::kable(summaryall,
 ```
 
 <!-- FOR OTHER PAPER: separate the Socio impacts from the Environmental ones? It shouldn't be ok to sum them -->
-Shifting from car to cycling + PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year, 
-and the 10-year socio-environmental benefits account for €235 million to €620 million, depending on the cycling targets.
+Shifting from car to cycling + PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year. 
+The 10-year socio-environmental benefits account for €235 million to €620 million, depending on the cycling targets.
 
 The social impacts represent 98% of the socio-environmental benefits (in value) from replacing car trips to bicycle in first-and-last legs. For the PT segment, we did not estimate the social impacts from substituting car trips, although its health benefits would not be as high as shifting to cycling.<!-- We should estimate the social impacts from replacing Car to PT in the second leg, for the other paper --> <!--Overall there was very little evidence available on mode switch to public transport. -->
 
@@ -352,16 +352,17 @@ Future works should also encompass the estimation of the social impacts for the 
 
 # Conclusion
 
-The information on socio-economic benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation, and to better communicate their decisions by providing the expected avoided GHG and air pollutant emissions and the monetized socio-economic benefits for short and long terms.
+The information on socio-economic benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation, and to better communicate their decisions by providing the expected avoided GHG and air pollutant emissions, and the monetized socio-economic benefits for short and long terms.
 
-The information available at *biclaR* tool -- an open access website -- can be downloaded and used with any GIS software. This allows users to, for example, gain insights into which potential cycling connections have the highest socio-environmental impacts, quantified in tons of avoided CO~2~eq emissions, or in long term social benefits. <!-- move to introduction? -->
+The information available at *biclaR* tool -- an open access website -- can be downloaded and used with any GIS software. This allows practitioners to, for example, gain insights into which potential cycling connections have the highest socio-environmental impacts, quantified in tons of avoided CO~2~eq emissions, or in long term social benefits. <!-- move to introduction? -->
 
-By making the research process publicly accessible in a code repository, this research enables the replication of similar estimates for socio-environmental impacts, resulting from a modal shift from car to bicycle in combination with PT, in other metropolitan areas.
+By making the research process publicly accessible in a code repository, it enables the replication of similar estimates for socio-environmental impacts, resulting from a modal shift from car to bicycle in combination with PT, in other metropolitan areas.
 
 
 ### Acknowledgements. {.unnumbered}
-This research was funded by the Lisbon's Metropolitan Department of Transport (TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A.), under the *biclaR* Project.
-This work is part of the research activity carried out at Civil Engineering Research and Innovation for Sustainability (CERIS) and has been funded by Fundação para a Ciência e a Tecnologia (FCT), Portugal in the framework of project UIDB/04625/2020. 
-The authors thank Thomas Götschi (HEAT for Cycling) for providing access to HaaS tool, which is under development.
+[*blind*]
+<!-- This research was funded by the Lisbon's Metropolitan Department of Transport (TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A.), under the *biclaR* Project. -->
+<!-- This work is part of the research activity carried out at Civil Engineering Research and Innovation for Sustainability (CERIS) and has been funded by Fundação para a Ciência e a Tecnologia (FCT), Portugal in the framework of project UIDB/04625/2020.  -->
+<!-- The authors thank Thomas Götschi (HEAT for Cycling) for providing access to HaaS tool, which is under development. -->
 
 # References {.unnumbered}
