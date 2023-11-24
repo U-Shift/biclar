@@ -253,7 +253,7 @@ HEATbind_aml_PPP = HEATbind
 ## For Intermodality ---------------------------------------------------------------------------
 # RUN THIS AGAIN WHEN API GETS LIVE
 
-Code_Hass = CENARIOS$Code[9:12] #fazer por enquanto só AML e senários 3
+Code_Hass = CENARIOS$Code[9:12] #só AML e cenários 3
 
 HEATbind_intermodal_correct = HEAT
 
@@ -321,7 +321,10 @@ for (i in Code_Hass){
   
   #car dist is about 20% more than cycling
 
-  
+  tripspersondayAML = 2.60
+  # tripspersondayAML = 0.5 # teste
+  # webapp_input[["crashdata_used_fatality_rate_bike_ref"]] = 0.5
+  # webapp_input[["crashdata_used_fatality_rate_bike_cf"]] = 0.5
   
   # HAAS
   # # for MER VSL value
@@ -329,9 +332,10 @@ for (i in Code_Hass){
   # genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/1304_generic_data_relevant_with_calc_params.rds"))
   
   # for PPP VSL value
-  webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_webapp_input.rds"))
-  genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_generic_data_relevant_with_calc_params.rds"))
-  
+  # webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_webapp_input.rds"))
+  # genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/162410_generic_data_relevant_with_calc_params.rds"))
+  webapp_input = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/2023_52_1304_webapp_input.rds"))
+  genericdata = readRDS(url("https://web.tecnico.ulisboa.pt/~rosamfelix/heat/2023_52_1304_generic_data_relevant_with_calc_params.rds"))
   
   
   # Assessment intro
@@ -344,13 +348,14 @@ for (i in Code_Hass){
   # webapp_input[["ucc_assessmenttime"]] = 10 # over how many years should the impacts be calculated
   # webapp_input[["ucc_pathway"]] = c("pa", "ap", "crash", "carbon") # which impact to be considered?
   webapp_input[["ucc_motormodebasic"]] = "car" # modes to be considered. opt in basic categories: c("car", "pt")
-  # webapp_input[["ucc_trafficcondition"]] = "euromeancongestionurban" # alternatives: "somecongestion", "heavycongestion", "euromeancongestionrural"
+  ## webapp_input[["ucc_trafficcondition"]] = "euromeancongestionurban" # alternatives: "somecongestion", "heavycongestion", "euromeancongestionrural" # já não existe na v5.2
   
   # Active modes data (ref = Reference, cf = Comparison)
   # webapp_input[["raw_activemode_bike_ref_source"]] = "model" # alternatives: "scenario" (Hypotetical scenario), "popsurvey" (Population survey), "intercept" (Intercept survey), "counts" (Count data), "model" (Modeled Data), "app" (App-based data)
   # webapp_input[["raw_activemode_bike_ref_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
   webapp_input[["raw_activemode_bike_ref_modesharepercent"]] = HEAT$Bike_per # percentage of CYCLING trips in the reference scenario
-  webapp_input[["raw_activemode_bike_ref_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the reference scenario
+  # webapp_input[["raw_activemode_bike_ref_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the reference scenario
+  webapp_input[["raw_activemode_bike_ref_alltrips"]] = tripspersondayAML # they say is number of trips per person per day
   # webapp_input[["raw_activemode_bike_ref_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
   webapp_input[["raw_activemode_bike_ref_tripkm"]] = HEAT$Dist_bike # average length of CYCLING trips for reference scenario
   # webapp_input[["raw_activemode_bike_ref_denominator"]] = "person" # type of population the volume data is based on. alternative depending on previous selection: 
@@ -359,7 +364,8 @@ for (i in Code_Hass){
   # webapp_input[["raw_activemode_bike_cf_source"]] = "model" # alternatives: "scenario" (Hypotetical scenario), "popsurvey" (Population survey), "intercept" (Intercept survey), "counts" (Count data), "model" (Modeled Data), "app" (App-based data)
   # webapp_input[["raw_activemode_bike_cf_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
   webapp_input[["raw_activemode_bike_cf_modesharepercent"]] = HEAT$Bike_per_new # percentage of CYCLING trips in the comparison scenario
-  webapp_input[["raw_activemode_bike_cf_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the comparison scenario
+  # webapp_input[["raw_activemode_bike_cf_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the comparison scenario
+  webapp_input[["raw_activemode_bike_cf_alltrips"]] = tripspersondayAML # they say is number of trips per person per day
   # webapp_input[["raw_activemode_bike_cf_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
   webapp_input[["raw_activemode_bike_cf_tripkm"]] = HEAT$Dist_bike_new # average length of CYCLING trips, for comparison scenario 
   # webapp_input[["raw_activemode_bike_cf_denominator"]] = "person" # type of population the volume data is based on. alternative depending on previous selection: 
@@ -368,13 +374,15 @@ for (i in Code_Hass){
   # Motorized modes data (car, tp // ref, cf)
   # webapp_input[["raw_motorizedmode_car_ref_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
   webapp_input[["raw_motorizedmode_car_ref_modesharepercent"]] = HEAT$Car_per # percentage of CAR trips in the reference scenario
-  webapp_input[["raw_motorizedmode_car_ref_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the reference scenario
+  # webapp_input[["raw_motorizedmode_car_ref_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the reference scenario
+  webapp_input[["raw_motorizedmode_car_ref_alltrips"]] = tripspersondayAML # they say is number of trips per person per day
   # webapp_input[["raw_motorizedmode_car_ref_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
   webapp_input[["raw_motorizedmode_car_ref_tripkm"]] = HEAT$Dist_car # average length of CAR trips for reference scenario
   
   # webapp_input[["raw_motorizedmode_car_cf_unit"]] = "modeshare" # alternatives: "min" (Minutes), "hrs" (Hours), "km" (Km), "trips" (Trips), "modeshare" (Mode Share) # other options to select after may show up, depending on the data source
   webapp_input[["raw_motorizedmode_car_cf_modesharepercent"]] = HEAT$Car_per_new # percentage of CAR trips in the comparison scenario
   webapp_input[["raw_motorizedmode_car_cf_alltrips"]] = HEAT$Total # total travel volume of ALL MODES in the comparison scenario
+  webapp_input[["raw_motorizedmode_car_cf_alltrips"]] = tripspersondayAML # they say is number of trips per person per day
   # webapp_input[["raw_motorizedmode_car_cf_alltripsunit"]] = "trips" # unit of the travel volume. alternatives: "duration" (in minutes), "distance" (in km)
   webapp_input[["raw_motorizedmode_car_cf_tripkm"]] = HEAT$Dist_car_new # average length of CAR trips, for comparison scenario 
   
@@ -427,15 +435,17 @@ for (i in Code_Hass){
   from_hass <- unserialize(httr::content(resp, "raw"))
   
   # Check final result value
-  from_hass$results$moneyperyear = as.numeric(gsub(" ","",from_hass$results$moneyperyear))
-  from_hass$results$moneytotaldisc = as.numeric(gsub(" ","",from_hass$results$moneytotaldisc))
+  # from_hass$results$moneyperyear = as.numeric(gsub(" ","",from_hass$results$moneyperyear)) #not necessary anymore
+  # from_hass$results$moneytotaldisc = as.numeric(gsub(" ","",from_hass$results$moneytotaldisc))
   
-  HEAT = HEAT %>% mutate(Mortality = from_hass$results$impactperyearave[30],
-                         Mortality10 = from_hass$results$impacttotal[30],
-                         CO2eq = from_hass$results$impactperyearaveco2[30],
-                         CO2eq10 = from_hass$results$impacttotalco2[30],
-                         Economic = from_hass$results$moneyperyear[26]-from_hass$results$moneyperyear[27]-from_hass$results$moneyperyear[28]+from_hass$results$moneyperyear[29],
-                         Economic10 = from_hass$results$moneytotaldisc[26]-from_hass$results$moneytotaldisc[27]-from_hass$results$moneytotaldisc[28]+from_hass$results$moneytotaldisc[29]) %>% 
+  HEAT = HEAT %>% mutate(Mortality = from_hass$results$impactperyearave[40], #total
+                         Mortality10 = from_hass$results$impacttotal[40], #total
+                         CO2eq = from_hass$results$impactperyearaveco2[40], #total
+                         CO2eq10 = from_hass$results$impacttotalco2[40], #total
+                         Economic = from_hass$results$moneyperyear[36]+from_hass$results$moneyperyear[37]+from_hass$results$moneyperyear[38]+from_hass$results$moneyperyear[39],
+                         Economic10 = from_hass$results$moneytotaldisc[36]+from_hass$results$moneytotaldisc[37]+from_hass$results$moneytotaldisc[38]+from_hass$results$moneytotaldisc[39],
+                        Environmenal_only = from_hass$results$moneyperyear[39], # only the environmental impacts
+                        Environmenal_only = from_hass$results$moneytotaldisc[39]) %>% 
     mutate(value_newcyc = round(Economic10/Bike_new),
            value_newcyc_eur = round(Economic10/Bike_new*usd_to_eur))
   
@@ -449,4 +459,4 @@ for (i in Code_Hass){
 
 # HEATbind_intermodal_correct = HEATbind_intermodal_correct[-1,]
 # HEATbind_intermodal_correct_PPP = HEATbind_intermodal_correct
-saveRDS(HEATbind_intermodal_correct_PPP, "HEAT/HEAT_AML_intermodal_ppp.Rds")
+saveRDS(HEATbind_intermodal_correct, "HEAT/HEAT_AML_intermodal_ppp_NEW.Rds")
