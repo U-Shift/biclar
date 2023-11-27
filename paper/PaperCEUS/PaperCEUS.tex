@@ -152,11 +152,12 @@ Leeds. 34-40 University Rd, Leeds LS2 9JT, UK}
   monetized. The results indicate that 10\% of trips could be made by
   bicycle + PT combination. Shifting to cycling for the first-and-last
   mile stages can reduce annual CO\textsubscript{2}eq emissions from
-  6,000 tons/day, with benefits over 10 years of at least €230 million.
-  For the PT leg, the transfer from car avoids of up to 20,500 tons of
-  CO\textsubscript{2}eq emissions per year. This evidence can support
-  policymakers to prioritize interventions that reduce the reliance on
-  private motor vehicles.\\
+  3,000 to 7,500 tons/day, while for the PT leg, the transfer from car
+  avoids of up to 20,500 tons of CO\textsubscript{2}eq emissions per
+  year. The estimated socio-environmental benefits are of €125 million
+  to €325 million over 10 years. This evidence can support policymakers
+  to prioritize interventions that reduce the reliance on private motor
+  vehicles.\\
   \end{abstract}
     \begin{keyword}
     Active transport \sep Intermodality \sep First and last
@@ -312,13 +313,13 @@ R function}.
 The intermodality scenario considers trips combining PT and cycling for
 the first and last legs. In a conservative approach, we have restricted
 our analysis to the first and last legs with a combined length of up to
-5 km (for instance: 1 km from origin to interface A plus 4 km from
-interface B to destination) or up to 25 minutes on bike. Furthermore, we
-have imposed restrictions on PT usage to include only trips with no PT
-transfers, and up to 2 hours (120 min). Additionally, we have only
-included PT modes that can easily accommodate bicycles, such as trains,
-ferries, trams, and inter-municipal bus lines equipped with bike racks
-(Figure \ref{fig:map1}).
+5 km (for instance: 1 km from origin to interface \emph{A} plus 4 km
+from interface \emph{B} to destination) or up to 25 minutes on bike.
+Furthermore, we have imposed restrictions on PT usage to include only
+trips with no PT transfers, and up to 2 hours (120 min). Additionally,
+we have only included PT modes that can easily accommodate bicycles,
+such as trains, ferries, trams, and inter-municipal bus lines equipped
+with bike racks (Figure \ref{fig:map1}).
 
 \begin{figure}
 
@@ -326,7 +327,7 @@ ferries, trams, and inter-municipal bus lines equipped with bike racks
 
 }
 
-\caption{Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area}\label{fig:map1}
+\caption{Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area.}\label{fig:map1}
 \end{figure}
 
 Figure \ref{fig:map2} illustrates the resulting bicycle routes to access
@@ -345,7 +346,7 @@ the main PT interfaces in the LMA.
 \subsection{Assessing socio-environmental
 benefits}\label{assessing-socio-environmental-benefits}}
 
-For the cycling legs of the journey (first and last legs),
+For the \emph{cycling legs of the journey} (first and last legs),
 socio-environmental impacts were estimated, using the HEAT for Cycling
 tool v5.2 (Kahlmeier et al., 2017) from the World Health Organization,
 and the
@@ -353,16 +354,21 @@ and the
 package}\footnote{\texttt{HEATaaS} is under development. For more
   information contact
   \href{https://heatwalkingcycling.org}{heatwalkingcycling.org}.}. The
-HEAT tool provided estimates on the shifting from car to cycling for a
-short term time horizon (i.e., one year) and the long term (i.e., ten
-years). We considered two dimensions: \emph{social} --- including the
-physical activity of cyclists, air pollution exposure, and road
-casualties; \emph{environmental} --- including CO\textsubscript{2}eq
-emissions and other pollutants.
+use of this package made it possible to run multiple scenarios with few
+changes in input values, making the interaction with HEAT more reliable
+when reproducing runs.\\
+The HEAT tool provided estimates on the shifting from car to cycling for
+a short term time horizon (i.e., one year) and the long term (i.e., ten
+years). It estimates the differences between two considered scenarios.
+In this case: one baseline scenario, with data from the mobility survey,
+and one cycling potential scenario in which targets of 4\% and 10\% of
+cycling levels were achieved, transferred from car trips. We considered
+two dimensions: \emph{social} --- including the physical activity, air
+pollution exposure, and road casualties; and \emph{environmental} ---
+including CO\textsubscript{2}eq emissions and other pollutants.
 
-For the second leg of the journey, we estimate the additional
-environmental impacts of shifting car trips to PT (between the PT
-interfaces).
+For the \emph{second leg of the journey}, we estimate the environmental
+impacts of shifting car trips to PT (between the PT interfaces).
 
 To estimate the car emissions, we used the EMEP/EEA's COPERT software v5
 methods and reference values (Ntziachristos \& Samaras, 2020) for a Tier
@@ -482,10 +488,10 @@ Target & Routing & Potential & Bus & Ferry & Train & Tram\\
 
 Table \ref{tab:summary22} presents the results of the avoided emissions
 and its monetization for the second leg of the journey, by replacing car
-trips with potential TP trips. Regarding the PT segment, the shift from
-private car would lead to the mitigation of CO\textsubscript{2}
-equivalent emissions to 8,500 to 20,800 tons annually, valued in €1.4
-million to €3.5 million yearly.
+trips with potential TP trips.\\
+Regarding the PT segment, the shift from private car would lead to the
+mitigation of CO\textsubscript{2} equivalent emissions to 8,500 to
+20,800 tons annually, valued in €1.4 million to €3.5 million yearly.
 
 \begin{table}
 
@@ -519,8 +525,8 @@ time periods.
 Target & Routing & Avoided CO2eq (tons) & SE Benefits 1yr (k€) & SE Benefits 10yrs (k€)\\
 \midrule
 4\% & safe & 11 551 & 14 380 & 127 534\\
-10\% & safe & 28 217 & 36 861 & 325 814\\
 4\% & direct & 11 706 & 14 135 & 125 016\\
+10\% & safe & 28 217 & 36 861 & 325 814\\
 10\% & direct & 28 487 & 35 905 & 318 062\\
 \bottomrule
 \end{tabular}
@@ -528,17 +534,27 @@ Target & Routing & Avoided CO2eq (tons) & SE Benefits 1yr (k€) & SE Benefits 1
 
 Shifting from car to cycling + PT can reduce annual
 CO\textsubscript{2}eq emissions by 14,000 to 36,000 tons per year. The
-10-year socio-environmental benefits account for €235 million to €620
+10-year socio-environmental benefits account for €125 million to €325
 million, depending on the cycling targets.
 
-The social impacts represent 98\% of the socio-environmental benefits
-(in value) from replacing car trips to bicycle in first-and-last legs.
-For the PT segment, we did not estimate the social impacts from
-substituting car trips, although its health benefits would not be as
-high as shifting to cycling.
+The environmental impacts represent less than 2\% of the
+socio-environmental benefits (in value) from replacing car trips to
+bicycle in first-and-last legs. For the PT segment, we did not estimate
+the social impacts from substituting car trips. One of the main
+socio-environmetal benefits, valued after monetization, comes from the
+increase in physical activity (Félix et al., 2023). Although are also
+social benefits form shifting car trips to PT, its health benefits would
+not be as high as shifting to cycling. The literature shows that the
+Metabolic Equivalent Tasks (MET) for ``riding in a bus or a train'' is
+1.3 plus the ``walking for transportation'' as 3.5, while ``driving a
+car'' is 2.5 (Ainsworth et al., 2011). The difference between these
+activities is not very obvious when compared to cycling, whose
+equivalent MET is between 6.8 to 7.5. Nevertheless, future works should
+also encompass the estimation of the social impacts for the PT leg of
+the journey, shifting from car.
 
 The emissions of CO\textsubscript{2}eq that are avoided during both the
-initial and final journey segments account for about 75\% of the
+initial and final journey segments account for about 74\% of the
 emissions avoided during the PT segment. This finding, while expected --
 due the zero cycling emissions, should not be overlooked when promoting
 the PT use. Improving the safe accessibility to PT interfaces to
@@ -550,18 +566,6 @@ individuals shift from car travel to car + PT combination.
 Our findings suggest that cycling and PT \emph{in combination} could
 viably replace 10\% of current LMA trips, with an additional 6\% of PT
 journeys prone to further substitution.
-
-There are also social benefits form shifting car trips to PT,
-nevertheless those were not estimated in this research. One of the main
-socioenvironmetal benefits, valued after monetization, comes from the
-increase in physical activity (Félix et al., 2023). The literature shows
-that the Metabolic Equivalent Tasks (MET) for ``riding in a bus or a
-train'' is 1.3 plus the ``walking for transportation'' is 3.5, while
-driving a car is 2.5. see
-https://golf.procon.org/met-values-for-800-activities/ The difference is
-not that much between them. Future works should also encompass the
-estimation of the social impacts for the PT leg of the journey, shifting
-from car.
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
@@ -596,6 +600,14 @@ with PT, in other metropolitan areas.
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-MET2011}{}}%
+Ainsworth, B. E., Haskell, W. L., Herrmann, S. D., Meckes, N., Bassett
+Jr, D. R., Tudor-Locke, C., Greer, J. L., Vezina, J., Whitt-Glover, M.
+C., \& Leon, A. S. (2011). {2011 Compendium of Physical Activities: A
+second update of codes and MET values}. \emph{Medicine \& Science in
+Sports \& Exercise}, \emph{43}(8), 1575--1581.
+\url{https://doi.org/10.1249/MSS.0b013e31821ece12}
+
 \leavevmode\vadjust pre{\hypertarget{ref-bickel2006}{}}%
 Bickel, P., Friedrich, R., Burgess, A., Fagiani, P., Hunt, A., Jong, G.
 D., \& Laird, J. (2006). \emph{{HEATCO - Developing Harmonised European
@@ -636,7 +648,7 @@ Environment}, \emph{118}, 103714.
 Goodman, A., Rojas, I. F., Woodcock, J., Aldred, R., Berkoff, N.,
 Morgan, M., Abbas, A., \& Lovelace, R. (2019). Scenarios of cycling to
 school in england, and associated health and carbon impacts: Application
-of the {`}propensity to cycle tool{'}. \emph{Journal of Transport and
+of the {`}propensity to cycle tool{'}. \emph{Journal of Transport \&
 Health}, \emph{12}, 263--278.
 \url{https://doi.org/10.1016/j.jth.2019.01.008}
 
