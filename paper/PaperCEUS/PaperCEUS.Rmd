@@ -189,7 +189,7 @@ knitr::include_graphics("img/map2.png", error = FALSE)
 
 <!-- The impacts were assessed for the total metro area. -->
 
-For the cycling legs of the journey (first and last legs), socio-environmental impacts were estimated, using the HEAT for Cycling tool v5.0 [@HEAT] from the World Health Organization, and the [`HEATaaS` R package](https://github.com/HEAT-WHO/HEAT_heatr_api)[^5].
+For the cycling legs of the journey (first and last legs), socio-environmental impacts were estimated, using the HEAT for Cycling tool v5.2 [@HEAT] from the World Health Organization, and the [`HEATaaS` R package](https://github.com/HEAT-WHO/HEAT_heatr_api)[^5].
 The HEAT tool provided estimates on the shifting from car to cycling for a short term time horizon (i.e., one year) and the long term (i.e., ten years).
 We considered two dimensions: *social* — including the physical activity of cyclists, air pollution exposure, and road casualties; *environmental* — including CO~2~eq emissions and other pollutants. 
 
@@ -223,28 +223,57 @@ We updated all the monetary reference values of the literature based on the annu
 # Results and Discussion
 
 Table \ref{tab:summary1} presents the LMA total daily trips that can be made with cycling + TP combination (with the aforementioned restrictions), the trips in the baseline scenario and corresponding new trips to achieve the national strategy targets (4% and 10%), for different route profiles. 
-For the cycling legs of the journey (first and last legs), the environmental avoided emissions and monetized socio-environment (SE) benefits are also presented, resulting from replacing car trips with cycling.
+For the cycling legs of the journey (first and last legs), the environmental avoided emissions and monetized socio-environment (SE) benefits are presented in \ref{tab:summary1b}, resulting from replacing car trips with cycling.
+
+
+```{r summary0}
+summary0 = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/HEAT_AML_intermodal_ppp_NEW.Rds"))
+# see code/test-code/heat-prep.R#intermodality
+
+summary0 = summary0 |> 
+    mutate(Target = paste0(ENMAC*100,"%"),
+           Routing = c("safe", "safe", "direct", "direct"),
+           TotalTrips = Total,
+           Bikebase = Bike,
+           Bikepotential = Bike_new,
+           Social = Economic - Environmenal_only,
+           Social10 = Economic10 - Environmenal10_only) 
+```
 
 ```{r summary1}
-summary1 = readRDS("load/summary1.Rds")
-
-summary1 = summary1 %>%
-  mutate(LTS = recode(LTS, `3` = "safe", `4` = "direct")) |> 
-  mutate(Estrategia = paste0(Estrategia*100,"%")) |> 
-  mutate(TotalTrips = TotalTrips/2,
-         Bikebase = Bikebase/2,
-         Bikepotential = Bikepotential/2) #this is a quick correction while we donr run biclar entirely again. The error was found and it was adding up the 2 bike legs, instead of making the mean. The SE estimates remain the same because they are from the bikeshare and carshare percentages, that did not change.
+summary1 = summary0 |> 
+  select(Target, Routing, TotalTrips, Bikebase, Bikepotential) |> 
+    arrange(desc(Target))
 
 knitr::kable(summary1,
       digits = 0,
       format.args = list(big.mark = " "),
       col.names = c("Target", "Routing", "Total trips",
-                    "Baseline Cycling + PT", "Potencial Cycling + PT",
-                    "Avoided CO2eq (ton/yr)", "SE Benefits for 10 years (thousand €)"),
-      caption = "\\label{summary1}Summary of the cycling potencial of intermodality scenario and its socio-environmental benefits for the cycling legs.",
+                    "Baseline Cycling + PT", "Potencial Cycling + PT"),
+      caption = "\\label{summary1}Summary of the cycling potencial of the intermodality scenario.",
       format="latex",
       booktabs = TRUE) |> 
-  kableExtra::column_spec(column = c(4:7), width = "6em")
+  kableExtra::column_spec(column = c(4:5), width = "7em")
+
+```
+
+```{r summary1b}
+summary1b = summary0 |> 
+  select(Target, Routing, Mortality, Social, CO2eq, Environmenal_only) |> 
+  mutate(Social = Social/1000,
+         Environmenal_only = Environmenal_only/1000) |> 
+    arrange(desc(Target))
+
+knitr::kable(summary1b,
+      digits = c(0,0,1,0,0,0),
+      format.args = list(big.mark = " "),
+      col.names = c("Target", "Routing",
+                    "Avoided Mortality (deaths/yr)", "Social benefits (k€/yr)", 
+                    "Avoided CO2eq (ton/yr)", "Environmental benefits (k€/yr)"),
+      caption = "\\label{summary1b}Summary of the cycling potencial of intermodality scenario and its socio-environmental benefits for the cycling legs.",
+      format="latex",
+      booktabs = TRUE) |> 
+  kableExtra::column_spec(column = c(3:6), width = "6em")
 
 ```
 
@@ -286,10 +315,11 @@ Regarding the PT segment, the shift from private car would lead to the mitigatio
 ```{r summary22}
 summary22 = readRDS("load/TPtable_aml.Rds")
 summary22 = summary22 %>%
-  mutate(LTS = recode(Percursos, "seguro" = "safe", "direto" = "direct")) |> 
-  mutate(Value = money_emissions_eur/1000) |> 
-  select(Meta_ENMAC, LTS, CO2eq_TP, CO_PT, PM10_PT, NOx_PT, VOC_PT, Value) |> 
-  arrange(Meta_ENMAC)
+  mutate(Routing = recode(Percursos, "seguro" = "safe", "direto" = "direct")) |> 
+  mutate(Value = money_emissions_eur/1000,
+         Target = Meta_ENMAC) |> 
+  select(Target, Routing, CO2eq_TP, CO_PT, PM10_PT, NOx_PT, VOC_PT, Value) |> 
+  arrange(Target)
 
 knitr::kable(summary22,
       digits = c(0,0,0,0,1,0,1,0),
@@ -305,19 +335,20 @@ knitr::kable(summary22,
 The sum of CO~2~eq avoided emissions from the potential car trips shifted to bike (first-and-last legs) in combination with PT (second leg) in the LMA is presented on Table \ref{tab:summaryall}, for both national cycling strategy targets and routing profiles, and the socio-environmental benefits monetized in €, for a 1-year and 10-year time periods.
 
 ```{r summaryall, message=FALSE, warning=FALSE}
-summary0 = readRDS("load/HEAT_aml_results.Rds") |> slice_tail(n = 4)
+
 rate = ((1+0.03)^10)/((1+0.05)^10) # inflation rate 3% discount rate 5%
 
-summaryall = summary1 |> 
-  mutate(Meta_ENMAC = Estrategia) |>
+summaryall = summary0 |> 
   left_join(summary22) |> 
-  mutate(Code = c(3304, 3404, 3310, 3410)) |> 
-  left_join(summary0 |> select(Code, Economic), by = "Code") |> 
-  select(Estrategia, LTS, co2, CO2eq_TP, monet, Value, Economic) |> 
-  mutate(CO2eq = co2 + CO2eq_TP,
-         value1 = Economic/1000 + Value, # this is CORRECT
-         value10 = monet + Value*10*rate) |> # this is CORRECT
-  select(Estrategia, LTS, CO2eq, value1, value10)
+  select(Target, Routing, CO2eq, CO2eq_TP, Environmenal_only, Environmenal10_only, Social, Social10, Value) |> 
+    mutate(Social = Social/1000,
+           Social10 = Social10/1000,
+         Environmenal_only = Environmenal_only/1000,
+         Environmenal10_only = Environmenal10_only/1000) |> 
+  mutate(CO2eqT = CO2eq + CO2eq_TP,
+         value1 = Environmenal_only + Value + Social, # this is CORRECT
+         value10 = Environmenal10_only + Value*10*rate + Social10) |> # this is CORRECT
+  select(Target, Routing, CO2eqT, value1, value10)
 
 knitr::kable(summaryall,
       digits = 0,
