@@ -237,7 +237,8 @@ The routes were then overlaid and aggregated by segments, using [`stplanr overli
 ## Modeling intermodality
 
 The intermodality scenario considers trips made by PT in which cycling is used for the first and last legs.
-In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination) or up to 25 minutes on bike travel-time.
+We restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination) or up to 25 minutes on bike travel-time.
+This conservative approach was adopted to capture the fact that cycling stages as part of a multi-modal trip are likely to be shorter than cycling-only trips [@vanmil_insights_2021].
 Furthermore, we have imposed restrictions on PT usage, limiting it to trips without PT transfers, and within a duration of up to 2 hours (120 minutes).
 Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}).
 These restrictions can be eased in the future when testing more developed policy interventions to enhance intermodality between cycling and PT, considering both the vehicle and infrastructure perspectives.
