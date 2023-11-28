@@ -80,10 +80,14 @@ library(ggplot2)
 # Introduction
 
 Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can replace a high proportion of private car trips [@MARTENS2007326].
-In The Netherlands, which has the highest mode share of cycling in the world, cycling accounts for more than a third of all trips to and from rail stations at the 'home' end of the journey, greatly increasing the ability of the transport system to reduce car dependency and associated externalities [@RIETVELD200071].
-This approach requires interventions and programs to make bicycling more appealing, and the resulting public investments can have significant social and environmental benefits.
+In The Netherlands, which has the highest mode share of cycling in the world, cycling accounts for more than a third of all trips to and from rail stations at the 'home' end of the journey, greatly increasing the ability of the transport system [@RIETVELD200071].
+This approach to reducing car dependency and associated externalities requires interventions and programs to make bicycling more appealing [@lapaix_role_2021].
+The resulting public investments can have significant social and environmental benefits [@internationaltransportforum_integrating_2017].
+Despite the benefits of cycling-PT intermodality, the potential of this combination is often overlooked in transport planning [@lapaix_role_2021].
 <!-- Many studies refer to the potential of cycling and bike-sharing to replace car and PT trips, but not to the potential of serving as first and last miles. --> 
 
+The potential of cycling as a complementary mode of PT is substantial worldwide, especially in cities with established public transport networks or substantial ambitions to develop them.
+In the Lisbon metropolitan area (LMA) the largest metropolitan area in Portugal, the modal share of cycling is low, but the potential for cycling as a complementary mode of PT is high.
 According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle.
 Car modal share was 58.4%, while PT accounted for 15.5% (see Figure \ref{fig:mododist}).
 The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips.
