@@ -207,7 +207,8 @@ knitr::include_graphics("img/jitter.png", error = FALSE)
 
 ```
 
-Although this method provides a more realistic representation of the trips undertaken compared to the traditional approach, it does not fully align with the actual OD pairs of trips, which remain unknown due to data privacy regulations.
+The jittering pre-processing stage generates a more realistic representation of the trips undertaken than the traditional centroid-based approach but does precisely capture the exactly spatial distribution of trips.
+Even where such datasets, they cannot be shared for research due to data privacy regulations.
 
 ## Modeling routes
 
@@ -235,7 +236,7 @@ The routes were then overlaid and aggregated by segments, using [`stplanr overli
 
 ## Modeling intermodality
 
-The intermodality scenario considers trips combining PT and cycling for the first and last legs.
+The intermodality scenario considers trips made by PT in which cycling is used for the first and last legs.
 In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination) or up to 25 minutes on bike travel-time.
 Furthermore, we have imposed restrictions on PT usage, limiting it to trips without PT transfers, and within a duration of up to 2 hours (120 minutes).
 Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}).
