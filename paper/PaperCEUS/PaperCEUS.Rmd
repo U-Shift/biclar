@@ -469,20 +469,24 @@ Our findings show that cycling *in combination* with PT could replace 10% of cur
 
 # Conclusion
 
+This paper estimated the potential for combining cycling and PT to substitute car trips in the LMA, while achieving the national cycling targets and supporting decarbonization goals.
 It has become progressively more common to establish strategic plans, at national, regional or municipal level, to mitigate climate change.
 Among these, the Sustainable Urban Mobility Plans (SUMP[^10]), promoted by the European Commission, are becoming popular in Europe, although authorities are designing documents of this sort all over the world.
 The definition of targets associated with a timeframe for reducing dependence on the individual motorized vehicle, or targets for the use of active modes such as walking and cycling, are too often not accompanied by estimates of their social, environmental and economic impacts.
 It is important for authorities and practitioners to know how to estimate those impacts, which tools are available to support them in the process, and what results to expect.
 
-This paper attempts to estimate the socio-environmental impacts associated with the modal shift from car to intermodal trips by bicycle in combination with public transport, in the Lisbon metropolitan area, in order to meet the national targets set for bicycle use of 4% and 10% by 2025 and 2030, respectively.
+This paper quantifies the benefits of replacing car trips with cycling, in combination with public transport.
+The case study of the Lisbon metropolitan area demonstrates that cycling-PT integration can help meet the national targets set for bicycle use of 4% and 10% by 2025 and 2030, respectively.
 
 [^10]: See [eltis.org/mobility-plans/sump-concept](https://www.eltis.org/mobility-plans/sump-concept)
  
-The information on socio-economic benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation, and to better communicate their decisions by providing the expected avoided GHG and air pollutant emissions, and the monetized socio-economic benefits for short and long terms.
+The quantification of benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation.
+The presentation of the results in an open access web application will help  communicate decisions.
+Furthermore, the provision of datasets resulting from this project provides a foundation for further research and development of new tools and methods.
+
 
 <!-- Será que não se deve incluir uma explicação das sessões de formação com as câmaras e que estas ferramentas digitais são extremamente potenciadoras deste tipo de iniciativas e promovem o empowerment dos técnicos e das populações? -->
 
-The results can can be downloaded from the *biclaR* and used with any GIS software. This allows practitioners to, for example, gain insights into which potential cycling connections have the highest socio-environmental impacts, quantified in tons of avoided CO~2~eq emissions, or in long term social benefits. <!-- move to introduction? -->
 
 We used open-source tools and transparent methods.
 By making the research process publicly accessible in a code repository (see [Research Data](#research-data)), it enables the replication of similar estimates for socio-environmental impacts, resulting from a modal shift from car to bicycle in combination with PT, in other metropolitan areas.
