@@ -184,15 +184,14 @@ After presenting the methods used, it assesses its socio-environmental impacts u
 
 ## Modeling Origin-Destination trips
 
-The mobility survey data [@IMOB] is the basis for this project and defines the baseline scenario.
-Despite being conducted in the pre-pandemic period (2017), this dataset represents the most comprehensive and up-to-date information on urban mobility in Portuguese metropolitan areas (Lisbon and Porto).
+The mobility survey data [@IMOB] is the basis of the baseline scenario and trip rates presented in this paper.
+Conducted in the pre-pandemic period (2017), this OD dataset represents the most comprehensive and up-to-date information on urban mobility in Portuguese metropolitan areas (Lisbon and Porto).
 
-We used a method for disaggregating the origins and destinations of trips between the centroids of two districts (same as "parish") to ensure that a district is not solely characterized by a single point of origin and destination for its trips.
-Aggregating all trips into centroids renders the exercise less realistic, as it excludes a significant portion of short-distance trips, a prevalent characteristic of active travel [@Lovelace2022Jittering].
-The OD Jittering method breaks down a single point (i.e., the centroid of an area) into multiple random points on the existing and neighboring road network, using OpenStreetMap as a reference.
-This method then distributes the volume of trips within the district among the randomly generated origin-destination pairs.
+We used 'jittering' to disaggregate the OD data, resulting in a wide spatial distribution trip origins and destinations [@Lovelace2022Jittering].
+The method works by sampling 'sub-points' (nodes on the transport network represented in OpenStreetMap in this case) and using these instead of a single point (typically the centroid) to represent trip origins and destinations for each zone.
+This method then distributes the trips to desire lines connecting the subpoints based on a 'disaggregation threshold' which determines the maximum number of trips that can be represented by a single desire line.
 
-Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we employed a maximum disaggregation level of 100 trips per O-D pair for this project.
+Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we disaggregated the OD data into desire lines reprenting a maximum of 100 trips each.
 Figure \ref{fig:jitter} illustrates the contrast between trip representation through the traditional method, which connects a single desire line between each district, and the presentation achieved through the randomization and disaggregation of trips between districts, specifically for the Lisbon metropolitan area.
 
 ```{r jitter, fig.align='center', fig.cap="Representation of desire lines in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).", out.width="100%"}
