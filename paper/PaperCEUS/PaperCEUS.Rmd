@@ -213,7 +213,7 @@ Even where such datasets, they cannot be shared for research due to data privacy
 ## Modeling routes
 
 The mobility survey collects the origin and destination of trips but does not include the respective routes.
-Modeling the realistic cycling + PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces.
+Modeling the realistic cycling-PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces.
 Other constraints regarding the behavior of potential cyclists determine the routing results.
 For example, such restrictions can favor low speed, low traffic streets, more direct routes, and less steep paths, among others, which are suitable for cycling.
 
@@ -450,7 +450,7 @@ knitr::kable(summaryall,
 ```
 
 <!-- FOR OTHER PAPER: separate the Socio impacts from the Environmental ones? -->
-Shifting from car to cycling + PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year. 
+Shifting from car to cycling in combination with PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year. 
 The 10-year socio-environmental benefits account for €125 million to €325 million, depending on the cycling targets.
 
 The environmental impacts represent less than 2% of the socio-environmental benefits (in value) from replacing car trips to bicycle in first-and-last legs. 
