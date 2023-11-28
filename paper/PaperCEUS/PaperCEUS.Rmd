@@ -88,7 +88,9 @@ According to the latest mobility survey conducted in 2018 [@IMOB], the LMA regis
 Car modal share was 58.4%, while PT accounted for 15.5% (see Figure \ref{fig:mododist}).
 The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips.
 This exceeds the number of inter-municipal trips (1.8 million trips), involving travel between different municipalities.
-Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
+Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.  
+`r round(100*2948314/5569731)`% trips are up to 5 km distance, and `r round(100*3958667/5569731)`% up to 10 km.
+Nevertheless, 29% of trips are longer than 10 km, which requires the use of motorized modes, or active modes in combination with public transport.
 
 <!-- Plot of  AML trips by mode and inter/intra %? -->
 ```{r dadosaml, message=FALSE, warning=FALSE}
@@ -176,7 +178,7 @@ After presenting the methods used, it assesses its socio-environmental impacts u
 
 # Methods
 
-## Modeling Origin-Destination trips
+## Modelling Origin-Destination trips
 
 The mobility survey data [@IMOB] is the basis for this project and defines the baseline scenario.
 Despite being conducted in the pre-pandemic period (2017), this dataset represents the most comprehensive and up-to-date information on urban mobility in Portuguese metropolitan areas (Lisbon and Porto).
@@ -204,10 +206,10 @@ knitr::include_graphics("img/jitter.png", error = FALSE)
 
 Although this method provides a more realistic representation of the trips undertaken compared to the traditional approach, it does not fully align with the actual O-D pairs of trips, which remain unknown due to data privacy regulations.
 
-## Modeling routes
+## Modelling routes
 
 The mobility survey collects the origin and destination of trips but does not include the respective routes.
-Modeling the realistic cycling + PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces.
+Modelling the realistic cycling + PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces.
 Other constraints regarding the behavior of potential cyclists determine the routing results.
 For example, such restrictions can favor low speed, low traffic streets, more direct routes, and less steep paths, among others, which are suitable for cycling.
 
@@ -228,7 +230,7 @@ The cycling potential trips for the two national strategic targets (4% and 10%) 
 
 The routes were then overlaid and aggregated by segments, using [`stplanr overline()` R function](https://docs.ropensci.org/stplanr/reference/overline.html).
 
-## Modeling intermodality
+## Modelling intermodality
 
 The intermodality scenario considers trips combining PT and cycling for the first and last legs.
 In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination) or up to 25 minutes on bike travel-time.
@@ -268,21 +270,37 @@ For the *second leg of the journey*, we estimate the environmental impacts of sh
 To estimate the car emissions, we used the EMEP/EEA's COPERT software v5 methods and reference values [@COPERT] for a Tier 3 detail level. 
 We used a family-size vehicle, EURO standard, and gasoline or diesel fuel.
 All trips were considered to be made under urban conditions and at an average speed of 15 km/h during rush hour periods.
-Since the average distance traveled per trip influences the overconsumption and emissions from cold-start engine operation, we estimated energy and emission factors for different ranges of trips at 500-meter intervals.
-In addition, we assumed an occupancy rate of 1.6 passengers *per* car [@IMOB].
+Since the average distance traveled per trip influences the overconsumption and emissions from cold-start engine operation, we estimated energy and emission factors for different ranges of trips at 500-meter intervals.  
+An equation was then used to calculate emission factors for the two types of fuel, for each type of pollutant, whose explanatory variables are driving speed ($speed$, in km/h) and average trip distance ($l_{trip}$, in km/trip). Thus, the emission factors ($EF_{fuel,l_{trip},speed}$, in g/km) can be calculated using equation \ref{eq:fatoremissaoauto}.
+
+\begin{equation}\label{eq:fatoremissaoauto}
+{EF}_{fuel,l_{trip},speed} = a + b\cdot {speed} + c\cdot l_{trip}
+\end{equation}
+
+Emission factors are estimated for the following air pollutants: CO, NO~X~, VOC, and PM. Emission factors of the main greenhouse gases (GHG) are also estimated: CO~2~, CH~4~ and N~2~O, converted in CO~2~eq by the following relationship[^9]: $EF_{CO_2eq} = EF_{CO_2} + 28\cdot EF_{CH_4} + 265\cdot EF_{N_2O}$.
+The CH~4~ and N~2~O emission factors do not vary with travel speed.
+The PM10 emission factor does not vary with trip distance. 
+
+The used values consider that 64% of the car fleet was diesel in 2022[^6]. In addition, we assumed an occupancy rate of 1.6 passengers *per* car [@IMOB].
+Finally, the final emissions for each trip ($E_{pollutant}$, in g/trip) are derived from the equation \ref{eq:emissaoauto}.
+
+[^6]: See [Statistics Portugal: Stock road vehicles statistic](https://smi.ine.pt/Indicador/Detalhes/10837?LANG=EN).
+[^9]: The weights correspond to the Global Warming Potentials (GWP) defined for a 100-year period by the IPCC in its [5th Assessment Report](https://www.ipcc.ch/report/ar5/).
+
+\begin{equation}\label{eq:emissaoauto}
+{E}_{pollutant} = {EF}_{fuel,l_{trip},speed}\cdot l_{trip}
+\end{equation}
 
 Regarding PT, we considered the emission factor values reported in the environmental and sustainability reports of the PT operators in the LMA [@Carris2019s; @Metro2019s; @CP2019s; @Transtejo2014].
-
-Emissions were estimated for the following atmospheric pollutants: CO, PM10, NOx, and VOC; and for the main green house gases: CO~2~, CH~4~, and N~2~O, converted in CO~2~eq.
 In particular, for the urban train and tram -- with 100% electric traction -- only CO~2~eq emissions were considered (resulting from the production of electricity, considering a "well-to-tank" approach), since the other pollutants are not emitted locally.
 
-The conversion of avoided emissions into avoided welfare loss and respective monetary valuation was based on the EU Guide to Cost-benefit Analysis [@EuropeanCommission2014] and the best up-to-date reference values for the various gases [@EuropeanCommission2014; @bickel2006; @UNITE].
-The social impacts are in avoided premature mortality. This result is finally monetized using the *Statistical Value of Life* for Portugal [@ANSR2021].
-We updated all the monetary reference values of the literature based on the annual inflation rate in Portugal for 2022[^6], and our 10-years estimations assumed a discount rate of 5% and inflation of 3%. 
+The conversion of avoided emissions into avoided welfare loss and respective monetary valuation was based on the EU Guide to Cost-benefit Analysis [@EuropeanCommission2014] and the best up-to-date reference values for the various gases [@EuropeanCommission2014; @bickel2006; @UNITE]: 8.44 €/ton for CO, 2,867.85 €/ton for NO~X~, 340,969.27 €/ton for PM10, 7,169.62 €/ton for VOC and 35.85 €/ton for CO~2~eq.
+The social impacts are in avoided premature mortality. This result is finally monetized using the *Statistical Value of Life* for Portugal: €3,055,358/fatality [@ANSR2021].
+We updated all the monetary reference values of the literature based on the annual inflation rate in Portugal for 2022[^7], and our 10-years estimations assumed a discount rate of 5% and inflation of 3%. 
 
-[^6]: See [Statistics Portugal tool for inflation rate estimates between years](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ipc).
+[^7]: See [Statistics Portugal tool for inflation rate estimates between years](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ipc).
 
-<!-- For the environmental impacts, using conversion values by the ton, suggested by Bickel et al. (2006), Nash et al. (2003), Sartori et al. (2014) : 8.44 €/ton for CO, 2,867.85 €/ton for NOX, 340,969.27 €/ton for PM10, 7,169.62 €/ton for VOC and 35.85 €/ton for CO2eq. -->
+<!-- make tables of emission factors available in attachment? they are already in the github, if you look for them -->
 
 # Results and Discussion
 
@@ -372,8 +390,6 @@ knitr::kable(summary21 |> select(-Baseline),
 <!-- These findings indicate that transferring car trips to a combination of bicycle and PT could be nearly as substantial, if not equally significant, as the shift towards bicycle-only trips. WE CANNOT SHOW THIS IN THIS PAPER WITH ONLY SCENARIO 3 DATA --> 
 
 Table \ref{tab:summary22} presents the results of the avoided emissions and its monetization for the second leg of the journey, by replacing car trips with potential TP trips.  
-<!-- We estimate a reduction of 8,702 tons of CO2eq emissions by substituting motorized trips relying on fossil fuels and electricity. These estimations used an electricity production life cycle approach. -->
-<!-- this table could be split into Social benefits and Environmental benefits -->
 Regarding the PT segment, the shift from private car would lead to the mitigation of CO~2~ equivalent emissions to 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly.
 
 ```{r summary22}
@@ -449,10 +465,22 @@ Our findings suggest that cycling *in combination* with PT could potentially rep
 
 # Conclusion
 
+It has become progressively more common to establish strategic plans, at national, regional or municipal level, to mitigate climate change.
+Among these, the Sustainable Urban Mobility Plans (SUMP[^10]), promoted by the European Commission, are becoming popular in Europe, although authorities are designing documents of this sort all over the world.
+The definition of targets associated with a timeframe for reducing dependence on the individual motorized vehicle, or targets for the use of active modes such as walking and cycling, are too often not accompanied by estimates of their social, environmental and economic impacts.
+It is important for authorities and practitioners to know how to estimate those impacts, which tools are available to support them in the process, and what results to expect.
+
+This paper attempts to estimate the socio-environmental impacts associated with the modal shift from car to intermodal trips by bicycle in combination with public transport, in the Lisbon metropolitan area, in order to meet the national targets set for bicycle use of 4% and 10% by 2025 and 2030, respectively.
+
+[^10]: See [eltis.org/mobility-plans/sump-concept](https://www.eltis.org/mobility-plans/sump-concept)
+ 
 The information on socio-economic benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation, and to better communicate their decisions by providing the expected avoided GHG and air pollutant emissions, and the monetized socio-economic benefits for short and long terms.
 
-The information available at *biclaR* tool -- an open access website -- can be downloaded and used with any GIS software. This allows practitioners to, for example, gain insights into which potential cycling connections have the highest socio-environmental impacts, quantified in tons of avoided CO~2~eq emissions, or in long term social benefits. <!-- move to introduction? -->
+<!-- Será que não se deve incluir uma explicação das sessões de formação com as câmaras e que estas ferramentas digitais são extremamente potenciadoras deste tipo de iniciativas e promovem o empowerment dos técnicos e das populações? -->
 
+The information available at *XXX* tool -- an open access website -- can be downloaded and used with any GIS software. This allows practitioners to, for example, gain insights into which potential cycling connections have the highest socio-environmental impacts, quantified in tons of avoided CO~2~eq emissions, or in long term social benefits. <!-- move to introduction? -->
+
+We used open-source tools and transparent methods.
 By making the research process publicly accessible in a code repository (see [Research Data](#research-data)), it enables the replication of similar estimates for socio-environmental impacts, resulting from a modal shift from car to bicycle in combination with PT, in other metropolitan areas.
 
 
