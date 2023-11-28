@@ -1,5 +1,5 @@
 ---
-title: "Modelling the impacts of replacing car trips with combined public transport and cycling: \ Reproducible methods, results and actionable evidence from the XXX project"
+title: "Modeling the impacts of replacing car trips with combined public transport and cycling: \ Reproducible methods, results and actionable evidence from the XXX project"
 # subtitle: "Reproducible methods, results and actionable evidence from the XXX project"
 author:
   - name: Rosa Félix\corref{cor1}
@@ -159,7 +159,7 @@ ggplot(TRIPSmode_aml_intr, aes(fill = modo, y = viagens, x = Inter)) +
 To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced *XXX*[^1], a decision support tool that facilitates the planning, design, and development of a metropolitan cycling network (ref X).
 <!-- [@felix2023]. -->
 
-[^1]: See https://xxx.xxx. *For double blind peer-review process, the authors decided to truncate the name and references to this tool*.
+[^1]: See xxx.xxx. *For double blind peer-review process, the authors decided to truncate the name and references to this tool*.
 <!-- [^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/). -->
 
 *XXX* builds on the Propensity to Cycle Tool[^2] (PCT), a web application and research project funded by the UK's Department for Transport in 2015 which launched nationally in 2017 as part of the government's Cycling and Walking Investment Strategy.
@@ -178,7 +178,7 @@ After presenting the methods used, it assesses its socio-environmental impacts u
 
 # Methods
 
-## Modelling Origin-Destination trips
+## Modeling Origin-Destination trips
 
 The mobility survey data [@IMOB] is the basis for this project and defines the baseline scenario.
 Despite being conducted in the pre-pandemic period (2017), this dataset represents the most comprehensive and up-to-date information on urban mobility in Portuguese metropolitan areas (Lisbon and Porto).
@@ -206,10 +206,10 @@ knitr::include_graphics("img/jitter.png", error = FALSE)
 
 Although this method provides a more realistic representation of the trips undertaken compared to the traditional approach, it does not fully align with the actual O-D pairs of trips, which remain unknown due to data privacy regulations.
 
-## Modelling routes
+## Modeling routes
 
 The mobility survey collects the origin and destination of trips but does not include the respective routes.
-Modelling the realistic cycling + PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces.
+Modeling the realistic cycling + PT routes between OD pairs depends on assumptions regarding the characteristics of the cycling and road networks and the location of public transport interfaces.
 Other constraints regarding the behavior of potential cyclists determine the routing results.
 For example, such restrictions can favor low speed, low traffic streets, more direct routes, and less steep paths, among others, which are suitable for cycling.
 
@@ -230,7 +230,7 @@ The cycling potential trips for the two national strategic targets (4% and 10%) 
 
 The routes were then overlaid and aggregated by segments, using [`stplanr overline()` R function](https://docs.ropensci.org/stplanr/reference/overline.html).
 
-## Modelling intermodality
+## Modeling intermodality
 
 The intermodality scenario considers trips combining PT and cycling for the first and last legs.
 In a conservative approach, we have restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination) or up to 25 minutes on bike travel-time.
