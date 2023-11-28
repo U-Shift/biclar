@@ -207,7 +207,7 @@ knitr::include_graphics("img/jitter.png", error = FALSE)
 
 ```
 
-Although this method provides a more realistic representation of the trips undertaken compared to the traditional approach, it does not fully align with the actual O-D pairs of trips, which remain unknown due to data privacy regulations.
+Although this method provides a more realistic representation of the trips undertaken compared to the traditional approach, it does not fully align with the actual OD pairs of trips, which remain unknown due to data privacy regulations.
 
 ## Modeling routes
 
