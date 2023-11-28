@@ -465,9 +465,7 @@ Nevertheless, future works should also encompass the estimation of the social im
 The emissions of CO~2~eq that are avoided during both the initial and final journey segments account for about 74% of the emissions avoided during the PT segment. This finding, while expected -- due the zero cycling emissions, should not be overlooked when promoting the PT use.
 Improving the safe accessibility to PT interfaces to cyclists and providing bicycle-friendly amenities such as parking facilities can potentially lead to a higher reduction in CO~2~eq emissions, compared to a scenario where individuals shift from car travel to car + PT combination.
 
-Our findings suggest that cycling *in combination* with PT could potentially replace 10% of current LMA trips, with an additional 6% of PT journeys prone to further substitution. 
-<!-- repeated? -->
-
+Our findings show that cycling *in combination* with PT could replace 10% of current LMA trips, with an additional 6% of PT journeys prone to further substitution, based on conservative assumptions.
 
 # Conclusion
 
