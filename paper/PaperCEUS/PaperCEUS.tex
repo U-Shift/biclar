@@ -43,7 +43,7 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={biclaR: Estimating the socio-environmental impacts of car substitution by bicycle and public transit using open tools},
+            pdftitle={XXX: Estimating the socio-environmental impacts of car substitution by bicycle and public transit using open tools},
             colorlinks=true,
             urlcolor=blue,
             linkcolor=blue,
@@ -118,7 +118,7 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 
 \begin{frontmatter}
 
-  \title{biclaR: Estimating the socio-environmental impacts of car
+  \title{XXX: Estimating the socio-environmental impacts of car
 substitution by bicycle and public transit using open tools}
     \author[CERIS]{Rosa Félix\corref{cor1}%
   \corref{cor1}%
@@ -146,9 +146,9 @@ Leeds. 34-40 University Rd, Leeds LS2 9JT, UK}
   assesses its socio-environmental impacts using open data and open
   source tools. A decision support tool that facilitates the design and
   development of a metropolitan cycling network was developed
-  (\emph{biclaR}). The social and environmental impacts were assessed
-  using the \emph{HEAT for Cycling} and the \emph{HEAT as a Service}
-  tools. The impacts of shifting car trips to PT were also estimated and
+  (\emph{XXX}). The social and environmental impacts were assessed using
+  the \emph{HEAT for Cycling} and the \emph{HEAT as a Service} tools.
+  The impacts of shifting car trips to PT were also estimated and
   monetized. The results indicate that 10\% of trips could be made by
   bicycle + PT combination. Shifting to cycling for the first-and-last
   mile stages can reduce annual CO\textsubscript{2}eq emissions from
@@ -189,12 +189,13 @@ for all journeys.
 To achieve the cycling targets set by the Portuguese national cycling
 strategy for 2025 and 2030 (4\% and 10\%, respectively) (Presidência do
 Conselho de Ministros, 2019), the Lisbon's Metropolitan Department of
-Transport introduced \emph{biclaR}\footnote{See
-  \href{https://biclar.tmlmobilidade.pt/}{biclar.tmlmobilidade.pt}.}, a
-decision support tool that facilitates the planning, design, and
-development of a metropolitan cycling network (Félix et al., 2022).
+Transport introduced \emph{XXX}\footnote{See https://xxx.xxx. \emph{For
+  double blind peer-review process, the authors decided to truncate the
+  name and references to this tool}.}, a decision support tool that
+facilitates the planning, design, and development of a metropolitan
+cycling network (ref X).
 
-\emph{biclaR} builds on the Propensity to Cycle Tool\footnote{See
+\emph{XXX} builds on the Propensity to Cycle Tool\footnote{See
   \href{https://www.pct.bike/}{pct.bike}.} (PCT), a web application and
 research project funded by the UK's Department for Transport in 2015
 which launched nationally in 2017 as part of the government's Cycling
@@ -235,7 +236,7 @@ ensure that a district is not solely characterized by a single point of
 origin and destination for its trips. Aggregating all trips into
 centroids renders the exercise less realistic, as it excludes a
 significant portion of short-distance trips, a prevalent characteristic
-of active mode travel (Lovelace et al., 2022b). The OD Jittering method
+of active travel (Lovelace et al., 2022b). The OD Jittering method
 breaks down a single point (i.e., the centroid of an area) into multiple
 random points on the existing and neighboring road network, using
 OpenStreetMap as a reference. This method then distributes the volume of
@@ -257,7 +258,7 @@ trips between districts, specifically for the Lisbon metropolitan area.
 
 }
 
-\caption{Representation of OD pairs in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).}\label{fig:jitter}
+\caption{Representation of desire lines in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).}\label{fig:jitter}
 \end{figure}
 
 Although this method provides a more realistic representation of the
@@ -275,7 +276,8 @@ characteristics of the cycling and road networks and the location of
 public transport interfaces. Other constraints regarding the behavior of
 potential cyclists determine the routing results. For example, such
 restrictions can favor low speed, low traffic streets, more direct
-routes, and less steep paths, among others, suitable for cycling.
+routes, and less steep paths, among others, which are suitable for
+cycling.
 
 The selected route choice algorithm was the
 \href{https://ipeagit.github.io/r5r/}{\texttt{r5r} R package} (Pereira
@@ -313,13 +315,17 @@ R function}.
 The intermodality scenario considers trips combining PT and cycling for
 the first and last legs. In a conservative approach, we have restricted
 our analysis to the first and last legs with a combined length of up to
-5 km (for instance: 1 km from origin to interface \emph{A} plus 4 km
-from interface \emph{B} to destination) or up to 25 minutes on bike.
-Furthermore, we have imposed restrictions on PT usage to include only
-trips with no PT transfers, and up to 2 hours (120 min). Additionally,
-we have only included PT modes that can easily accommodate bicycles,
-such as trains, ferries, trams, and inter-municipal bus lines equipped
-with bike racks (Figure \ref{fig:map1}).
+5 km (for example: 1 km from origin to interface \emph{A} plus 4 km from
+interface \emph{B} to destination) or up to 25 minutes on bike
+travel-time. Furthermore, we have imposed restrictions on PT usage,
+limiting it to trips without PT transfers, and within a duration of up
+to 2 hours (120 minutes). Additionally, we have only included PT modes
+that can easily accommodate bicycles, such as trains, ferries, trams,
+and inter-municipal bus lines equipped with bike racks (Figure
+\ref{fig:map1}). These restrictions can be eased in the future when
+testing more developed policy interventions to enhance intermodality
+between cycling and PT, considering both the vehicle and infrastructure
+perspectives.
 
 \begin{figure}
 
@@ -339,7 +345,7 @@ the main PT interfaces in the LMA.
 
 }
 
-\caption{Bike routes with highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool).}\label{fig:map2}
+\caption{Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool).}\label{fig:map2}
 \end{figure}
 
 \hypertarget{assessing-socio-environmental-benefits}{%
@@ -347,9 +353,9 @@ the main PT interfaces in the LMA.
 benefits}\label{assessing-socio-environmental-benefits}}
 
 For the \emph{cycling legs of the journey} (first and last legs),
-socio-environmental impacts were estimated, using the HEAT for Cycling
-tool v5.2 (Kahlmeier et al., 2017) from the World Health Organization,
-and the
+socio-environmental impacts were estimated, using the Health Economic
+Assessment Tool (HEAT) for Cycling v5.2 (Kahlmeier et al., 2017), from
+the World Health Organization, and the
 \href{https://github.com/HEAT-WHO/HEAT_heatr_api}{\texttt{HEATaaS} R
 package}\footnote{\texttt{HEATaaS} is under development. For more
   information contact
@@ -418,8 +424,8 @@ restrictions), the trips in the baseline scenario and corresponding new
 trips to achieve the national strategy targets (4\% and 10\%), for
 different route profiles. For the cycling legs of the journey (first and
 last legs), the environmental avoided emissions and monetized
-socio-environment (SE) benefits are presented in \ref{tab:summary1b},
-resulting from replacing car trips with cycling.
+socio-environment (SE) benefits are presented in Table
+\ref{tab:summary1b}, resulting from replacing car trips with cycling.
 
 \begin{table}
 
@@ -467,8 +473,8 @@ comparing the existing PT interfaces (Figure \ref{fig:map1}) with the
 bike routes with highest potential to serve as first and last legs
 (Figure \ref{fig:map2}) it becomes clear that the Train interfaces are
 the ones that have the highest potential to attract car-to-PT
-substituting trips, if their accessibility by bicycle is improved to be
-safe.
+substituting trips, if their accessibility by bicycle is improved to
+become safer.
 
 \begin{table}
 
@@ -511,7 +517,7 @@ Target & Routing & CO2eq & CO & PM10 & NOx & VOC & Value (k€)\\
 
 The sum of CO\textsubscript{2}eq avoided emissions from the potential
 car trips shifted to bike (first-and-last legs) in combination with PT
-(second leg) in the LMA is presented on Table \ref{tab:summaryall}, for
+(second leg) in the LMA is presented in Table \ref{tab:summaryall}, for
 both national cycling strategy targets and routing profiles, and the
 socio-environmental benefits monetized in €, for a 1-year and 10-year
 time periods.
@@ -542,16 +548,16 @@ socio-environmental benefits (in value) from replacing car trips to
 bicycle in first-and-last legs. For the PT segment, we did not estimate
 the social impacts from substituting car trips. One of the main
 socio-environmetal benefits, valued after monetization, comes from the
-increase in physical activity (Félix et al., 2023). Although are also
-social benefits form shifting car trips to PT, its health benefits would
-not be as high as shifting to cycling. The literature shows that the
-Metabolic Equivalent Tasks (MET) for ``riding in a bus or a train'' is
-1.3 plus the ``walking for transportation'' as 3.5, while ``driving a
+increase in physical activity (Félix et al., 2023). Although there are
+also social benefits form shifting car trips to PT, its health benefits
+would not be as high as shifting to cycling. The literature shows that
+the Metabolic Equivalent Tasks (MET) for ``riding in a bus or a train''
+is 1.3 plus the ``walking for transportation'' as 3.5, while ``driving a
 car'' is 2.5 (Ainsworth et al., 2011). The difference between these
-activities is not very obvious when compared to cycling, whose
-equivalent MET is between 6.8 to 7.5. Nevertheless, future works should
-also encompass the estimation of the social impacts for the PT leg of
-the journey, shifting from car.
+activities - shifting from car to PT - is not very obvious when compared
+to shifting from car to cycling, whose MET is about 6.8. Nevertheless,
+future works should also encompass the estimation of the social impacts
+for the PT leg of the journey, shifting from car.
 
 The emissions of CO\textsubscript{2}eq that are avoided during both the
 initial and final journey segments account for about 74\% of the
@@ -563,9 +569,9 @@ facilities can potentially lead to a higher reduction in
 CO\textsubscript{2}eq emissions, compared to a scenario where
 individuals shift from car travel to car + PT combination.
 
-Our findings suggest that cycling and PT \emph{in combination} could
-viably replace 10\% of current LMA trips, with an additional 6\% of PT
-journeys prone to further substitution.
+Our findings suggest that cycling \emph{in combination} with PT could
+potentially replace 10\% of current LMA trips, with an additional 6\% of
+PT journeys prone to further substitution.
 
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
@@ -583,16 +589,24 @@ cycling connections have the highest socio-environmental impacts,
 quantified in tons of avoided CO\textsubscript{2}eq emissions, or in
 long term social benefits.
 
-By making the research process publicly accessible in a code repository,
-it enables the replication of similar estimates for socio-environmental
-impacts, resulting from a modal shift from car to bicycle in combination
-with PT, in other metropolitan areas.
+By making the research process publicly accessible in a code repository
+(see \protect\hyperlink{research-data}{Research Data}), it enables the
+replication of similar estimates for socio-environmental impacts,
+resulting from a modal shift from car to bicycle in combination with PT,
+in other metropolitan areas.
 
-\hypertarget{acknowledgements.}{%
-\subsubsection*{Acknowledgements.}\label{acknowledgements.}}
-\addcontentsline{toc}{subsubsection}{Acknowledgements.}
+\hypertarget{acknowledgements}{%
+\subsection*{Acknowledgements}\label{acknowledgements}}
+\addcontentsline{toc}{subsection}{Acknowledgements}
 
 {[}\emph{blind}{]}
+
+\hypertarget{research-data}{%
+\subsection*{Research data}\label{research-data}}
+\addcontentsline{toc}{subsection}{Research data}
+
+The data and the code to produce XXX and this paper are available at:
+https://github.com/{[}\emph{blind}{]}.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -624,12 +638,6 @@ S.A.} \url{https://www.carris.pt/media/dkdp2wbg/dnf_carris2019_rv5.pdf}
 CP. (2020). \emph{Relatório de sustentabilidade 2019}. {CP - Comboios de
 Portugal, E.P.E.}
 \url{https://www.cp.pt/StaticFiles/Institucional/2_gestao_sustentavel/1_RelatoriosSustentabilidade/relatorio-de-sustentabilidade-2019.pdf}
-
-\leavevmode\vadjust pre{\hypertarget{ref-felix2023}{}}%
-Félix, R., Lovelace, R., \& Moura, F. (2022). \emph{{biclaR - Ferramenta
-de apoio ao planeamento da rede ciclável na área metropolitana de
-Lisboa}}. {CERIS - Instituto Superior Técnico and Transportes
-Metropolitanos de Lisboa}. \url{https://biclar.tmlmobilidade.pt}
 
 \leavevmode\vadjust pre{\hypertarget{ref-felix2017}{}}%
 Félix, R., Moura, F., \& Clifton, K. J. (2017). Typologies of urban
