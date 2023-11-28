@@ -483,13 +483,14 @@ The case study of the Lisbon metropolitan area demonstrates that cycling-PT inte
 The quantification of benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation.
 The presentation of the results in an open access web application will help  communicate decisions.
 Furthermore, the provision of datasets resulting from this project provides a foundation for further research and development of new tools and methods.
-
+<!-- Punchy final sentence: -->
+The methods are reproducible and based on open source software, which can be applied to other cities and metropolitan areas, supporting the decarbonization of transport systems internationally.
 
 <!-- Será que não se deve incluir uma explicação das sessões de formação com as câmaras e que estas ferramentas digitais são extremamente potenciadoras deste tipo de iniciativas e promovem o empowerment dos técnicos e das populações? -->
 
 
-We used open-source tools and transparent methods.
-By making the research process publicly accessible in a code repository (see [Research Data](#research-data)), it enables the replication of similar estimates for socio-environmental impacts, resulting from a modal shift from car to bicycle in combination with PT, in other metropolitan areas.
+<!-- We used open-source tools and transparent methods.
+By making the research process publicly accessible in a code repository (see [Research Data](#research-data)), it enables the replication of similar estimates for socio-environmental impacts, resulting from a modal shift from car to bicycle in combination with PT, in other metropolitan areas. -->
 
 
 ## Acknowledgements {.unnumbered}
