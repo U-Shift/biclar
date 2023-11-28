@@ -395,8 +395,8 @@ knitr::kable(summary21 |> select(-Baseline),
 
 <!-- These findings indicate that transferring car trips to a combination of bicycle and PT could be nearly as substantial, if not equally significant, as the shift towards bicycle-only trips. WE CANNOT SHOW THIS IN THIS PAPER WITH ONLY SCENARIO 3 DATA --> 
 
-Table \ref{tab:summary22} presents the results of the avoided emissions and its monetization for the second leg of the journey, by replacing car trips with potential TP trips.  
-Regarding the PT segment, the shift from private car would lead to the mitigation of CO~2~ equivalent emissions to 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly.
+Table \ref{tab:summary22} presents emissions reductions and associated economic benefits associated with the second (PT) leg of trips.
+The shift from private car associated with thes PT segments would reduce CO~2~ equivalent emissions by 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly, for the 4% and 10% targets, respectively.
 
 ```{r summary22}
 summary22 = readRDS("load/TPtable_aml.Rds")
