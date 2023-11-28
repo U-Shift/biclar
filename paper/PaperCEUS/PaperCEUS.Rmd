@@ -297,6 +297,7 @@ In particular, for the urban train and tram -- with 100% electric traction -- on
 The conversion of avoided emissions into avoided welfare loss and respective monetary valuation was based on the EU Guide to Cost-benefit Analysis [@EuropeanCommission2014] and the best up-to-date reference values for the various gases [@EuropeanCommission2014; @bickel2006; @UNITE]: 8.44 €/ton for CO, 2,867.85 €/ton for NO~X~, 340,969.27 €/ton for PM10, 7,169.62 €/ton for VOC and 35.85 €/ton for CO~2~eq.
 The social impacts are in avoided premature mortality. This result is finally monetized using the *Statistical Value of Life* for Portugal: €3,055,358/fatality [@ANSR2021].
 We updated all the monetary reference values of the literature based on the annual inflation rate in Portugal for 2022[^7], and our 10-years estimations assumed a discount rate of 5% and inflation of 3%. 
+See [Research Data](#research-data) for all the input values we used.
 
 [^7]: See [Statistics Portugal tool for inflation rate estimates between years](https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ipc).
 
