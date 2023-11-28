@@ -1,5 +1,6 @@
 ---
-title: "XXX: Estimating the socio-environmental impacts of car substitution by bicycle and public transit using open tools"
+title: "Modelling the impacts of replacing car trips with combined public transport and cycling: \ Reproducible methods, results and actionable evidence from the XXX project"
+# subtitle: "Reproducible methods, results and actionable evidence from the XXX project"
 author:
   - name: Rosa Félix\corref{cor1}
     affiliation: CERIS
@@ -74,6 +75,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       out.extra = "")  # This forces knitr to label all figures.
 
 library(dplyr)
+library(ggplot2)
 ```
 
 # Introduction
@@ -83,12 +85,74 @@ This approach requires interventions and programs to make bicycling more appeali
 <!-- Many studies refer to the potential of cycling and bike-sharing to replace car and PT trips, but not to the potential of serving as first and last miles. --> 
 
 According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle.
-Car modal share was 58.4%, while PT accounted for 15.5%.
+Car modal share was 58.4%, while PT accounted for 15.5% (see Figure \ref{fig:mododist}).
 The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips.
 This exceeds the number of inter-municipal trips (1.8 million trips), involving travel between different municipalities.
 Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
 
 <!-- Plot of  AML trips by mode and inter/intra %? -->
+```{r dadosaml, message=FALSE, warning=FALSE}
+TRIPSmode_municipio = readRDS(url("https://github.com/U-Shift/biclar/releases/download/0.0.1/TRIPSmode_municipal.Rds"))
+
+TRIPSmode_aml = TRIPSmode_municipio %>%
+  group_by(modo) %>%
+  summarise(viagens = round(sum(viagens))) %>% 
+  mutate(percentagem = round(100*viagens/sum(viagens),1))
+
+TRIPSmode_aml_intr = TRIPSmode_municipio
+TRIPSmode_aml_intr$Inter[TRIPSmode_aml_intr$Origem == TRIPSmode_aml_intr$Destino] = "Intra-municipal"
+TRIPSmode_aml_intr$Inter[is.na(TRIPSmode_aml_intr$Inter)] = "Inter-municipal"
+TRIPSmode_aml_intr = TRIPSmode_aml_intr %>% 
+  group_by(modo, Inter) %>%
+  summarise(viagens = round(sum(viagens)))
+
+viagensinter = sum(TRIPSmode_aml_intr$viagens[TRIPSmode_aml_intr$Inter == "Inter-municipal"])
+viagensintra = sum(TRIPSmode_aml_intr$viagens[TRIPSmode_aml_intr$Inter == "Intra-municipal"])
+
+TRIPSmode_aml_intr$percentagem[TRIPSmode_aml_intr$Inter == "Inter-municipal"] =  round(100*TRIPSmode_aml_intr$viagens[TRIPSmode_aml_intr$Inter == "Inter-municipal"]/viagensinter, 1)
+
+TRIPSmode_aml_intr$percentagem[TRIPSmode_aml_intr$Inter == "Intra-municipal"] =  round(100*TRIPSmode_aml_intr$viagens[TRIPSmode_aml_intr$Inter == "Intra-municipal"]/viagensintra, 1)
+
+TRIPSmode_aml_intr = bind_rows(TRIPSmode_aml %>% mutate(Inter = "All"),  TRIPSmode_aml_intr)
+
+```
+```{r mododist, fig.ncol=2, out.width="50%", fig.cap="\\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.", fig.subcap=c("In percentage","In total")}
+#gráfico com bistribuição de viagens por modo na AML segundo IMob 2018
+
+TRIPSmode_aml_intr$modo = factor(TRIPSmode_aml_intr$modo, 
+                                 levels = c("Car", "Transit", "Motorcycle", 
+                                            "Other", "Walk", "Bike"))
+
+
+col_modes = c("#fe5f55", "#ffd166", "#8E794A", "grey", "#457b9d", "#90be6d") 
+
+ggplot(TRIPSmode_aml_intr, aes(fill = modo, y = percentagem/100, x = Inter)) +
+  geom_bar(position = position_fill(reverse = FALSE), stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Mode") +
+  scale_y_continuous(labels = scales::percent) +
+  geom_text(aes(label = ifelse(percentagem > 6, paste0(percentagem,"%"), "")),
+    position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(axis.title.y = element_blank(),
+        axis.title.x = element_blank(),
+        legend.title = element_blank(),
+        legend.position = "none") +
+  coord_flip()
+
+
+ggplot(TRIPSmode_aml_intr, aes(fill = modo, y = viagens, x = Inter)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = col_modes, name = "Mode") +
+  scale_y_continuous("Trips / day", labels = scales::comma_format(big.mark = ' ')) +
+  geom_text(aes(label = ifelse(viagens > 500000, paste0(round(viagens/1000000,1)," M"), "")),
+  position = position_stack(vjust = 0.5, reverse = FALSE))+
+  theme_minimal() +
+  theme(
+    axis.title.y = element_blank(),
+        legend.position = "right") +
+  coord_flip()
+
+```
 
 To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport introduced *XXX*[^1], a decision support tool that facilitates the planning, design, and development of a metropolitan cycling network (ref X).
 <!-- [@felix2023]. -->
@@ -107,7 +171,7 @@ However, to the best of our knowledge, this is the first time that the method ha
 
 <!-- For the full paper, explain that we had 3 scenarios, and describe them. But in this paper we focus on the intermodality one. -->
 
-This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA.
+This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA, while achieving the national cycling targets.
 After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
 
 # Methods
