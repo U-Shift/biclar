@@ -18,9 +18,9 @@ address:
   - code: ITS
     address: "Institute for Transport Studies, University of Leeds. 34-40 University Rd, Leeds LS2 9JT, UK"
 abstract: |
-  A high proportion of car trips can be replaced by a combination of public transit and cycling for the first-and-last mile. This paper estimates the potential for cycling combined with public transit (PT) as a substitute for car trips in the Lisbon metropolitan area and assesses its socio-environmental impacts using open data and open source tools.
-  A decision support tool that facilitates the design and development of a metropolitan cycling network was developed (_biclaR_). The social and environmental impacts were assessed using the _HEAT for Cycling_ and the _HEAT as a Service_ tools. The impacts of shifting car trips to PT were also estimated and monetized.
-  The results indicate that 10% of trips could be made by bicycle + PT combination. Shifting to cycling for the first-and-last mile stages can reduce annual CO~2~eq emissions from 3,000 to 7,500 tons/day, while for the PT leg, the transfer from car avoids of up to 20,500 tons of CO~2~eq emissions per year. The estimated socio-environmental benefits are of €125 million to €325 million over 10 years.
+  A high proportion of car trips can be replaced by a combination of public transit and cycling for the first-and-last mile. This paper estimates the potential for cycling combined with public transit as a substitute for car trips in the Lisbon metropolitan area and assesses its socio-environmental impacts using open data and open source tools.
+  A decision support tool that facilitates the design and development of a metropolitan cycling network was developed (_biclaR_). The social and environmental impacts were assessed using the _HEAT for Cycling_ and the _HEAT as a Service_ tools. The impacts of shifting car trips to public transport were also estimated and monetized.
+  The results show that 10% of trips could be made by cycling in combination with public transport. Shifting to cycling for the shorter first and last mile stages can reduce annual CO~2~eq emissions from 3,000 to 7,500 tons/day, while for the public transport leg, the transfer from car avoids of up to 20,500 tons of CO~2~eq emissions per year. The estimated socio-environmental benefits are of €125 million to €325 million over 10 years.
   This evidence can support policymakers to prioritize interventions that reduce the reliance on private motor vehicles.
   \
 keywords: 
@@ -79,7 +79,8 @@ library(ggplot2)
 
 # Introduction
 
-Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can significantly replace private car trips [@MARTENS2007326; @RIETVELD200071].
+Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can replace a high proportion of private car trips [@MARTENS2007326].
+In The Netherlands, which has the highest mode share of cycling in the world, cycling accounts for more than a third of all trips to and from rail stations at the 'home' end of the journey, greatly increasing the ability of the transport system to reduce car dependency and associated externalities [@RIETVELD200071].
 This approach requires interventions and programs to make bicycling more appealing, and the resulting public investments can have significant social and environmental benefits.
 <!-- Many studies refer to the potential of cycling and bike-sharing to replace car and PT trips, but not to the potential of serving as first and last miles. --> 
 
