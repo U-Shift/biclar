@@ -1,5 +1,5 @@
 ---
-title: "Modeling the impacts of replacing car trips with combined public transport and cycling: \ Reproducible methods, results and actionable evidence from the biclaR project"
+title: "Modeling the impacts of replacing car trips with combined public transport and cycling: \ Reproducible methods, results and actionable evidence from biclaR"
 author:
   - name: Rosa Félix\corref{cor1}
     affiliation: CERIS
@@ -160,11 +160,10 @@ ggplot(TRIPSmode_aml_intr, aes(fill = modo, y = viagens, x = Inter)) +
 
 ```
 
-To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport commissioned *biclaR*[^1], a decision support tool that facilitates the planning, design, and development of a metropolitan cycling network (ref X).
-<!-- [@felix2023]. -->
+To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport commissioned *biclaR*[^1], a decision support tool that facilitates the planning, design, and development of a metropolitan cycling network [@felix2023].
 
-[^1]: See xxx.xxx. *For double blind peer-review process, the authors decided to truncate the name and references to this tool*.
-<!-- [^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/). -->
+<!-- [^1]: See xxx.xxx. *For double blind peer-review process, the authors decided to truncate the name and references to this tool*. -->
+[^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/).
 
 *biclaR* builds on the Propensity to Cycle Tool[^2] (PCT), a web application and research project funded by the UK's Department for Transport in 2015 which launched nationally in 2017 as part of the government's Cycling and Walking Investment Strategy.
 The PCT initially used only origin-destination data for commuting trips as the basis of estimates of cycling potential at zone, route and route network levels [@lovelace2017].
@@ -208,7 +207,7 @@ knitr::include_graphics("img/jitter.png", error = FALSE)
 ```
 
 The jittering pre-processing stage generates a more realistic representation of the trips undertaken than the traditional centroid-based approach but does precisely capture the exactly spatial distribution of trips.
-Even where such datasets, they cannot be shared for research due to data privacy regulations.
+Even where such datasets exist, they cannot be shared for research due to data privacy regulations.
 
 ## Modeling routes
 
@@ -496,8 +495,8 @@ By making the research process publicly accessible in a code repository (see [Re
 ## Acknowledgements {.unnumbered}
 [*blind*]
 <!-- This research was funded by the Lisbon's Metropolitan Department of Transport (TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A.), under the *biclaR* Project. -->
-<!-- This work is part of the research activity carried out at Civil Engineering Research and Innovation for Sustainability (CERIS) and has been funded by Fundação para a Ciência e a Tecnologia (FCT), Portugal in the framework of project UIDB/04625/2020.  -->
-<!-- The authors thank Thomas Götschi (HEAT for Cycling) for providing access to HaaS tool, which is under development. -->
+<!-- This work is part of the research activity carried out at Civil Engineering Research and Innovation for Sustainability (CERIS) and has been funded by Fundação para a Ciência e a Tecnologia (FCT), Portugal in the framework of project UIDB/04625/2020. -->
+<!-- The authors thank Thomas Götschi (HEAT for Cycling) for providing access to _HaaS_ tool, which is under development. -->
 
 
 ## Research data {.unnumbered}
