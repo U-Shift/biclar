@@ -21,11 +21,19 @@ mapview::mapview(carlegs_2_od[669,])
 
 
 
-carlegs_13_od = OD_13legs_lts4
+carlegs_13_od = OD_13legs_lts3
 
 ###### LEG 2 in Bike
 mapview::mapview(carlegs_13_od[carlegs_13_od$id_route == 45563,])
 
 
+
+
+
 # Try to run the routing model WITH grometry to get car routing
+
+mapview::mapview(carlegs_13_od[carlegs_13_od$id_route == 45563,], color = "red") + mapview::mapview(carlegs_2_od[669,])
+
+
+
 

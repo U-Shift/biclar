@@ -20,7 +20,7 @@ address:
 abstract: |
   A high proportion of car trips can be replaced by a combination of public transit and cycling for the first-and-last mile. This paper estimates the potential for cycling combined with public transit as a substitute for car trips in the Lisbon metropolitan area and assesses its socio-environmental impacts using open data and open source tools.
   A decision support tool that facilitates the design and development of a metropolitan cycling network was developed (_biclaR_). The social and environmental impacts were assessed using the _HEAT for Cycling_ and the _HEAT as a Service_ tools. The impacts of shifting car trips to public transport were also estimated and monetized.
-  The results show that 10% of trips could be made by cycling in combination with public transport. Shifting to cycling for the shorter first and last mile stages can reduce annual CO~2~eq emissions from 3,000 to 7,500 tons/day, while for the public transport leg, the transfer from car avoids of up to 20,500 tons of CO~2~eq emissions per year. The estimated socio-environmental benefits are of €125 million to €325 million over 10 years.
+  The results show that 10% of all trips could be made by cycling in combination with public transport. Shifting to cycling for the shorter first and last mile stages can reduce annual CO~2~eq emissions from 3,000 to 7,500 tons/day, while for the public transport leg, the transfer from car avoids of up to 20,500 tons of CO~2~eq emissions per year. The estimated socio-environmental benefits are of €125 million to €325 million over 10 years.
   This evidence can support policymakers to prioritize interventions that reduce the reliance on private motor vehicles.
   \
 keywords: 
@@ -186,7 +186,7 @@ After presenting the methods used, it assesses its socio-environmental impacts u
 The mobility survey data [@IMOB] is the basis of the baseline scenario and trip rates presented in this paper.
 Conducted in the pre-pandemic period (2017), this OD dataset represents the most comprehensive and up-to-date information on urban mobility in Portuguese metropolitan areas (Lisbon and Porto).
 
-We used 'jittering' to disaggregate the OD data, resulting in a wide spatial distribution trip origins and destinations [@Lovelace2022Jittering].
+We used 'jittering' to disaggregate the OD data, resulting in a wide spatial distribution of trip origins and destinations [@Lovelace2022Jittering].
 The method works by sampling 'sub-points' (nodes on the transport network represented in OpenStreetMap in this case) and using these instead of a single point (typically the centroid) to represent trip origins and destinations for each zone.
 This method then distributes the trips to desire lines connecting the subpoints based on a 'disaggregation threshold' which determines the maximum number of trips that can be represented by a single desire line.
 
@@ -206,7 +206,7 @@ knitr::include_graphics("img/jitter.png", error = FALSE)
 
 ```
 
-The jittering pre-processing stage generates a more realistic representation of the trips undertaken than the traditional centroid-based approach but does precisely capture the exactly spatial distribution of trips.
+The jittering pre-processing stage generates a more realistic representation of the trips undertaken than the traditional centroid-based approach but does not precisely capture the exact spatial distribution of trips.
 Even where such datasets exist, they cannot be shared for research due to data privacy regulations.
 
 ## Modeling routes
@@ -255,6 +255,8 @@ knitr::include_graphics("img/map2.png", error = FALSE)
 ## Assessing socio-environmental benefits
 
 <!-- The impacts were assessed for the total metro area. -->
+
+<!-- Include a map with the legs of journeys, and which modes are replacing which, and what impacts are bein estimated at each one. See PTcar_legs.R -->
 
 For the *cycling legs of the journey* (first and last legs), socio-environmental impacts were estimated, using the Health Economic Assessment Tool (HEAT) for Cycling v5.2 [@HEAT], from the World Health Organization, and the [`HEATaaS` R package](https://github.com/HEAT-WHO/HEAT_heatr_api)[^5]. 
 The use of this package made it possible to run multiple scenarios with few changes in input values, making the interaction with HEAT more reliable when reproducing runs.    
@@ -364,8 +366,8 @@ knitr::kable(summary1b,
 
 ```
 
-For both *direct* and *safe* route profiles, 10% of the daily trips have the potential to be made by a combination of PT and cycling (up to 5 km on bike). This unveils the potential of cycling as a complementary mode of PT, with the potential to uptake the number of PT trips within the LMA area by as much as 6.3% (in addition to the 825 thousand PT trips reported in the mobility survey).
-<!-- place in the end - here is not clear -->
+For both *direct* and *safe* route profiles, 10% of the daily trips have the potential to be made by a combination of PT and cycling, even given the travel restrictions considered (up to 5 km on bike, up to 2 hours, no possible transfers between PT).
+This unveils the potential of cycling as a complementary mode of PT, with the potential to uptake the number of PT trips within the LMA area by as much as 6.3% (in addition to the 825 thousand PT trips reported in the mobility survey).
 
 Table \ref{tab:summary21} shows the potential trips by PT mode to replace the second leg of the journey, in combination with cycling.
 Train offers the greatest potential for substitution (88%).
@@ -479,8 +481,8 @@ The case study of the Lisbon metropolitan area demonstrates that cycling-PT inte
 
 [^10]: See [eltis.org/mobility-plans/sump-concept](https://www.eltis.org/mobility-plans/sump-concept)
  
-The quantification of benefits can support policy-makers in prioritizing interventions to reduce the reliance on individual motorized transportation.
-The presentation of the results in an open access web application will help  communicate decisions.
+The quantification of benefits can support policy-makers in prioritizing interventions to reduce the reliance on private motorized modes of transportation.
+The presentation of the results in an open access web application will help to inform and explain decisions.
 Furthermore, the provision of datasets resulting from this project provides a foundation for further research and development of new tools and methods.
 <!-- Punchy final sentence: -->
 The methods are reproducible and based on open source software, which can be applied to other cities and metropolitan areas, supporting the decarbonization of transport systems internationally.
