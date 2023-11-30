@@ -283,9 +283,9 @@ An equation was then used to calculate emission factors for the two types of fue
 {EF}_{fuel,l_{trip},speed} = a + b\cdot {speed} + c\cdot l_{trip}
 \end{equation}
 
-Emission factors are estimated for the following air pollutants: CO, NO~X~, VOC, and PM. Emission factors of the main greenhouse gases (GHG) are also estimated: CO~2~, CH~4~ and N~2~O, converted in CO~2~eq by the following relationship[^9]: $EF_{CO_2eq} = EF_{CO_2} + 28\cdot EF_{CH_4} + 265\cdot EF_{N_2O}$.
+Emission factors are estimated for the following air pollutants: CO, NO~X~, VOC, and PM~10~. Emission factors of the main greenhouse gases (GHG) are also estimated: CO~2~, CH~4~ and N~2~O, converted in CO~2~eq by the following relationship[^9]: $EF_{CO_2eq} = EF_{CO_2} + 28\cdot EF_{CH_4} + 265\cdot EF_{N_2O}$.
 The CH~4~ and N~2~O emission factors do not vary with travel speed.
-The PM10 emission factor does not vary with trip distance. 
+The PM~10~ emission factor does not vary with trip distance. 
 
 The used values consider that 64% of the car fleet was diesel in 2022[^6]. In addition, we assumed an occupancy rate of 1.6 passengers *per* car [@IMOB].
 Finally, the final emissions for each trip ($E_{pollutant}$, in g/trip) are derived from the equation \ref{eq:emissaoauto}.
@@ -300,7 +300,7 @@ Finally, the final emissions for each trip ($E_{pollutant}$, in g/trip) are deri
 Regarding PT, we considered the emission factor values reported in the environmental and sustainability reports of the PT operators in the LMA [@Carris2019s; @Metro2019s; @CP2019s; @Transtejo2014].
 In particular, for the urban train and tram -- with 100% electric traction -- only CO~2~eq emissions were considered (resulting from the production of electricity, considering a "well-to-tank" approach), since the other pollutants are not emitted locally.
 
-The conversion of avoided emissions into avoided welfare loss and respective monetary valuation was based on the EU Guide to Cost-benefit Analysis [@EuropeanCommission2014] and the best up-to-date reference values for the various gases [@EuropeanCommission2014; @bickel2006; @UNITE]: 8.44 €/ton for CO, 2,867.85 €/ton for NO~X~, 340,969.27 €/ton for PM10, 7,169.62 €/ton for VOC and 35.85 €/ton for CO~2~eq.
+The conversion of avoided emissions into avoided welfare loss and respective monetary valuation was based on the EU Guide to Cost-benefit Analysis [@EuropeanCommission2014] and the best up-to-date reference values for the various gases [@EuropeanCommission2014; @bickel2006; @UNITE]: 8.44 €/ton for CO, 2,867.85 €/ton for NO~X~, 340,969.27 €/ton for PM~10~, 7,169.62 €/ton for VOC and 35.85 €/ton for CO~2~eq.
 The social impacts are in avoided premature mortality. This result is finally monetized using the *Statistical Value of Life* for Portugal: €3,055,358/fatality [@ANSR2021].
 We updated all the monetary reference values of the literature based on the annual inflation rate in Portugal for 2022[^7], and our 10-years estimations assumed a discount rate of 5% and inflation of 3%. 
 See [Research Data](#research-data) for all the input values we used.
@@ -451,7 +451,8 @@ knitr::kable(summaryall,
 ```
 
 <!-- FOR OTHER PAPER: separate the Socio impacts from the Environmental ones? -->
-Shifting from car to cycling in combination with PT can reduce annual CO~2~eq emissions by 14,000 to 36,000 tons per year. 
+Shifting from car to cycling in combination with PT can reduce annual CO~2~eq emissions by 11,500 to 28,500 tons per year. 
+These figures represent a 2.7% reduction in Lisbon's transport emissions [@LisboaENova], a small but important component of wider transport decarbonization measures.
 The 10-year socio-environmental benefits account for €125 million to €325 million, depending on the cycling targets.
 
 The environmental impacts represent less than 2% of the socio-environmental benefits (in value) from replacing car trips to bicycle in first-and-last legs. 
@@ -494,14 +495,14 @@ The methods are reproducible and based on open source software, which can be app
 By making the research process publicly accessible in a code repository (see [Research Data](#research-data)), it enables the replication of similar estimates for socio-environmental impacts, resulting from a modal shift from car to bicycle in combination with PT, in other metropolitan areas. -->
 
 
-## Acknowledgements {.unnumbered}
+# Acknowledgements {.unnumbered}
 [*blind*]
 <!-- This research was funded by the Lisbon's Metropolitan Department of Transport (TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A.), under the *biclaR* Project. -->
 <!-- This work is part of the research activity carried out at Civil Engineering Research and Innovation for Sustainability (CERIS) and has been funded by Fundação para a Ciência e a Tecnologia (FCT), Portugal in the framework of project UIDB/04625/2020. -->
 <!-- The authors thank Thomas Götschi (HEAT for Cycling) for providing access to _HaaS_ tool, which is under development. -->
 
 
-## Research data {.unnumbered}
+# Research data {.unnumbered}
 The data and the code to reproduce the results will be made available upon publication.
 
 # References {.unnumbered}

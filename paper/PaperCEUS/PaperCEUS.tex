@@ -418,8 +418,8 @@ are driving speed (\(speed\), in km/h) and average trip distance
 \end{equation}
 
 Emission factors are estimated for the following air pollutants: CO,
-NO\textsubscript{X}, VOC, and PM. Emission factors of the main
-greenhouse gases (GHG) are also estimated: CO\textsubscript{2},
+NO\textsubscript{X}, VOC, and PM\textsubscript{10}. Emission factors of
+the main greenhouse gases (GHG) are also estimated: CO\textsubscript{2},
 CH\textsubscript{4} and N\textsubscript{2}O, converted in
 CO\textsubscript{2}eq by the following relationship\footnote{The weights
   correspond to the Global Warming Potentials (GWP) defined for a
@@ -427,8 +427,8 @@ CO\textsubscript{2}eq by the following relationship\footnote{The weights
   \href{https://www.ipcc.ch/report/ar5/}{5th Assessment Report}.}:
 \(EF_{CO_2eq} = EF_{CO_2} + 28\cdot EF_{CH_4} + 265\cdot EF_{N_2O}\).
 The CH\textsubscript{4} and N\textsubscript{2}O emission factors do not
-vary with travel speed. The PM10 emission factor does not vary with trip
-distance.
+vary with travel speed. The PM\textsubscript{10} emission factor does
+not vary with trip distance.
 
 The used values consider that 64\% of the car fleet was diesel in
 2022\footnote{See
@@ -456,13 +456,13 @@ respective monetary valuation was based on the EU Guide to Cost-benefit
 Analysis (Sartori et al., 2014) and the best up-to-date reference values
 for the various gases (Bickel et al., 2006; Nash et al., 2003; Sartori
 et al., 2014): 8.44 €/ton for CO, 2,867.85 €/ton for
-NO\textsubscript{X}, 340,969.27 €/ton for PM10, 7,169.62 €/ton for VOC
-and 35.85 €/ton for CO\textsubscript{2}eq. The social impacts are in
-avoided premature mortality. This result is finally monetized using the
-\emph{Statistical Value of Life} for Portugal: €3,055,358/fatality
-(Silva et al., 2021). We updated all the monetary reference values of
-the literature based on the annual inflation rate in Portugal for
-2022\footnote{See
+NO\textsubscript{X}, 340,969.27 €/ton for PM\textsubscript{10}, 7,169.62
+€/ton for VOC and 35.85 €/ton for CO\textsubscript{2}eq. The social
+impacts are in avoided premature mortality. This result is finally
+monetized using the \emph{Statistical Value of Life} for Portugal:
+€3,055,358/fatality (Silva et al., 2021). We updated all the monetary
+reference values of the literature based on the annual inflation rate in
+Portugal for 2022\footnote{See
   \href{https://www.ine.pt/xportal/xmain?xpid=INE\&xpgid=ipc}{Statistics
   Portugal tool for inflation rate estimates between years}.}, and our
 10-years estimations assumed a discount rate of 5\% and inflation of
@@ -594,9 +594,12 @@ Target & Routing & Avoided CO2eq (tons) & SE Benefits 1yr (k€) & SE Benefits 1
 \end{table}
 
 Shifting from car to cycling in combination with PT can reduce annual
-CO\textsubscript{2}eq emissions by 14,000 to 36,000 tons per year. The
-10-year socio-environmental benefits account for €125 million to €325
-million, depending on the cycling targets.
+CO\textsubscript{2}eq emissions by 11,500 to 28,500 tons per year. These
+figures represent a 2.7\% reduction in Lisbon's transport emissions
+(Lisboa E-Nova, 2023), a small but important component of wider
+transport decarbonization measures. The 10-year socio-environmental
+benefits account for €125 million to €325 million, depending on the
+cycling targets.
 
 The environmental impacts represent less than 2\% of the
 socio-environmental benefits (in value) from replacing car trips to
@@ -665,14 +668,14 @@ applied to other cities and metropolitan areas, supporting the
 decarbonization of transport systems internationally.
 
 \hypertarget{acknowledgements}{%
-\subsection*{Acknowledgements}\label{acknowledgements}}
-\addcontentsline{toc}{subsection}{Acknowledgements}
+\section*{Acknowledgements}\label{acknowledgements}}
+\addcontentsline{toc}{section}{Acknowledgements}
 
 {[}\emph{blind}{]}
 
 \hypertarget{research-data}{%
-\subsection*{Research data}\label{research-data}}
-\addcontentsline{toc}{subsection}{Research data}
+\section*{Research data}\label{research-data}}
+\addcontentsline{toc}{section}{Research data}
 
 The data and the code to reproduce the results will be made available
 upon publication.
@@ -760,6 +763,11 @@ bicycle infrastructure on the choice of the bicycle as a train feeder
 mode. \emph{International Journal of Sustainable Transportation},
 \emph{15}(6), 486--499.
 \url{https://doi.org/10.1080/15568318.2020.1765223}
+
+\leavevmode\vadjust pre{\hypertarget{ref-LisboaENova}{}}%
+Lisboa E-Nova. (2023). \emph{{Observatórios Lisboa - Infos Emissões
+Gases com Efeito Estufa}}. {Agência de Energia e Ambiente de Lisboa}.
+\url{https://observatorios-lisboa.pt/info_emissoes.html}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Lovelace2022exploring}{}}%
 Lovelace, R., Félix, R., \& Carlino, D. (2022a). Exploring jittering and
