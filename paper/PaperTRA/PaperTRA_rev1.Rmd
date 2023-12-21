@@ -361,6 +361,6 @@ By making the research process publicly accessible in a code repository, this re
 ### Acknowledgements. {.unnumbered}
 This research was funded by the Lisbon's Metropolitan Department of Transport (TML - Transportes Metropolitanos de Lisboa, E.M.T., S.A.), under the *biclaR* Project.
 This work is part of the research activity carried out at Civil Engineering Research and Innovation for Sustainability (CERIS) and has been funded by Fundação para a Ciência e a Tecnologia (FCT), Portugal in the framework of project UIDB/04625/2020. 
-The authors thank Thomas Götschi (HEAT for Cycling) for providing access to HaaS tool, which is under development.
+<!-- The authors thank Thomas Götschi (HEAT for Cycling) for providing access to HaaS tool, which is under development. -->
 
 # References {.unnumbered}

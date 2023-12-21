@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.21)  21 DEC 2023 17:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.12.21)  21 DEC 2023 17:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -551,7 +551,7 @@ Overfull \hbox (11.13876pt too wide) in paragraph at lines 224--227
 <img/map1.png, id=55, 730.73pt x 676.5275pt>
 File: img/map1.png Graphic file (type png)
 <use img/map1.png>
-Package pdftex.def Info: img/map1.png  used on input line 245.
+Package pdftex.def Info: img/map1.png  used on input line 246.
 (pdftex.def)             Requested size: 208.27623pt x 192.82266pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -559,7 +559,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <img/map2.png, id=57, 1549.79pt x 937.5025pt>
 File: img/map2.png Graphic file (type png)
 <use img/map2.png>
-Package pdftex.def Info: img/map2.png  used on input line 254.
+Package pdftex.def Info: img/map2.png  used on input line 255.
 (pdftex.def)             Requested size: 277.69987pt x 167.985pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -568,28 +568,28 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.325 
+l.326 
       
 pdfTeX warning (ext4): destination with the same identifier (name{table.1.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.325 
+l.326 
        <./img/map1.png>] [5
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.382 
-       <./img/map2.png>] [6
-pdfTeX warning (ext4): destination with the same identifier (name{table.1.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.422 \section*{References}\label{references}}
-                                              ]
+l.383 
+       <./img/map2.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 427--433
 
  []
 
-
+[6
+pdfTeX warning (ext4): destination with the same identifier (name{table.1.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.434 \leavevmode
+                 \vadjust pre{\hypertarget{ref-RIETVELD200071}{}}%]
 Underfull \hbox (badness 10000) in paragraph at lines 434--440
 
  []
@@ -659,11 +659,11 @@ Here is how much of TeX's memory you used:
  35828 multiletter control sequences out of 15000+600000
  570365 words of font info for 59 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,11n,95p,721b,898s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,11n,95p,721b,920s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0900.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0900.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </home/rosa/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on PaperTRA_rev1.pdf (7 pages, 999509 bytes).
+Output written on PaperTRA_rev1.pdf (7 pages, 1000105 bytes).
 PDF statistics:
- 534 PDF objects out of 1000 (max. 8388607)
+ 536 PDF objects out of 1000 (max. 8388607)
  188 compressed objects within 2 object streams
  49 named destinations out of 1000 (max. 500000)
  19 words of extra memory for PDF output out of 10000 (max. 10000000)
