@@ -201,17 +201,33 @@ This method then distributes the trips to desire lines connecting the subpoints 
 Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we disaggregated the OD data into desire lines reprenting a maximum of 100 trips each.
 Figure \ref{fig:jitter} illustrates the contrast between trip representation through the traditional method, which connects a single desire line between each district, and the presentation achieved through the randomization and disaggregation of trips between districts, specifically for the Lisbon metropolitan area.
 
-```{r jitter, fig.align='center', fig.cap="Representation of desire lines in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).", out.width="100%"}
+```{r jitter, fig.align='center', fig.cap="Representation of a flow-weighted random sample of 10,000 desire lines in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).", out.width="100%"}
 
 # od_all = readRDS("paper/paperTRA/load/od_all.Rds")
 # od_jittered_filter = readRDS("paper/paperTRA/load/od_jittered_filter.Rds")
 # 
 # par(mfrow = c(1, 2))
-# plot(od_all$geometry, lwd = 0.1)
+# plot(od_all$geometry, lwd = 0.1,)
 # plot(od_jittered_filter$geometry, lwd = 0.1)
+# knitr::include_graphics("img/jitter.png", error = FALSE)
+# 
+# 
+# odcombined = rbind(
+#   od_all |> 
+#     transmute(Total, Disaggregation = " Original"),
+#   od_jittered_filter |> 
+#     transmute(Total, Disaggregation = "Jittered")
+# )
+# odcombined |> 
+#   sample_n(10000, weight = odcombined$Total) |>
+#   mutate(Total = Total / 1000) |> 
+#   ggplot() +
+#   geom_sf(aes(alpha = Total)) +
+#   facet_wrap(~Disaggregation) +
+#   theme_void() +
+#   geom_sf(data = MUNICIPIOSgeo, fill = NA, color = "gray60")
 
-knitr::include_graphics("img/jitter.png", error = FALSE)
-
+knitr::include_graphics("img/jitter_rev.png", error = FALSE)
 ```
 
 The jittering pre-processing stage generates a more realistic representation of the trips undertaken than the traditional centroid-based approach but does not precisely capture the exact spatial distribution of trips.
