@@ -65,8 +65,9 @@ linkcolor: blue
 ---
 
 ```{r eval=FALSE, echo=FALSE}
-system("latexdiff paper/PaperCEUS.tex paper/PaperCEUS_rev1.tex > paper/PaperCEUS_diff.tex")
-
+setwd("paper/PaperCEUS/")
+system("latexdiff PaperCEUS.tex PaperCEUS_rev1.tex > tracked_changes_rev1.tex")
+system("pdflatex tracked_changes_rev1.tex")
 ```
 
 <!-- TODO: -->
@@ -85,9 +86,6 @@ library(ggplot2)
 # Introduction
 
 Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can replace a high proportion of private car trips [@MARTENS2007326].
-
-test
-
 In The Netherlands, which has the highest mode share of cycling in the world, cycling accounts for more than a third of all trips to and from rail stations at the 'home' end of the journey, greatly increasing the ability of the transport system [@RIETVELD200071].
 This approach to reducing car dependency and associated externalities requires interventions and programs to make bicycling more appealing [@lapaix_role_2021].
 The resulting public investments can have significant social and environmental benefits [@internationaltransportforum_integrating_2017].
