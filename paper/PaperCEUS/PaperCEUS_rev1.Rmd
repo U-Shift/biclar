@@ -510,10 +510,19 @@ This added demand is conceptually driven from individuals utilising bicycles, ei
 Consequently, operators and public space managers would face the challenge of accommodating this increased demand for bicycle parking and/or docks from a bike sharing system.
 Additionally, they may need to explore options to enhance bicycle carriage capacity on public transport services, ensuring alignment with national targets.
 
+## Model replicability and complexity
+
 This analysis can be applied to other metropolitan areas, providing a basis for decision-making and policy development to support a modal shift from car to PT. This process involves a minimum of data requirements, such as the origin-destination data, road network, and the PT GTFS data, which are available in most metropolitan areas.
 Furthermore, it is essential to incorporate existing cycling level targets specific to those areas or consider the possibility of utilising the same targets as outlined in the Portuguese national strategy, in order to compare results with different areas.
 Nevertheless, the extent of the potential shift from car to PT is highly dependent on the distances typically travelled in such contexts, and the availability of PT services - which can vary significantly between regions, and for which we are not assuming any change in this study.
+
+<!-- CONTINUE HERE -->
+A further refinement could be to differentiate between ‘simpler’ no-transfer PT trips (which require less person effort) and more arduous multi-transfer PT trips, using the same methods: we could set a different maximum cycling stage distance for the former and a shorter maximum cycling stage distance for the latter. However, this would have an impact on the explainability of the results to policy makers and the overall complexity.
+We now discuss this and other potential refinements to the methods using the same input datasets and open, reproducible methods in the discussion with reference to the **likelihood of diminishing returns with additional model complexity**.
+
+
 This paper focus primarily on the potential of making cycling and PT a viable alternative to car trips, and the socio-environmental benefits of such a shift.
+
 
 # Conclusion
 
