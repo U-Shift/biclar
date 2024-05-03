@@ -40,6 +40,7 @@ numbersections: true
 # Use a CSL with `citation_package = "default"`
 csl: https://www.zotero.org/styles/computers-environment-and-urban-systems
 # csl: computers-environment-and-urban-systems.csl
+# csl: trd_test.csl
 preamble: |
   \biboptions{authoryear}
   \usepackage{url}
@@ -62,17 +63,9 @@ citecolor: black
 linkcolor: blue
 # natbiboptions: longnamesfirst,angle,semicolon
 ---
-\hypersetup{citecolor=black}
+### THIS IS A VERSION BEFORE CHANGES, SO WE CAN COMPARE WITH latexdiff ###
 
-```{r eval=FALSE, echo=FALSE}
-# setwd("paper/PaperCEUS/") # knit directory: Document
-system("latexdiff paper/PaperCEUS/PaperCEUS_prerev.tex paper/PaperCEUS/PaperCEUS_rev1.tex > paper/PaperCEUS/PaperCEUS_diff1.tex")
-#and change in tex the blue for another color (green? 0,0.5,0) and remove \uwave
-# \definecolor{green}{rgb}{0,0.5,0}
-# {\protect\color{green}{#1}}}
-#and compile PDF!
-system("pdflatex paper/PaperCEUS/PaperCEUS_diff1.tex")
-```
+\hypersetup{citecolor=black}
 
 <!-- TODO: -->
 <!-- should we ignore the social benefits component? and only estimate and add the environmental ones? or estimate the car to PT transfer Social benefits? maybe to the next paper? -->
@@ -80,7 +73,7 @@ system("pdflatex paper/PaperCEUS/PaperCEUS_diff1.tex")
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
-                      # root.dir = "paper/PaperCEUS/",
+                      # root.dir = "paper/PaperTRA/",
                       out.extra = "")  # This forces knitr to label all figures.
 
 library(dplyr)
@@ -203,33 +196,17 @@ This method then distributes the trips to desire lines connecting the subpoints 
 Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we disaggregated the OD data into desire lines reprenting a maximum of 100 trips each.
 Figure \ref{fig:jitter} illustrates the contrast between trip representation through the traditional method, which connects a single desire line between each district, and the presentation achieved through the randomization and disaggregation of trips between districts, specifically for the Lisbon metropolitan area.
 
-```{r jitter, fig.align='center', fig.cap="Flow-weighted random sample of 10,000 desire lines in the Lisbon metropolitan area between districts of the 18 municipalities, without jittering (left) and with jittering (right).", fig.height=4, out.width="100%"}
+```{r jitter, fig.align='center', fig.cap="Representation of desire lines in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).", out.width="100%"}
 
 # od_all = readRDS("paper/paperTRA/load/od_all.Rds")
 # od_jittered_filter = readRDS("paper/paperTRA/load/od_jittered_filter.Rds")
 # 
 # par(mfrow = c(1, 2))
-# 
-# odcombined = rbind(
-#   od_all |>
-#     transmute(Total, Disaggregation = " Original"),
-#   od_jittered_filter |>
-#     transmute(Total, Disaggregation = "Jittered")
-# )
-# odcombined |>
-#   sample_n(10000, weight = odcombined$Total) |>
-#   mutate(Total = Total / 1000) |>
-#   ggplot() +
-#   geom_sf(aes(alpha = Total)) +
-#   facet_wrap(~Disaggregation) +
-#   theme_void() +
-#   theme(legend.position="none",
-#         strip.text.x = element_blank()) +
-#   geom_sf(data = MUNICIPIOSgeo, fill = NA, color = "gray60")
-# 
-# ggsave(filename = "img/jitter_rev2.png", plot = last_plot(), width = 1000, height = 400, units = "px", dpi = 300, type = "cairo")
+# plot(od_all$geometry, lwd = 0.1)
+# plot(od_jittered_filter$geometry, lwd = 0.1)
 
-knitr::include_graphics("img/jitter_new.png", error = FALSE)
+knitr::include_graphics("img/jitter.png", error = FALSE)
+
 ```
 
 The jittering pre-processing stage generates a more realistic representation of the trips undertaken than the traditional centroid-based approach but does not precisely capture the exact spatial distribution of trips.
@@ -272,9 +249,9 @@ These restrictions can be eased in the future when testing more developed policy
 knitr::include_graphics("img/map1.png", error = FALSE)
 ```
 
-Figure \ref{fig:map2} illustrates the resulting bicycle routes to access the main PT interfaces in the LMA. It is noticeable the high potential of the train interfaces to attract car-to-PT substituting trips.
+Figure \ref{fig:map2} illustrates the resulting bicycle routes to access the main PT interfaces in the LMA.
 
-```{r map2, out.width="80%", fig.cap="Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool). Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level.", fig.align='center'}
+```{r map2, out.width="80%", fig.cap="Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool).", fig.align='center'}
 knitr::include_graphics("img/map2.png", error = FALSE)
 ```
 

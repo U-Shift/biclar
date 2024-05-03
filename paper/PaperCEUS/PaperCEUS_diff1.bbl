@@ -1,0 +1,168 @@
+\begin{thebibliography}{27}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Ainsworth et~al.(2011)Ainsworth, Haskell, Herrmann, Meckes, Bassett~Jr, Tudor-Locke, Greer, Vezina, Whitt-Glover and Leon}]{MET2011}
+\bibinfo{author}{Ainsworth, B.E.}, \bibinfo{author}{Haskell, W.L.}, \bibinfo{author}{Herrmann, S.D.}, \bibinfo{author}{Meckes, N.}, \bibinfo{author}{Bassett~Jr, D.R.}, \bibinfo{author}{Tudor-Locke, C.}, \bibinfo{author}{Greer, J.L.}, \bibinfo{author}{Vezina, J.}, \bibinfo{author}{Whitt-Glover, M.C.}, \bibinfo{author}{Leon, A.S.}, \bibinfo{year}{2011}.
+\newblock \bibinfo{title}{{2011 Compendium of Physical Activities: A second update of codes and MET values}}.
+\newblock \bibinfo{journal}{Medicine \& science in sports \& exercise} \bibinfo{volume}{43}, \bibinfo{pages}{1575--1581}.
+\newblock \URLprefix \url{https://sites.google.com/site/compendiumofphysicalactivities/}, \DOIprefix\doi{10.1249/MSS.0b013e31821ece12}.
+%Type = Techreport
+\bibitem[{{Bickel} et~al.(2006){Bickel}, {Friedrich}, {Burgess}, {Fagiani}, {Hunt}, {Jong} and {Laird}}]{bickel2006}
+\bibinfo{author}{{Bickel}, P.}, \bibinfo{author}{{Friedrich}, R.}, \bibinfo{author}{{Burgess}, A.}, \bibinfo{author}{{Fagiani}, P.}, \bibinfo{author}{{Hunt}, A.}, \bibinfo{author}{{Jong}, G.}, \bibinfo{author}{{Laird}, J.}, \bibinfo{year}{2006}.
+\newblock \bibinfo{title}{{HEATCO - Developing Harmonised European Approaches for Transport Costing and Project Assessment. Deliverable 5, Proposal for Harmonised Guidelines.}}
+\newblock \bibinfo{type}{Technical Report}.
+\newblock \URLprefix \url{https://trimis.ec.europa.eu/sites/default/files/project/documents/20130122_113653_88902_HEATCO_D5_summary.pdf}.
+%Type = Techreport
+\bibitem[{Carris(2020)}]{Carris2019s}
+\bibinfo{author}{Carris}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Relatório de Sustentabilidade 2019 - Demostração Não Financeira}.
+\newblock \bibinfo{type}{Technical Report}. {Carris - Companhia Carris de Ferro de Lisboa, E.M., S.A.}
+\newblock \URLprefix \url{https://www.carris.pt/media/dkdp2wbg/dnf_carris2019_rv5.pdf}.
+%Type = Techreport
+\bibitem[{CP(2020)}]{CP2019s}
+\bibinfo{author}{CP}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Relatório de Sustentabilidade 2019}.
+\newblock \bibinfo{type}{Technical Report}. {CP - Comboios de Portugal, E.P.E.}
+\newblock \URLprefix \url{https://www.cp.pt/StaticFiles/Institucional/2_gestao_sustentavel/1_RelatoriosSustentabilidade/relatorio-de-sustentabilidade-2019.pdf}.
+%Type = Misc
+\bibitem[{Félix et~al.(2022)Félix, Lovelace and Moura}]{felix2023}
+\bibinfo{author}{Félix, R.}, \bibinfo{author}{Lovelace, R.}, \bibinfo{author}{Moura, F.}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{{biclaR - Ferramenta de apoio ao planeamento da rede ciclável na área metropolitana de Lisboa}}.
+\newblock \URLprefix \url{https://biclar.tmlmobilidade.pt}.
+%Type = Article
+\bibitem[{Félix et~al.(2017)Félix, Moura and Clifton}]{felix2017}
+\bibinfo{author}{Félix, R.}, \bibinfo{author}{Moura, F.}, \bibinfo{author}{Clifton, K.J.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Typologies of urban cyclists: Review of market segmentation methods for planning practice}.
+\newblock \bibinfo{journal}{Transportation Research Record} \bibinfo{volume}{2662}, \bibinfo{pages}{125--133}.
+\newblock \DOIprefix\doi{10.3141/2662-14}.
+%Type = Article
+\bibitem[{Félix et~al.(2023)Félix, Orozco-Fontalvo and Moura}]{Felix2023ES}
+\bibinfo{author}{Félix, R.}, \bibinfo{author}{Orozco-Fontalvo, M.}, \bibinfo{author}{Moura, F.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{Socio-economic assessment of shared e-scooters: do the benefits overcome the externalities?}
+\newblock \bibinfo{journal}{Transportation Research Part D: Transport and Environment} \bibinfo{volume}{118}, \bibinfo{pages}{103714}.
+\newblock \DOIprefix\doi{10.1016/j.trd.2023.103714}.
+%Type = Article
+\bibitem[{Goodman et~al.(2019)Goodman, Rojas, Woodcock, Aldred, Berkoff, Morgan, Abbas and Lovelace}]{goodman2019}
+\bibinfo{author}{Goodman, A.}, \bibinfo{author}{Rojas, I.F.}, \bibinfo{author}{Woodcock, J.}, \bibinfo{author}{Aldred, R.}, \bibinfo{author}{Berkoff, N.}, \bibinfo{author}{Morgan, M.}, \bibinfo{author}{Abbas, A.}, \bibinfo{author}{Lovelace, R.}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Scenarios of cycling to school in england, and associated health and carbon impacts: Application of the {\textquoteleft}propensity to cycle tool{\textquoteright}}.
+\newblock \bibinfo{journal}{Journal of Transport \& Health} \bibinfo{volume}{12}, \bibinfo{pages}{263--278}.
+\newblock \URLprefix \url{http://www.sciencedirect.com/science/article/pii/S2214140518301257}, \DOIprefix\doi{10.1016/j.jth.2019.01.008}.
+%Type = Techreport
+\bibitem[{INE(2018)}]{IMOB}
+\bibinfo{author}{INE}, \bibinfo{year}{2018}.
+\newblock \bibinfo{title}{Mobilidade e funcionalidade do território nas {Áreas Metropolitanas do Porto e de Lisboa}: 2017}.
+\newblock \bibinfo{type}{Technical Report}. {Instituto National de Estatística}. \bibinfo{address}{Lisboa}.
+\newblock \URLprefix \url{https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt}.
+%Type = Techreport
+\bibitem[{{International Transport Forum}(2017)}]{internationaltransportforum_integrating_2017}
+\bibinfo{author}{{International Transport Forum}}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Integrating {{Urban Public Transport Systems}} and {{Cycling}}}.
+\newblock \bibinfo{type}{Technical Report}. {Organisation for Economic Co-operation and Development}. \bibinfo{address}{{Paris}}.
+%Type = Article
+\bibitem[{Kahlmeier et~al.(2017)Kahlmeier, G{\"o}tschi, Cavill, Castro~Fernandez, Brand, Rojas~Rueda, Woodcock, Kelly, Lieb, Oja et~al.}]{HEAT}
+\bibinfo{author}{Kahlmeier, S.}, \bibinfo{author}{G{\"o}tschi, T.}, \bibinfo{author}{Cavill, N.}, \bibinfo{author}{Castro~Fernandez, A.}, \bibinfo{author}{Brand, C.}, \bibinfo{author}{Rojas~Rueda, D.}, \bibinfo{author}{Woodcock, J.}, \bibinfo{author}{Kelly, P.}, \bibinfo{author}{Lieb, C.}, \bibinfo{author}{Oja, P.}, et~al., \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Health economic assessment tool ({HEAT}) for walking and for cycling: Methods and user guide on physical activity, air pollution, injuries and carbon impact assessments} \URLprefix \url{https://www.euro.who.int/__data/assets/pdf_file/0010/352963/Heat.pdf}.
+%Type = Article
+\bibitem[{La~Paix et~al.(2021)La~Paix, Cherchi and Geurs}]{lapaix_role_2021}
+\bibinfo{author}{La~Paix, L.}, \bibinfo{author}{Cherchi, E.}, \bibinfo{author}{Geurs, K.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Role of perception of bicycle infrastructure on the choice of the bicycle as a train feeder mode}.
+\newblock \bibinfo{journal}{International Journal of Sustainable Transportation} \bibinfo{volume}{15}, \bibinfo{pages}{486--499}.
+\newblock \DOIprefix\doi{10.1080/15568318.2020.1765223}.
+%Type = Misc
+\bibitem[{{Lisboa E-Nova}(2023)}]{LisboaENova}
+\bibinfo{author}{{Lisboa E-Nova}}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{{Observatórios Lisboa - Infos Emissões Gases com Efeito Estufa}}.
+\newblock \URLprefix \url{https://observatorios-lisboa.pt/info_emissoes.html}.
+%Type = Article
+\bibitem[{Lovelace et~al.(2022a)Lovelace, F\'elix and Carlino}]{Lovelace2022exploring}
+\bibinfo{author}{Lovelace, R.}, \bibinfo{author}{F\'elix, R.}, \bibinfo{author}{Carlino, D.}, \bibinfo{year}{2022}a.
+\newblock \bibinfo{title}{Exploring jittering and routing options for converting origin-destination data into route networks: towards accurate estimates of movement at the street level}.
+\newblock \bibinfo{journal}{The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences} \bibinfo{volume}{XLVIII-4/W1-2022}, \bibinfo{pages}{279--286}.
+\newblock \DOIprefix\doi{10.5194/isprs-archives-XLVIII-4-W1-2022-279-2022}.
+%Type = Article
+\bibitem[{Lovelace et~al.(2022b)Lovelace, Félix and Carlino}]{Lovelace2022Jittering}
+\bibinfo{author}{Lovelace, R.}, \bibinfo{author}{Félix, R.}, \bibinfo{author}{Carlino, D.}, \bibinfo{year}{2022}b.
+\newblock \bibinfo{title}{Jittering: A computationally efficient method for generating realistic route networks from origin-destination data}.
+\newblock \bibinfo{journal}{Findings} \DOIprefix\doi{10.32866/001c.33873}.
+%Type = Article
+\bibitem[{Lovelace et~al.(2017)Lovelace, Goodman, Aldred, Berkoff, Abbas and Woodcock}]{lovelace2017}
+\bibinfo{author}{Lovelace, R.}, \bibinfo{author}{Goodman, A.}, \bibinfo{author}{Aldred, R.}, \bibinfo{author}{Berkoff, N.}, \bibinfo{author}{Abbas, A.}, \bibinfo{author}{Woodcock, J.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{The propensity to cycle tool: An open source online system for sustainable transport planning}.
+\newblock \bibinfo{journal}{Journal of Transport and Land Use} \bibinfo{volume}{10}.
+\newblock \URLprefix \url{https://doi.org/10.5198/jtlu.2016.862}, \DOIprefix\doi{10.5198/jtlu.2016.862}.
+%Type = Article
+\bibitem[{Martens(2007)}]{MARTENS2007326}
+\bibinfo{author}{Martens, K.}, \bibinfo{year}{2007}.
+\newblock \bibinfo{title}{Promoting bike-and-ride: The dutch experience}.
+\newblock \bibinfo{journal}{Transportation Research Part A: Policy and Practice} \bibinfo{volume}{41}, \bibinfo{pages}{326--338}.
+\newblock \DOIprefix\doi{10.1016/j.tra.2006.09.010}.
+%Type = Techreport
+\bibitem[{{Metropolitano de Lisboa}(2020)}]{Metro2019s}
+\bibinfo{author}{{Metropolitano de Lisboa}}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{Relatório Integrado 2019}.
+\newblock \bibinfo{type}{Technical Report}. {Metropolitano de Lisboa, E.P.E.}
+\newblock \URLprefix \url{https://www.metrolisboa.pt/wp-content/uploads/2021/01/relatorio_integrado_2019.pdf}.
+%Type = Techreport
+\bibitem[{Nash et~al.(2003)}]{UNITE}
+\bibinfo{author}{Nash, C.}, et~al., \bibinfo{year}{2003}.
+\newblock \bibinfo{title}{UNIfication of accounts and marginal costs for Transport Efficiency: Final report}.
+\newblock \bibinfo{type}{Technical Report}. {Institute for Transport Studies, University of Leeds}.
+\newblock \URLprefix \url{https://www.its.leeds.ac.uk/projects/unite/downloads/Unite%20Final%20Report.pdf}.
+%Type = Misc
+\bibitem[{Ntziachristos and Samaras(2020)}]{COPERT}
+\bibinfo{author}{Ntziachristos, L.}, \bibinfo{author}{Samaras, Z.}, \bibinfo{year}{2020}.
+\newblock \bibinfo{title}{{EMEP/EEA} air pollutant emission inventory guidebook 2019}.
+\newblock \URLprefix \url{https://www.emisia.com/utilities/copert/documentation/}.
+%Type = Article
+\bibitem[{Pereira et~al.(2021)Pereira, Saraiva, Herszenhut, Braga and Conway}]{r5r}
+\bibinfo{author}{Pereira, R.H.M.}, \bibinfo{author}{Saraiva, M.}, \bibinfo{author}{Herszenhut, D.}, \bibinfo{author}{Braga, C.K.V.}, \bibinfo{author}{Conway, M.W.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{r5r: Rapid realistic routing on multimodal transport networks with r5 in r}.
+\newblock \bibinfo{journal}{Findings} \URLprefix \url{https://doi.org/10.32866/001c.21262}, \DOIprefix\doi{10.32866/001c.21262}.
+%Type = Misc
+\bibitem[{{Presidência do Conselho de Ministros}(2019)}]{ENMAC}
+\bibinfo{author}{{Presidência do Conselho de Ministros}}, \bibinfo{year}{2019}.
+\newblock \bibinfo{title}{Resolução do conselho de ministros n.º 131/2019}.
+\newblock \URLprefix \url{https://files.dre.pt/1s/2019/08/14700/0004600081.pdf}.
+%Type = Article
+\bibitem[{Rietveld(2000)}]{RIETVELD200071}
+\bibinfo{author}{Rietveld, P.}, \bibinfo{year}{2000}.
+\newblock \bibinfo{title}{The accessibility of railway stations: the role of the bicycle in the netherlands}.
+\newblock \bibinfo{journal}{Transportation Research Part D: Transport and Environment} \bibinfo{volume}{5}, \bibinfo{pages}{71--75}.
+\newblock \DOIprefix\doi{10.1016/S1361-9209(99)00019-X}.
+%Type = Techreport
+\bibitem[{Sartori et~al.(2014)Sartori, Catalano, Genco, Pancotti, Sirtori, Vignetti and Del~Bo}]{EuropeanCommission2014}
+\bibinfo{author}{Sartori, D.}, \bibinfo{author}{Catalano, G.}, \bibinfo{author}{Genco, M.}, \bibinfo{author}{Pancotti, C.}, \bibinfo{author}{Sirtori, E.}, \bibinfo{author}{Vignetti, S.}, \bibinfo{author}{Del~Bo, C.}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Guide to cost-benefit analysis of investment projects. Economic apraisal tool for Cohesion Policy 2014-2020}.
+\newblock \bibinfo{type}{Technical Report}. {European Commission - Directorate General for Regional and Urban Policy}.
+\newblock \URLprefix \url{https://ec.europa.eu/regional_policy/sources/docgener/studies/pdf/cba_guide.pdf}.
+%Type = Techreport
+\bibitem[{Silva et~al.(2021)Silva, Bravo and Gonçalves}]{ANSR2021}
+\bibinfo{author}{Silva, C.}, \bibinfo{author}{Bravo, J.V.}, \bibinfo{author}{Gonçalves, J.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{{Impacto Económico e Social da Sinistralidade Rodoviária em Portugal}}.
+\newblock \bibinfo{type}{Technical Report}. {Centro de Estudos de Gestão do ISEG, Autoridade Nacional de Segurança Rodoviária (ANSR)}.
+\newblock \URLprefix \url{http://www.ansr.pt/Documents/Impacto_Economico_Social_Sinistralidade_Rodoviaria.pdf}.
+%Type = Techreport
+\bibitem[{Transtejo(2014)}]{Transtejo2014}
+\bibinfo{author}{Transtejo}, \bibinfo{year}{2014}.
+\newblock \bibinfo{title}{Relatório de Sustentabilidade 2014}.
+\newblock \bibinfo{type}{Technical Report}. {Grupo Transtejo, S.A.}
+\newblock \URLprefix \url{https://ttsl.pt/wp-content/uploads/2018/01/rs_2014_min.pdf}.
+%Type = Article
+\bibitem[{{van Mil} et~al.(2021){van Mil}, Leferink, Annema and {van Oort}}]{vanmil_insights_2021}
+\bibinfo{author}{{van Mil}, J.F.P.}, \bibinfo{author}{Leferink, T.S.}, \bibinfo{author}{Annema, J.A.}, \bibinfo{author}{{van Oort}, N.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{Insights into factors affecting the combined bicycle-transit mode}.
+\newblock \bibinfo{journal}{Public Transport} \bibinfo{volume}{13}, \bibinfo{pages}{649--673}.
+\newblock \DOIprefix\doi{10.1007/s12469-020-00240-2}.
+
+\end{thebibliography}

@@ -1,4 +1,7 @@
 \documentclass[review, doubleblind, 3p,
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL paper/PaperCEUS/PaperCEUS_prerev.tex   Fri May  3 16:39:59 2024
+%DIF ADD paper/PaperCEUS/PaperCEUS_rev1.tex     Fri May  3 16:42:07 2024
 authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 
@@ -85,6 +88,87 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 \usepackage{longtable}
 \usepackage{makecell}
 \usepackage{multirow}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{green}{rgb}{0,0.5,0} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{green}{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF LISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 
@@ -111,7 +195,7 @@ Universidade de Lisboa, Av Rovisco Pais 1, 1049-001 Lisboa, Portugal}
     \affiliation[ITS]{Institute for Transport Studies, University of
 Leeds. 34-40 University Rd, Leeds LS2 9JT, UK}
     \cortext[cor1]{Corresponding author}
-  
+
   \begin{abstract}
   A high proportion of car trips can be replaced by a combination of
   public transit and cycling for the first-and-last mile. This paper
@@ -138,7 +222,7 @@ Leeds. 34-40 University Rd, Leeds LS2 9JT, UK}
 mile \sep Health economic assessment \sep Environmental impacts \sep 
     Open data and methods
   \end{keyword}
-  
+
  \end{frontmatter}
 
 \hypersetup{citecolor=black}
@@ -179,7 +263,8 @@ for all journeys.\\
 modes, or active modes in combination with public transport.
 
 \begin{figure}
-\subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-2} }\caption{\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}\label{fig:mododist}
+\DIFdelbeginFL %DIFDELCMD < \subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_prerev_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_prerev_files/figure-latex/mododist-2} }%%%
+\DIFdelendFL \DIFaddbeginFL \subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-2} }\DIFaddendFL \caption{\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}\label{fig:mododist}
 \end{figure}
 
 To achieve the cycling targets set by the Portuguese national cycling
@@ -245,11 +330,14 @@ trips between districts, specifically for the Lisbon metropolitan area.
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth,]{img/jitter_new} 
+{\centering \DIFdelbeginFL %DIFDELCMD < \includegraphics[width=1\linewidth,]{img/jitter} 
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=1\linewidth,]{img/jitter_new} 
+\DIFaddendFL 
 
 }
 
-\caption{Flow-weighted random sample of 10,000 desire lines in the Lisbon metropolitan area between districts of the 18 municipalities, without jittering (left) and with jittering (right).}\label{fig:jitter}
+\caption{\DIFdelbeginFL \DIFdelFL{Representation }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Flow-weighted random sample }\DIFaddendFL of \DIFaddbeginFL \DIFaddFL{10,000 }\DIFaddendFL desire lines in the Lisbon metropolitan area between districts \DIFaddbeginFL \DIFaddFL{of the 18 municipalities}\DIFaddendFL , without jittering (left) and with jittering (right).}\label{fig:jitter}
 \end{figure}
 
 The jittering pre-processing stage generates a more realistic
@@ -329,8 +417,9 @@ vehicle and infrastructure perspectives.
 \end{figure}
 
 Figure \ref{fig:map2} illustrates the resulting bicycle routes to access
-the main PT interfaces in the LMA. It is noticeable the high potential
+the main PT interfaces in the LMA. \DIFaddbegin \DIFadd{It is noticeable the high potential
 of the train interfaces to attract car-to-PT substituting trips.
+}\DIFaddend 
 
 \begin{figure}
 
@@ -338,7 +427,7 @@ of the train interfaces to attract car-to-PT substituting trips.
 
 }
 
-\caption{Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool). Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level.}\label{fig:map2}
+\caption{Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool)\DIFaddbeginFL \DIFaddFL{. Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level}\DIFaddendFL .}\label{fig:map2}
 \end{figure}
 
 \subsection{Assessing socio-environmental
