@@ -1,7 +1,7 @@
 \documentclass[review, doubleblind, 3p,
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL paper/PaperCEUS/PaperCEUS_prerev.tex   Fri May  3 16:39:59 2024
-%DIF ADD paper/PaperCEUS/PaperCEUS_rev1.tex     Fri May  3 16:42:07 2024
+%DIF ADD paper/PaperCEUS/PaperCEUS_rev1.tex     Fri May  3 18:52:26 2024
 authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 
@@ -267,9 +267,21 @@ modes, or active modes in combination with public transport.
 \DIFdelendFL \DIFaddbeginFL \subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-2} }\DIFaddendFL \caption{\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}\label{fig:mododist}
 \end{figure}
 
-To achieve the cycling targets set by the Portuguese national cycling
-strategy for 2025 and 2030 (4\% and 10\%, respectively) \citep{ENMAC},
-the Lisbon's Metropolitan Department of Transport commissioned
+\DIFdelbegin \DIFdel{To achieve the cycling targets set by the Portuguese }\DIFdelend \DIFaddbegin \DIFadd{The Portuguese Government has established a }\DIFaddend national cycling strategy\DIFdelbegin \DIFdel{for 2025 and 2030 (}\DIFdelend \DIFaddbegin \DIFadd{,
+which outlines targets for the percentage of trips to be made by bicycle
+in urban areas. Specifically, these targets aim for }\DIFaddend 4\% \DIFaddbegin \DIFadd{of all trips in
+2025 }\DIFaddend and 10\% \DIFdelbegin \DIFdel{, respectively) \mbox{%DIFAUXCMD
+\citep{ENMAC}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{by 2030 \mbox{%DIFAUXCMD
+\citep{ENMAC}}\hspace{0pt}%DIFAUXCMD
+. Moreover, the strategy emphasizes
+that this increase should be achieved by substituting car trips for
+bicycle trips, as a way to reduce the environmental and social impacts
+of car use.
+}
+
+\DIFadd{To support the implementation of this strategy}\DIFaddend , the Lisbon's
+Metropolitan Department of Transport commissioned
 \emph{biclaR}\footnote{See
   \href{https://biclar.tmlmobilidade.pt/}{biclar.tmlmobilidade.pt}.}, a
 decision support tool that facilitates the planning, design, and
@@ -427,13 +439,18 @@ of the train interfaces to attract car-to-PT substituting trips.
 
 }
 
-\caption{Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool)\DIFaddbeginFL \DIFaddFL{. Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level}\DIFaddendFL .}\label{fig:map2}
+\caption{Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool). \DIFaddbeginFL \DIFaddFL{Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level.}\DIFaddendFL }\label{fig:map2}
 \end{figure}
 
 \subsection{Assessing socio-environmental
 benefits}\label{assessing-socio-environmental-benefits}
 
-For the \emph{cycling legs of the journey} (first and last legs),
+\DIFaddbegin \DIFadd{Following the clearly established national strategy, we estimated the
+socio-environmental potential impacts of shifting car trips by bicycle
+in combination with PT, in the LMA, for the two targets (4\% and 10\%).
+}
+
+\DIFaddend For the \emph{cycling legs of the journey} (first and last legs),
 socio-environmental impacts were estimated, using the Health Economic
 Assessment Tool (HEAT) for Cycling v5.2 \citep{HEAT}, from the World
 Health Organization, and the
@@ -532,7 +549,7 @@ values we used.
 Table \ref{tab:summary1} presents the LMA total daily trips that can be
 made with cycling + TP combination (with the aforementioned
 restrictions), the trips in the baseline scenario and corresponding new
-trips to achieve the national strategy targets (4\% and 10\%), for
+\DIFaddbegin \DIFadd{daily }\DIFaddend trips to achieve the national strategy targets (4\% and 10\%), for
 different route profiles. For the cycling legs of the journey (first and
 last legs), the environmental avoided emissions and monetized
 socio-environment (SE) benefits are presented in Table
@@ -540,7 +557,7 @@ socio-environment (SE) benefits are presented in Table
 
 \begin{table}
 
-\caption{\label{tab:summary1}\label{summary1}Summary of the cycling potencial of the intermodality scenario.}
+\caption{\label{tab:summary1}\label{summary1}Summary of the cycling potencial of the intermodality scenario. \DIFaddbeginFL \DIFaddFL{Values in 'trips/day'.}\DIFaddendFL }
 \centering
 \begin{tabular}[t]{llr>{\raggedleft\arraybackslash}p{7em}>{\raggedleft\arraybackslash}p{7em}}
 \toprule
@@ -590,7 +607,7 @@ become safer.
 
 \begin{table}
 
-\caption{\label{tab:summary21}\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode.}
+\caption{\label{tab:summary21}\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode. \DIFaddbeginFL \DIFaddFL{Values in 'trips/day'.}\DIFaddendFL }
 \centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4.5em}>{\raggedright\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}}
 \toprule
@@ -686,7 +703,34 @@ individuals shift from car travel to car + PT combination.
 
 Our findings show that cycling \emph{in combination} with PT could
 replace 10\% of current LMA trips, with an additional 6\% of PT journeys
-prone to further substitution, based on conservative assumptions.
+prone to further substitution, based on conservative assumptions\DIFaddbegin \DIFadd{.
+Although this paper does not address the designing specific solutions,
+our findings indicate a potential surge in demand (+6.3\%) of public
+transport interfaces to align with the national strategies. This added
+demand is conceptually driven from individuals utilising bicycles,
+either personal or shared, which would be parked at the PT stations.
+Consequently, operators and public space managers would face the
+challenge of accommodating this increased demand for bicycle parking
+and/or docks from a bike sharing system. Additionally, they may need to
+explore options to enhance bicycle carriage capacity on public transport
+services, ensuring alignment with national targets.
+}
+
+\DIFadd{This analysis can be applied to other metropolitan areas, providing a
+basis for decision-making and policy development to support a modal
+shift from car to PT. This process involves a minimum of data
+requirements, such as the origin-destination data, road network, and the
+PT GTFS data, which are available in most metropolitan areas.
+Furthermore, it is essential to incorporate existing cycling level
+targets specific to those areas or consider the possibility of utilising
+the same targets as outlined in the Portuguese national strategy, in
+order to compare results with different areas. Nevertheless, the extent
+of the potential shift from car to PT is highly dependent on the
+distances typically travelled in such contexts, and the availability of
+PT services - which can vary significantly between regions, and for
+which we are not assuming any change in this study. This paper focus
+primarily on the potential of making cycling and PT a viable alternative
+to car trips, and the socio-environmental benefits of such a shift}\DIFaddend .
 
 \section{Conclusion}\label{conclusion}
 

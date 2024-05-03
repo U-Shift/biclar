@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.3)  3 MAY 2024 17:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.3)  3 MAY 2024 18:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -780,41 +780,41 @@ Overfull \hbox (20.26663pt too wide) in paragraph at lines 267--267
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 274.
+(Font)              <8> on input line 286.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 274.
+(Font)              <6> on input line 286.
 [2 <./PaperCEUS_rev1_files/figure-latex/mododist-1.pdf> <./PaperCEUS_rev1_files/figure-latex/mododist-2.pdf>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 324.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 336.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<img/jitter_new.png, id=127, 752.8125pt x 301.125pt>
+<img/jitter_new.png, id=122, 752.8125pt x 301.125pt>
 File: img/jitter_new.png Graphic file (type png)
 <use img/jitter_new.png>
-Package pdftex.def Info: img/jitter_new.png  used on input line 335.
+Package pdftex.def Info: img/jitter_new.png  used on input line 347.
 (pdftex.def)             Requested size: 468.0pt x 187.20558pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 335--337
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 347--349
  [][][] 
  []
 
 [3] [4 <./img/jitter_new.png>]
-<img/map1.png, id=161, 730.73pt x 676.5275pt>
+<img/map1.png, id=159, 730.73pt x 676.5275pt>
 File: img/map1.png Graphic file (type png)
 <use img/map1.png>
-Package pdftex.def Info: img/map1.png  used on input line 412.
+Package pdftex.def Info: img/map1.png  used on input line 424.
 (pdftex.def)             Requested size: 280.80286pt x 259.97354pt.
-<img/map2.png, id=164, 1549.79pt x 937.5025pt>
+<img/map2.png, id=162, 1549.79pt x 937.5025pt>
 File: img/map2.png Graphic file (type png)
 <use img/map2.png>
-Package pdftex.def Info: img/map2.png  used on input line 426.
+Package pdftex.def Info: img/map2.png  used on input line 438.
 (pdftex.def)             Requested size: 374.40143pt x 226.47862pt.
  [5 <./img/map1.png>] [6 <./img/map2.png>] [7{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Overfull \hbox (4.33308pt too wide) in paragraph at lines 563--564
+Overfull \hbox (4.33308pt too wide) in paragraph at lines 580--581
  []|\T1/lmr/m/n/10 Environmental
  []
 
-[8] [9] [10] (./PaperCEUS_diff1.bbl
+[8] [9] [10] [11] (./PaperCEUS_diff1.bbl
 Underfull \hbox (badness 1354) in paragraph at lines 34--39
 []\T1/lmr/m/n/8 CP, 2020.  Re-latório de Sus-tentabil-i-dade 2019.  Tech-ni-cal Re-port. CP - Com-boios de Por-tu-gal, E.P.E.  URL:
  []
@@ -824,7 +824,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--39
 [][]$\T1/lmtt/m/n/8 https : / / www . cp . pt / StaticFiles / Institucional / 2 _ gestao _ sustentavel / 1 _ RelatoriosSustentabilidade / relatorio -[]
  []
 
-[11] [12]) [13] (./PaperCEUS_diff1.aux)
+[12]) [13] (./PaperCEUS_diff1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
@@ -835,16 +835,16 @@ Package rerunfilecheck Info: File `PaperCEUS_diff1.out' has not changed.
 Here is how much of TeX's memory you used:
  16800 strings out of 476010
  264789 string characters out of 5791389
- 1953751 words of memory out of 5000000
+ 1952751 words of memory out of 5000000
  38587 multiletter control sequences out of 15000+600000
  612824 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,11n,79p,552b,662s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,11n,79p,552b,639s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt8.pfb>
-Output written on PaperCEUS_diff1.pdf (13 pages, 1407866 bytes).
+Output written on PaperCEUS_diff1.pdf (13 pages, 1410712 bytes).
 PDF statistics:
- 459 PDF objects out of 1000 (max. 8388607)
- 395 compressed objects within 4 object streams
+ 455 PDF objects out of 1000 (max. 8388607)
+ 391 compressed objects within 4 object streams
  74 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
