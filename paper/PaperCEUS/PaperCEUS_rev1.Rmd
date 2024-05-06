@@ -14,7 +14,7 @@ author:
     email: r.lovelace@uleeds.uk
 address:
   - code: CERIS
-    address: "CERIS, Instituto Superior Técnico - Universidade de Lisboa, Av Rovisco Pais 1, 1049-001 Lisboa, Portugal"
+    address: "CERIS, Instituto Superior Técnico - Universidade de Lisboa. Av Rovisco Pais 1, 1049-001 Lisboa, Portugal"
   - code: ITS
     address: "Institute for Transport Studies, University of Leeds. 34-40 University Rd, Leeds LS2 9JT, UK"
 abstract: |
@@ -432,6 +432,123 @@ knitr::kable(summary21 |> select(-Baseline),
 ```
 
 <!-- These findings indicate that transferring car trips to a combination of bicycle and PT could be nearly as substantial, if not equally significant, as the shift towards bicycle-only trips. WE CANNOT SHOW THIS IN THIS PAPER WITH ONLY SCENARIO 3 DATA --> 
+
+<!-- INSERT ZONAL MAP HERE -->
+
+```{r mapzones, fig.cap="Potential Bike + PT daily trips for the 10% target, by municipality"}
+CAR_PT_TRANSF = readRDS("load/CAR_TP_TRANSF.Rds")
+
+# summarize by OD pair
+CAR_PT_TRANSF_ODs = CAR_PT_TRANSF |>
+  filter(LTS == 4) |> 
+  group_by(DICOFREor11, DICOFREde11) |>
+  summarise(Total = sum(Total),
+            Car = sum(Car),
+            Bike = sum(Bike),
+            Walk = sum(Walk),
+            TP = sum(TP),
+            Bike_new4 = sum(Bike_new4),
+            Bike_new10 = sum(Bike_new10),
+            Bike_4 = sum(Bike_4),
+            Bike_10 = sum(Bike_10),
+            TP_4 = sum(TP_4),
+            TP_10 = sum(TP_10)) |>
+  mutate(Bikeper = 100*Bike/Total,
+         Bike_new4per = 100*Bike_new4/Total,
+         Bike_new10per = 100*Bike_new10/Total,
+         TPper = 100*TP/Total,
+         TP_4per = 100*TP_4/Total,
+         TP_10per = 100*TP_10/Total) |> 
+  ungroup()
+
+# summarize by origin
+CAR_PT_TRANSF_mun_or = CAR_PT_TRANSF_ODs |> 
+  group_by(DICOFREor11) |>
+  summarise(Total = sum(Total),
+            Car = sum(Car),
+            Bike = sum(Bike),
+            Walk = sum(Walk),
+            TP = sum(TP),
+            Bike_new4 = sum(Bike_new4),
+            Bike_new10 = sum(Bike_new10),
+            Bike_4 = sum(Bike_4),
+            Bike_10 = sum(Bike_10),
+            TP_4 = sum(TP_4),
+            TP_10 = sum(TP_10)) |>
+  mutate(Bikeper = 100*Bike/Total,
+         Bike_new4per = 100*Bike_new4/Total,
+         Bike_new10per = 100*Bike_new10/Total,
+         TPper = 100*TP/Total,
+         TP_4per = 100*TP_4/Total,
+         TP_10per = 100*TP_10) |> 
+  ungroup()
+
+# join with municipalities geo
+CAR_PT_TRANSF_mun_or_geo = CAR_PT_TRANSF_mun_or |> 
+  left_join(FREGUESIASgeo_zones |> select(Dicofre, Concelho) |> sf::st_drop_geometry(),
+            by = c("DICOFREor11" = "Dicofre"))
+CAR_PT_TRANSF_mun_or_geo$Concelho[CAR_PT_TRANSF_mun_or_geo$Concelho == "Setúbal"] = "Setubal"
+CAR_PT_TRANSF_mun_or_geo = CAR_PT_TRANSF_mun_or_geo |> 
+  group_by(Concelho) |>
+  summarise(Total = sum(Total),
+            Car = sum(Car),
+            Bike = sum(Bike),
+            Walk = sum(Walk),
+            TP = sum(TP),
+            Bike_new4 = sum(Bike_new4),
+            Bike_new10 = sum(Bike_new10),
+            Bike_4 = sum(Bike_4),
+            Bike_10 = sum(Bike_10),
+            TP_4 = sum(TP_4),
+            TP_10 = sum(TP_10)) |>
+  mutate(Bikeper = 100*Bike/Total,
+         Bike_new4per = 100*Bike_new4/Total,
+         Bike_new10per = 100*Bike_new10/Total,
+         TPper = 100*TP/Total,
+         TP_4per = 100*TP_4/Total,
+         TP_10per = 100*TP_10/Total) |>
+  left_join(MUNICIPIOSgeo, by = "Concelho") |> 
+  ungroup()
+
+# bind municipalities with zero potential
+CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo |> 
+  dplyr::bind_rows(as.data.frame(
+   MUNICIPIOSgeo |> filter(!Concelho %in% CAR_PT_TRANSF_mun_or_geo$Concelho))) |> 
+  sf::st_as_sf()
+
+# re-calculating the percentage of trips
+CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
+  left_join(TRIPSall_mun, by = c("Concelho" = "Origem")) |>
+  
+  #CONTINUE FROM HERE ---  LOOK AT DIFRERENCES TOTAL AND VIAGENS
+  
+mutate(Car_4 = Car - Bike_new4,
+         Car_10 = Car - Bike_new10,
+         TP_4 = TP + Bike_new4,
+         TP_10 = TP + Bike_new10,)
+
+
+
+# plot 1
+ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
+  geom_sf(aes(fill = Bike_new10)) +
+  viridis::scale_fill_viridis(option = "G", direction = -1, name = "Bike + PT trips", na.value = "white") +
+  theme_void()
+  # theme(legend.position = "bottom") +
+  # labs(title = "Potential Bike + PT for 10% target, by municipality")
+
+# plot 2
+ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
+  geom_sf(aes(fill = TP_10per)) +
+  viridis::scale_fill_viridis(option = "G", direction = -1, name = "Bike + PT trips %", na.value = "white") +
+  theme_void()
+  # theme(legend.position = "bottom") +
+  # labs(title = "Potential Bike + PT for 10% target, by municipality")
+
+```
+
+
+
 
 Table \ref{tab:summary22} presents emissions reductions and associated economic benefits associated with the second (PT) leg of trips.
 The shift from private car associated with thes PT segments would reduce CO~2~ equivalent emissions by 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly, for the 4% and 10% targets, respectively.
