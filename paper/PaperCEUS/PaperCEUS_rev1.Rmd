@@ -518,14 +518,27 @@ CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo |>
 
 # re-calculating the percentage of trips
 CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
-  left_join(TRIPSall_mun, by = c("Concelho" = "Origem")) |>
+  left_join(TRIPSall_mun, by = c("Concelho" = "Origem"))
   
   #CONTINUE FROM HERE ---  LOOK AT DIFRERENCES TOTAL AND VIAGENS
-  
-mutate(Car_4 = Car - Bike_new4,
-         Car_10 = Car - Bike_new10,
+ENMAC4 = 0.04 # 4%
+ENMAC10 = 0.10 # 10#
+CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
+  mutate(Bikeper = Bike / viagens) |>  #should it be "viagens" or "Total  -- all trips, not only the found ones
+  mutate(Bike_new4 = ifelse(Bikeper >= ENMAC4*100, Bike, ENMAC4 * viagens),
+         Bike_new10 = ifelse(Bikeper >= ENMAC10*100, Bike, ENMAC10 * viagens)) |> 
+  mutate(Bike4 = ifelse(Bikeper >= ENMAC4*100, Bike, Bike + Bike_new4),
+         Bike10 = ifelse(Bikeper >= ENMAC10*100, Bike, Bike + Bike_new10),
+         Car_4 = ifelse(Bikeper >= ENMAC4*100, Car, Car - Bike_new4),
+         Car_10 = ifelse(Bikeper >= ENMAC10*100, Car, Car - Bike_new10),
          TP_4 = TP + Bike_new4,
-         TP_10 = TP + Bike_new10,)
+         TP_10 = TP + Bike_new10) |> 
+  mutate(Bike_new4per = 100*Bike_new4 / viagens,
+         Bike_new10per = 100*Bike_new10 / viagens,
+         TPper = 100*TP / viagens,
+         TP_4per = 100*TP_4 / viagens,
+         TP_10per = 100*TP_10 / viagens)
+  
 
 
 
@@ -537,13 +550,17 @@ ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
   # theme(legend.position = "bottom") +
   # labs(title = "Potential Bike + PT for 10% target, by municipality")
 
-# plot 2
+# plot 2 - the total % of potential bike + TP trips
 ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
   geom_sf(aes(fill = TP_10per)) +
   viridis::scale_fill_viridis(option = "G", direction = -1, name = "Bike + PT trips %", na.value = "white") +
   theme_void()
-  # theme(legend.position = "bottom") +
-  # labs(title = "Potential Bike + PT for 10% target, by municipality")
+
+# plot 3 - the added % of potential bike + TP trips - doesn't make sense to show
+ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
+  geom_sf(aes(fill = Bike_new10per)) + #???
+  viridis::scale_fill_viridis(option = "G", direction = -1, name = "new Bike + PT trips %", na.value = "white") +
+  theme_void()
 
 ```
 
