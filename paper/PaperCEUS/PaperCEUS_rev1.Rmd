@@ -520,17 +520,18 @@ CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo |>
 CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
   left_join(TRIPSall_mun, by = c("Concelho" = "Origem"))
   
-  #CONTINUE FROM HERE ---  LOOK AT DIFRERENCES TOTAL AND VIAGENS
+
 ENMAC4 = 0.04 # 4%
 ENMAC10 = 0.10 # 10#
 CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
-  mutate(Bikeper = Bike / viagens) |>  #should it be "viagens" or "Total  -- all trips, not only the found ones
-  mutate(Bike_new4 = ifelse(Bikeper >= ENMAC4*100, Bike, ENMAC4 * viagens),
-         Bike_new10 = ifelse(Bikeper >= ENMAC10*100, Bike, ENMAC10 * viagens)) |> 
-  mutate(Bike4 = ifelse(Bikeper >= ENMAC4*100, Bike, Bike + Bike_new4),
-         Bike10 = ifelse(Bikeper >= ENMAC10*100, Bike, Bike + Bike_new10),
-         Car_4 = ifelse(Bikeper >= ENMAC4*100, Car, Car - Bike_new4),
-         Car_10 = ifelse(Bikeper >= ENMAC10*100, Car, Car - Bike_new10),
+  mutate(Bikeper = Bike / viagens,
+         Carper = Car / viagens) |>  #should it be "viagens" or "Total  -- all trips, not only the found ones
+  mutate(Bike_new4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Bike, ENMAC4 * viagens),
+         Bike_new10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Bike, ENMAC10 * viagens)) |> 
+  mutate(Bike4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Bike, Bike + Bike_new4),
+         Bike10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Bike, Bike + Bike_new10),
+         Car_4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Car, Car - Bike_new4),
+         Car_10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Car, Car - Bike_new10),
          TP_4 = TP + Bike_new4,
          TP_10 = TP + Bike_new10) |> 
   mutate(Bike_new4per = 100*Bike_new4 / viagens,
@@ -539,7 +540,7 @@ CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |>
          TP_4per = 100*TP_4 / viagens,
          TP_10per = 100*TP_10 / viagens)
   
-
+  #CONTINUE FROM HERE ---  LOOK AT DIFRERENCES TOTAL AND VIAGENS
 
 
 # plot 1
