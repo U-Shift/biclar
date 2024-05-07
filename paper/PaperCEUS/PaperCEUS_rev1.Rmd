@@ -714,25 +714,31 @@ This added demand is conceptually driven from individuals utilising bicycles, ei
 Consequently, operators and public space managers would face the challenge of accommodating this increased demand for bicycle parking and/or docks from a bike sharing system, since this availability plays a crucial role in the decision-making process of individuals to use combined bike-train [@jonkeren2021bicycle].
 Additionally, they may need to explore options to enhance bicycle carriage capacity on public transport services, ensuring alignment with national targets.
 
-## Model replicability and limitations
+## Generalizability and limitations
 
-This paper focus primarily on the potential of making cycling and PT a viable alternative to car trips, and the socio-environmental benefits of such a shift.
+This paper focus primarily on the potential for replacing trips currently made by car with combined cycling and public transport trips, and the associated social and environmental benefits.
+While the results are specific to the Lisbon Metropolitan Area, the approach is designed to be generalizable to other metropolitan areas.
 
-This analysis can be applied to other metropolitan areas, providing a basis for decision-making and policy development to support a modal shift from car to PT.
-This process involves a minimum of data requirements, such as the origin-destination data, road network, and the PT GTFS data, which are available in most metropolitan areas.
-Furthermore, it is essential to incorporate existing cycling level targets specific to those areas or consider the possibility of utilising the same targets as outlined in the Portuguese national strategy, in order to compare results with different areas.
+An important aspect of the approach from a generalizability perspective is that it has specific data requirements, including origin-destination, road network, and the GTFS data.
+Such datasets are available to transport planners in many areas.
+In areas where such datasets do not exist, the value of research such as this could provide a motivation to collect and open-up transport data.
+For this study we have used Portugal's national cycling targets as the basis of the scenarios; the approach can be adapted to other targets, or to other policy goals, such as reducing congestion or improving air quality.
 
 Nevertheless, the extent of the potential shift from car to PT is highly dependent on the distances typically travelled in such contexts, and the availability of PT services - which can vary significantly between regions, and for which we are not assuming any change in this study.
 For instance, we considered only the inter-municipal bus services that accommodate bicycles on board.
 Future research could explore the potential of equipping other regional bus services with this feature and analyse their attractiveness, in conjunction with cycling, to address current car trip demands.
 
 A strength of the approach is that there is no requirement for sensitive individual trip level data to reproduce the approach in other cities.
-However, we acknowledge that this approach has limitations in terms of being able to identify exactly which trips are being replaced -- in terms of the age of people making the trips, the types of car they drive, and other individual or vehicle level variables.
+However, we acknowledge that this approach has limitations.
+The approach cannot show exactly which trips are being replaced, in terms of the age of people making the trips, the types of car they drive, and other individual or vehicle level variables.
 We assumed uniformity in the type of vehicle for all replaced car journeys, albeit with variations in the fuels utilized.
-Additionally, we assumed consistency in the health impacts across all individuals for the replaced car trips
-This approach is a simplification of the real-world scenario, but it is a necessary one to make the analysis feasible and reproducible.
+Additionally, we assumed consistency in the health impacts across all individuals for the replaced car trips.
+This approach is a simplification of reality to enable the analysis of a large region on available computing resources.
+Future work could seek to increase the resolution of the results, and move towards a more individual-level analysis, for example by using agent and activity-based models using tools such as MATSim.
+This direction of travel would require substantial resources outside the scope of this study; another way to improve the spatial resolution of results would be to use higher resolution 'subpoints' as the basis of the desire line 'jittering' process.
+We would also like to explore the potential for probabilistic routing to improve the spatial resolution of the results.
 
-A further refinement could be to differentiate between ‘simpler’ no-transfer PT trips (which require less person effort) and more arduous multi-transfer PT trips, using the same methods, by relaxing the assumption of no-transfers between PT modes in `r5r`.
+A further refinement could be to differentiate between 'simpler' no-transfer PT trips (which require less person effort) and more arduous multi-transfer PT trips, using the same methods, by relaxing the assumption of no-transfers between PT modes in the routing engine.
 This would led to a larger number of total daily trips that can be made by cycling + PT, in particular in locations where the PT network is less complex and requires more transfers.
 We could also set a different maximum lenght of cycling stage, extending the bicycle catchment area.
 However, despite the added value of a sensibility analyses, they would also increase the overall complexity, and would have an impact on the explainability of the results to be used by policy makers.
