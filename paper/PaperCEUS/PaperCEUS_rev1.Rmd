@@ -89,7 +89,7 @@ library(ggplot2)
 
 # Introduction
 
-Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can replace a high proportion of private car trips [@MARTENS2007326].
+Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can replace a high proportion of private car trips [@MARTENS2007326; @van2021insights].
 In The Netherlands, which has the highest mode share of cycling in the world, cycling accounts for more than a third of all trips to and from rail stations at the 'home' end of the journey, greatly increasing the ability of the transport system [@RIETVELD200071].
 This approach to reducing car dependency and associated externalities requires interventions and programs to make bicycling more appealing [@lapaix_role_2021].
 The resulting public investments can have significant social and environmental benefits [@internationaltransportforum_integrating_2017].
@@ -102,9 +102,13 @@ According to the latest mobility survey conducted in 2018 [@IMOB], the LMA regis
 Car modal share was 58.4%, while PT accounted for 15.5% (see Figure \ref{fig:mododist}).
 The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips.
 This exceeds the number of inter-municipal trips (1.8 million trips), involving travel between different municipalities.
-Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.  
+Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
 `r round(100*2948314/5569731)`% trips are up to 5 km distance, and `r round(100*3958667/5569731)`% up to 10 km.
 Nevertheless, 29% of trips are longer than 10 km, which requires the use of motorized modes, or active modes in combination with public transport.
+
+Regarding cycling trips in the LMA, 55% are up to 5 km, and 88% are up to 10 km.
+These values are not in line with the typically found in cycling distance decay curves, which show a high percentage of trips are up to 5 km (~75%), and a smaller proportion up to 10 km [@krizek2007detailed; @larsen2010beyond; @DDfunction2023].
+This may be due to the low cycling modal share in the LMA - even more limited in the sample survey, which may be biased towards shorter trips.
 
 <!-- Plot of  AML trips by mode and inter/intra %? -->
 ```{r dadosaml, message=FALSE, warning=FALSE}
@@ -170,6 +174,13 @@ ggplot(TRIPSmode_aml_intr, aes(fill = modo, y = viagens, x = Inter)) +
 
 ```
 
+**TO-DO**
+
+-   mais mapas:
+-   Densidade populational - nº de viagens
+-   Pares OD - desire lines width
+
+
 The Portuguese Government has established a national cycling strategy, which outlines targets for the percentage of trips to be made by bicycle in urban areas.
 Specifically, these targets aim for 4% of all trips in 2025 and 10% by 2030 [@ENMAC].
 Moreover, the strategy emphasizes that this increase should be achieved by substituting car trips for bicycle trips, as a way to reduce the environmental and social impacts of car use.
@@ -190,10 +201,20 @@ However, to the best of our knowledge, this is the first time that the method ha
 
 <!-- For the full paper, explain that we had 3 scenarios, and describe them. But in this paper we focus on the intermodality one. -->
 
-This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA, while achieving the national cycling targets.
-After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
+This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA.
+After presenting the methods used, we assess its socio-environmental impacts using open data and open-source tools.
+
+It is essential to note that our approach is not predictive but scenario-based, providing a range of potential outcomes regarding the target (% of cycling tips) and the routing profile (safe or direct routes), rather than a single forecast.
+These scenarios are rooted in the explicit national cycling targets, assuming that the potential for cycling is proportional to the reduction of car trips.
+Thus said, we do not predict the generation of new trips, but the substitution of car trips by cycling in combination with PT, considering the potential of the first and last mile of these journeys to be made by bicycle.
+Additionally, we do not model changes in the baseline PT trips, under the implicit assumption that the initial and final stages of these trips remain unaltered.
+A strength of this _backcasting_ approach is that we can simulate the aggregate travel patterns that would meet particular policy objectives, and explore what the implications could be for the public transport system and provision of safe cycling infrastructure to public transport nodes at regional, local authority and, importantly from a local transport planning practitioner perspective, corridor level.
+
 
 # Methods
+
+## Case Study
+
 
 ## Modeling Origin-Destination trips
 
@@ -272,10 +293,15 @@ The routes were then overlaid and aggregated by segments, using [`stplanr overli
 ## Modeling intermodality
 
 The intermodality scenario considers trips made by PT in which cycling is used for the first and last legs.
-We restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination) or up to 25 minutes on bike travel-time.
-This conservative approach was adopted to capture the fact that cycling stages as part of a multi-modal trip are likely to be shorter than cycling-only trips [@vanmil_insights_2021].
+We restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination).
 Furthermore, we have imposed restrictions on PT usage, limiting it to trips without PT transfers, and within a duration of up to 2 hours (120 minutes).
 Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}).
+
+This conservative approach was adopted to capture the fact that cycling stages as part of a multi-modal trip are likely to be shorter than cycling-only trips [@vanmil_insights_2021].
+Additionally, @Leferink2017 found that the bicycle is most attractive option as a first and last mile mode when the distance ranges from 3 to 5 km, as observed across various comparative studies.
+This restrictions are based on the assumption that 5 km is a plausible maximum distance that people are willing to travel by bike as part of a longer journey.
+This applies especially for cycling beginners shifting from cars, who are less likely to be confident and experienced cyclists than the existing cyclists.
+
 These restrictions can be eased in the future when testing more developed policy interventions to enhance intermodality between cycling and PT, considering both the vehicle and infrastructure perspectives.
 
 ```{r map1, out.width="60%", fig.cap="Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area.", fig.align='center'}
@@ -435,7 +461,7 @@ knitr::kable(summary21 |> select(-Baseline),
 
 <!-- INSERT ZONAL MAP HERE -->
 
-```{r mapzones, fig.cap="Potential Bike + PT daily trips for the 10% target, by municipality"}
+```{r mapzones, eval=FALSE, fig.cap="Potential Bike + PT daily trips for the 10% target, by municipality"}
 CAR_PT_TRANSF = readRDS("load/CAR_TP_TRANSF.Rds")
 
 # summarize by OD pair
@@ -568,6 +594,8 @@ ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
 
 
 
+
+
 Table \ref{tab:summary22} presents emissions reductions and associated economic benefits associated with the second (PT) leg of trips.
 The shift from private car associated with thes PT segments would reduce CO~2~ equivalent emissions by 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly, for the 4% and 10% targets, respectively.
 
@@ -642,22 +670,31 @@ Improving the safe accessibility to PT interfaces to cyclists and providing bicy
 Our findings show that cycling *in combination* with PT could replace 10% of current LMA trips, with an additional 6% of PT journeys prone to further substitution, based on conservative assumptions.
 Although this paper does not address the designing specific solutions, our findings indicate a potential surge in demand (+6.3%) of public transport interfaces to align with the national strategies.
 This added demand is conceptually driven from individuals utilising bicycles, either personal or shared, which would be parked at the PT stations.
-Consequently, operators and public space managers would face the challenge of accommodating this increased demand for bicycle parking and/or docks from a bike sharing system.
+Consequently, operators and public space managers would face the challenge of accommodating this increased demand for bicycle parking and/or docks from a bike sharing system, since this availability plays a crucial role in the decision-making process of individuals to use combined bike-train [@jonkeren2021bicycle].
 Additionally, they may need to explore options to enhance bicycle carriage capacity on public transport services, ensuring alignment with national targets.
 
-## Model replicability and complexity
-
-This analysis can be applied to other metropolitan areas, providing a basis for decision-making and policy development to support a modal shift from car to PT. This process involves a minimum of data requirements, such as the origin-destination data, road network, and the PT GTFS data, which are available in most metropolitan areas.
-Furthermore, it is essential to incorporate existing cycling level targets specific to those areas or consider the possibility of utilising the same targets as outlined in the Portuguese national strategy, in order to compare results with different areas.
-Nevertheless, the extent of the potential shift from car to PT is highly dependent on the distances typically travelled in such contexts, and the availability of PT services - which can vary significantly between regions, and for which we are not assuming any change in this study.
-
-<!-- CONTINUE HERE -->
-A further refinement could be to differentiate between ‘simpler’ no-transfer PT trips (which require less person effort) and more arduous multi-transfer PT trips, using the same methods: we could set a different maximum cycling stage distance for the former and a shorter maximum cycling stage distance for the latter. However, this would have an impact on the explainability of the results to policy makers and the overall complexity.
-We now discuss this and other potential refinements to the methods using the same input datasets and open, reproducible methods in the discussion with reference to the **likelihood of diminishing returns with additional model complexity**.
-
+## Model replicability and limitations
 
 This paper focus primarily on the potential of making cycling and PT a viable alternative to car trips, and the socio-environmental benefits of such a shift.
 
+This analysis can be applied to other metropolitan areas, providing a basis for decision-making and policy development to support a modal shift from car to PT.
+This process involves a minimum of data requirements, such as the origin-destination data, road network, and the PT GTFS data, which are available in most metropolitan areas.
+Furthermore, it is essential to incorporate existing cycling level targets specific to those areas or consider the possibility of utilising the same targets as outlined in the Portuguese national strategy, in order to compare results with different areas.
+
+Nevertheless, the extent of the potential shift from car to PT is highly dependent on the distances typically travelled in such contexts, and the availability of PT services - which can vary significantly between regions, and for which we are not assuming any change in this study.
+For instance, we considered only the inter-municipal bus services that accommodate bicycles on board.
+Future research could explore the potential of equipping other regional bus services with this feature and analyse their attractiveness, in conjunction with cycling, to address current car trip demands.
+
+A strength of the approach is that there is no requirement for sensitive individual trip level data to reproduce the approach in other cities.
+However, we acknowledge that this approach has limitations in terms of being able to identify exactly which trips are being replaced -- in terms of the age of people making the trips, the types of car they drive, and other individual or vehicle level variables.
+We assumed uniformity in the type of vehicle for all replaced car journeys, albeit with variations in the fuels utilized.
+Additionally, we assumed consistency in the health impacts across all individuals for the replaced car trips
+This approach is a simplification of the real-world scenario, but it is a necessary one to make the analysis feasible and reproducible.
+
+A further refinement could be to differentiate between ‘simpler’ no-transfer PT trips (which require less person effort) and more arduous multi-transfer PT trips, using the same methods, by relaxing the assumption of no-transfers between PT modes in `r5r`.
+This would led to a larger number of total daily trips that can be made by cycling + PT, in particular in locations where the PT network is less complex and requires more transfers.
+We could also set a different maximum lenght of cycling stage, extending the bicycle catchment area.
+However, despite the added value of a sensibility analyses, they would also increase the overall complexity, and would have an impact on the explainability of the results to be used by policy makers.
 
 # Conclusion
 
