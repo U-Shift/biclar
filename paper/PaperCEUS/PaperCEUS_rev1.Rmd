@@ -305,7 +305,25 @@ This applies especially for cycling beginners shifting from cars, who are less l
 These restrictions can be eased in the future when testing more developed policy interventions to enhance intermodality between cycling and PT, considering both the vehicle and infrastructure perspectives.
 
 ```{r map1, out.width="60%", fig.cap="Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area.", fig.align='center'}
-knitr::include_graphics("img/map1.png", error = FALSE)
+# knitr::include_graphics("img/map1.png", error = FALSE) #old version
+
+MUNICIPIOSgeo = readRDS("load/MUNICIPIOSgeo.Rds")
+stopsAML = sf::st_read("load/Stops_AML.geojson", quiet = TRUE)
+stopsAML = stopsAML |> filter(mode != "Metropolitano") |>
+  mutate(mode = factor(mode, levels = c("Comboio", "Ferry", "Metro Superficie", "Autocarro"),
+                       labels = c("Train", "Ferry", "Tram", "Bus")))
+routesAML = sf::st_read("load/Routes_AML.geojson", quiet = TRUE)
+routesAML = routesAML |> 
+  mutate(mode = factor(mode, levels = c("Comboio", "Ferry", "Metro Superficie", "Autocarro"),
+                       labels = c("Train", "Ferry", "Tram", "Bus")))
+
+ggplot() +
+  geom_sf(data = stopsAML, aes(color = mode), size = 2) +
+  geom_sf(data = routesAML, aes(color = mode), size = 1) +
+  scale_color_manual(values = c("purple", "darkgreen", "orange", "dodgerblue")) +
+  geom_sf(data = MUNICIPIOSgeo, fill = NA, color = "gray60") +
+  theme_void() +
+  labs(color = "Mode")
 ```
 
 Figure \ref{fig:map2} illustrates the resulting bicycle routes to access the main PT interfaces in the LMA. It is noticeable the high potential of the train interfaces to attract car-to-PT substituting trips.
@@ -544,7 +562,8 @@ CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo |>
 
 # re-calculating the percentage of trips
 CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
-  left_join(TRIPSall_mun, by = c("Concelho" = "Origem"))
+  left_join(TRIPSall_mun, by = c("Concelho" = "Origem")) |> 
+  select(Concelho, Total, Car, Bike, Walk, TP, viagens, geometry)
   
 
 ENMAC4 = 0.04 # 4%
@@ -552,21 +571,43 @@ ENMAC10 = 0.10 # 10#
 CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
   mutate(Bikeper = Bike / viagens,
          Carper = Car / viagens) |>  #should it be "viagens" or "Total  -- all trips, not only the found ones
-  mutate(Bike_new4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Bike, ENMAC4 * viagens),
-         Bike_new10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Bike, ENMAC10 * viagens)) |> 
-  mutate(Bike4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Bike, Bike + Bike_new4),
-         Bike10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Bike, Bike + Bike_new10),
-         Car_4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Car, Car - Bike_new4),
-         Car_10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Car, Car - Bike_new10),
+  mutate(Bike_new4 = ifelse(Bikeper <= ENMAC4 & Carper >= ENMAC4, ENMAC4 * viagens, ifelse(Carper <= ENMAC4, Car, Bike)),
+         Bike_new10 = ifelse(Bikeper <= ENMAC10 & Carper >= ENMAC10, ENMAC10 * viagens, ifelse(Carper <= ENMAC10, Car, Bike))) |> 
+  mutate(Bike4 = Bike +Bike_new4,
+         Bike10 = Bike + Bike_new10,
+         Car_4 = Car - Bike_new4,
+         Car_10 = Car - Bike_new10,
          TP_4 = TP + Bike_new4,
          TP_10 = TP + Bike_new10) |> 
   mutate(Bike_new4per = 100*Bike_new4 / viagens,
          Bike_new10per = 100*Bike_new10 / viagens,
+         Bike_4per = 100*Bike4 / viagens,
+         Bike_10per = 100*Bike10 / viagens,
          TPper = 100*TP / viagens,
          TP_4per = 100*TP_4 / viagens,
          TP_10per = 100*TP_10 / viagens)
-  
-  #CONTINUE FROM HERE ---  LOOK AT DIFRERENCES TOTAL AND VIAGENS
+
+# other way  
+CAR_PT_TRANSF_mun_or_geo_18_extrap = CAR_PT_TRANSF_mun_or_geo_18 |> 
+  mutate(Bikeper = Bike / Total,
+         Carper = Car / Total) |>  #extrapolating to the total trips
+  mutate(Bike_new4 = ifelse(Bikeper <= ENMAC4 & Carper >= ENMAC4, ENMAC4 * Total, ifelse(Carper <= ENMAC4, Car, Bike)),
+         Bike_new10 = ifelse(Bikeper <= ENMAC10 & Carper >= ENMAC10, ENMAC10 * Total, ifelse(Carper <= ENMAC10, Car, Bike))) |> 
+  mutate(Bike4 = Bike +Bike_new4,
+         Bike10 = Bike + Bike_new10,
+         Car_4 = Car - Bike_new4,
+         Car_10 = Car - Bike_new10,
+         TP_4 = TP + Bike_new4,
+         TP_10 = TP + Bike_new10) |> 
+  mutate(Bike_new4per = 100*Bike_new4 / Total,
+         Bike_new10per = 100*Bike_new10 / Total,
+         Bike_4per = 100*Bike4 / Total,
+         Bike_10per = 100*Bike10 / Total,
+         TPper = 100*TP / Total,
+         TP_4per = 100*TP_4 / Total,
+         TP_10per = 100*TP_10 / Total)
+
+
 
 
 # plot 1
@@ -585,7 +626,7 @@ ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
 
 # plot 3 - the added % of potential bike + TP trips - doesn't make sense to show
 ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
-  geom_sf(aes(fill = Bike_new10per)) + #???
+  geom_sf(aes(fill = TP_10per- TPper)) + #???
   viridis::scale_fill_viridis(option = "G", direction = -1, name = "new Bike + PT trips %", na.value = "white") +
   theme_void()
 
