@@ -14,7 +14,7 @@ author:
     email: r.lovelace@uleeds.uk
 address:
   - code: CERIS
-    address: "CERIS, Instituto Superior Técnico - Universidade de Lisboa, Av Rovisco Pais 1, 1049-001 Lisboa, Portugal"
+    address: "CERIS, Instituto Superior Técnico - Universidade de Lisboa. Av Rovisco Pais 1, 1049-001 Lisboa, Portugal"
   - code: ITS
     address: "Institute for Transport Studies, University of Leeds. 34-40 University Rd, Leeds LS2 9JT, UK"
 abstract: |
@@ -40,7 +40,6 @@ numbersections: true
 # Use a CSL with `citation_package = "default"`
 csl: https://www.zotero.org/styles/computers-environment-and-urban-systems
 # csl: computers-environment-and-urban-systems.csl
-# csl: trd_test.csl
 preamble: |
   \biboptions{authoryear}
   \usepackage{url}
@@ -52,17 +51,28 @@ preamble: |
 output: 
   rticles::elsevier_article:
     keep_tex: yes
-    citation_package: "default" #ou nenhum
+    # citation_package: "default" #ou nenhum
     latex_engine: xelatex
     extra_dependencies: "subfig"
 #   bookdown::word_document2:
 #     fig_caption: true
 # always_allow_html: true
 urlcolor: blue
-citecolor: blue
+citecolor: black
 linkcolor: blue
 # natbiboptions: longnamesfirst,angle,semicolon
 ---
+\hypersetup{citecolor=black}
+
+```{r eval=FALSE, echo=FALSE}
+# setwd("paper/PaperCEUS/") # knit directory: Document
+system("latexdiff paper/PaperCEUS/PaperCEUS_prerev.tex paper/PaperCEUS/PaperCEUS_rev1.tex > paper/PaperCEUS/PaperCEUS_diff1.tex")
+#and change in tex the blue for another color (green? 0,0.5,0) and remove \uwave
+# \definecolor{green}{rgb}{0,0.5,0}
+# {\protect\color{green}{#1}}}
+#and compile PDF!
+system("pdflatex paper/PaperCEUS/PaperCEUS_diff1.tex")
+```
 
 <!-- TODO: -->
 <!-- should we ignore the social benefits component? and only estimate and add the environmental ones? or estimate the car to PT transfer Social benefits? maybe to the next paper? -->
@@ -70,7 +80,7 @@ linkcolor: blue
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
-                      # root.dir = "paper/PaperTRA/",
+                      # root.dir = "paper/PaperCEUS/", # knit directory: Document, instead of the default
                       out.extra = "")  # This forces knitr to label all figures.
 
 library(dplyr)
@@ -79,7 +89,7 @@ library(ggplot2)
 
 # Introduction
 
-Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can replace a high proportion of private car trips [@MARTENS2007326].
+Combining public transportation (PT) and cycling for the first and last mile in metropolitan areas can replace a high proportion of private car trips [@MARTENS2007326; @van2021insights].
 In The Netherlands, which has the highest mode share of cycling in the world, cycling accounts for more than a third of all trips to and from rail stations at the 'home' end of the journey, greatly increasing the ability of the transport system [@RIETVELD200071].
 This approach to reducing car dependency and associated externalities requires interventions and programs to make bicycling more appealing [@lapaix_role_2021].
 The resulting public investments can have significant social and environmental benefits [@internationaltransportforum_integrating_2017].
@@ -92,9 +102,13 @@ According to the latest mobility survey conducted in 2018 [@IMOB], the LMA regis
 Car modal share was 58.4%, while PT accounted for 15.5% (see Figure \ref{fig:mododist}).
 The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips.
 This exceeds the number of inter-municipal trips (1.8 million trips), involving travel between different municipalities.
-Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.  
+Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
 `r round(100*2948314/5569731)`% trips are up to 5 km distance, and `r round(100*3958667/5569731)`% up to 10 km.
 Nevertheless, 29% of trips are longer than 10 km, which requires the use of motorized modes, or active modes in combination with public transport.
+
+Regarding cycling trips in the LMA, 55% are up to 5 km, and 88% are up to 10 km.
+These values are not in line with the typically found in cycling distance decay curves, which show a high percentage of trips are up to 5 km (~75%), and a smaller proportion up to 10 km [@krizek2007detailed; @larsen2010beyond; @DDfunction2023].
+This may be due to the low cycling modal share in the LMA - even more limited in the sample survey, which may be biased towards shorter trips.
 
 <!-- Plot of  AML trips by mode and inter/intra %? -->
 ```{r dadosaml, message=FALSE, warning=FALSE}
@@ -160,7 +174,18 @@ ggplot(TRIPSmode_aml_intr, aes(fill = modo, y = viagens, x = Inter)) +
 
 ```
 
-To achieve the cycling targets set by the Portuguese national cycling strategy for 2025 and 2030 (4% and 10%, respectively) [@ENMAC], the Lisbon's Metropolitan Department of Transport commissioned *biclaR*[^1], a decision support tool that facilitates the planning, design, and development of a metropolitan cycling network [@felix2023].
+**TO-DO**
+
+-   mais mapas:
+-   Densidade populational - nº de viagens
+-   Pares OD - desire lines width
+
+
+The Portuguese Government has established a national cycling strategy, which outlines targets for the percentage of trips to be made by bicycle in urban areas.
+Specifically, these targets aim for 4% of all trips in 2025 and 10% by 2030 [@ENMAC].
+Moreover, the strategy emphasizes that this increase should be achieved by substituting car trips for bicycle trips, as a way to reduce the environmental and social impacts of car use.
+
+To support the implementation of this strategy, the Lisbon's Metropolitan Department of Transport commissioned *biclaR*[^1], a decision support tool that facilitates the planning, design, and development of a metropolitan cycling network [@felix2023].
 
 <!-- [^1]: See xxx.xxx. *For double blind peer-review process, the authors decided to truncate the name and references to this tool*. -->
 [^1]: See [biclar.tmlmobilidade.pt](https://biclar.tmlmobilidade.pt/).
@@ -176,10 +201,20 @@ However, to the best of our knowledge, this is the first time that the method ha
 
 <!-- For the full paper, explain that we had 3 scenarios, and describe them. But in this paper we focus on the intermodality one. -->
 
-This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA, while achieving the national cycling targets.
-After presenting the methods used, it assesses its socio-environmental impacts using open data and open-source tools.
+This paper estimates the potential for combining cycling and PT to substitute car trips in the LMA.
+After presenting the methods used, we assess its socio-environmental impacts using open data and open-source tools.
+
+It is essential to note that our approach is not predictive but scenario-based, providing a range of potential outcomes regarding the target (% of cycling tips) and the routing profile (safe or direct routes), rather than a single forecast.
+These scenarios are rooted in the explicit national cycling targets, assuming that the potential for cycling is proportional to the reduction of car trips.
+Thus said, we do not predict the generation of new trips, but the substitution of car trips by cycling in combination with PT, considering the potential of the first and last mile of these journeys to be made by bicycle.
+Additionally, we do not model changes in the baseline PT trips, under the implicit assumption that the initial and final stages of these trips remain unaltered.
+A strength of this _backcasting_ approach is that we can simulate the aggregate travel patterns that would meet particular policy objectives, and explore what the implications could be for the public transport system and provision of safe cycling infrastructure to public transport nodes at regional, local authority and, importantly from a local transport planning practitioner perspective, corridor level.
+
 
 # Methods
+
+## Case Study
+
 
 ## Modeling Origin-Destination trips
 
@@ -193,17 +228,39 @@ This method then distributes the trips to desire lines connecting the subpoints 
 Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we disaggregated the OD data into desire lines reprenting a maximum of 100 trips each.
 Figure \ref{fig:jitter} illustrates the contrast between trip representation through the traditional method, which connects a single desire line between each district, and the presentation achieved through the randomization and disaggregation of trips between districts, specifically for the Lisbon metropolitan area.
 
-```{r jitter, fig.align='center', fig.cap="Representation of desire lines in the Lisbon metropolitan area between districts, without jittering (left) and with jittering (right).", out.width="100%"}
+```{r jitter, fig.align='center', fig.cap="Flow-weighted random sample of 10,000 desire lines in the Lisbon metropolitan area between districts of the 18 municipalities, without jittering (left) and with jittering (right).", fig.height=4, out.width="100%"}
 
 # od_all = readRDS("paper/paperTRA/load/od_all.Rds")
 # od_jittered_filter = readRDS("paper/paperTRA/load/od_jittered_filter.Rds")
 # 
-# par(mfrow = c(1, 2))
-# plot(od_all$geometry, lwd = 0.1)
-# plot(od_jittered_filter$geometry, lwd = 0.1)
+# odcombined = rbind(
+#   od_all |>
+#     transmute(Total, Disaggregation = " Original"),
+#   od_jittered_filter |>
+#     transmute(Total, Disaggregation = "Jittered")
+# )
+# 
+# cairo_pdf(filename = "img/jitter_cairo.pdf", onefile= T, width=10, height=4) 
+# 
+# odcombined |>
+#   sample_n(10000, weight = odcombined$Total) |>
+#   mutate(Total = Total / 1000) |>
+#   ggplot() +
+#   geom_sf(aes(alpha = Total)) + # blured
+#   facet_wrap(~Disaggregation) +
+#   theme_void() +
+#   theme(legend.position="none",
+#         strip.text.x = element_blank()) +
+#   geom_sf(data = MUNICIPIOSgeo, fill = NA, color = "gray60")
+# 
+# dev.off()
+# 
+# png::writePNG(pdftools::pdf_render_page("img/jitter_cairo.pdf", dpi = 300), "img/jitter_cairo.png")
 
-knitr::include_graphics("img/jitter.png", error = FALSE)
 
+# ggsave(filename = "img/jitter_rev2.png", plot = last_plot(), width = 1000, height = 400, units = "px", dpi = 300, type = "cairo")
+
+knitr::include_graphics("img/jitter_cairo.png", error = FALSE)
 ```
 
 The jittering pre-processing stage generates a more realistic representation of the trips undertaken than the traditional centroid-based approach but does not precisely capture the exact spatial distribution of trips.
@@ -236,19 +293,24 @@ The routes were then overlaid and aggregated by segments, using [`stplanr overli
 ## Modeling intermodality
 
 The intermodality scenario considers trips made by PT in which cycling is used for the first and last legs.
-We restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination) or up to 25 minutes on bike travel-time.
-This conservative approach was adopted to capture the fact that cycling stages as part of a multi-modal trip are likely to be shorter than cycling-only trips [@vanmil_insights_2021].
+We restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination).
 Furthermore, we have imposed restrictions on PT usage, limiting it to trips without PT transfers, and within a duration of up to 2 hours (120 minutes).
 Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}).
+
+This conservative approach was adopted to capture the fact that cycling stages as part of a multi-modal trip are likely to be shorter than cycling-only trips [@vanmil_insights_2021].
+Additionally, @Leferink2017 found that the bicycle is most attractive option as a first and last mile mode when the distance ranges from 3 to 5 km, as observed across various comparative studies.
+This restrictions are based on the assumption that 5 km is a plausible maximum distance that people are willing to travel by bike as part of a longer journey.
+This applies especially for cycling beginners shifting from cars, who are less likely to be confident and experienced cyclists than the existing cyclists.
+
 These restrictions can be eased in the future when testing more developed policy interventions to enhance intermodality between cycling and PT, considering both the vehicle and infrastructure perspectives.
 
 ```{r map1, out.width="60%", fig.cap="Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area.", fig.align='center'}
 knitr::include_graphics("img/map1.png", error = FALSE)
 ```
 
-Figure \ref{fig:map2} illustrates the resulting bicycle routes to access the main PT interfaces in the LMA.
+Figure \ref{fig:map2} illustrates the resulting bicycle routes to access the main PT interfaces in the LMA. It is noticeable the high potential of the train interfaces to attract car-to-PT substituting trips.
 
-```{r map2, out.width="80%", fig.cap="Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool).", fig.align='center'}
+```{r map2, out.width="80%", fig.cap="Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool). Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level.", fig.align='center'}
 knitr::include_graphics("img/map2.png", error = FALSE)
 ```
 
@@ -257,6 +319,7 @@ knitr::include_graphics("img/map2.png", error = FALSE)
 <!-- The impacts were assessed for the total metro area. -->
 
 <!-- Include a map with the legs of journeys, and which modes are replacing which, and what impacts are bein estimated at each one. See PTcar_legs.R -->
+Following the clearly established national strategy, we estimated the socio-environmental potential impacts of shifting car trips by bicycle in combination with PT, in the LMA, for the two targets (4% and 10%).
 
 For the *cycling legs of the journey* (first and last legs), socio-environmental impacts were estimated, using the Health Economic Assessment Tool (HEAT) for Cycling v5.2 [@HEAT], from the World Health Organization, and the [`HEATaaS` R package](https://github.com/HEAT-WHO/HEAT_heatr_api)[^5]. 
 The use of this package made it possible to run multiple scenarios with few changes in input values, making the interaction with HEAT more reliable when reproducing runs.    
@@ -311,7 +374,7 @@ See [Research Data](#research-data) for all the input values we used.
 
 # Results and Discussion
 
-Table \ref{tab:summary1} presents the LMA total daily trips that can be made with cycling + TP combination (with the aforementioned restrictions), the trips in the baseline scenario and corresponding new trips to achieve the national strategy targets (4% and 10%), for different route profiles. 
+Table \ref{tab:summary1} presents the LMA total daily trips that can be made with cycling + TP combination (with the aforementioned restrictions), the trips in the baseline scenario and corresponding new daily trips to achieve the national strategy targets (4% and 10%), for different route profiles. 
 For the cycling legs of the journey (first and last legs), the environmental avoided emissions and monetized socio-environment (SE) benefits are presented in Table \ref{tab:summary1b}, resulting from replacing car trips with cycling.
 
 
@@ -339,7 +402,7 @@ knitr::kable(summary1,
       format.args = list(big.mark = " "),
       col.names = c("Target", "Routing", "Total trips",
                     "Baseline Cycling + PT", "Potencial Cycling + PT"),
-      caption = "\\label{summary1}Summary of the cycling potencial of the intermodality scenario.",
+      caption = "\\label{summary1}Summary of the cycling potencial of the intermodality scenario. Values in 'trips/day'.",
       format="latex",
       booktabs = TRUE) |> 
   kableExtra::column_spec(column = c(4:5), width = "7em")
@@ -387,7 +450,7 @@ knitr::kable(summary21 |> select(-Baseline),
       format.args = list(big.mark = " "),
       # col.names = c("Target", "Routing", "Total",
       #               "Bus", "Ferry", "Train", "Tram"),
-      caption = "\\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode.",
+      caption = "\\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disagregated by PT mode. Values in 'trips/day'.",
       format="latex",
       booktabs = TRUE) |> 
   kableExtra::column_spec(column = c(1:7), width = "4.5em")
@@ -395,6 +458,143 @@ knitr::kable(summary21 |> select(-Baseline),
 ```
 
 <!-- These findings indicate that transferring car trips to a combination of bicycle and PT could be nearly as substantial, if not equally significant, as the shift towards bicycle-only trips. WE CANNOT SHOW THIS IN THIS PAPER WITH ONLY SCENARIO 3 DATA --> 
+
+<!-- INSERT ZONAL MAP HERE -->
+
+```{r mapzones, eval=FALSE, fig.cap="Potential Bike + PT daily trips for the 10% target, by municipality"}
+CAR_PT_TRANSF = readRDS("load/CAR_TP_TRANSF.Rds")
+
+# summarize by OD pair
+CAR_PT_TRANSF_ODs = CAR_PT_TRANSF |>
+  filter(LTS == 4) |> 
+  group_by(DICOFREor11, DICOFREde11) |>
+  summarise(Total = sum(Total),
+            Car = sum(Car),
+            Bike = sum(Bike),
+            Walk = sum(Walk),
+            TP = sum(TP),
+            Bike_new4 = sum(Bike_new4),
+            Bike_new10 = sum(Bike_new10),
+            Bike_4 = sum(Bike_4),
+            Bike_10 = sum(Bike_10),
+            TP_4 = sum(TP_4),
+            TP_10 = sum(TP_10)) |>
+  mutate(Bikeper = 100*Bike/Total,
+         Bike_new4per = 100*Bike_new4/Total,
+         Bike_new10per = 100*Bike_new10/Total,
+         TPper = 100*TP/Total,
+         TP_4per = 100*TP_4/Total,
+         TP_10per = 100*TP_10/Total) |> 
+  ungroup()
+
+# summarize by origin
+CAR_PT_TRANSF_mun_or = CAR_PT_TRANSF_ODs |> 
+  group_by(DICOFREor11) |>
+  summarise(Total = sum(Total),
+            Car = sum(Car),
+            Bike = sum(Bike),
+            Walk = sum(Walk),
+            TP = sum(TP),
+            Bike_new4 = sum(Bike_new4),
+            Bike_new10 = sum(Bike_new10),
+            Bike_4 = sum(Bike_4),
+            Bike_10 = sum(Bike_10),
+            TP_4 = sum(TP_4),
+            TP_10 = sum(TP_10)) |>
+  mutate(Bikeper = 100*Bike/Total,
+         Bike_new4per = 100*Bike_new4/Total,
+         Bike_new10per = 100*Bike_new10/Total,
+         TPper = 100*TP/Total,
+         TP_4per = 100*TP_4/Total,
+         TP_10per = 100*TP_10) |> 
+  ungroup()
+
+# join with municipalities geo
+CAR_PT_TRANSF_mun_or_geo = CAR_PT_TRANSF_mun_or |> 
+  left_join(FREGUESIASgeo_zones |> select(Dicofre, Concelho) |> sf::st_drop_geometry(),
+            by = c("DICOFREor11" = "Dicofre"))
+CAR_PT_TRANSF_mun_or_geo$Concelho[CAR_PT_TRANSF_mun_or_geo$Concelho == "Setúbal"] = "Setubal"
+CAR_PT_TRANSF_mun_or_geo = CAR_PT_TRANSF_mun_or_geo |> 
+  group_by(Concelho) |>
+  summarise(Total = sum(Total),
+            Car = sum(Car),
+            Bike = sum(Bike),
+            Walk = sum(Walk),
+            TP = sum(TP),
+            Bike_new4 = sum(Bike_new4),
+            Bike_new10 = sum(Bike_new10),
+            Bike_4 = sum(Bike_4),
+            Bike_10 = sum(Bike_10),
+            TP_4 = sum(TP_4),
+            TP_10 = sum(TP_10)) |>
+  mutate(Bikeper = 100*Bike/Total,
+         Bike_new4per = 100*Bike_new4/Total,
+         Bike_new10per = 100*Bike_new10/Total,
+         TPper = 100*TP/Total,
+         TP_4per = 100*TP_4/Total,
+         TP_10per = 100*TP_10/Total) |>
+  left_join(MUNICIPIOSgeo, by = "Concelho") |> 
+  ungroup()
+
+# bind municipalities with zero potential
+CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo |> 
+  dplyr::bind_rows(as.data.frame(
+   MUNICIPIOSgeo |> filter(!Concelho %in% CAR_PT_TRANSF_mun_or_geo$Concelho))) |> 
+  sf::st_as_sf()
+
+# re-calculating the percentage of trips
+CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
+  left_join(TRIPSall_mun, by = c("Concelho" = "Origem"))
+  
+
+ENMAC4 = 0.04 # 4%
+ENMAC10 = 0.10 # 10#
+CAR_PT_TRANSF_mun_or_geo_18 = CAR_PT_TRANSF_mun_or_geo_18 |> 
+  mutate(Bikeper = Bike / viagens,
+         Carper = Car / viagens) |>  #should it be "viagens" or "Total  -- all trips, not only the found ones
+  mutate(Bike_new4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Bike, ENMAC4 * viagens),
+         Bike_new10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Bike, ENMAC10 * viagens)) |> 
+  mutate(Bike4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Bike, Bike + Bike_new4),
+         Bike10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Bike, Bike + Bike_new10),
+         Car_4 = ifelse(Bikeper >= ENMAC4 | Carper <= ENMAC4, Car, Car - Bike_new4),
+         Car_10 = ifelse(Bikeper >= ENMAC10 | Carper <= ENMAC4, Car, Car - Bike_new10),
+         TP_4 = TP + Bike_new4,
+         TP_10 = TP + Bike_new10) |> 
+  mutate(Bike_new4per = 100*Bike_new4 / viagens,
+         Bike_new10per = 100*Bike_new10 / viagens,
+         TPper = 100*TP / viagens,
+         TP_4per = 100*TP_4 / viagens,
+         TP_10per = 100*TP_10 / viagens)
+  
+  #CONTINUE FROM HERE ---  LOOK AT DIFRERENCES TOTAL AND VIAGENS
+
+
+# plot 1
+ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
+  geom_sf(aes(fill = Bike_new10)) +
+  viridis::scale_fill_viridis(option = "G", direction = -1, name = "Bike + PT trips", na.value = "white") +
+  theme_void()
+  # theme(legend.position = "bottom") +
+  # labs(title = "Potential Bike + PT for 10% target, by municipality")
+
+# plot 2 - the total % of potential bike + TP trips
+ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
+  geom_sf(aes(fill = TP_10per)) +
+  viridis::scale_fill_viridis(option = "G", direction = -1, name = "Bike + PT trips %", na.value = "white") +
+  theme_void()
+
+# plot 3 - the added % of potential bike + TP trips - doesn't make sense to show
+ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
+  geom_sf(aes(fill = Bike_new10per)) + #???
+  viridis::scale_fill_viridis(option = "G", direction = -1, name = "new Bike + PT trips %", na.value = "white") +
+  theme_void()
+
+```
+
+
+
+
+
 
 Table \ref{tab:summary22} presents emissions reductions and associated economic benefits associated with the second (PT) leg of trips.
 The shift from private car associated with thes PT segments would reduce CO~2~ equivalent emissions by 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly, for the 4% and 10% targets, respectively.
@@ -468,6 +668,39 @@ The emissions of CO~2~eq that are avoided during both the initial and final jour
 Improving the safe accessibility to PT interfaces to cyclists and providing bicycle-friendly amenities such as parking facilities can potentially lead to a higher reduction in CO~2~eq emissions, compared to a scenario where individuals shift from car travel to car + PT combination.
 
 Our findings show that cycling *in combination* with PT could replace 10% of current LMA trips, with an additional 6% of PT journeys prone to further substitution, based on conservative assumptions.
+Although this paper does not address the designing specific solutions, our findings indicate a potential surge in demand (+6.3%) of public transport interfaces to align with the national strategies.
+This added demand is conceptually driven from individuals utilising bicycles, either personal or shared, which would be parked at the PT stations.
+Consequently, operators and public space managers would face the challenge of accommodating this increased demand for bicycle parking and/or docks from a bike sharing system, since this availability plays a crucial role in the decision-making process of individuals to use combined bike-train [@jonkeren2021bicycle].
+Additionally, they may need to explore options to enhance bicycle carriage capacity on public transport services, ensuring alignment with national targets.
+
+## Generalizability and limitations
+
+This paper focus primarily on the potential for replacing trips currently made by car with combined cycling and public transport trips, and the associated social and environmental benefits.
+While the results are specific to the Lisbon Metropolitan Area, the approach is designed to be generalizable to other metropolitan areas.
+
+An important aspect of the approach from a generalizability perspective is that it has specific data requirements, including origin-destination, road network, and the GTFS data.
+Such datasets are available to transport planners in many areas.
+In areas where such datasets do not exist, the value of research such as this could provide a motivation to collect and open-up transport data.
+For this study we have used Portugal's national cycling targets as the basis of the scenarios; the approach can be adapted to other targets, or to other policy goals, such as reducing congestion or improving air quality.
+
+Nevertheless, the extent of the potential shift from car to PT is highly dependent on the distances typically travelled in such contexts, and the availability of PT services - which can vary significantly between regions, and for which we are not assuming any change in this study.
+For instance, we considered only the inter-municipal bus services that accommodate bicycles on board.
+Future research could explore the potential of equipping other regional bus services with this feature and analyse their attractiveness, in conjunction with cycling, to address current car trip demands.
+
+A strength of the approach is that there is no requirement for sensitive individual trip level data to reproduce the approach in other cities.
+However, we acknowledge that this approach has limitations.
+The approach cannot show exactly which trips are being replaced, in terms of the age of people making the trips, the types of car they drive, and other individual or vehicle level variables.
+We assumed uniformity in the type of vehicle for all replaced car journeys, albeit with variations in the fuels utilized.
+Additionally, we assumed consistency in the health impacts across all individuals for the replaced car trips.
+This approach is a simplification of reality to enable the analysis of a large region on available computing resources.
+Future work could seek to increase the resolution of the results, and move towards a more individual-level analysis, for example by using agent and activity-based models using tools such as MATSim.
+This direction of travel would require substantial resources outside the scope of this study; another way to improve the spatial resolution of results would be to use higher resolution 'subpoints' as the basis of the desire line 'jittering' process.
+We would also like to explore the potential for probabilistic routing to improve the spatial resolution of the results.
+
+A further refinement could be to differentiate between 'simpler' no-transfer PT trips (which require less person effort) and more arduous multi-transfer PT trips, using the same methods, by relaxing the assumption of no-transfers between PT modes in the routing engine.
+This would led to a larger number of total daily trips that can be made by cycling + PT, in particular in locations where the PT network is less complex and requires more transfers.
+We could also set a different maximum lenght of cycling stage, extending the bicycle catchment area.
+However, despite the added value of a sensibility analyses, they would also increase the overall complexity, and would have an impact on the explainability of the results to be used by policy makers.
 
 # Conclusion
 
