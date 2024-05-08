@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.3)  8 MAY 2024 11:33
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.3)  8 MAY 2024 12:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -696,37 +696,37 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 129.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 127.
 (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 129.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 127.
 (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 129.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 127.
 (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 129.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 127.
 (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 129.
+(Font)              <10> on input line 127.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 129.
+(Font)              <7> on input line 127.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 129.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 129.
+(Font)              <5> on input line 127.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 127.
 (/home/rosa/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 129.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 127.
 (/home/rosa/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 115--135
+Underfull \hbox (badness 10000) in paragraph at lines 114--134
 
  []
 
@@ -737,71 +737,70 @@ Overfull \hbox (2.22pt too wide) has occurred while \output is active
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 180.
+(hyperref)                removing `\<def>-command' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\cnotenum' on input line 180.
+(hyperref)                removing `\cnotenum' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 180.
+(hyperref)                removing `\<def>-command' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@corref' on input line 180.
+(hyperref)                removing `\@corref' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 180.
+(hyperref)                removing `\<def>-command' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\cnotenum' on input line 180.
+(hyperref)                removing `\cnotenum' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 180.
+(hyperref)                removing `\<def>-command' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@corref' on input line 180.
+(hyperref)                removing `\@corref' on input line 167.
 
 [1
 
 ]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 179.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 179.
+[2]
 File: PaperCEUS_rev1_files/figure-latex/mododist-1.pdf Graphic file (type pdf)
 <use PaperCEUS_rev1_files/figure-latex/mododist-1.pdf>
 File: PaperCEUS_rev1_files/figure-latex/mododist-2.pdf Graphic file (type pdf)
 <use PaperCEUS_rev1_files/figure-latex/mododist-2.pdf>
 
-Overfull \hbox (6.66pt too wide) in paragraph at lines 190--190
+Overfull \hbox (6.66pt too wide) in paragraph at lines 232--232
 [][][][] 
  []
 
-[2]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 216.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 216.
 [3]
 File: img/jitter_cairo.pdf Graphic file (type pdf)
 <use img/jitter_cairo.pdf>
-[4] [5]
+[4]
 File: PaperCEUS_rev1_files/figure-latex/map1-1.pdf Graphic file (type pdf)
 <use PaperCEUS_rev1_files/figure-latex/map1-1.pdf>
 File: img/map2.png Graphic file (type bmp)
 <img/map2.png>
-[6] [7]
-Overfull \hbox (4.35pt too wide) in paragraph at lines 535--536
+[5] [6] [7] [8]
+Overfull \hbox (4.35pt too wide) in paragraph at lines 539--540
  []|\TU/lmr/m/n/10 Environmental
  []
 
-[8] [9]
 
-LaTeX Warning: Reference `fig:mapzones' on page 10 undefined on input line 580.
+LaTeX Warning: Reference `fig:mapzones' on page 9 undefined on input line 584.
 
-[10] [11] [12] [13] (./PaperCEUS_rev1.bbl
+[9] [10] [11] [12] (./PaperCEUS_rev1.bbl [13]
 Underfull \hbox (badness 1448) in paragraph at lines 34--39
 []\TU/lmr/m/n/8 CP, 2020.  Relatório de Sustentabilidade 2019.  Technical Report. CP - Comboios de Portugal, E.P.E.  URL:
  []
@@ -811,7 +810,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--39
 [][]$[][][][][] [] [] [] [][][] [] [][] [] [][] [] [][][][][][][][][][][] [] [][][][][][][][][][][][][] [] [] [] [][][][][][] [] [][][][][][][][][][][] [] [] [] [][][][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][] [][]
  []
 
-[14] [15]) [16] (./PaperCEUS_rev1.aux)
+[14]) [15] (./PaperCEUS_rev1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
@@ -820,15 +819,15 @@ L3 programming layer <2024-04-11>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `PaperCEUS_rev1.out' has not changed.
-(rerunfilecheck)             Checksum: F3789A69BD24E6AC00F75359891D1BF6;763.
+(rerunfilecheck)             Checksum: ECD6486BA3FF337ECECC67EA9701EF61;889.
  ) 
 Here is how much of TeX's memory you used:
- 21241 strings out of 476705
- 387722 string characters out of 5801014
- 1960403 words of memory out of 5000000
- 42989 multiletter control sequences out of 15000+600000
+ 21242 strings out of 476705
+ 387774 string characters out of 5801014
+ 1958403 words of memory out of 5000000
+ 42990 multiletter control sequences out of 15000+600000
  581911 words of font info for 79 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,11n,79p,475b,567s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,11n,79p,475b,543s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on PaperCEUS_rev1.pdf (16 pages).
+Output written on PaperCEUS_rev1.pdf (15 pages).
