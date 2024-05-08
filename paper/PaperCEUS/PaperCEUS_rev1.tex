@@ -199,6 +199,20 @@ time that the method has been integrated with public transport data
 using multi-modal routing to estimate the potential and benefits of
 multi-stage cycling and PT trips.
 
+It has become progressively more common to establish strategic plans, at
+national, regional or municipal level, to mitigate climate change. Among
+these, the Sustainable Urban Mobility Plans (SUMP\footnote{See
+  \href{https://www.eltis.org/mobility-plans/sump-concept}{eltis.org/mobility-plans/sump-concept}}),
+promoted by the European Commission, are becoming popular in Europe,
+although authorities are designing documents of this sort all over the
+world. The definition of targets associated with a timeframe for
+reducing dependence on the individual motorized vehicle, or targets for
+the use of active modes such as walking and cycling, are too often not
+accompanied by estimates of their social, environmental and economic
+impacts. It is important for authorities and practitioners to know how
+to estimate those impacts, which tools are available to support them in
+the process, and what results to expect.
+
 This paper estimates the potential for combining cycling and PT to
 substitute car trips in the LMA. After presenting the methods used, we
 assess its socio-environmental impacts using open data and open-source
@@ -213,18 +227,18 @@ comprising 18 municipalities, with a total area of 3,015 km² and a
 population of 2.8 million residents The LMA is the most populous and
 economically active region in Portugal, with the city of Lisbon as the
 central node of the LMA, with a high concentration of jobs and services,
-and a high demand for mobility (see Figure \ref{fig:lma}). As shown, the
-number of trips is proportional to the population of each municipality,
-with the highest number of trips originating in Lisbon, followed by the
-municipalities of Sintra, Cascais, Loures, and Almada.
+and a high demand for mobility (see Figure \ref{fig:lma}).
 
+As shown, the number of trips is proportional to the population of each
+municipality, with the highest number of trips originating in Lisbon,
+followed by the municipalities of Sintra, Cascais, Loures, and Almada.
 The Public Transport network is well developed, although very much
 Lisbon-centric, with a high level of service, including inter-municipal
 trains, buses, trams, and ferries (see Figure \ref{fig:map1}), and a
 metro system that serves Lisbon and surrounding municipalities.
 
 \begin{figure}
-\subfloat[Population in the LMA\label{fig:lma-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-1} }\subfloat[Trips/day in the LMA\label{fig:lma-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-2} }\caption{\label{lma}Population and daily trips (origins) at each Municipality of the LMA according to census and the travel survey.}\label{fig:lma}
+\subfloat[Population distribution in the LMA\label{fig:lma-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-1} }\subfloat[Trips/day in the LMA\label{fig:lma-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-2} }\caption{\label{lma}Population and daily trips (origins) at each Municipality of the LMA, according to census and the travel survey.}\label{fig:lma}
 \end{figure}
 
 The LMA is a low cycling maturity area, characterised by a sparse and
@@ -355,7 +369,9 @@ limiting it to trips without PT transfers, and within a duration of up
 to 2 hours (120 minutes). Additionally, we have only included PT modes
 that can easily accommodate bicycles, such as trains, ferries, trams,
 and inter-municipal bus lines equipped with bike racks (Figure
-\ref{fig:map1}).
+\ref{fig:map1}). This map shows that some of the municipalities are not
+served by PT modes that can easily accommodate bicycles, which may limit
+the potential for intermodality in these areas.
 
 This conservative approach was adopted to capture the fact that cycling
 stages as part of a multi-modal trip are likely to be shorter than
@@ -381,9 +397,15 @@ and PT, considering both the vehicle and infrastructure perspectives.
 \caption{Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area.}\label{fig:map1}
 \end{figure}
 
-Figure \ref{fig:map2} illustrates the resulting bicycle routes to access
-the main PT interfaces in the LMA. It is noticeable the high potential
-of the train interfaces to attract car-to-PT substituting trips.
+Figure \ref{fig:map2} illustrates the routes with greatest cycling
+potential to access nodes on the public transport network. The
+interactive version of the map is publicly available in the
+\emph{biclaR} tool, allowing detailed exploration of local areas. At
+\emph{biclaR}, users and local authority practitioners have the option
+to download the results as a spatial dataset for further analysis
+concerning the prioritization of cycling interventions. It is noticeable
+the high potential of the train interfaces to attract car-to-PT
+substituting trips.
 
 \begin{figure}
 
@@ -394,8 +416,8 @@ of the train interfaces to attract car-to-PT substituting trips.
 \caption{Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool). Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level.}\label{fig:map2}
 \end{figure}
 
-\subsection{Modelling car shift to bicycle-PT - here or
-before??}\label{modelling-car-shift-to-bicycle-pt---here-or-before}
+\subsection{Modelling car shift to
+bicycle-PT}\label{modelling-car-shift-to-bicycle-pt}
 
 It is essential to note that our approach is not predictive but
 scenario-based, providing a range of potential outcomes regarding the
@@ -524,10 +546,11 @@ Table \ref{tab:summary1} presents the LMA total daily trips that can be
 made with cycling + TP combination (with the aforementioned
 restrictions), the trips in the baseline scenario and corresponding new
 daily trips to achieve the national strategy targets (4\% and 10\%), for
-different route profiles. For the cycling legs of the journey (first and
-last legs), the environmental avoided emissions and monetized
-socio-environment (SE) benefits are presented in Table
-\ref{tab:summary1b}, resulting from replacing car trips with cycling.
+different route profiles, at an aggregate level of the LMA. For the
+cycling legs of the journey (first and last legs), the environmental
+avoided emissions and monetized socio-environment (SE) benefits are
+presented in Table \ref{tab:summary1b}, resulting from replacing car
+trips with cycling.
 
 \begin{table}
 
@@ -595,12 +618,31 @@ Target & Routing & Potential & Bus & Ferry & Train & Tram\\
 \end{tabular}
 \end{table}
 
-The benefits are spatially unevenly distributed across the LMA, as shown
-in Figure \ref{fig:mapzones}.
+Another relevant aspect is that the higher potential (Figure
+\ref{fig:mapzones}.a) is in the municipalities with the highest number
+of trips (Figure \ref{fig:lma}.b), such as Lisbon, Sintra, Amadora, and
+Almada, which are also the ones with the highest number of PT interfaces
+(Figure \ref{fig:map1}). On another hand, the municipalities with little
+PT interfaces connecting to Lisbon, such as Mafra and Setubal, have a
+lower potential for car to Bike-PT substitution (Figure
+\ref{fig:mapzones}.a), even if they have a high number of trips, such as
+Setubal. This findings are aligned with their local travel patterns,
+where the majority of trips are intra-municipal (67\% for both
+municipalities), and not to the city of Lisbon, despite the high
+car-dependency (79\% in Mafra, 67\% in Setubal).
+
+The potential and the resulting benefits are spatially unevenly
+distributed across the LMA, as shown in Figure \ref{fig:mapzones}.b,
+concentrating 40\% in Lisbon, where the highest number of trips are
+made.
+
+\begin{figure}
+\subfloat[Potential new Bicycle + PT trips\label{fig:mapzones-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mapzones-1} }\subfloat[Proportion of total potential modal shift in the LMA\label{fig:mapzones-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mapzones-2} }\caption{\label{mapzones}Potential Bicycle + PT daily trips for the 10\% target and direct routing, by municipality. The percentages are shown for municipalities with values above 4\%.}\label{fig:mapzones}
+\end{figure}
 
 Table \ref{tab:summary22} presents emissions reductions and associated
 economic benefits associated with the second (PT) leg of trips. The
-shift from private car associated with thes PT segments would reduce
+shift from private car associated with the PT segments would reduce
 CO\textsubscript{2} equivalent emissions by 8,500 to 20,800 tons
 annually, valued in €1.4 million to €3.5 million yearly, for the 4\% and
 10\% targets, respectively.
@@ -680,19 +722,21 @@ individuals shift from car travel to car + PT combination.
 
 Our findings show that cycling \emph{in combination} with PT could
 replace 10\% of current LMA trips, with an additional 6\% of PT journeys
-prone to further substitution, based on conservative assumptions.
-Although this paper does not address the designing specific solutions,
-our findings indicate a potential surge in demand (+6.3\%) of public
-transport interfaces to align with the national strategies. This added
-demand is conceptually driven from individuals utilising bicycles,
-either personal or shared, which would be parked at the PT stations.
-Consequently, operators and public space managers would face the
-challenge of accommodating this increased demand for bicycle parking
-and/or docks from a bike sharing system, since this availability plays a
-crucial role in the decision-making process of individuals to use
-combined bike-train \citep{jonkeren2021bicycle}. Additionally, they may
-need to explore options to enhance bicycle carriage capacity on public
-transport services, ensuring alignment with national targets.
+prone to further substitution, based on conservative assumptions,
+highlighting the municipalities of Lisbon, Sintra, Almada, Amadora, and
+Oeiras as the ones with the highest potential for car to bike-PT
+substitution. Although this paper does not address the designing
+specific solutions, our findings indicate a potential surge in demand
+(+6.3\%) of public transport interfaces to align with the national
+strategies. This added demand is conceptually driven from individuals
+utilising bicycles, either personal or shared, which would be parked at
+the PT stations. Consequently, operators and public space managers would
+face the challenge of accommodating this increased demand for bicycle
+parking and/or docks from a bike sharing system, since this availability
+plays a crucial role in the decision-making process of individuals to
+use combined bike-train \citep{jonkeren2021bicycle}. Additionally, they
+may need to explore options to enhance bicycle carriage capacity on
+public transport services, ensuring alignment with national targets.
 
 \section{Generalizability and
 limitations}\label{generalizability-and-limitations}
@@ -759,38 +803,48 @@ explainability of the results to be used by policy makers.
 
 \section{Conclusion}\label{conclusion}
 
-This paper estimated the potential for combining cycling and PT to
+This paper estimates the potential for combining cycling and PT to
 substitute car trips in the LMA, while achieving the national cycling
-targets and supporting decarbonization goals. It has become
-progressively more common to establish strategic plans, at national,
-regional or municipal level, to mitigate climate change. Among these,
-the Sustainable Urban Mobility Plans (SUMP\footnote{See
-  \href{https://www.eltis.org/mobility-plans/sump-concept}{eltis.org/mobility-plans/sump-concept}}),
-promoted by the European Commission, are becoming popular in Europe,
-although authorities are designing documents of this sort all over the
-world. The definition of targets associated with a timeframe for
-reducing dependence on the individual motorized vehicle, or targets for
-the use of active modes such as walking and cycling, are too often not
-accompanied by estimates of their social, environmental and economic
-impacts. It is important for authorities and practitioners to know how
-to estimate those impacts, which tools are available to support them in
-the process, and what results to expect.
+targets and supporting decarbonization goals. The case study of the
+Lisbon metropolitan area demonstrates that cycling-PT integration can
+help meet the national targets set for bicycle use of 4\% and 10\% by
+2025 and 2030, respectively.
 
-This paper quantifies the benefits of replacing car trips with cycling,
-in combination with public transport. The case study of the Lisbon
-metropolitan area demonstrates that cycling-PT integration can help meet
-the national targets set for bicycle use of 4\% and 10\% by 2025 and
-2030, respectively.
+This research also quantifies the socio-environmental benefits of
+achieving such targets, exploring an intermodality scenario, where car
+trips are potentially substituted by bicycle in combination with PT.
 
-The quantification of benefits can support policy-makers in prioritizing
-interventions to reduce the reliance on private motorized modes of
-transportation. The presentation of the results in an open access web
-application will help to inform and explain decisions. Furthermore, the
-provision of datasets resulting from this project provides a foundation
-for further research and development of new tools and methods. The
-methods are reproducible and based on open source software, which can be
-applied to other cities and metropolitan areas, supporting the
-decarbonization of transport systems internationally.
+The findings indicate that cycling combined with public transport has
+the potential to account for 10\% of total trips. Transitioning to
+cycling for the first and last segments could lead to a decrease in
+annual CO\textsubscript{2}eq emissions by a substantial margin, ranging
+from 3,000 to 7,500 tons per day. Moreover, for the second trip segment,
+the shift from car to public transport contributes to avoiding up to
+20,500 tons of CO\textsubscript{2}eq emissions annually. These changes
+are estimated to yield socio-environmental benefits totaling €125
+million to €325 million over a decade. The quantification of such
+benefits can support policy-makers in prioritizing interventions to
+reduce the reliance on private motorized modes of transportation.
+
+Additionally, the results suggest that the potential for cycling-PT
+intermodality is spatially unevenly distributed across the LMA, with the
+highest potential in the municipalities with the highest number of trips
+and PT interfaces of PT modes connecting to Lisbon and where it is
+possible to carry bicycles on board, such as Lisbon, Sintra, Amadora,
+and Almada.
+
+We opted to detail all the steps of the methodology, from data
+requirements to the final results, to ensure transparency and
+generalization of the approach. We acknowledge the limitations of the
+used methods and propose avenues for future research.
+
+The presentation of the results in an open access web application will
+help to inform and explain decisions. Furthermore, the provision of
+datasets resulting from this project provides a foundation for further
+research and development of new tools and methods. The methods are
+reproducible and based on open source software, which can be applied to
+other cities and metropolitan areas, supporting the decarbonization of
+transport systems internationally.
 
 \section*{Acknowledgements}\label{acknowledgements}
 \addcontentsline{toc}{section}{Acknowledgements}
