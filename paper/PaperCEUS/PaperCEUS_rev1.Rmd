@@ -611,7 +611,7 @@ CAR_PT_TRANSF_mun_or_geo_18_extrap = CAR_PT_TRANSF_mun_or_geo_18 |>
 
 
 # plot 1
-ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
+ggplot(data = CAR_PT_TRANSF_mun_or_geo_18_extrap) +
   geom_sf(aes(fill = Bike_new10)) +
   viridis::scale_fill_viridis(option = "G", direction = -1, name = "Bike + PT trips", na.value = "white") +
   theme_void()
@@ -635,8 +635,9 @@ ggplot(data = CAR_PT_TRANSF_mun_or_geo_18) +
 
 
 
+The benefits are spatially unevenly distributed across the LMA, as shown in Figure \ref{fig:mapzones}.  
 
-
+<!-- The potential of the intermodality scenario is not only in the number of trips that can be made, but also in the potential to reduce emissions and improve the quality of life in the LMA. -->
 Table \ref{tab:summary22} presents emissions reductions and associated economic benefits associated with the second (PT) leg of trips.
 The shift from private car associated with thes PT segments would reduce CO~2~ equivalent emissions by 8,500 to 20,800 tons annually, valued in €1.4 million to €3.5 million yearly, for the 4% and 10% targets, respectively.
 
@@ -714,7 +715,7 @@ This added demand is conceptually driven from individuals utilising bicycles, ei
 Consequently, operators and public space managers would face the challenge of accommodating this increased demand for bicycle parking and/or docks from a bike sharing system, since this availability plays a crucial role in the decision-making process of individuals to use combined bike-train [@jonkeren2021bicycle].
 Additionally, they may need to explore options to enhance bicycle carriage capacity on public transport services, ensuring alignment with national targets.
 
-## Generalizability and limitations
+# Generalizability and limitations
 
 This paper focus primarily on the potential for replacing trips currently made by car with combined cycling and public transport trips, and the associated social and environmental benefits.
 While the results are specific to the Lisbon Metropolitan Area, the approach is designed to be generalizable to other metropolitan areas.
@@ -734,7 +735,7 @@ The approach cannot show exactly which trips are being replaced, in terms of the
 We assumed uniformity in the type of vehicle for all replaced car journeys, albeit with variations in the fuels utilized.
 Additionally, we assumed consistency in the health impacts across all individuals for the replaced car trips.
 This approach is a simplification of reality to enable the analysis of a large region on available computing resources.
-Future work could seek to increase the resolution of the results, and move towards a more individual-level analysis, for example by using agent and activity-based models using tools such as MATSim.
+Future work could seek to increase the resolution of the results, and move towards a more individual-level analysis, for example by using agent and activity-based models using tools such as MATSim [@MATSim].
 This direction of travel would require substantial resources outside the scope of this study; another way to improve the spatial resolution of results would be to use higher resolution 'subpoints' as the basis of the desire line 'jittering' process.
 We would also like to explore the potential for probabilistic routing to improve the spatial resolution of the results.
 
