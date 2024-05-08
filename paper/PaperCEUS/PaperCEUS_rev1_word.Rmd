@@ -35,7 +35,7 @@ date: "`r Sys.Date()`"
 classoption: review, doubleblind, 3p, authoryear #change later to preprint instead of review
 bibliography: bibliography.bib
 biblio-style: elsarticle-harv
-linenumbers: true
+# linenumbers: true
 numbersections: true
 # Use a CSL with `citation_package = "default"`
 csl: https://www.zotero.org/styles/computers-environment-and-urban-systems
