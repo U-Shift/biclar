@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{34}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -35,6 +35,11 @@
 \newblock \bibinfo{title}{Relatório de Sustentabilidade 2019}.
 \newblock \bibinfo{type}{Technical Report}. {CP - Comboios de Portugal, E.P.E.}
 \newblock \URLprefix \url{https://www.cp.pt/StaticFiles/Institucional/2_gestao_sustentavel/1_RelatoriosSustentabilidade/relatorio-de-sustentabilidade-2019.pdf}.
+%Type = Inproceedings
+\bibitem[{D’Apuzzo et~al.(2023)D’Apuzzo, Cappelli, Nardoianni, Nicolosi and Evangelisti}]{DDfunction2023}
+\bibinfo{author}{D’Apuzzo, M.}, \bibinfo{author}{Cappelli, G.}, \bibinfo{author}{Nardoianni, S.}, \bibinfo{author}{Nicolosi, V.}, \bibinfo{author}{Evangelisti, A.}, \bibinfo{year}{2023}.
+\newblock \bibinfo{title}{A preliminary effort to develop a framework of distance decay functions for new urban active mobility}, in: \bibinfo{booktitle}{International Conference on Computational Science and Its Applications}, \bibinfo{organization}{Springer}. pp. \bibinfo{pages}{194--208}.
+\newblock \DOIprefix\doi{10.1007/978-3-031-37123-3_16}.
 %Type = Misc
 \bibitem[{Félix et~al.(2022)Félix, Lovelace and Moura}]{felix2023}
 \bibinfo{author}{Félix, R.}, \bibinfo{author}{Lovelace, R.}, \bibinfo{author}{Moura, F.}, \bibinfo{year}{2022}.
@@ -57,7 +62,13 @@
 \bibinfo{author}{Goodman, A.}, \bibinfo{author}{Rojas, I.F.}, \bibinfo{author}{Woodcock, J.}, \bibinfo{author}{Aldred, R.}, \bibinfo{author}{Berkoff, N.}, \bibinfo{author}{Morgan, M.}, \bibinfo{author}{Abbas, A.}, \bibinfo{author}{Lovelace, R.}, \bibinfo{year}{2019}.
 \newblock \bibinfo{title}{Scenarios of cycling to school in england, and associated health and carbon impacts: Application of the {\textquoteleft}propensity to cycle tool{\textquoteright}}.
 \newblock \bibinfo{journal}{Journal of Transport \& Health} \bibinfo{volume}{12}, \bibinfo{pages}{263--278}.
-\newblock \URLprefix \url{http://www.sciencedirect.com/science/article/pii/S2214140518301257}, \DOIprefix\doi{10.1016/j.jth.2019.01.008}.
+\newblock \DOIprefix\doi{10.1016/j.jth.2019.01.008}.
+%Type = Book
+\bibitem[{Horni et~al.(2016)Horni, Nagel and Axhausen}]{MATSim}
+\bibinfo{editor}{Horni, A.}, \bibinfo{editor}{Nagel, K.}, \bibinfo{editor}{Axhausen, K.} (Eds.), \bibinfo{year}{2016}.
+\newblock \bibinfo{title}{Multi-Agent Transport Simulation MATSim}.
+\newblock \bibinfo{publisher}{Ubiquity Press}, \bibinfo{address}{London}.
+\newblock \DOIprefix\doi{10.5334/baw}.
 %Type = Techreport
 \bibitem[{INE(2018)}]{IMOB}
 \bibinfo{author}{INE}, \bibinfo{year}{2018}.
@@ -65,20 +76,48 @@
 \newblock \bibinfo{type}{Technical Report}. {Instituto National de Estatística}. \bibinfo{address}{Lisboa}.
 \newblock \URLprefix \url{https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_publicacoes&PUBLICACOESpub_boui=349495406&PUBLICACOESmodo=2&xlang=pt}.
 %Type = Techreport
+\bibitem[{INE(2022)}]{INEcensus}
+\bibinfo{author}{INE}, \bibinfo{year}{2022}.
+\newblock \bibinfo{title}{{Censos 2021- XVI Recenseamento Geral da População. VI Recenseamento Geral da Habitação}}.
+\newblock \bibinfo{type}{Technical Report}. {Instituto National de Estatística}. \bibinfo{address}{Lisboa}.
+\newblock \URLprefix \url{https://censos.ine.pt/xurl/pub/65586079}.
+%Type = Techreport
 \bibitem[{{International Transport Forum}(2017)}]{internationaltransportforum_integrating_2017}
 \bibinfo{author}{{International Transport Forum}}, \bibinfo{year}{2017}.
 \newblock \bibinfo{title}{Integrating {{Urban Public Transport Systems}} and {{Cycling}}}.
 \newblock \bibinfo{type}{Technical Report}. {Organisation for Economic Co-operation and Development}. \bibinfo{address}{{Paris}}.
 %Type = Article
+\bibitem[{Jonkeren et~al.(2021)Jonkeren, Kager, Harms and Te~Br{\"o}mmelstroet}]{jonkeren2021bicycle}
+\bibinfo{author}{Jonkeren, O.}, \bibinfo{author}{Kager, R.}, \bibinfo{author}{Harms, L.}, \bibinfo{author}{Te~Br{\"o}mmelstroet, M.}, \bibinfo{year}{2021}.
+\newblock \bibinfo{title}{The bicycle-train travellers in the netherlands: personal profiles and travel choices}.
+\newblock \bibinfo{journal}{Transportation} \bibinfo{volume}{48}, \bibinfo{pages}{455--476}.
+\newblock \DOIprefix\doi{10.1007/s11116-019-10061-3}.
+%Type = Article
 \bibitem[{Kahlmeier et~al.(2017)Kahlmeier, G{\"o}tschi, Cavill, Castro~Fernandez, Brand, Rojas~Rueda, Woodcock, Kelly, Lieb, Oja et~al.}]{HEAT}
 \bibinfo{author}{Kahlmeier, S.}, \bibinfo{author}{G{\"o}tschi, T.}, \bibinfo{author}{Cavill, N.}, \bibinfo{author}{Castro~Fernandez, A.}, \bibinfo{author}{Brand, C.}, \bibinfo{author}{Rojas~Rueda, D.}, \bibinfo{author}{Woodcock, J.}, \bibinfo{author}{Kelly, P.}, \bibinfo{author}{Lieb, C.}, \bibinfo{author}{Oja, P.}, et~al., \bibinfo{year}{2017}.
 \newblock \bibinfo{title}{Health economic assessment tool ({HEAT}) for walking and for cycling: Methods and user guide on physical activity, air pollution, injuries and carbon impact assessments} \URLprefix \url{https://www.euro.who.int/__data/assets/pdf_file/0010/352963/Heat.pdf}.
+%Type = Article
+\bibitem[{Krizek et~al.(2007)Krizek, El-Geneidy and Thompson}]{krizek2007detailed}
+\bibinfo{author}{Krizek, K.J.}, \bibinfo{author}{El-Geneidy, A.}, \bibinfo{author}{Thompson, K.}, \bibinfo{year}{2007}.
+\newblock \bibinfo{title}{A detailed analysis of how an urban trail system affects cyclists’ travel}.
+\newblock \bibinfo{journal}{Transportation} \bibinfo{volume}{34}, \bibinfo{pages}{611--624}.
+\newblock \DOIprefix\doi{10.1007/s11116-007-9130-z}.
 %Type = Article
 \bibitem[{La~Paix et~al.(2021)La~Paix, Cherchi and Geurs}]{lapaix_role_2021}
 \bibinfo{author}{La~Paix, L.}, \bibinfo{author}{Cherchi, E.}, \bibinfo{author}{Geurs, K.}, \bibinfo{year}{2021}.
 \newblock \bibinfo{title}{Role of perception of bicycle infrastructure on the choice of the bicycle as a train feeder mode}.
 \newblock \bibinfo{journal}{International Journal of Sustainable Transportation} \bibinfo{volume}{15}, \bibinfo{pages}{486--499}.
 \newblock \DOIprefix\doi{10.1080/15568318.2020.1765223}.
+%Type = Article
+\bibitem[{Larsen et~al.(2010)Larsen, El-Geneidy and Yasmin}]{larsen2010beyond}
+\bibinfo{author}{Larsen, J.}, \bibinfo{author}{El-Geneidy, A.}, \bibinfo{author}{Yasmin, F.}, \bibinfo{year}{2010}.
+\newblock \bibinfo{title}{Beyond the quarter mile: Re-examining travel distances by active transportation}.
+\newblock \bibinfo{journal}{Canadian Journal of Urban Research: Canadian Planning and Policy} \bibinfo{volume}{19}, \bibinfo{pages}{70--88}.
+%Type = Misc
+\bibitem[{Leferink(2017)}]{Leferink2017}
+\bibinfo{author}{Leferink, T.}, \bibinfo{year}{2017}.
+\newblock \bibinfo{title}{Why cycle to the railway station?: A station scanner based on factors that influence bicycle-rail use. with a study on stakeholders in scotland}.
+\newblock \URLprefix \url{https://resolver.tudelft.nl/uuid:7653ce93-3a2a-4a1f-b804-0b1c4c206eb1}.
 %Type = Misc
 \bibitem[{{Lisboa E-Nova}(2023)}]{LisboaENova}
 \bibinfo{author}{{Lisboa E-Nova}}, \bibinfo{year}{2023}.
@@ -100,7 +139,7 @@
 \bibinfo{author}{Lovelace, R.}, \bibinfo{author}{Goodman, A.}, \bibinfo{author}{Aldred, R.}, \bibinfo{author}{Berkoff, N.}, \bibinfo{author}{Abbas, A.}, \bibinfo{author}{Woodcock, J.}, \bibinfo{year}{2017}.
 \newblock \bibinfo{title}{The propensity to cycle tool: An open source online system for sustainable transport planning}.
 \newblock \bibinfo{journal}{Journal of Transport and Land Use} \bibinfo{volume}{10}.
-\newblock \URLprefix \url{https://doi.org/10.5198/jtlu.2016.862}, \DOIprefix\doi{10.5198/jtlu.2016.862}.
+\newblock \DOIprefix\doi{10.5198/jtlu.2016.862}.
 %Type = Article
 \bibitem[{Martens(2007)}]{MARTENS2007326}
 \bibinfo{author}{Martens, K.}, \bibinfo{year}{2007}.

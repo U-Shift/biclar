@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.3)  3 MAY 2024 18:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.3)  8 MAY 2024 18:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -357,13 +357,13 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 \Hy@SectionHShift=\skip57
 )
-Package hyperref Info: Option `breaklinks' set `true' on input line 55.
+Package hyperref Info: Option `breaklinks' set `true' on input line 59.
 
 
 Package hyperref Warning: Option `bookmarks' has already been used,
-(hyperref)                setting the option has no effect on input line 55.
+(hyperref)                setting the option has no effect on input line 59.
 
-Package hyperref Info: Option `colorlinks' set `true' on input line 55.
+Package hyperref Info: Option `colorlinks' set `true' on input line 59.
 (/home/rosa/.TinyTeX/texmf-dist/tex/latex/subfig/subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
@@ -568,14 +568,14 @@ Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
 \DIFdelgraphicsbox=\box80
 \DIFdelgraphicswidth=\skip75
 \DIFdelgraphicsheight=\skip76
-LaTeX Info: Redefining \DIFaddbegin on input line 143.
-LaTeX Info: Redefining \DIFaddend on input line 144.
-LaTeX Info: Redefining \DIFdelbegin on input line 145.
-LaTeX Info: Redefining \DIFdelend on input line 146.
-LaTeX Info: Redefining \DIFaddbeginFL on input line 151.
-LaTeX Info: Redefining \DIFaddendFL on input line 152.
-LaTeX Info: Redefining \DIFdelbeginFL on input line 153.
-LaTeX Info: Redefining \DIFdelendFL on input line 154.
+LaTeX Info: Redefining \DIFaddbegin on input line 147.
+LaTeX Info: Redefining \DIFaddend on input line 148.
+LaTeX Info: Redefining \DIFdelbegin on input line 149.
+LaTeX Info: Redefining \DIFdelend on input line 150.
+LaTeX Info: Redefining \DIFaddbeginFL on input line 155.
+LaTeX Info: Redefining \DIFaddendFL on input line 156.
+LaTeX Info: Redefining \DIFdelbeginFL on input line 157.
+LaTeX Info: Redefining \DIFdelendFL on input line 158.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/listings/listings.sty
 \lst@mode=\count337
 \lst@gtempboxa=\box81
@@ -600,30 +600,30 @@ File: lstmisc.sty 2024/03/11 1.10a (Carsten Heinz)
 File: listings.cfg 2024/03/11 1.10a listings configuration
 ))
 Package: listings 2024/03/11 1.10a (Carsten Heinz)
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 173.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 177.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (./PaperCEUS_diff1.aux)
 \openout1 = `PaperCEUS_diff1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 177.
+LaTeX Font Info:    ... okay on input line 177.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -666,7 +666,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 173.
+Package hyperref Info: Link coloring ON on input line 177.
 (./PaperCEUS_diff1.out) (./PaperCEUS_diff1.out)
 \@outlinefile=\write4
 \openout4 = `PaperCEUS_diff1.out'.
@@ -683,45 +683,45 @@ Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count345
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 213.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 221.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 213.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 221.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 213.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 221.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 213.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 221.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 213.
+(Font)              <10> on input line 221.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 213.
+(Font)              <7> on input line 221.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 213.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 213.
+(Font)              <5> on input line 221.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 221.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 213.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 221.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 216.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 224.
  (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 199--219
+Underfull \hbox (badness 10000) in paragraph at lines 205--228
 
  []
 
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 226.
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 235.
 (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -731,90 +731,180 @@ Overfull \hbox (2.22221pt too wide) has occurred while \output is active
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 264.
+(hyperref)                removing `\<def>-command' on input line 286.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\cnotenum' on input line 264.
+(hyperref)                removing `\cnotenum' on input line 286.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 264.
+(hyperref)                removing `\<def>-command' on input line 286.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@corref' on input line 264.
+(hyperref)                removing `\@corref' on input line 286.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 264.
+(hyperref)                removing `\<def>-command' on input line 286.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\cnotenum' on input line 264.
+(hyperref)                removing `\cnotenum' on input line 286.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 264.
+(hyperref)                removing `\<def>-command' on input line 286.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@corref' on input line 264.
+(hyperref)                removing `\@corref' on input line 286.
 
 [1
 
 {/home/rosa/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-<PaperCEUS_rev1_files/figure-latex/mododist-1.pdf, id=74, 469.755pt x 325.215pt>
-File: PaperCEUS_rev1_files/figure-latex/mododist-1.pdf Graphic file (type pdf)
-<use PaperCEUS_rev1_files/figure-latex/mododist-1.pdf>
-Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/mododist-1.pdf  used on input line 267.
+Overfull \hbox (30.69566pt too wide) in paragraph at lines 299--311
+|   []   |   []   [][]\T1/lmr/m/n/10 % by 2030 []
+ []
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 315.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 315.
+[2]
+<PaperCEUS_rev1_files/figure-latex/lma-1.pdf, id=135, 469.755pt x 325.215pt>
+File: PaperCEUS_rev1_files/figure-latex/lma-1.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/lma-1.pdf>
+Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/lma-1.pdf  used on input line 388.
 (pdftex.def)             Requested size: 234.0pt x 161.99672pt.
-<PaperCEUS_rev1_files/figure-latex/mododist-2.pdf, id=75, 469.755pt x 325.215pt>
-File: PaperCEUS_rev1_files/figure-latex/mododist-2.pdf Graphic file (type pdf)
-<use PaperCEUS_rev1_files/figure-latex/mododist-2.pdf>
-Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/mododist-2.pdf  used on input line 267.
+<PaperCEUS_rev1_files/figure-latex/lma-2.pdf, id=136, 469.755pt x 325.215pt>
+File: PaperCEUS_rev1_files/figure-latex/lma-2.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/lma-2.pdf>
+Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/lma-2.pdf  used on input line 388.
 (pdftex.def)             Requested size: 234.0pt x 161.99672pt.
 
-Overfull \hbox (20.26663pt too wide) in paragraph at lines 267--267
+Overfull \hbox (20.26663pt too wide) in paragraph at lines 388--388
 [][][][] 
  []
 
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 286.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 286.
-[2 <./PaperCEUS_rev1_files/figure-latex/mododist-1.pdf> <./PaperCEUS_rev1_files/figure-latex/mododist-2.pdf>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 336.
- (/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-<img/jitter_new.png, id=122, 752.8125pt x 301.125pt>
-File: img/jitter_new.png Graphic file (type png)
-<use img/jitter_new.png>
-Package pdftex.def Info: img/jitter_new.png  used on input line 347.
-(pdftex.def)             Requested size: 468.0pt x 187.20558pt.
+[3]
+<PaperCEUS_rev1_files/figure-latex/mododist-1.pdf, id=150, 469.755pt x 325.215pt>
+File: PaperCEUS_rev1_files/figure-latex/mododist-1.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/mododist-1.pdf>
+Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/mododist-1.pdf  used on input line 414.
+(pdftex.def)             Requested size: 234.0pt x 161.99672pt.
+<PaperCEUS_rev1_files/figure-latex/mododist-2.pdf, id=151, 469.755pt x 325.215pt>
+File: PaperCEUS_rev1_files/figure-latex/mododist-2.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/mododist-2.pdf>
+Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/mododist-2.pdf  used on input line 414.
+(pdftex.def)             Requested size: 234.0pt x 161.99672pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 347--349
+Overfull \hbox (20.26663pt too wide) in paragraph at lines 414--414
+[][][][] 
+ []
+
+
+Overfull \hbox (27.75014pt too wide) in paragraph at lines 426--427
+\T1/lmr/m/n/10 5 km (~75%), and a smaller pro-por-tion up to 10 km []
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 449.
+(/home/rosa/.TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [4 <./PaperCEUS_rev1_files/figure-latex/lma-1.pdf> <./PaperCEUS_rev1_files/figure-latex/lma-2.pdf>]
+<img/jitter_cairo.pdf, id=187, 722.7pt x 289.08pt>
+File: img/jitter_cairo.pdf Graphic file (type pdf)
+<use img/jitter_cairo.pdf>
+Package pdftex.def Info: img/jitter_cairo.pdf  used on input line 463.
+(pdftex.def)             Requested size: 468.0pt x 187.19841pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 463--465
  [][][] 
  []
 
-[3] [4 <./img/jitter_new.png>]
-<img/map1.png, id=159, 730.73pt x 676.5275pt>
-File: img/map1.png Graphic file (type png)
-<use img/map1.png>
-Package pdftex.def Info: img/map1.png  used on input line 424.
-(pdftex.def)             Requested size: 280.80286pt x 259.97354pt.
-<img/map2.png, id=162, 1549.79pt x 937.5025pt>
+[5 <./PaperCEUS_rev1_files/figure-latex/mododist-1.pdf> <./PaperCEUS_rev1_files/figure-latex/mododist-2.pdf>] [6 <./img/jitter_cairo.pdf>]
+<PaperCEUS_rev1_files/figure-latex/map1-1.pdf, id=233, 469.755pt x 325.215pt>
+File: PaperCEUS_rev1_files/figure-latex/map1-1.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/map1-1.pdf>
+Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/map1-1.pdf  used on input line 564.
+(pdftex.def)             Requested size: 280.80286pt x 194.40103pt.
+<img/map2.png, id=235, 1549.79pt x 937.5025pt>
 File: img/map2.png Graphic file (type png)
 <use img/map2.png>
-Package pdftex.def Info: img/map2.png  used on input line 438.
+Package pdftex.def Info: img/map2.png  used on input line 586.
 (pdftex.def)             Requested size: 374.40143pt x 226.47862pt.
- [5 <./img/map1.png>] [6 <./img/map2.png>] [7{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Overfull \hbox (4.33308pt too wide) in paragraph at lines 580--581
+ [7 <./PaperCEUS_rev1_files/figure-latex/map1-1.pdf>] [8 <./img/map2.png>] [9{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/rosa/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+Overfull \hbox (4.33308pt too wide) in paragraph at lines 754--755
  []|\T1/lmr/m/n/10 Environmental
  []
 
-[8] [9] [10] [11] (./PaperCEUS_diff1.bbl
+[10] [11]
+<PaperCEUS_rev1_files/figure-latex/mapzones-1.pdf, id=341, 469.755pt x 325.215pt>
+File: PaperCEUS_rev1_files/figure-latex/mapzones-1.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/mapzones-1.pdf>
+Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/mapzones-1.pdf  used on input line 819.
+(pdftex.def)             Requested size: 234.0pt x 161.99672pt.
+<PaperCEUS_rev1_files/figure-latex/mapzones-2.pdf, id=342, 469.755pt x 325.215pt>
+File: PaperCEUS_rev1_files/figure-latex/mapzones-2.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/mapzones-2.pdf>
+Package pdftex.def Info: PaperCEUS_rev1_files/figure-latex/mapzones-2.pdf  used on input line 819.
+(pdftex.def)             Requested size: 234.0pt x 161.99672pt.
+
+Overfull \hbox (20.26663pt too wide) in paragraph at lines 819--819
+[][][][] 
+ []
+
+[12 <./PaperCEUS_rev1_files/figure-latex/mapzones-1.pdf> <./PaperCEUS_rev1_files/figure-latex/mapzones-2.pdf>] [13]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\includegraphics' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\DIFdelincludegraphics' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\includegraphics' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\DIFOincludegraphics' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\includegraphics' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\DIFaddincludegraphics' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\includegraphics' on input line 923.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\DIFOincludegraphics' on input line 923.
+
+[14] [15] (./PaperCEUS_diff1.bbl
 Underfull \hbox (badness 1354) in paragraph at lines 34--39
 []\T1/lmr/m/n/8 CP, 2020.  Re-latório de Sus-tentabil-i-dade 2019.  Tech-ni-cal Re-port. CP - Com-boios de Por-tu-gal, E.P.E.  URL:
  []
@@ -824,27 +914,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--39
 [][]$\T1/lmtt/m/n/8 https : / / www . cp . pt / StaticFiles / Institucional / 2 _ gestao _ sustentavel / 1 _ RelatoriosSustentabilidade / relatorio -[]
  []
 
-[12]) [13] (./PaperCEUS_diff1.aux)
+[16] [17]) [18] (./PaperCEUS_diff1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
  ***********
 Package rerunfilecheck Info: File `PaperCEUS_diff1.out' has not changed.
-(rerunfilecheck)             Checksum: 22BA17DD6CC64301F8D9AEEC0821A65C;1458.
+(rerunfilecheck)             Checksum: 7CA9A83DC0B757B8ABD26043C4F659A6;2014.
  ) 
 Here is how much of TeX's memory you used:
- 16800 strings out of 476010
- 264789 string characters out of 5791389
- 1952751 words of memory out of 5000000
- 38587 multiletter control sequences out of 15000+600000
+ 16900 strings out of 476010
+ 268181 string characters out of 5791389
+ 1969751 words of memory out of 5000000
+ 38665 multiletter control sequences out of 15000+600000
  612824 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,11n,79p,552b,639s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,11n,79p,636b,661s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr5.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmri8.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></home/rosa/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt8.pfb>
-Output written on PaperCEUS_diff1.pdf (13 pages, 1410712 bytes).
+Output written on PaperCEUS_diff1.pdf (18 pages, 3494691 bytes).
 PDF statistics:
- 455 PDF objects out of 1000 (max. 8388607)
- 391 compressed objects within 4 object streams
- 74 named destinations out of 1000 (max. 500000)
- 106 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 576 PDF objects out of 1000 (max. 8388607)
+ 495 compressed objects within 5 object streams
+ 96 named destinations out of 1000 (max. 500000)
+ 150 words of extra memory for PDF output out of 10000 (max. 10000000)
 

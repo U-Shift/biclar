@@ -1,7 +1,7 @@
 \documentclass[review, doubleblind, 3p,
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL paper/PaperCEUS/PaperCEUS_prerev.tex   Fri May  3 16:39:59 2024
-%DIF ADD paper/PaperCEUS/PaperCEUS_rev1.tex     Fri May  3 18:52:26 2024
+%DIF ADD paper/PaperCEUS/PaperCEUS_rev1.tex     Wed May  8 18:40:32 2024
 authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 
@@ -48,7 +48,11 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={Modeling the impacts of replacing car trips with combined public transport and cycling: Reproducible methods, results and actionable evidence from biclaR},
+%DIF 48c48
+%DIF <             pdftitle={Modeling the impacts of replacing car trips with combined public transport and cycling: Reproducible methods, results and actionable evidence from biclaR},
+%DIF -------
+            pdftitle={Reproducible methods for modeling combined public transport and cycling trips and associated benefits: evidence from the biclaR tool}, %DIF > 
+%DIF -------
             colorlinks=true,
             urlcolor=blue,
             linkcolor=blue,
@@ -175,9 +179,8 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 
 \begin{frontmatter}
 
-  \title{Modeling the impacts of replacing car trips with combined
-public transport and cycling: Reproducible methods, results and
-actionable evidence from biclaR}
+  \title{\DIFdelbegin \DIFdel{Modeling the impacts of replacing car trips with }\DIFdelend \DIFaddbegin \DIFadd{Reproducible methods for modeling }\DIFaddend combined public transport and
+cycling \DIFdelbegin \DIFdel{: Reproducible methods, results }\DIFdelend \DIFaddbegin \DIFadd{trips }\DIFaddend and \DIFdelbegin \DIFdel{actionable }\DIFdelend \DIFaddbegin \DIFadd{associated benefits: }\DIFaddend evidence from \DIFaddbegin \DIFadd{the }\DIFaddend biclaR \DIFaddbegin \DIFadd{tool}\DIFaddend }
     \author[CERIS]{Rosa Félix\corref{cor1}%
   \corref{cor1}%
   }
@@ -190,9 +193,12 @@ actionable evidence from biclaR}
   %
   }
    \ead{r.lovelace@uleeds.uk} 
-      \affiliation[CERIS]{CERIS, Instituto Superior Técnico -
-Universidade de Lisboa, Av Rovisco Pais 1, 1049-001 Lisboa, Portugal}
-    \affiliation[ITS]{Institute for Transport Studies, University of
+      \DIFdelbegin %DIFDELCMD < \affiliation[CERIS]{CERIS, Instituto Superior Técnico -
+%DIFDELCMD < Universidade de Lisboa, Av Rovisco Pais 1, 1049-001 Lisboa, Portugal}
+%DIFDELCMD <     %%%
+\DIFdelend \DIFaddbegin \affiliation[CERIS]{CERIS, Instituto Superior Técnico -
+Universidade de Lisboa. Av Rovisco Pais 1, 1049-001 Lisboa, Portugal}
+    \DIFaddend \affiliation[ITS]{Institute for Transport Studies, University of
 Leeds. 34-40 University Rd, Leeds LS2 9JT, UK}
     \cortext[cor1]{Corresponding author}
 
@@ -204,18 +210,21 @@ Leeds. 34-40 University Rd, Leeds LS2 9JT, UK}
   its socio-environmental impacts using open data and open source tools.
   A decision support tool that facilitates the design and development of
   a metropolitan cycling network was developed (\emph{biclaR}). The
-  social and environmental impacts were assessed using the \emph{HEAT
-  for Cycling} and the \emph{HEAT as a Service} tools. The impacts of
-  shifting car trips to public transport were also estimated and
-  monetized. The results show that 10\% of all trips could be made by
-  cycling in combination with public transport. Shifting to cycling for
-  the shorter first and last mile stages can reduce annual
-  CO\textsubscript{2}eq emissions from 3,000 to 7,500 tons/day, while
-  for the public transport leg, the transfer from car avoids of up to
-  20,500 tons of CO\textsubscript{2}eq emissions per year. The estimated
-  socio-environmental benefits are of €125 million to €325 million over
-  10 years. This evidence can support policymakers to prioritize
-  interventions that reduce the reliance on private motor vehicles.\\
+  social and environmental impacts were assessed using \DIFdelbegin \DIFdel{the }\emph{\DIFdel{HEAT
+  for Cycling}} %DIFAUXCMD
+\DIFdel{and the }\emph{\DIFdel{HEAT as a Service}} %DIFAUXCMD
+\DIFdelend \DIFaddbegin \DIFadd{Health World
+  Organization }\DIFaddend tools. The impacts of shifting car trips to public
+  transport were also estimated and monetized. The results show that
+  10\% of all trips could be made by cycling in combination with public
+  transport. Shifting to cycling for the shorter first and last mile
+  stages can reduce annual CO\textsubscript{2}eq emissions from 3,000 to
+  7,500 tons/day, while for the public transport leg, the transfer from
+  car avoids of up to 20,500 tons of CO\textsubscript{2}eq emissions per
+  year. The estimated socio-environmental benefits are of €125 million
+  to €325 million over 10 years. This evidence can support policymakers
+  to prioritize interventions that reduce the reliance on private motor
+  vehicles.\\
   \end{abstract}
     \begin{keyword}
     Active transport \sep Intermodality \sep First and last
@@ -231,14 +240,19 @@ mile \sep Health economic assessment \sep Environmental impacts \sep
 
 Combining public transportation (PT) and cycling for the first and last
 mile in metropolitan areas can replace a high proportion of private car
-trips \citep{MARTENS2007326}. In The Netherlands, which has the highest
-mode share of cycling in the world, cycling accounts for more than a
-third of all trips to and from rail stations at the `home' end of the
-journey, greatly increasing the ability of the transport system
-\citep{RIETVELD200071}. This approach to reducing car dependency and
-associated externalities requires interventions and programs to make
-bicycling more appealing \citep{lapaix_role_2021}. The resulting public
-investments can have significant social and environmental benefits
+trips \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\citep{MARTENS2007326}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citep{MARTENS2007326, vanmil_insights_2021}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . In The Netherlands,
+which has the highest mode share of cycling in the world, cycling
+accounts for more than a third of all trips to and from rail stations at
+the `home' end of the journey, greatly increasing the ability of the
+transport system \citep{RIETVELD200071}. This approach to reducing car
+dependency and associated externalities requires interventions and
+programs to make bicycling more appealing \citep{lapaix_role_2021}. The
+resulting public investments can have significant social and
+environmental benefits
 \citep{internationaltransportforum_integrating_2017}. Despite the
 benefits of cycling-PT intermodality, the potential of this combination
 is often overlooked in transport planning \citep{lapaix_role_2021}.
@@ -248,31 +262,46 @@ worldwide, especially in cities with established public transport
 networks or substantial ambitions to develop them. In the Lisbon
 metropolitan area (LMA) the largest metropolitan area in Portugal, the
 modal share of cycling is low, but the potential for cycling as a
-complementary mode of PT is high. According to the latest mobility
-survey conducted in 2018 \citep{IMOB}, the LMA registered a total of 5.3
-million daily trips, with only 0.5\% by bicycle. Car modal share was
+complementary mode of PT is high.
+\DIFdelbegin \DIFdel{According to the latest mobility
+survey conducted in 2018 \mbox{%DIFAUXCMD
+\citep{IMOB}}\hspace{0pt}%DIFAUXCMD
+,
+the LMA registered a total of 5.3
+million daily trips , with only 0.5\% by bicycle
+. Car modal share was
 58.4\%, while PT accounted for 15.5\% (see Figure \ref{fig:mododist}).
 The number of intra-municipal trips --- with origin and destination in
 the same municipality --- amounts to 3.5 million trips. This exceeds the
 number of inter-municipal trips (1.8 million trips), involving travel
 between different municipalities. Cars and public transport are the most
-used modes for intercity trips, with cars being the predominant choice
-for all journeys.\\
-53\% trips are up to 5 km distance, and 71\% up to 10 km. Nevertheless,
+used modes for intercity trips , with cars being the predominant choice
+for
+all journeys.}%DIFDELCMD < \\
+%DIFDELCMD < %%%
+\DIFdel{53\% tripsare up to 5 km distance, and 71\% up to 10 km. Nevertheless,
 29\% of trips are longer than 10 km, which requires the use of motorized
 modes, or active modes in combination with public transport.
+}\DIFdelend 
 
-\begin{figure}
-\DIFdelbeginFL %DIFDELCMD < \subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_prerev_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_prerev_files/figure-latex/mododist-2} }%%%
-\DIFdelendFL \DIFaddbeginFL \subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-2} }\DIFaddendFL \caption{\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}\label{fig:mododist}
-\end{figure}
+\DIFdelbegin %DIFDELCMD < \begin{figure}
+%DIFDELCMD < \subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_prerev_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_prerev_files/figure-latex/mododist-2} }%%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+%DIFDELCMD < \label{mododist}%%%
+\DIFdelFL{Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}}%DIFAUXCMD
+%DIFDELCMD < \label{fig:mododist}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < 
 
-\DIFdelbegin \DIFdel{To achieve the cycling targets set by the Portuguese }\DIFdelend \DIFaddbegin \DIFadd{The Portuguese Government has established a }\DIFaddend national cycling strategy\DIFdelbegin \DIFdel{for 2025 and 2030 (}\DIFdelend \DIFaddbegin \DIFadd{,
+%DIFDELCMD < %%%
+\DIFdel{To achieve the cycling targets set by the Portuguese national cycling
+strategyfor }\DIFdelend \DIFaddbegin \DIFadd{The Portuguese Government has established a national cycling strategy,
 which outlines targets for the percentage of trips to be made by bicycle
-in urban areas. Specifically, these targets aim for }\DIFaddend 4\% \DIFaddbegin \DIFadd{of all trips in
-2025 }\DIFaddend and 10\% \DIFdelbegin \DIFdel{, respectively) \mbox{%DIFAUXCMD
+in urban areas. Specifically, these targets aim for 4\% of all trips in
+}\DIFaddend 2025 and \DIFdelbegin \DIFdel{2030 (4\% and }\DIFdelend 10\DIFdelbegin \DIFdel{\%, respectively) \mbox{%DIFAUXCMD
 \citep{ENMAC}}\hspace{0pt}%DIFAUXCMD
-}\DIFdelend \DIFaddbegin \DIFadd{by 2030 \mbox{%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\% by 2030 \mbox{%DIFAUXCMD
 \citep{ENMAC}}\hspace{0pt}%DIFAUXCMD
 . Moreover, the strategy emphasizes
 that this increase should be achieved by substituting car trips for
@@ -305,14 +334,98 @@ time that the method has been integrated with public transport data
 using multi-modal routing to estimate the potential and benefits of
 multi-stage cycling and PT trips.
 
-This paper estimates the potential for combining cycling and PT to
-substitute car trips in the LMA, while achieving the national cycling
-targets. After presenting the methods used, it assesses its
-socio-environmental impacts using open data and open-source tools.
+\DIFaddbegin \DIFadd{It has become progressively more common to establish strategic plans, at
+national, regional or municipal level, to mitigate climate change. Among
+these, the Sustainable Urban Mobility Plans (SUMP}\footnote{\DIFadd{See
+  }\href{https://www.eltis.org/mobility-plans/sump-concept}{\DIFadd{eltis.org/mobility-plans/sump-concept}}}\DIFadd{),
+promoted by the European Commission, are becoming popular in Europe,
+although authorities are designing documents of this sort all over the
+world. The definition of targets associated with a timeframe for
+reducing dependence on the individual motorized vehicle, or targets for
+the use of active modes such as walking and cycling, are too often not
+accompanied by estimates of their social, environmental and economic
+impacts. It is important for authorities and practitioners to know how
+to estimate those impacts, which tools are available to support them in
+the process, and what results to expect.
+}
+
+\DIFaddend This paper estimates the potential for combining cycling and PT to
+substitute car trips in the LMA\DIFdelbegin \DIFdel{, while achieving the national cycling
+targets}\DIFdelend . After presenting the
+\DIFdelbegin \DIFdel{methods used , it assesses }\DIFdelend \DIFaddbegin \hyperref[methods]{Methods} \DIFadd{used in Chapter 2, we assess }\DIFaddend its
+socio-environmental impacts using open data and open-source tools\DIFaddbegin \DIFadd{,
+presenting the }\hyperref[results-and-discussion]{Results and Discussion}
+\DIFadd{in Chapter 3, followed by Chapter 4 where we discuss the
+}\hyperref[generalizability-and-limitations]{Generalizability and
+Limitations} \DIFadd{of the methods. We }\hyperref[Conclusions]{Conclude} \DIFadd{the
+paper in Chapter 5 with the main findings and policy implications}\DIFaddend .
 
 \section{Methods}\label{methods}
 
-\subsection{Modeling Origin-Destination
+\DIFaddbegin \subsection{\DIFadd{Case Study}}\label{case-study}
+
+\DIFadd{The Lisbon metropolitan area (LMA), in Portugal, is the case study,
+comprising 18 municipalities, with a total area of 3,015 km² and a
+population of 2.8 million residents, according to the 2021 census
+\mbox{%DIFAUXCMD
+\citep{INEcensus}}\hspace{0pt}%DIFAUXCMD
+. The LMA is the most populous and economically active
+region in Portugal, with the city of Lisbon as the central node of the
+LMA, with a high concentration of jobs and services, and a high demand
+for mobility (see Figure \ref{fig:lma}).
+}
+
+\DIFadd{As shown, the number of trips is proportional to the population of each
+municipality, with the highest number of trips originating in Lisbon,
+followed by the municipalities of Sintra, Cascais, Loures, and Almada.
+The Public Transport network is well developed, although very much
+Lisbon-centric, with a high level of service, including inter-municipal
+trains, buses, trams, and ferries (see Figure \ref{fig:map1}), and a
+metro system that serves Lisbon and surrounding municipalities.
+}
+
+\begin{figure}
+\subfloat[Population distribution in the LMA\label{fig:lma-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-1} }\subfloat[Trips/day in the LMA\label{fig:lma-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-2} }\caption{\label{lma}\DIFaddFL{Population and daily trips (origins) at each Municipality of the LMA, according to the 2021 census and the 2017 travel survey.}}\label{fig:lma}
+\end{figure}
+
+\DIFadd{The LMA is a low cycling maturity area, characterised by a sparse and
+fragmented cycling network totalling 378 km, primarily concentrated
+within Lisbon, and a low cycling modal share. According to the latest
+mobility survey conducted in 2018 \mbox{%DIFAUXCMD
+\citep{IMOB}}\hspace{0pt}%DIFAUXCMD
+, the LMA registered a
+total of 5.3 million daily trips, with only 0.5\% by bicycle.
+}
+
+\DIFadd{The survey also showed that 58.4\% of trips were made by car, 15.5\% by
+public transport, and 23.9\% by walking (see Figure \ref{fig:mododist}).
+The number of intra-municipal trips --- with origin and destination in
+the same municipality --- amounts to 3.5 million trips. This exceeds the
+number of inter-municipal trips (1.8 million trips), involving travel
+between different municipalities. Cars and public transport are the most
+used modes for intercity trips, with cars being the predominant choice
+for all journeys. 53\% trips are up to 5 km distance, and 71\% up to 10
+km. Nevertheless, 29\% of trips are longer than 10 km, which requires
+the use of motorized modes, or active modes in combination with public
+transport.
+}
+
+\begin{figure}
+\subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-2} }\caption{\label{mododist}\DIFaddFL{Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}}\label{fig:mododist}
+\end{figure}
+
+\DIFadd{Regarding cycling trips in the LMA, 55\% are up to 5 km, and 88\% are up
+to 10 km. These values are not in line with the typically found in
+cycling distance decay curves, which show a high percentage of trips are
+up to 5 km (\textasciitilde75\%), and a smaller proportion up to 10 km
+\mbox{%DIFAUXCMD
+\citep{krizek2007detailed, larsen2010beyond, DDfunction2023}}\hspace{0pt}%DIFAUXCMD
+. This may
+be due to the low cycling modal share in the LMA - even more limited in
+the sample survey, which may be biased towards shorter trips.
+}
+
+\DIFaddend \subsection{Modeling Origin-Destination
 trips}\label{modeling-origin-destination-trips}
 
 The mobility survey data \citep{IMOB} is the basis of the baseline
@@ -339,12 +452,15 @@ contrast between trip representation through the traditional method,
 which connects a single desire line between each district, and the
 presentation achieved through the randomization and disaggregation of
 trips between districts, specifically for the Lisbon metropolitan area.
+\DIFaddbegin \DIFadd{As shown, the city of Lisbon (in the centre) is the main attractor of
+trips, with a high number of trips to and from the other municipalities.
+}\DIFaddend 
 
 \begin{figure}
 
 {\centering \DIFdelbeginFL %DIFDELCMD < \includegraphics[width=1\linewidth,]{img/jitter} 
 %DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \includegraphics[width=1\linewidth,]{img/jitter_new} 
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=1\linewidth,]{img/jitter_cairo} 
 \DIFaddendFL 
 
 }
@@ -406,32 +522,64 @@ The intermodality scenario considers trips made by PT in which cycling
 is used for the first and last legs. We restricted our analysis to the
 first and last legs with a combined length of up to 5 km (for example: 1
 km from origin to interface \emph{A} plus 4 km from interface \emph{B}
-to destination) or up to 25 minutes on bike travel-time. This
+to destination)\DIFdelbegin \DIFdel{or up to 25 minutes on bike travel-time. This
 conservative approach was adopted to capture the fact that cycling
 stages as part of a multi-modal trip are likely to be shorter than
-cycling-only trips \citep{vanmil_insights_2021}. Furthermore, we have
-imposed restrictions on PT usage, limiting it to trips without PT
-transfers, and within a duration of up to 2 hours (120 minutes).
-Additionally, we have only included PT modes that can easily accommodate
-bicycles, such as trains, ferries, trams, and inter-municipal bus lines
-equipped with bike racks (Figure \ref{fig:map1}). These restrictions can
-be eased in the future when testing more developed policy interventions
-to enhance intermodality between cycling and PT, considering both the
-vehicle and infrastructure perspectives.
+cycling-only trips \mbox{%DIFAUXCMD
+\citep{vanmil_insights_2021}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend . Furthermore, we have imposed restrictions on PT usage,
+limiting it to trips without PT transfers, and within a duration of up
+to 2 hours (120 minutes). Additionally, we have only included PT modes
+that can easily accommodate bicycles, such as trains, ferries, trams,
+and inter-municipal bus lines equipped with bike racks (Figure
+\ref{fig:map1}). \DIFaddbegin \DIFadd{This map shows that some of the municipalities are not
+served by PT modes that can easily accommodate bicycles, which may limit
+the potential for intermodality in these areas.
+}
+
+\DIFadd{This conservative approach was adopted to capture the fact that cycling
+stages as part of a multi-modal trip are likely to be shorter than
+cycling-only trips \mbox{%DIFAUXCMD
+\citep{vanmil_insights_2021}}\hspace{0pt}%DIFAUXCMD
+. Additionally,
+\mbox{%DIFAUXCMD
+\citet{Leferink2017} }\hspace{0pt}%DIFAUXCMD
+found that the bicycle is most attractive option as
+a first and last mile mode when the distance ranges from 3 to 5 km, as
+observed across various comparative studies. This restrictions are based
+on the assumption that 5 km is a plausible maximum distance that people
+are willing to travel by bike as part of a longer journey. This applies
+especially for cycling beginners shifting from cars, who are less likely
+to be confident and experienced cyclists than the existing cyclists.
+}
+
+\DIFaddend These restrictions can be eased in the future when testing more
+developed policy interventions to enhance intermodality between cycling
+and PT, considering both the vehicle and infrastructure perspectives.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.6\linewidth,]{img/map1} 
+{\centering \DIFdelbeginFL %DIFDELCMD < \includegraphics[width=0.6\linewidth,]{img/map1} 
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=0.6\linewidth,]{PaperCEUS_rev1_files/figure-latex/map1-1} 
+\DIFaddendFL 
 
 }
 
 \caption{Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area.}\label{fig:map1}
 \end{figure}
 
-Figure \ref{fig:map2} illustrates the resulting bicycle routes to access
-the main PT interfaces in the LMA. \DIFaddbegin \DIFadd{It is noticeable the high potential
-of the train interfaces to attract car-to-PT substituting trips.
-}\DIFaddend 
+Figure \ref{fig:map2} illustrates the \DIFdelbegin \DIFdel{resulting bicycle routes to access
+the main PT interfaces in the
+LMA}\DIFdelend \DIFaddbegin \DIFadd{routes with greatest cycling
+potential to access nodes on the public transport network. The
+interactive version of the map is publicly available in the
+}\emph{\DIFadd{biclaR}} \DIFadd{tool, allowing detailed exploration of local areas. At
+}\emph{\DIFadd{biclaR}}\DIFadd{, users and local authority practitioners have the option
+to download the results as a spatial dataset for further analysis
+concerning the prioritization of cycling interventions. It is noticeable
+the high potential of the train interfaces to attract car-to-PT
+substituting trips}\DIFaddend .
 
 \begin{figure}
 
@@ -442,7 +590,32 @@ of the train interfaces to attract car-to-PT substituting trips.
 \caption{Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool). \DIFaddbeginFL \DIFaddFL{Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level.}\DIFaddendFL }\label{fig:map2}
 \end{figure}
 
-\subsection{Assessing socio-environmental
+\DIFaddbegin \subsection{\DIFadd{Modelling car shift to
+bicycle-PT}}\label{modelling-car-shift-to-bicycle-pt}
+
+\DIFadd{It is essential to note that our approach is not predictive but
+scenario-based, providing a range of potential outcomes regarding the
+target (\% of cycling tips) and the routing profile (safe or direct
+routes), rather than a single forecast. These scenarios are rooted in
+the explicit national cycling targets, assuming that the potential for
+cycling is proportional to the reduction of car trips. Thus said, we do
+not predict the generation of new trips, but the substitution of car
+trips by cycling in combination with PT, considering the potential of
+the first and last mile of these journeys to be made by bicycle.
+Additionally, we do not model changes in the baseline PT trips, under
+the implicit assumption that the initial and final stages of these trips
+remain unaltered.
+}
+
+\DIFadd{A strength of this }\emph{\DIFadd{backcasting}} \DIFadd{approach is that we can simulate
+the aggregate travel patterns that would meet particular policy
+objectives, and explore what the implications could be for the public
+transport system and provision of safe cycling infrastructure to public
+transport nodes at regional, local authority and, importantly from a
+local transport planning practitioner perspective, corridor level.
+}
+
+\DIFaddend \subsection{Assessing socio-environmental
 benefits}\label{assessing-socio-environmental-benefits}
 
 \DIFaddbegin \DIFadd{Following the clearly established national strategy, we estimated the
@@ -550,10 +723,11 @@ Table \ref{tab:summary1} presents the LMA total daily trips that can be
 made with cycling + TP combination (with the aforementioned
 restrictions), the trips in the baseline scenario and corresponding new
 \DIFaddbegin \DIFadd{daily }\DIFaddend trips to achieve the national strategy targets (4\% and 10\%), for
-different route profiles. For the cycling legs of the journey (first and
-last legs), the environmental avoided emissions and monetized
-socio-environment (SE) benefits are presented in Table
-\ref{tab:summary1b}, resulting from replacing car trips with cycling.
+different route profiles\DIFaddbegin \DIFadd{, at an aggregate level of the LMA}\DIFaddend . For the
+cycling legs of the journey (first and last legs), the environmental
+avoided emissions and monetized socio-environment (SE) benefits are
+presented in Table \ref{tab:summary1b}, resulting from replacing car
+trips with cycling.
 
 \begin{table}
 
@@ -621,9 +795,33 @@ Target & Routing & Potential & Bus & Ferry & Train & Tram\\
 \end{tabular}
 \end{table}
 
-Table \ref{tab:summary22} presents emissions reductions and associated
+\DIFaddbegin \DIFadd{Another relevant aspect is that the higher potential (Figure
+\ref{fig:mapzones}.a) is in the municipalities with the highest number
+of trips (Figure \ref{fig:lma}.b), such as Lisbon, Sintra, Amadora, and
+Almada, which are also the ones with the highest number of PT interfaces
+(Figure \ref{fig:map1}). On another hand, the municipalities with little
+PT interfaces connecting to Lisbon, such as Mafra and Setubal, have a
+lower potential for car to Bike-PT substitution (Figure
+\ref{fig:mapzones}.a), even if they have a high number of trips, such as
+Setubal. This findings are aligned with their local travel patterns,
+where the majority of trips are intra-municipal (67\% for both
+municipalities), and not to the city of Lisbon, despite the high
+car-dependency (79\% in Mafra, 67\% in Setubal).
+}
+
+\DIFadd{The potential and the resulting benefits are spatially unevenly
+distributed across the LMA, as shown in Figure \ref{fig:mapzones}.b,
+concentrating 40\% in Lisbon, where the highest number of trips are
+made.
+}
+
+\begin{figure}
+\subfloat[Potential new Bicycle + PT trips\label{fig:mapzones-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mapzones-1} }\subfloat[Proportion of total potential modal shift in the LMA\label{fig:mapzones-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mapzones-2} }\caption{\label{mapzones}\DIFaddFL{Potential Bicycle + PT daily trips for the 10\% target and direct routing, by municipality (origins). The percentages are shown for municipalities with values above 4\%.}}\label{fig:mapzones}
+\end{figure}
+
+\DIFaddend Table \ref{tab:summary22} presents emissions reductions and associated
 economic benefits associated with the second (PT) leg of trips. The
-shift from private car associated with thes PT segments would reduce
+shift from private car associated with \DIFdelbegin \DIFdel{thes }\DIFdelend \DIFaddbegin \DIFadd{the }\DIFaddend PT segments would reduce
 CO\textsubscript{2} equivalent emissions by 8,500 to 20,800 tons
 annually, valued in €1.4 million to €3.5 million yearly, for the 4\% and
 10\% targets, respectively.
@@ -703,69 +901,163 @@ individuals shift from car travel to car + PT combination.
 
 Our findings show that cycling \emph{in combination} with PT could
 replace 10\% of current LMA trips, with an additional 6\% of PT journeys
-prone to further substitution, based on conservative assumptions\DIFaddbegin \DIFadd{.
-Although this paper does not address the designing specific solutions,
-our findings indicate a potential surge in demand (+6.3\%) of public
-transport interfaces to align with the national strategies. This added
-demand is conceptually driven from individuals utilising bicycles,
-either personal or shared, which would be parked at the PT stations.
-Consequently, operators and public space managers would face the
-challenge of accommodating this increased demand for bicycle parking
-and/or docks from a bike sharing system. Additionally, they may need to
-explore options to enhance bicycle carriage capacity on public transport
-services, ensuring alignment with national targets.
+prone to further substitution, based on conservative assumptions\DIFaddbegin \DIFadd{,
+highlighting the municipalities of Lisbon, Sintra, Almada, Amadora, and
+Oeiras as the ones with the highest potential for car to bike-PT
+substitution. Although this paper does not address the designing
+specific solutions, our findings indicate a potential surge in demand
+(+6.3\%) of public transport interfaces to align with the national
+strategies. This added demand is conceptually driven from individuals
+utilising bicycles, either personal or shared, which would be parked at
+the PT stations. Consequently, operators and public space managers would
+face the challenge of accommodating this increased demand for bicycle
+parking and/or docks from a bike sharing system, since this availability
+plays a crucial role in the decision-making process of individuals to
+use combined bike-train \mbox{%DIFAUXCMD
+\citep{jonkeren2021bicycle}}\hspace{0pt}%DIFAUXCMD
+. Additionally, they
+may need to explore options to enhance bicycle carriage capacity on
+public transport services, ensuring alignment with national targets}\DIFaddend .
+
+\section{\DIFdelbegin \DIFdel{Conclusion}\DIFdelend \DIFaddbegin \DIFadd{Generalizability and
+Limitations}\DIFaddend }\DIFdelbegin %DIFDELCMD < \label{conclusion}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \label{generalizability-and-limitations}
+\DIFaddend 
+
+This paper \DIFdelbegin \DIFdel{estimated }\DIFdelend \DIFaddbegin \DIFadd{focus primarily on }\DIFaddend the potential for \DIFdelbegin \DIFdel{combining cycling and PT }\DIFdelend \DIFaddbegin \DIFadd{replacing trips
+currently made by car with combined cycling and public transport trips,
+and the associated social and environmental benefits, showcasing the
+potential impact of facilitating the first-and-last mile to PT
+interfaces. While the results are specific to the Lisbon Metropolitan
+Area, the approach is designed to be generalizable to other metropolitan
+areas.
 }
 
-\DIFadd{This analysis can be applied to other metropolitan areas, providing a
-basis for decision-making and policy development to support a modal
-shift from car to PT. This process involves a minimum of data
-requirements, such as the origin-destination data, road network, and the
-PT GTFS data, which are available in most metropolitan areas.
-Furthermore, it is essential to incorporate existing cycling level
-targets specific to those areas or consider the possibility of utilising
-the same targets as outlined in the Portuguese national strategy, in
-order to compare results with different areas. Nevertheless, the extent
-of the potential shift from car to PT is highly dependent on the
-distances typically travelled in such contexts, and the availability of
-PT services - which can vary significantly between regions, and for
-which we are not assuming any change in this study. This paper focus
-primarily on the potential of making cycling and PT a viable alternative
-to car trips, and the socio-environmental benefits of such a shift}\DIFaddend .
-
-\section{Conclusion}\label{conclusion}
-
-This paper estimated the potential for combining cycling and PT to
-substitute car trips in the LMA, while achieving the national cycling
-targets and supporting decarbonization goals. It has become
-progressively more common to establish strategic plans, at national,
-regional or municipal level, to mitigate climate change. Among these,
-the Sustainable Urban Mobility Plans (SUMP\footnote{See
-  \href{https://www.eltis.org/mobility-plans/sump-concept}{eltis.org/mobility-plans/sump-concept}}),
-promoted by the European Commission, are becoming popular in Europe,
-although authorities are designing documents of this sort all over the
-world. The definition of targets associated with a timeframe for
-reducing dependence on the individual motorized vehicle, or targets for
-the use of active modes such as walking and cycling, are too often not
+\DIFadd{An important aspect of the approach from a generalizability perspective
+is that it has specific data requirements, including origin-destination,
+road network, and the GTFS data. Such datasets are available to
+transport planners in many areas. In areas where such datasets do not
+exist, the value of research such as this could provide a motivation to
+collect and open-up transport data. For this study we have used
+Portugal's national cycling targets as the basis of the scenarios; the
+approach can be adapted to other targets, or }\DIFaddend to \DIFdelbegin \DIFdel{substitute car trips in the LMA, while achieving the national cycling
+targets and supporting decarbonization goals.
+It has become
+progressively more common to
+establish strategic plans, at national ,
+regional or municipal level, to mitigate climate change.
+Among these, the Sustainable Urban Mobility Plans (SUMP}\footnote{\DIFdel{See
+  }\href{https://www.eltis.org/mobility-plans/sump-concept}{\DIFdel{eltis.org/mobility-plans/sump-concept}}%DIFAUXCMD
+}%DIFAUXCMD
+\addtocounter{footnote}{-1}%DIFAUXCMD
+\DIFdel{), promoted by the
+European Commission, are becoming popular in Europe, although authorities are designing documents of this sort all over the world. The definition of targets associated with a timeframe for
+reducing dependence on the individual motorized vehicle , or targets for the use of active modes such as walking and cycling, are too often not
 accompanied by estimates of their social, environmental and economic
 impacts. It is important for authorities and practitioners to know how
-to estimate those impacts, which tools are available to support them in
-the process, and what results to expect.
+to estimate those impacts, which tools are available to support them in }\DIFdelend \DIFaddbegin \DIFadd{other policy goals, such
+as reducing congestion or improving air quality.
+}
 
-This paper quantifies the benefits of replacing car trips with cycling,
-in combination with public transport. The case study of the Lisbon
-metropolitan area demonstrates that cycling-PT integration can help meet
-the national targets set for bicycle use of 4\% and 10\% by 2025 and
-2030, respectively.
+\DIFadd{Nevertheless, the extent of the potential shift from car to PT is highly
+dependent on the distances typically travelled in such contexts, and the
+availability of PT services - which can vary significantly between
+regions, and for which we are not assuming any change in this study. For
+instance, we considered only the inter-municipal bus services that
+accommodate bicycles on board. Future research could explore the
+potential of equipping other regional bus services with this feature and
+analyse their attractiveness, combined with cycling, to address current
+car trip demands.
+}
 
-The quantification of benefits can support policy-makers in prioritizing
-interventions to reduce the reliance on private motorized modes of
-transportation. The presentation of the results in an open access web
-application will help to inform and explain decisions. Furthermore, the
-provision of datasets resulting from this project provides a foundation
-for further research and development of new tools and methods. The
-methods are reproducible and based on open source software, which can be
-applied to other cities and metropolitan areas, supporting the
-decarbonization of transport systems internationally.
+\DIFadd{A strength of the approach is that there is no requirement for sensitive
+individual trip level data to reproduce the approach in other cities.
+However, we acknowledge that this approach has limitations. The approach
+cannot show exactly which trips are being replaced, in terms of }\DIFaddend the \DIFdelbegin \DIFdel{process, and what results to expect}\DIFdelend \DIFaddbegin \DIFadd{age
+of people making the trips, the types of car they drive, and other
+individual or vehicle level variables. We assumed uniformity in the type
+of vehicle for all replaced car journeys, albeit with variations in the
+fuels utilised. Additionally, we assumed consistency in the health
+impacts across all individuals for the replaced car trips. This approach
+is a simplification of reality to enable the analysis of a large region
+on available computing resources. Future work could seek to increase the
+resolution of the results, and move towards a more individual-level
+analysis, for example by using agent and activity-based models using
+tools such as MATSim \mbox{%DIFAUXCMD
+\citep{MATSim}}\hspace{0pt}%DIFAUXCMD
+. This option would require
+substantial resources outside the scope of this study; another way to
+improve the spatial resolution of results would be to use higher
+resolution `subpoints' as the basis of the desire line `jittering'
+process. We would also like to explore the potential for probabilistic
+routing to improve the spatial resolution of the results.
+}
+
+\DIFadd{A further refinement could be to differentiate between `simpler'
+no-transfer PT trips (which require less person effort) and more arduous
+multi-transfer PT trips, using the same methods, by relaxing the
+assumption of no-transfers between PT modes in the routing engine. This
+would lead to a larger number of total daily trips that can be made by
+cycling + PT, in particular in locations where the PT network is less
+complex and requires more transfers. We could also set a different
+maximum length of cycling stage, extending the bicycle catchment area.
+However, despite the added value of a sensitivity analyses, they would
+also increase the overall complexity, and would have an impact on the
+explainability of the results to be used by policy makers}\DIFaddend .
+
+\DIFdelbegin \DIFdel{This paper quantifies the benefits of replacing car trips with cycling,
+in combination with public transport}\DIFdelend \DIFaddbegin \section{\DIFadd{Conclusion}}\label{Conclusions}
+
+\DIFadd{This paper estimates the potential for combining cycling and PT to
+substitute car trips in the LMA, while achieving the national cycling
+targets and supporting decarbonization goals}\DIFaddend . The case study of the
+Lisbon metropolitan area demonstrates that cycling-PT integration can
+help meet the national targets set for bicycle use of 4\% and 10\% by
+2025 and 2030, respectively.
+
+\DIFaddbegin \DIFadd{This research also quantifies the socio-environmental benefits of
+achieving such targets, exploring an intermodality scenario, where car
+trips are potentially substituted by bicycle in combination with PT.
+}
+
+\DIFadd{The findings indicate that cycling combined with public transport has
+the potential to account for 10\% of total trips. Transitioning to
+cycling for the first and last segments could lead to a decrease in
+annual CO\textsubscript{2}eq emissions by a substantial margin, ranging
+from 3,000 to 7,500 tons per day, depending on the cycling target and
+routing profile. Moreover, for the second trip segment, the shift from
+car to public transport contributes to avoiding up to 20,500 tons of
+CO\textsubscript{2}eq emissions annually. These changes are estimated to
+yield socio-environmental benefits totaling €125 million to €325 million
+over a decade. }\DIFaddend The quantification of \DIFaddbegin \DIFadd{such }\DIFaddend benefits can support
+policy-makers in prioritizing interventions to reduce the reliance on
+private motorized modes of transportation.
+\DIFaddbegin 
+
+\DIFadd{Additionally, the results suggest that the potential for cycling-PT
+intermodality is spatially unevenly distributed across the LMA. The
+highest potential occurs in the municipalities with the highest number
+of trips and PT interfaces with connecting modes to Lisbon that allow
+for carrying bicycles on board, such as Lisbon, Sintra, Amadora, and
+Almada.
+}
+
+\DIFadd{We opted to detail all the steps of the methodology, from data
+requirements to the final results, to ensure transparency and
+generalization of the approach, for instance making sensitivity analysis
+to the bike trip distances and the PT number of transfers. We
+acknowledge the limitations of the used methods and propose avenues for
+future research.
+}
+
+\DIFaddend The presentation of the results in an open access web application will
+help to inform and explain decisions. Furthermore, the provision of
+datasets resulting from this project provides a foundation for further
+research and development of new tools and methods. The methods are
+reproducible and based on open source software, which can be applied to
+other cities and metropolitan areas, supporting the decarbonization of
+transport systems internationally.
 
 \section*{Acknowledgements}\label{acknowledgements}
 \addcontentsline{toc}{section}{Acknowledgements}
