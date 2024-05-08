@@ -146,14 +146,15 @@ mile \sep Health economic assessment \sep Environmental impacts \sep
 
 Combining public transportation (PT) and cycling for the first and last
 mile in metropolitan areas can replace a high proportion of private car
-trips \citep{MARTENS2007326, van2021insights}. In The Netherlands, which
-has the highest mode share of cycling in the world, cycling accounts for
-more than a third of all trips to and from rail stations at the `home'
-end of the journey, greatly increasing the ability of the transport
-system \citep{RIETVELD200071}. This approach to reducing car dependency
-and associated externalities requires interventions and programs to make
-bicycling more appealing \citep{lapaix_role_2021}. The resulting public
-investments can have significant social and environmental benefits
+trips \citep{MARTENS2007326, vanmil_insights_2021}. In The Netherlands,
+which has the highest mode share of cycling in the world, cycling
+accounts for more than a third of all trips to and from rail stations at
+the `home' end of the journey, greatly increasing the ability of the
+transport system \citep{RIETVELD200071}. This approach to reducing car
+dependency and associated externalities requires interventions and
+programs to make bicycling more appealing \citep{lapaix_role_2021}. The
+resulting public investments can have significant social and
+environmental benefits
 \citep{internationaltransportforum_integrating_2017}. Despite the
 benefits of cycling-PT intermodality, the potential of this combination
 is often overlooked in transport planning \citep{lapaix_role_2021}.
@@ -207,18 +208,46 @@ tools.
 
 \subsection{Case Study}\label{case-study}
 
-According to the latest mobility survey conducted in 2018 \citep{IMOB},
-the LMA registered a total of 5.3 million daily trips, with only 0.5\%
-by bicycle. Car modal share was 58.4\%, while PT accounted for 15.5\%
-(see Figure \ref{fig:mododist}). The number of intra-municipal trips ---
-with origin and destination in the same municipality --- amounts to 3.5
-million trips. This exceeds the number of inter-municipal trips (1.8
-million trips), involving travel between different municipalities. Cars
-and public transport are the most used modes for intercity trips, with
-cars being the predominant choice for all journeys. 53\% trips are up to
-5 km distance, and 71\% up to 10 km. Nevertheless, 29\% of trips are
-longer than 10 km, which requires the use of motorized modes, or active
-modes in combination with public transport.
+The Lisbon metropolitan area (LMA), in Portugal, is the case study,
+comprising 18 municipalities, with a total area of 3,015 km² and a
+population of 2.8 million residents The LMA is the most populous and
+economically active region in Portugal, with the city of Lisbon as the
+central node of the LMA, with a high concentration of jobs and services,
+and a high demand for mobility (see Figure \ref{fig:lma}). As shown, the
+number of trips is proportional to the population of each municipality,
+with the highest number of trips originating in Lisbon, followed by the
+municipalities of Sintra, Cascais, Loures, and Almada.
+
+The Public Transport network is well developed, although very much
+Lisbon-centric, with a high level of service, including inter-municipal
+trains, buses, trams, and ferries (see Figure \ref{fig:map1}), and a
+metro system that serves Lisbon and surrounding municipalities.
+
+\begin{figure}
+\subfloat[Population in the LMA\label{fig:lma-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-1} }\subfloat[Trips/day in the LMA\label{fig:lma-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-2} }\caption{\label{lma}Population and daily trips (origins) at each Municipality of the LMA according to census and the travel survey.}\label{fig:lma}
+\end{figure}
+
+The LMA is a low cycling maturity area, characterised by a sparse and
+fragmented cycling network totalling 378 km, primarily concentrated
+within Lisbon, and a low cycling modal share. According to the latest
+mobility survey conducted in 2018 \citep{IMOB}, the LMA registered a
+total of 5.3 million daily trips, with only 0.5\% by bicycle.
+
+The survey also showed that 58.4\% of trips were made by car, 15.5\% by
+public transport, and 23.9\% by walking (see Figure \ref{fig:mododist}).
+The number of intra-municipal trips --- with origin and destination in
+the same municipality --- amounts to 3.5 million trips. This exceeds the
+number of inter-municipal trips (1.8 million trips), involving travel
+between different municipalities. Cars and public transport are the most
+used modes for intercity trips, with cars being the predominant choice
+for all journeys. 53\% trips are up to 5 km distance, and 71\% up to 10
+km. Nevertheless, 29\% of trips are longer than 10 km, which requires
+the use of motorized modes, or active modes in combination with public
+transport.
+
+\begin{figure}
+\subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-2} }\caption{\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}\label{fig:mododist}
+\end{figure}
 
 Regarding cycling trips in the LMA, 55\% are up to 5 km, and 88\% are up
 to 10 km. These values are not in line with the typically found in
@@ -227,22 +256,6 @@ up to 5 km (\textasciitilde75\%), and a smaller proportion up to 10 km
 \citep{krizek2007detailed, larsen2010beyond, DDfunction2023}. This may
 be due to the low cycling modal share in the LMA - even more limited in
 the sample survey, which may be biased towards shorter trips.
-
-\begin{figure}
-\subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-2} }\caption{\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}\label{fig:mododist}
-\end{figure}
-
-\textbf{TO-DO}
-
-\begin{itemize}
-\tightlist
-\item
-  mais mapas:
-\item
-  Densidade populational - nº de viagens
-\item
-  Pares OD - desire lines width
-\end{itemize}
 
 \subsection{Modeling Origin-Destination
 trips}\label{modeling-origin-destination-trips}
@@ -271,6 +284,8 @@ contrast between trip representation through the traditional method,
 which connects a single desire line between each district, and the
 presentation achieved through the randomization and disaggregation of
 trips between districts, specifically for the Lisbon metropolitan area.
+As shown, the city of Lisbon (in the centre) is the main attractor of
+trips, with a high number of trips to and from the other municipalities.
 
 \begin{figure}
 

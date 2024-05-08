@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.3)  8 MAY 2024 12:04
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.5.3)  8 MAY 2024 15:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -737,70 +737,81 @@ Overfull \hbox (2.22pt too wide) has occurred while \output is active
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 167.
+(hyperref)                removing `\<def>-command' on input line 168.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\cnotenum' on input line 167.
+(hyperref)                removing `\cnotenum' on input line 168.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 167.
+(hyperref)                removing `\<def>-command' on input line 168.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@corref' on input line 167.
+(hyperref)                removing `\@corref' on input line 168.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 167.
+(hyperref)                removing `\<def>-command' on input line 168.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\cnotenum' on input line 167.
+(hyperref)                removing `\cnotenum' on input line 168.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\<def>-command' on input line 167.
+(hyperref)                removing `\<def>-command' on input line 168.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@corref' on input line 167.
+(hyperref)                removing `\@corref' on input line 168.
 
 [1
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 179.
+(Font)              <8> on input line 180.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 179.
+(Font)              <6> on input line 180.
 [2]
+File: PaperCEUS_rev1_files/figure-latex/lma-1.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/lma-1.pdf>
+File: PaperCEUS_rev1_files/figure-latex/lma-2.pdf Graphic file (type pdf)
+<use PaperCEUS_rev1_files/figure-latex/lma-2.pdf>
+
+Overfull \hbox (6.66pt too wide) in paragraph at lines 227--227
+[][][][] 
+ []
+
 File: PaperCEUS_rev1_files/figure-latex/mododist-1.pdf Graphic file (type pdf)
 <use PaperCEUS_rev1_files/figure-latex/mododist-1.pdf>
 File: PaperCEUS_rev1_files/figure-latex/mododist-2.pdf Graphic file (type pdf)
 <use PaperCEUS_rev1_files/figure-latex/mododist-2.pdf>
 
-Overfull \hbox (6.66pt too wide) in paragraph at lines 232--232
+Overfull \hbox (6.66pt too wide) in paragraph at lines 249--249
 [][][][] 
  []
 
 [3]
 File: img/jitter_cairo.pdf Graphic file (type pdf)
 <use img/jitter_cairo.pdf>
-[4]
+[4] [5]
 File: PaperCEUS_rev1_files/figure-latex/map1-1.pdf Graphic file (type pdf)
 <use PaperCEUS_rev1_files/figure-latex/map1-1.pdf>
+[6]
 File: img/map2.png Graphic file (type bmp)
 <img/map2.png>
-[5] [6] [7] [8]
-Overfull \hbox (4.35pt too wide) in paragraph at lines 539--540
+[7] [8]
+Overfull \hbox (4.35pt too wide) in paragraph at lines 554--555
  []|\TU/lmr/m/n/10 Environmental
  []
 
+[9] [10]
 
-LaTeX Warning: Reference `fig:mapzones' on page 9 undefined on input line 584.
+LaTeX Warning: Reference `fig:mapzones' on page 11 undefined on input line 599.
 
-[9] [10] [11] [12] (./PaperCEUS_rev1.bbl [13]
+[11] [12] [13] (./PaperCEUS_rev1.bbl [14]
 Underfull \hbox (badness 1448) in paragraph at lines 34--39
 []\TU/lmr/m/n/8 CP, 2020.  Relatório de Sustentabilidade 2019.  Technical Report. CP - Comboios de Portugal, E.P.E.  URL:
  []
@@ -810,7 +821,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--39
 [][]$[][][][][] [] [] [] [][][] [] [][] [] [][] [] [][][][][][][][][][][] [] [][][][][][][][][][][][][] [] [] [] [][][][][][] [] [][][][][][][][][][][] [] [] [] [][][][][][][][][][][][][][][][][][][][][][][][][][] [] [][][][][][][][][] [][]
  []
 
-[14]) [15] (./PaperCEUS_rev1.aux)
+[15]) [16] (./PaperCEUS_rev1.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-04-11>
@@ -819,15 +830,15 @@ L3 programming layer <2024-04-11>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `PaperCEUS_rev1.out' has not changed.
-(rerunfilecheck)             Checksum: ECD6486BA3FF337ECECC67EA9701EF61;889.
+(rerunfilecheck)             Checksum: 79CCFE2D76616DF7E203DB4EB5072591;889.
  ) 
 Here is how much of TeX's memory you used:
- 21242 strings out of 476705
- 387774 string characters out of 5801014
+ 21265 strings out of 476705
+ 388727 string characters out of 5801014
  1958403 words of memory out of 5000000
- 42990 multiletter control sequences out of 15000+600000
+ 43011 multiletter control sequences out of 15000+600000
  581911 words of font info for 79 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,11n,79p,475b,543s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,11n,79p,488b,539s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on PaperCEUS_rev1.pdf (15 pages).
+Output written on PaperCEUS_rev1.pdf (16 pages).

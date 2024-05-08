@@ -85,6 +85,7 @@ knitr::opts_chunk$set(echo = FALSE,
 
 library(dplyr)
 library(ggplot2)
+library(sf)
 ```
 
 # Introduction
@@ -128,17 +129,78 @@ After presenting the methods used, we assess its socio-environmental impacts usi
 
 ## Case Study
 
+The Lisbon metropolitan area (LMA), in Portugal, is the case study, comprising 18 municipalities, with a total area of 3,015 km² and a population of 2.8 million residents
+The LMA is the most populous and economically active region in Portugal, with the city of Lisbon as the central node of the LMA, with a high concentration of jobs and services, and a high demand for mobility (see Figure \ref{fig:lma}).
+As shown, the number of trips is proportional to the population of each municipality, with the highest number of trips originating in Lisbon, followed by the municipalities of Sintra, Cascais, Loures, and Almada.
+
+The Public Transport network is well developed, although very much Lisbon-centric, with a high level of service, including inter-municipal trains, buses, trams, and ferries (see Figure \ref{fig:map1}), and a metro system that serves Lisbon and surrounding municipalities.
+
+```{r lma, fig.cap="\\label{lma}Population and daily trips (origins) at each Municipality of the LMA according to census and the travel survey.", fig.subcap=c("Population in the LMA","Trips/day in the LMA"), fig.ncol=2, message=FALSE, warning=FALSE, out.width="50%"}
+MUNICIPIOSgeo = readRDS("load/MUNICIPIOSgeo.Rds")
+MUNICIPIOSgeo_mapa = readRDS("load/MUNICIPIOSgeo_mapa.Rds")
+MUNICIPIOS_dtcc = readRDS("load/MUNICIPIOS_dtcc.Rds")
+POPMunicipios = readRDS("load/POPMunicipios.Rds")
+
+# labels
+cities = MUNICIPIOSgeo |> 
+  filter(Concelho %in% c("Lisboa", "Sintra", "Cascais", "Loures", "Almada"))
+cities$point = sf::st_centroid(cities$geometry)
+cities = sf::st_set_geometry(cities, cities$point)
+
+# population
+pop_mun = POPMunicipios |> 
+  left_join(MUNICIPIOS_dtcc, by = c("DTCC" = "DTMN"))
+pop_mun$Concelho[pop_mun$Concelho == "Setúbal"] = "Setubal"
+pop_mun = MUNICIPIOSgeo |>
+  left_join(pop_mun, by = "Concelho")
+pop_mun$area = sf::st_area(pop_mun) |> units::drop_units()
+pop_mun$popdens = pop_mun$Populacao / pop_mun$area * 1000000
+
+# residents
+  ggplot() +
+  geom_sf(data = pop_mun,
+          aes(fill = Populacao),
+          color = "gray60") +
+  scale_fill_gradient(low = "white", high = "darkred",
+                      labels = scales::unit_format(unit = "k", scale = 1e-3)
+                      ) +
+  theme_void() +
+  # theme(legend.position = "bottom")+
+  labs(fill = "Residents") +
+  geom_sf_text(data = cities,
+               aes(label = Concelho),
+               size = 2.3)
+
+# #denstity
+# ggplot() +
+#   geom_sf(data = pop_mun,
+#           aes(fill = popdens),
+#           color = "gray60") +
+#   scale_fill_gradient(low = "white", high = "darkred") +
+#   theme_void() +
+#   labs(fill = "inhabitants/km²")
+
+# trips
+ggplot() +
+  geom_sf(data = MUNICIPIOSgeo_mapa,
+          aes(fill = viagens),
+          color = "gray60") +
+  viridis::scale_fill_viridis(option = "F", direction = -1,
+                              labels = scales::unit_format(unit = "k", scale = 1e-3)) +
+  theme_void() +
+  labs(fill = "Trips / day")
+
+```
+
+The LMA is a low cycling maturity area, characterised by a sparse and fragmented cycling network totalling 378 km, primarily concentrated within Lisbon, and a low cycling modal share.
 According to the latest mobility survey conducted in 2018 [@IMOB], the LMA registered a total of 5.3 million daily trips, with only 0.5% by bicycle.
-Car modal share was 58.4%, while PT accounted for 15.5% (see Figure \ref{fig:mododist}).
+
+The survey also showed that 58.4% of trips were made by car, 15.5% by public transport, and 23.9% by walking (see Figure \ref{fig:mododist}).
 The number of intra-municipal trips --- with origin and destination in the same municipality --- amounts to 3.5 million trips.
 This exceeds the number of inter-municipal trips (1.8 million trips), involving travel between different municipalities.
 Cars and public transport are the most used modes for intercity trips, with cars being the predominant choice for all journeys.
 `r round(100*2948314/5569731)`% trips are up to 5 km distance, and `r round(100*3958667/5569731)`% up to 10 km.
 Nevertheless, 29% of trips are longer than 10 km, which requires the use of motorized modes, or active modes in combination with public transport.
-
-Regarding cycling trips in the LMA, 55% are up to 5 km, and 88% are up to 10 km.
-These values are not in line with the typically found in cycling distance decay curves, which show a high percentage of trips are up to 5 km (~75%), and a smaller proportion up to 10 km [@krizek2007detailed; @larsen2010beyond; @DDfunction2023].
-This may be due to the low cycling modal share in the LMA - even more limited in the sample survey, which may be biased towards shorter trips.
 
 <!-- Plot of  AML trips by mode and inter/intra %? -->
 ```{r dadosaml, message=FALSE, warning=FALSE}
@@ -204,11 +266,9 @@ ggplot(TRIPSmode_aml_intr, aes(fill = modo, y = viagens, x = Inter)) +
 
 ```
 
-**TO-DO**
-
--   mais mapas:
--   Densidade populational - nº de viagens
--   Pares OD - desire lines width
+Regarding cycling trips in the LMA, 55% are up to 5 km, and 88% are up to 10 km.
+These values are not in line with the typically found in cycling distance decay curves, which show a high percentage of trips are up to 5 km (~75%), and a smaller proportion up to 10 km [@krizek2007detailed; @larsen2010beyond; @DDfunction2023].
+This may be due to the low cycling modal share in the LMA - even more limited in the sample survey, which may be biased towards shorter trips.
 
 
 ## Modeling Origin-Destination trips
@@ -222,6 +282,7 @@ This method then distributes the trips to desire lines connecting the subpoints 
 
 Using the [`odjitter` R package](https://github.com/dabreegster/odjitter), we disaggregated the OD data into desire lines reprenting a maximum of 100 trips each.
 Figure \ref{fig:jitter} illustrates the contrast between trip representation through the traditional method, which connects a single desire line between each district, and the presentation achieved through the randomization and disaggregation of trips between districts, specifically for the Lisbon metropolitan area.
+As shown, the city of Lisbon (in the centre) is the main attractor of trips, with a high number of trips to and from the other municipalities. 
 
 ```{r jitter, fig.align='center', fig.cap="Flow-weighted random sample of 10,000 desire lines in the Lisbon metropolitan area between districts of the 18 municipalities, without jittering (left) and with jittering (right).", fig.height=4, out.width="100%"}
 
@@ -303,7 +364,6 @@ These restrictions can be eased in the future when testing more developed policy
 ```{r map1, out.width="60%", fig.cap="Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area.", fig.align='center'}
 # knitr::include_graphics("img/map1.png", error = FALSE) #old version
 
-MUNICIPIOSgeo = readRDS("load/MUNICIPIOSgeo.Rds")
 stopsAML = sf::st_read("load/Stops_AML.geojson", quiet = TRUE)
 stopsAML = stopsAML |> filter(mode != "Metropolitano") |>
   mutate(mode = factor(mode, levels = c("Comboio", "Ferry", "Metro Superficie", "Autocarro"),
