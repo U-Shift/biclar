@@ -321,7 +321,7 @@ CAR_TP_TRANSF_lts3 = routes_r5r_100jit_car_TP_lts3_ONLYTPsegment %>% mutate(LTS 
   mutate(Car_4 = Car - Bike_new4,
          Car_10 = Car - Bike_new10,
          TP_4 = TP + Bike_new4,
-         TP_10 = TP + Bike_new10,) %>%
+         TP_10 = TP + Bike_new10,) %>%  # THIS IS NOT CORRECT FOR CASES WHEN CAR = 0
   left_join(routes_r5r_100jit_car %>% select(id, segment_duration, distance)) %>% 
   rename(duration_car_total = segment_duration,
          distance_car_total = distance) %>% 
@@ -352,7 +352,7 @@ CAR_TP_TRANSF_lts4 = routes_r5r_100jit_car_TP_lts4_ONLYTPsegment %>% mutate(LTS 
   mutate(Car_4 = Car - Bike_new4,
          Car_10 = Car - Bike_new10,
          TP_4 = TP + Bike_new4,
-         TP_10 = TP + Bike_new10,) %>%
+         TP_10 = TP + Bike_new10,) %>% # THIS IS NOT CORRECT FOR CASES WHEN CAR = 0
   left_join(routes_r5r_100jit_car %>% select(id, segment_duration, distance)) %>% 
   rename(duration_car_total = segment_duration,
          distance_car_total = distance) %>% 
