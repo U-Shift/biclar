@@ -1,45 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://u-shift.github.io/biclar/404.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/articles/0_baseline_scenario.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/articles/1_emnac_scenario.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/articles/2_intermodal_scenario.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/articles/3_ebikes_scenario.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/articles/imob.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/articles/propotype.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/index.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/reference/rnet_lisbon.html</loc>
-  </url>
-  <url>
-    <loc>https://u-shift.github.io/biclar/reference/tm_rnet.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://u-shift.github.io/biclar/404.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/LICENSE.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/articles/0_baseline_scenario.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/articles/1_emnac_scenario.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/articles/2_intermodal_scenario.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/articles/3_ebikes_scenario.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/articles/imob.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/articles/index.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/articles/propotype.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/authors.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/index.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/reference/index.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/reference/rnet_lisbon.html</loc></url>
+<url><loc>https://u-shift.github.io/biclar/reference/tm_rnet.html</loc></url>
 </urlset>
+
