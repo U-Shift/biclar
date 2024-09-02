@@ -38,6 +38,7 @@ vignettes/*.pdf
 *.knit.md
 *.Rds
 !paper/PaperCEUS/load/*.Rds
+!paper/PaperCEUS/load/*.geojson
 *.geojson
 *gpkg*
 docs
