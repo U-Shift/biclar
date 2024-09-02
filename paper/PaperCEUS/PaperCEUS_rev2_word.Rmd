@@ -346,7 +346,7 @@ Different routing profiles enable decision-makers to plan for different bicycle 
 
 [^4]: see [docs.conveyal.com/learn-more/traffic-stress](https://docs.conveyal.com/learn-more/traffic-stress).
 
-The `r5r` model used the OpenStreetMap road network and the GTFS metropolitan data aggregated and validated.
+The `r5r` model uses the OpenStreetMap road network and the GTFS metropolitan data aggregated and validated.
 This information is crucial for an accurate PT trip and route estimation.
 A digital elevation model, from the European Space Agency's COPERNICUS mission, was used to include street gradient information, as a weight in cycling routing. <!--  with a 25 m spatial resolution, -->
 The cycling potential trips for the two national strategic targets (4% and 10%) were estimated from the 2017 cycling and car trips (both as a driver and as a passenger), the baseline scenario.
@@ -356,12 +356,38 @@ The routes were then overlaid and aggregated by segments, using [`stplanr overli
 ## Modeling intermodality
 
 The intermodality scenario considers trips made by PT in which cycling is used for the first and last legs.
-We restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination).
-Furthermore, we have imposed restrictions on PT usage, limiting it to trips without PT transfers, and within a duration of up to 2 hours (120 minutes).
-Additionally, we have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}).
+
+Trips were routed for all the OD jittered pairs, using `r5r`.
+The resulting estimated routes are the ones with the least-cost paths (shortest travel time) for each OD pair.
+For some routes, bicycle alone can be more attractive than the combination of bicycle and PT - for instance for shorter trips.
+
+Figure \ref{fig:trip_schematic} illustrates a schematic trip for different routing profiles (_safe_ and _direct_), and only using Bicycle or Bicycle in combination with Public Transportation, considering the same origin and destination.
+As we can see, for the same routing profile, the _direct_ route by bicycle can be more convenient (attractive) than the bicycle in combination with PT.
+The opposite can also be true, in particular for longer journeys, where the combination of bicycle and PT can be more attractive than the bicycle mode.
+When comparing the _direct_ with the _safe_ route profile, the _safe_ route is usually longer, as it avoids the most stressful roads (LTS 4), which are usually the most direct ones, considering only roads with LTS 3 or lower.
+In this case, bike (without combination) can be more attractive than the bike with PT, as the PT leg can be longer or take more time than the safe bike route.
+
+```{r trip_schematic, fig.align='center', fig.cap="Schematic trip for different routing profiles (safe and direct), and only using Bicycle or Bicycle with Public Transportation, considering the same origin and destination. The black lines represent the trip made by Bike, and the dashed orange lines represent the trip made by PT.", fig.height=4, out.width="70%"}
+# png::writePNG(pdftools::pdf_render_page("img/schematic_trips.pdf", dpi = 300), "img/schematic_trips_cairo.png")
+knitr::include_graphics("img/schematic_trips_cairo.png", error = FALSE)
+```
+
+We have only included PT modes that can easily accommodate bicycles, such as trains, ferries, trams, and inter-municipal bus lines equipped with bike racks (Figure \ref{fig:map1}).
 This map shows that some of the municipalities are not served by PT modes that can easily accommodate bicycles, which may limit the potential for intermodality in these areas.
 
-This conservative approach was adopted to capture the fact that cycling stages as part of a multi-modal trip are likely to be shorter than cycling-only trips [@vanmil_insights_2021].
+Furthermore, we have imposed restrictions on PT usage, limiting it to trips without PT transfers, and within a duration of up to 2 hours (120 minutes).
+This resulted in that only 53.8% of the total trips between the jittered origins and destinations are possible to be made by bicycle or bicycle + PT (for the considered PT modes) for the _safe_ routing profile, and 69.2% for the _direct_ routing profile.
+
+After the estimation of routes, we considered only the Origin-Destination pairs for which the estimated routes were the ones that were more attractive (least-cost path / fastest) for the bicycle and PT combination, than for bicycle only.
+This process resulted in a subset of the OD pairs used in the intermodality scenario: 19.5% of the total OD pairs with _direct_ routing profile, and 21% of the total OD pairs with _safe_ routing profile.
+This difference is due to the fact that the direct routes can be more attractive for cycling only than for the combination of bicycle and PT.
+In particular, because main PT connections are along busy roads, and thus, for short trips (e.g. intramunicipal trips) using bicycle only at the main roads can be more attractive (shorter travel time) than the combination of bicycle and PT.
+For _safe_ routes, the alternative of using bicycle for the PT leg using safe routes can take longer - since the main roads are restricted in this routing profile -, and thus less attractive.
+
+Additionally, we restricted our analysis to the first and last legs with a combined length of up to 5 km (for example: 1 km from origin to interface _A_ plus 4 km from interface _B_ to destination).
+This restriction resulted in 538.514 trips that can be made by bicycle in combination with PT (`r round(538514/sum(TRIPSmode_aml$viagens)*100,1)`% of all daily trips) considering the safe routing profile, and 500.880 trips considering the direct routing profile (`r round(500880/sum(TRIPSmode_aml$viagens)*100,1)`% of all daily trips).
+
+This conservative approach, regarding the assumed multi-modal restrictions, was adopted to capture the fact that cycling stages as part of a multi-modal trip are likely to be shorter than cycling-only trips [@vanmil_insights_2021].
 Additionally, @Leferink2017 found that the bicycle is most attractive option as a first and last mile mode when the distance ranges from 3 to 5 km, as observed across various comparative studies.
 This restrictions are based on the assumption that 5 km is a plausible maximum distance that people are willing to travel by bike as part of a longer journey.
 This applies especially for cycling beginners shifting from cars, who are less likely to be confident and experienced cyclists than the existing cyclists.
@@ -371,11 +397,11 @@ These restrictions can be eased in the future when testing more developed policy
 ```{r map1, out.width="60%", fig.cap="Interfaces and lines considered, by transport mode, in the Lisbon metropolitan area.", fig.align='center'}
 # knitr::include_graphics("img/map1.png", error = FALSE) #old version
 
-stopsAML = sf::st_read("load/StopsAML.geojson", quiet = TRUE)
+stopsAML = sf::st_read("load/Stops_AML.geojson", quiet = TRUE)
 stopsAML = stopsAML |> filter(mode != "Metropolitano") |>
   mutate(mode = factor(mode, levels = c("Comboio", "Ferry", "Metro Superficie", "Autocarro"),
                        labels = c("Train", "Ferry", "Tram", "Bus")))
-routesAML = sf::st_read("load/RoutesAML.geojson", quiet = TRUE)
+routesAML = sf::st_read("load/Routes_AML.geojson", quiet = TRUE)
 routesAML = routesAML |> 
   mutate(mode = factor(mode, levels = c("Comboio", "Ferry", "Metro Superficie", "Autocarro"),
                        labels = c("Train", "Ferry", "Tram", "Bus")))
@@ -397,6 +423,7 @@ It is noticeable the high potential of the train interfaces to attract car-to-PT
 ```{r map2, out.width="80%", fig.cap="Bike routes with the highest potential to serve as first and last leg when replacing cycling and PT from car trips (screenshot of the interactive online tool). Larger the line width, higher the segment's car to bicycle shift potential. Darker the line color, lower the quietness level.", fig.align='center'}
 knitr::include_graphics("img/map2.png", error = FALSE)
 ```
+
 
 ## Modelling car shift to bicycle-PT
 
@@ -429,6 +456,7 @@ We considered two dimensions: *social* — including the physical activity, air 
 <!-- Also consider put the FE formula and emmission factor values - see report -->
 
 For the *second leg of the journey*, we estimate the environmental impacts of shifting car trips to PT (between the PT interfaces).
+Car routing was estimated for all the journeys with the potential to be replaced by bike in combination with PT.
 
 To estimate the car emissions, we used the EMEP/EEA's COPERT software v5 methods and reference values [@COPERT] for a Tier 3 detail level. 
 We used a family-size vehicle, EURO standard, and gasoline or diesel fuel.
@@ -554,8 +582,13 @@ knitr::kable(summary21 |> select(-Baseline),
 <!-- These findings indicate that transferring car trips to a combination of bicycle and PT could be nearly as substantial, if not equally significant, as the shift towards bicycle-only trips. WE CANNOT SHOW THIS IN THIS PAPER WITH ONLY SCENARIO 3 DATA --> 
 
 Another relevant aspect is that the higher potential (Figure \ref{fig:mapzones}.a) is in the municipalities with the highest number of trips (Figure \ref{fig:lma}.b), such as Lisbon, Sintra, Amadora, and Almada, which are also the ones with the highest number of PT interfaces (Figure \ref{fig:map1}).
-On another hand, the municipalities with little PT interfaces connecting to Lisbon, such as Mafra and Setubal, have a lower potential for car to Bike-PT substitution (Figure \ref{fig:mapzones}.a), even if they have a high number of trips, such as Setubal. 
-This findings are aligned with their local travel patterns, where the majority of trips are intra-municipal (67% for both municipalities), and not to the city of Lisbon, despite the high car-dependency (79% in Mafra, 67% in Setubal).
+On another hand, the municipalities with little PT interfaces connecting to Lisbon, such as Mafra and Setúbal, have a lower potential for car to Bike-PT substitution (Figure \ref{fig:mapzones}.a), even if they have a high number of trips, such as Setúbal. 
+This findings are aligned with their local travel patterns, where the majority of trips are intra-municipal (67% for both municipalities), and not to the city of Lisbon, despite the high car-dependency (79% in Mafra, 67% in Setúbal).
+
+A particular difference is noted regarding the attraction of trams to be used in combination with cycling, for _safe_ and _direct_ routes.
+In this case, Tram is available for intermodality only at one municipality (Almada) (see \ref{fig:map1}), and most of its stations are located on major roads.
+Their accessibility involves travelling along these major roads (with LTS 4), which limits the potential of valid routing options when considering _safe_ routes. 
+In this case, Train offers the highest potential for _safe_ routes, and Tram for _direct_ routes.
 
 The potential and the resulting benefits are spatially unevenly distributed across the LMA, as shown in Figure \ref{fig:mapzones}.b, concentrating 40% in Lisbon, where the highest number of trips are made.
 
