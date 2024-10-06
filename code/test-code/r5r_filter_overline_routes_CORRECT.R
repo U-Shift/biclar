@@ -578,6 +578,8 @@ saveRDS(rnet_ferry3_ebike_overline_morethan400_clean, "export2/rnet_ferry3_ebike
 
 # for intermodality ---------------------------------------------------------------------------
 
+# TO-DO: THERE IS A STEP MISSING WITH REDUCING BOTH BICYCLE LEGS TO JUST 1 TRIP. AS IT IS, IT IS CONSIDERING 2 TIMES THE BIKE TRIP.
+
 ## LTS4
 # filter for conventional bike
 table(routes_r5r_100jit_lts4__intermodALL_NoSub_elev$mode)
@@ -602,7 +604,7 @@ routes_allmodesNSub4_dist = routes_allmodesNSub4_filtered %>%
   st_drop_geometry() %>%
   group_by(id) %>% 
   summarise(distance = sum(distance))
-summary(routes_allmodesNSub4_filtered$distance) #75% less than 4600m in total
+summary(routes_allmodesNSub4_dist$distance) #75% less than 4600m in total
 routes_allmodesNSub4_dist = routes_allmodesNSub4_dist %>% filter(distance <= 5000) # 2.5+2.5km? #this is maybe low, but ok to show the benefits
 # 5k trips by bike
 routes_allmodesNSub4_filtered = routes_allmodesNSub4_filtered %>% filter(id %in% routes_allmodesNSub4_dist$id)
@@ -627,9 +629,52 @@ table(routes_allmodesNSub4_filtered$mode) #potencial FILTRADO
 # saveRDS(routes_allmodesNSub4_filtered_TPonly, "routes_allmodesNSub4_TPonly_preoverline.Rds")
 
 
+####### NEW PART - September 2024
+routes_allmodesNSub4_filtered_NEW = routes_allmodesNSub4_filtered |> 
+  filter(mode == "BICYCLE") |>  #drop routes with other modes
+  ungroup() |> 
+  st_drop_geometry() |> 
+  group_by(id) |> 
+  summarize(
+    Bike = Bike,
+    Car = Car,
+    Total = Total,
+    distance = sum(distance)
+  ) |> 
+  distinct()
 
-routes_allmodesNSub4_filtered = routes_allmodesNSub4_filtered %>% filter(mode == "BICYCLE") #drop routes with other modes
+sum(routes_allmodesNSub4_filtered_NEW$Total) # 500880
 
+#cycling potential function CORRECTED
+routes_enmac = routes_allmodesNSub4_filtered_NEW
+ENMAC4 = 0.04 # 4%
+ENMAC10 = 0.10 # 10#
+
+routes_enmac = routes_enmac |> 
+  mutate(Bikeper = Bike / Total,
+         Carper = Car / Total) |>  #extrapolating to the total trips
+  mutate(Bike_new4 = ifelse(Bikeper <= ENMAC4 & Carper >= ENMAC4, ENMAC4 * Total, ifelse(Carper <= ENMAC4, Car, Bike)),
+         Bike_new10 = ifelse(Bikeper <= ENMAC10 & Carper >= ENMAC10, ENMAC10 * Total, ifelse(Carper <= ENMAC10, Car, Bike))) |> 
+  mutate(Bike4 = Bike +Bike_new4,
+         Bike10 = Bike + Bike_new10,
+         Car_4 = Car - Bike_new4,
+         Car_10 = Car - Bike_new10) |> 
+  mutate(Bike_new4per = 100*Bike_new4 / Total,
+         Bike_new10per = 100*Bike_new10 / Total,
+         Bike_4per = 100*Bike4 / Total,
+         Bike_10per = 100*Bike10 / Total)
+sum(routes_enmac$Total) # 500880, 538514
+sum(routes_enmac$Bike) # 2274, 2312
+sum(routes_enmac$Bike_new4) # 20467, 21988
+sum(routes_enmac$Bike_new4) - sum(routes_enmac$Bike) # 18193, 19677
+sum(routes_enmac$Bike_new10) # 47782, 51618
+sum(routes_enmac$Bike_new10) - sum(routes_enmac$Bike) # 45509, 49306
+
+21988/538514 # 0.0408
+20467/500880 # 0.0409
+51618/538514 # 0.0958
+47782/500880 # 0.0954
+########
 
 # get potential
 #cycling potential function

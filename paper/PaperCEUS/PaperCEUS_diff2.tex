@@ -1,4 +1,7 @@
 \documentclass[review, doubleblind, 3p,
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL paper/PaperCEUS/PaperCEUS_rev1.tex        Sun May 19 22:07:39 2024
+%DIF ADD paper/PaperCEUS/PaperCEUS_rev2_word.tex   Sun Oct  6 01:16:02 2024
 authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 
@@ -15,6 +18,9 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 % TODO: Currently lineno needs to be loaded after amsmath because of conflict
 % https://github.com/latex-lineno/lineno/issues/5
 \usepackage{lineno} % add
+%DIF 18d18
+%DIF <   \linenumbers % turns line numbering on
+%DIF -------
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
 % use upquote if available, for straight quotes in verbatim environments
@@ -84,6 +90,87 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 \usepackage{longtable}
 \usepackage{makecell}
 \usepackage{multirow}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{green}{rgb}{0,0.5,0} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{green}{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF COLORLISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 
@@ -109,7 +196,7 @@ Universidade de Lisboa. Av Rovisco Pais 1, 1049-001 Lisboa, Portugal}
     \affiliation[ITS]{Institute for Transport Studies, University of
 Leeds. 34-40 University Rd, Leeds LS2 9JT, UK}
     \cortext[cor1]{Corresponding author}
-  
+
   \begin{abstract}
   A high proportion of car trips can be replaced by a combination of
   public transit and cycling for the first-and-last mile. This paper
@@ -136,7 +223,7 @@ Leeds. 34-40 University Rd, Leeds LS2 9JT, UK}
 mile \sep Health economic assessment \sep Environmental impacts \sep 
     Open data and methods
   \end{keyword}
-  
+
  \end{frontmatter}
 
 \hypersetup{citecolor=black}
@@ -243,7 +330,8 @@ trains, buses, trams, and ferries (see Figure \ref{fig:map1}), and a
 metro system that serves Lisbon and surrounding municipalities.
 
 \begin{figure}
-\subfloat[Population distribution in the LMA\label{fig:lma-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/lma-1} }\subfloat[Trips/day in the LMA\label{fig:lma-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/lma-2} }\caption{\label{lma}Population and daily trips (origins) at each Municipality of the LMA, according to the 2021 census and the 2017 travel survey.}\label{fig:lma}
+\DIFdelbeginFL %DIFDELCMD < \subfloat[Population distribution in the LMA\label{fig:lma-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-1} }\subfloat[Trips/day in the LMA\label{fig:lma-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/lma-2} }%%%
+\DIFdelendFL \DIFaddbeginFL \subfloat[Population distribution in the LMA\label{fig:lma-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/lma-1} }\subfloat[Trips/day in the LMA\label{fig:lma-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/lma-2} }\DIFaddendFL \caption{\label{lma}Population and daily trips (origins) at each Municipality of the LMA, according to the 2021 census and the 2017 travel survey.}\label{fig:lma}
 \end{figure}
 
 The LMA is a low cycling maturity area, characterised by a sparse and
@@ -265,7 +353,8 @@ the use of motorized modes, or active modes in combination with public
 transport.
 
 \begin{figure}
-\subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/mododist-2} }\caption{\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}\label{fig:mododist}
+\DIFdelbeginFL %DIFDELCMD < \subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mododist-2} }%%%
+\DIFdelendFL \DIFaddbeginFL \subfloat[In percentage\label{fig:mododist-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/mododist-1} }\subfloat[In total\label{fig:mododist-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/mododist-2} }\DIFaddendFL \caption{\label{mododist}Trips in the LMA by inter/intra municipal and mode, according to the travel survey.}\label{fig:mododist}
 \end{figure}
 
 Regarding cycling trips in the LMA, 55\% are up to 5 km, and 88\% are up
@@ -297,7 +386,7 @@ number of trips that can be represented by a single desire line.
 
 Using the
 \href{https://github.com/dabreegster/odjitter}{\texttt{odjitter} R
-package}, we disaggregated the OD data into desire lines representing a
+package}, we disaggregated the OD data into desire lines \DIFdelbegin \DIFdel{reprenting }\DIFdelend \DIFaddbegin \DIFadd{representing }\DIFaddend a
 maximum of 100 trips each. Figure \ref{fig:jitter} illustrates the
 contrast between trip representation through the traditional method,
 which connects a single desire line between each district, and the
@@ -327,9 +416,9 @@ The mobility survey collects the origin and destination of trips but
 does not include the respective routes. Modeling the realistic
 cycling-PT routes between OD pairs depends on assumptions regarding the
 characteristics of the cycling and road networks and the location of
-public transport interfaces. Other constraints regarding the behaviour
-of potential cyclists determine the routing results. For example, such
-restrictions can favour low speed, low traffic streets, more direct
+public transport interfaces. Other constraints regarding the \DIFdelbegin \DIFdel{behavior }\DIFdelend \DIFaddbegin \DIFadd{behaviour
+}\DIFaddend of potential cyclists determine the routing results. For example, such
+restrictions can \DIFdelbegin \DIFdel{favor }\DIFdelend \DIFaddbegin \DIFadd{favour }\DIFaddend low speed, low traffic streets, more direct
 routes, and less steep paths, among others, which are suitable for
 cycling.
 
@@ -350,18 +439,20 @@ using LTS 4 and LTS 3, respectively. Different routing profiles enable
 decision-makers to plan for different bicycle user typologies and/or for
 different city cycling maturity levels \citep{felix2017}.
 
-Trips were routed for all the OD jittered pairs, resulting in the
+\DIFaddbegin \DIFadd{Trips were routed for all the OD jittered pairs, resulting in the
 least-cost paths (shortest travel time) for each pair.
+}
 
-Figure \ref{fig:trip_schematic} illustrates a schematic comparison
-between \emph{safe} and \emph{direct} routing profiles, showing both
-bicycle-only and Bike + PT options. In the \emph{direct} profile,
+\DIFadd{Figure \ref{fig:trip_schematic} illustrates a schematic comparison
+between }\emph{\DIFadd{safe}} \DIFadd{and }\emph{\DIFadd{direct}} \DIFadd{routing profiles, showing both
+bicycle-only and Bike + PT options. In the }\emph{\DIFadd{direct}} \DIFadd{profile,
 bicycle-only trips can be more attractive due to shorter travel times,
 especially for shorter distances, although, for longer trips, combining
-cycling with PT can be faster. In the \emph{safe} routing profile, where
+cycling with PT can be faster. In the }\emph{\DIFadd{safe}} \DIFadd{routing profile, where
 longer, less stressful routes (LTS 3 or lower), are used to avoid
 high-stress roads (LTS 4), cycling in combination with PT can be more
 efficient.
+}
 
 \begin{figure}
 
@@ -369,10 +460,10 @@ efficient.
 
 }
 
-\caption{Schematic trip for safe and direct routing profiles, with bicycle-only and bicycle with PT options. The black lines represent the Biclcye legs, and the dashed orange lines represent the PT leg.}\label{fig:trip_schematic}
+\caption{\DIFaddFL{Schematic trip for safe and direct routing profiles, with bicycle-only and bicycle with PT options. The black lines represent the Biclcye legs, and the dashed orange lines represent the PT leg.}}\label{fig:trip_schematic}
 \end{figure}
 
-The \texttt{r5r} model uses the OpenStreetMap road network and the GTFS
+\DIFaddend The \texttt{r5r} model \DIFdelbegin \DIFdel{used }\DIFdelend \DIFaddbegin \DIFadd{uses }\DIFaddend the OpenStreetMap road network and the GTFS
 metropolitan data aggregated and validated. This information is crucial
 for an accurate PT trip and route estimation. A digital elevation model,
 from the European Space Agency's COPERNICUS mission, was used to include
@@ -389,22 +480,31 @@ R function}.
 
 The intermodality scenario considers trips made by PT in which cycling
 is used for the first and last legs.
+\DIFdelbegin \DIFdel{We restricted our analysis to the
+first and last legs with a combined length of up to 5 km (for example: 1
+km from origin to interface }\emph{\DIFdel{A}} %DIFAUXCMD
+\DIFdel{plus 4 km from interface }\emph{\DIFdel{B}}
+%DIFAUXCMD
+\DIFdel{to destination). Furthermore, we have imposed restrictions on PT usage,
+limiting it to trips without PT transfers, and within a duration of up
+to 2 hours (120 minutes). Additionally, we }\DIFdelend \DIFaddbegin 
 
-We have only included PT modes that can easily accommodate bicycles,
+\DIFadd{We }\DIFaddend have only included PT modes that can easily accommodate bicycles,
 such as trains, ferries, trams, and inter-municipal bus lines equipped
 with bike racks (Figure \ref{fig:map1}). This map shows that some of the
 municipalities are not served by PT modes that can easily accommodate
 bicycles, which may limit the potential for intermodality in these
 areas.
 
-Furthermore, we have imposed restrictions on PT usage, limiting it to
+\DIFaddbegin \DIFadd{Furthermore, we have imposed restrictions on PT usage, limiting it to
 trips without PT transfers, and within a duration of up to 2 hours (120
 minutes). Additionally, we restricted our analysis to the first and last
 legs with a combined length of up to 5 km (for example: 1 km from origin
-to interface \emph{A} plus 4 km from interface \emph{B} to destination).
+to interface }\emph{\DIFadd{A}} \DIFadd{plus 4 km from interface }\emph{\DIFadd{B}} \DIFadd{to destination).
+}
 
-This conservative approach, regarding the assumed multi-modal
-restrictions, was adopted to capture the fact that cycling stages as
+\DIFaddend This conservative approach\DIFaddbegin \DIFadd{, regarding the assumed multi-modal
+restrictions, }\DIFaddend was adopted to capture the fact that cycling stages as
 part of a multi-modal trip are likely to be shorter than cycling-only
 trips \citep{vanmil_insights_2021}. Additionally, \citet{Leferink2017}
 found that the bicycle is most attractive option as a first and last
@@ -421,7 +521,10 @@ and PT, considering both the vehicle and infrastructure perspectives.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.6\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/map1-1} 
+{\centering \DIFdelbeginFL %DIFDELCMD < \includegraphics[width=0.6\linewidth,]{PaperCEUS_rev1_files/figure-latex/map1-1} 
+%DIFDELCMD < %%%
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=0.6\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/map1-1} 
+\DIFaddendFL 
 
 }
 
@@ -499,16 +602,17 @@ pollution exposure, and road casualties; and \emph{environmental} ---
 including CO\textsubscript{2}eq emissions and other pollutants.
 
 For the \emph{second leg of the journey}, we estimate the environmental
-impacts of shifting car trips to PT (between the PT interfaces). Car
+impacts of shifting car trips to PT (between the PT interfaces). \DIFaddbegin \DIFadd{Car
 routing was estimated for all the journeys with the potential to be
 replaced by bike in combination with PT.
+}\DIFaddend 
 
 To estimate the car emissions, we used the EMEP/EEA's COPERT software v5
 methods and reference values \citep{COPERT} for a Tier 3 detail level.
 We used a family-size vehicle, EURO standard, and gasoline or diesel
 fuel. All trips were considered to be made under urban conditions and at
 an average speed of 15 km/h during rush hour periods. Since the average
-distance travelled per trip influences the overconsumption and emissions
+distance \DIFdelbegin \DIFdel{traveled }\DIFdelend \DIFaddbegin \DIFadd{travelled }\DIFaddend per trip influences the overconsumption and emissions
 from cold-start engine operation, we estimated energy and emission
 factors for different ranges of trips at 500-meter intervals.\\
 An equation was then used to calculate emission factors for the two
@@ -579,24 +683,25 @@ Table \ref{tab:summary1} presents the LMA total daily trips that can be
 made with cycling + TP combination (with the aforementioned
 restrictions), the trips in the baseline scenario and corresponding new
 daily trips to achieve the national strategy targets (4\% and 10\%), for
-different route profiles, at an aggregate level of the LMA. It should be
+different route profiles, at an aggregate level of the LMA. \DIFaddbegin \DIFadd{It should be
 noted that for the OD pairs with already 4\% or 10\% bike trips in 2018,
 those are not accounted as new potential bike trips, resulting in
 potential Cycling + PT numbers slightly below the 4\% and 10\% of the
 total trips.
+}
 
-For the cycling legs of the journey (first and last legs), the
+\DIFaddend For the cycling legs of the journey (first and last legs), the
 environmental avoided emissions and monetized socio-environment (SE)
 benefits are presented in Table \ref{tab:summary1b}, resulting from
 replacing car trips with cycling.
 
 \begin{table}
 
-\caption{\label{tab:summary1}\label{summary1}Summary of the cycling potential of the intermodality scenario. Values in 'trips/day'.}
+\caption{\label{tab:summary1}\label{summary1}Summary of the cycling \DIFdelbeginFL \DIFdelFL{potencial }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{potential }\DIFaddendFL of the intermodality scenario. Values in 'trips/day'.}
 \centering
 \begin{tabular}[t]{llr>{\raggedleft\arraybackslash}p{7em}>{\raggedleft\arraybackslash}p{7em}}
 \toprule
-Target & Routing & Total trips & Baseline Cycling + PT & Potential Cycling + PT\\
+Target & Routing & Total trips & Baseline Cycling + PT & \DIFdelbeginFL \DIFdelFL{Potencial }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Potential }\DIFaddendFL Cycling + PT\\
 \midrule
 4\% & safe & 538 514 & 2 312 & 20 385\\
 4\% & direct & 500 880 & 2 274 & 18 944\\
@@ -608,7 +713,7 @@ Target & Routing & Total trips & Baseline Cycling + PT & Potential Cycling + PT\
 
 \begin{table}
 
-\caption{\label{tab:summary1b}\label{summary1b}Summary of the cycling potential of intermodality scenario and its socio-environmental benefits for the cycling legs.}
+\caption{\label{tab:summary1b}\label{summary1b}Summary of the cycling \DIFdelbeginFL \DIFdelFL{potencial }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{potential }\DIFaddendFL of intermodality scenario and its socio-environmental benefits for the cycling legs.}
 \centering
 \begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}}
 \toprule
@@ -622,12 +727,16 @@ Target & Routing & Avoided Mortality (deaths/yr) & Social benefits (k€/yr) & A
 \end{tabular}
 \end{table}
 
-Even given the travel restrictions considered (up to 5 km on bike, up to
-2 hours, no possible transfers between PT), this resulted in 538.514
+\DIFdelbegin \DIFdel{For both }\emph{\DIFdel{direct}} %DIFAUXCMD
+\DIFdel{and }\emph{\DIFdel{safe}} %DIFAUXCMD
+\DIFdel{route profiles, 10\% of the daily
+trips have the potential to be made by a combination of PT and cycling,
+even }\DIFdelend \DIFaddbegin \DIFadd{Even }\DIFaddend given the travel restrictions considered (up to 5 km on bike, up to
+2 hours, no possible transfers between PT)\DIFaddbegin \DIFadd{, this resulted in 538.514
 trips with potential to be made by bicycle in combination with PT
-(10.1\% of all daily trips) for the \emph{safe} routing profile, and
-500.880 trips for the \emph{direct} routing profile (9.4\% of all daily
-trips). This unveils the potential of cycling as a complementary mode of
+(10.1\% of all daily trips) for the }\emph{\DIFadd{safe}} \DIFadd{routing profile, and
+500.880 trips for the }\emph{\DIFadd{direct}} \DIFadd{routing profile (9.4\% of all daily
+trips)}\DIFaddend . This unveils the potential of cycling as a complementary mode of
 PT, with the potential to uptake the number of PT trips within the LMA
 area by as much as 6.3\% (in addition to the 825 thousand PT trips
 reported in the mobility survey).
@@ -644,7 +753,7 @@ become safer.
 
 \begin{table}
 
-\caption{\label{tab:summary21}\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, disaggregated by PT mode. Values in 'trips/day'.}
+\caption{\label{tab:summary21}\label{summary21}Summary of the potential of replacing car trips with cycling in combination with PT, \DIFdelbeginFL \DIFdelFL{disagregated }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{disaggregated }\DIFaddendFL by PT mode. Values in 'trips/day'.}
 \centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4.5em}>{\raggedright\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}>{\raggedleft\arraybackslash}p{4.5em}}
 \toprule
@@ -658,44 +767,46 @@ Target & Routing & Potential & Bus & Ferry & Train & Tram\\
 \end{tabular}
 \end{table}
 
-The higher number of Bike + PT trips in the \emph{safe} routing profile
+\DIFaddbegin \DIFadd{The higher number of Bike + PT trips in the }\emph{\DIFadd{safe}} \DIFadd{routing profile
 can be explained by the reduced competitiveness of cycling alone in this
 profile, as it restricts cyclists to lower-traffic sections, with less
 directed options, and a subset of the total road network. In contrast,
-the \emph{direct} routing profile, which allows for direct cycling
+the }\emph{\DIFadd{direct}} \DIFadd{routing profile, which allows for direct cycling
 routes along the entire network, often results in faster single-mode
 bicycle trips - more competitive than using the Bike in combination with
 PT. As a result, more trips are made using Bike + PT under the
-\emph{safe} routing profile, while \emph{direct} routes favour
+}\emph{\DIFadd{safe}} \DIFadd{routing profile, while }\emph{\DIFadd{direct}} \DIFadd{routes favour
 cycling-only journeys. This justifies the aggregate difference in the
 number of potential trips between the two profiles.
+}
 
-For trams, which primarily operate along busy main roads that are
+\DIFadd{For trams, which primarily operate along busy main roads that are
 generally hostile for cycling (classified as LTS 4), the Bike + Tram
 combination is often less competitive compared to direct bike-only
 routes, especially for shorter trips. This is particularly evident in
 the case of Almada, the only municipality in this study with a tram
 system that can be integrated into Bike + PT trips (see Figure
-\ref{fig:map1}). For \emph{direct} routing, bike-only options are
+\ref{fig:map1}). For }\emph{\DIFadd{direct}} \DIFadd{routing, bike-only options are
 usually faster for shorter local trips within the municipality. However,
-under \emph{safe} routing assumptions (LTS 3), where cyclists are
+under }\emph{\DIFadd{safe}} \DIFadd{routing assumptions (LTS 3), where cyclists are
 limited to less direct, low-stress routes, the Bike + Tram option
 becomes more attractive, as the bike-only option would be longer, albeit
 safer, avoiding the main roads. This explains the higher competitiveness
 of Tram + Bike in the safe profile in this municipality.
+}
 
-Another relevant aspect is that the higher potential (Figure
+\DIFaddend Another relevant aspect is that the higher potential (Figure
 \ref{fig:mapzones}.a) is in the municipalities with the highest number
 of trips (Figure \ref{fig:lma}.b), such as Lisbon, Sintra, Amadora, and
 Almada, which are also the ones with the highest number of PT interfaces
 (Figure \ref{fig:map1}). On another hand, the municipalities with little
-PT interfaces connecting to Lisbon, such as Mafra and Setúbal, have a
+PT interfaces connecting to Lisbon, such as Mafra and \DIFdelbegin \DIFdel{Setubal}\DIFdelend \DIFaddbegin \DIFadd{Setúbal}\DIFaddend , have a
 lower potential for car to Bike-PT substitution (Figure
 \ref{fig:mapzones}.a), even if they have a high number of trips, such as
-Setúbal. This findings are aligned with their local travel patterns,
+\DIFdelbegin \DIFdel{Setubal}\DIFdelend \DIFaddbegin \DIFadd{Setúbal}\DIFaddend . This findings are aligned with their local travel patterns,
 where the majority of trips are intra-municipal (67\% for both
 municipalities), and not to the city of Lisbon, despite the high
-car-dependency (79\% in Mafra, 67\% in Setúbal).
+car-dependency (79\% in Mafra, 67\% in \DIFdelbegin \DIFdel{Setubal}\DIFdelend \DIFaddbegin \DIFadd{Setúbal}\DIFaddend ).
 
 The potential and the resulting benefits are spatially unevenly
 distributed across the LMA, as shown in Figure \ref{fig:mapzones}.b,
@@ -703,7 +814,8 @@ concentrating 40\% in Lisbon, where the highest number of trips are
 made.
 
 \begin{figure}
-\subfloat[Potential new Bicycle + PT trips\label{fig:mapzones-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/mapzones-1} }\subfloat[Proportion of total potential modal shift in the LMA\label{fig:mapzones-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/mapzones-2} }\caption{\label{mapzones}Potential Bicycle + PT daily trips for the 10\% target and direct routing, by municipality (origins). The percentages are shown for municipalities with values above 4\%.}\label{fig:mapzones}
+\DIFdelbeginFL %DIFDELCMD < \subfloat[Potential new Bicycle + PT trips\label{fig:mapzones-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mapzones-1} }\subfloat[Proportion of total potential modal shift in the LMA\label{fig:mapzones-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev1_files/figure-latex/mapzones-2} }%%%
+\DIFdelendFL \DIFaddbeginFL \subfloat[Potential new Bicycle + PT trips\label{fig:mapzones-1}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/mapzones-1} }\subfloat[Proportion of total potential modal shift in the LMA\label{fig:mapzones-2}]{\includegraphics[width=0.5\linewidth,]{PaperCEUS_rev2_word_files/figure-latex/mapzones-2} }\DIFaddendFL \caption{\label{mapzones}Potential Bicycle + PT daily trips for the 10\% target and direct routing, by municipality (origins). The percentages are shown for municipalities with values above 4\%.}\label{fig:mapzones}
 \end{figure}
 
 Table \ref{tab:summary22} presents emissions reductions and associated
@@ -715,7 +827,7 @@ annually, valued in €1.4 million to €3.5 million yearly, for the 4\% and
 
 \begin{table}
 
-\caption{\label{tab:summary22}\label{summary22}Summary of the avoided emissions (ton/year) and corresponding monetization (thousand €) by replacing car trips with PT, in the second leg.}
+\caption{\label{tab:summary22}\label{summary22}Summary of the avoided \DIFdelbeginFL \DIFdelFL{emmissions }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{emissions }\DIFaddendFL (ton/year) and corresponding monetization (thousand €) by replacing car trips with PT, in the second leg.}
 \centering
 \begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}r}
 \toprule
@@ -738,7 +850,7 @@ time periods.
 
 \begin{table}
 
-\caption{\label{tab:summaryall}\label{summaryall}Summary of the avoided CO2eq emissions (ton/year) and the estimated social and environmental benefits (monetized in thousand €) by replacing car trips with cycling in combination with PT.}
+\caption{\label{tab:summaryall}\label{summaryall}Summary of the avoided CO2eq \DIFdelbeginFL \DIFdelFL{emmissions }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{emissions }\DIFaddendFL (ton/year) and the estimated social and environmental benefits (monetized in thousand €) by replacing car trips with cycling in combination with PT.}
 \centering
 \begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{8em}>{\raggedleft\arraybackslash}p{8em}>{\raggedleft\arraybackslash}p{8em}}
 \toprule
@@ -764,7 +876,7 @@ The environmental impacts represent less than 2\% of the
 socio-environmental benefits (in value) from replacing car trips to
 bicycle in first-and-last legs. For the PT segment, we did not estimate
 the social impacts from substituting car trips. One of the main
-socio-environmental benefits, valued after monetization, comes from the
+\DIFdelbegin \DIFdel{socio-environmetal }\DIFdelend \DIFaddbegin \DIFadd{socio-environmental }\DIFaddend benefits, valued after monetization, comes from the
 increase in physical activity \citep{Felix2023ES}. Although there are
 also social benefits form shifting car trips to PT, its health benefits
 would not be as high as shifting to cycling. The literature shows that
@@ -888,7 +1000,7 @@ from 3,000 to 7,500 tons per day, depending on the cycling target and
 routing profile. Moreover, for the second trip segment, the shift from
 car to public transport contributes to avoiding up to 20,500 tons of
 CO\textsubscript{2}eq emissions annually. These changes are estimated to
-yield socio-environmental benefits totalling €125 million to €325
+yield socio-environmental benefits \DIFdelbegin \DIFdel{totaling }\DIFdelend \DIFaddbegin \DIFadd{totalling }\DIFaddend €125 million to €325
 million over a decade. The quantification of such benefits can support
 policy-makers in prioritizing interventions to reduce the reliance on
 private motorized modes of transportation.
