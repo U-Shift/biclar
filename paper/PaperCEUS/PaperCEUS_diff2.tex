@@ -1,7 +1,7 @@
 \documentclass[review, doubleblind, 3p,
 %DIF LATEXDIFF DIFFERENCE FILE
 %DIF DEL paper/PaperCEUS/PaperCEUS_rev1.tex        Sun May 19 22:07:39 2024
-%DIF ADD paper/PaperCEUS/PaperCEUS_rev2_word.tex   Sat Oct  5 23:59:05 2024
+%DIF ADD paper/PaperCEUS/PaperCEUS_rev2_word.tex   Sun Oct  6 01:16:02 2024
 authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 
@@ -386,7 +386,7 @@ number of trips that can be represented by a single desire line.
 
 Using the
 \href{https://github.com/dabreegster/odjitter}{\texttt{odjitter} R
-package}, we disaggregated the OD data into desire lines reprenting a
+package}, we disaggregated the OD data into desire lines \DIFdelbegin \DIFdel{reprenting }\DIFdelend \DIFaddbegin \DIFadd{representing }\DIFaddend a
 maximum of 100 trips each. Figure \ref{fig:jitter} illustrates the
 contrast between trip representation through the traditional method,
 which connects a single desire line between each district, and the
@@ -416,9 +416,9 @@ The mobility survey collects the origin and destination of trips but
 does not include the respective routes. Modeling the realistic
 cycling-PT routes between OD pairs depends on assumptions regarding the
 characteristics of the cycling and road networks and the location of
-public transport interfaces. Other constraints regarding the behavior of
-potential cyclists determine the routing results. For example, such
-restrictions can favor low speed, low traffic streets, more direct
+public transport interfaces. Other constraints regarding the \DIFdelbegin \DIFdel{behavior }\DIFdelend \DIFaddbegin \DIFadd{behaviour
+}\DIFaddend of potential cyclists determine the routing results. For example, such
+restrictions can \DIFdelbegin \DIFdel{favor }\DIFdelend \DIFaddbegin \DIFadd{favour }\DIFaddend low speed, low traffic streets, more direct
 routes, and less steep paths, among others, which are suitable for
 cycling.
 
@@ -612,7 +612,7 @@ methods and reference values \citep{COPERT} for a Tier 3 detail level.
 We used a family-size vehicle, EURO standard, and gasoline or diesel
 fuel. All trips were considered to be made under urban conditions and at
 an average speed of 15 km/h during rush hour periods. Since the average
-distance traveled per trip influences the overconsumption and emissions
+distance \DIFdelbegin \DIFdel{traveled }\DIFdelend \DIFaddbegin \DIFadd{travelled }\DIFaddend per trip influences the overconsumption and emissions
 from cold-start engine operation, we estimated energy and emission
 factors for different ranges of trips at 500-meter intervals.\\
 An equation was then used to calculate emission factors for the two
@@ -697,11 +697,11 @@ replacing car trips with cycling.
 
 \begin{table}
 
-\caption{\label{tab:summary1}\label{summary1}Summary of the cycling potencial of the intermodality scenario. Values in 'trips/day'.}
+\caption{\label{tab:summary1}\label{summary1}Summary of the cycling \DIFdelbeginFL \DIFdelFL{potencial }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{potential }\DIFaddendFL of the intermodality scenario. Values in 'trips/day'.}
 \centering
 \begin{tabular}[t]{llr>{\raggedleft\arraybackslash}p{7em}>{\raggedleft\arraybackslash}p{7em}}
 \toprule
-Target & Routing & Total trips & Baseline Cycling + PT & Potencial Cycling + PT\\
+Target & Routing & Total trips & Baseline Cycling + PT & \DIFdelbeginFL \DIFdelFL{Potencial }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Potential }\DIFaddendFL Cycling + PT\\
 \midrule
 4\% & safe & 538 514 & 2 312 & 20 385\\
 4\% & direct & 500 880 & 2 274 & 18 944\\
@@ -713,7 +713,7 @@ Target & Routing & Total trips & Baseline Cycling + PT & Potencial Cycling + PT\
 
 \begin{table}
 
-\caption{\label{tab:summary1b}\label{summary1b}Summary of the cycling potencial of intermodality scenario and its socio-environmental benefits for the cycling legs.}
+\caption{\label{tab:summary1b}\label{summary1b}Summary of the cycling \DIFdelbeginFL \DIFdelFL{potencial }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{potential }\DIFaddendFL of intermodality scenario and its socio-environmental benefits for the cycling legs.}
 \centering
 \begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}>{\raggedleft\arraybackslash}p{6em}}
 \toprule
@@ -827,7 +827,7 @@ annually, valued in €1.4 million to €3.5 million yearly, for the 4\% and
 
 \begin{table}
 
-\caption{\label{tab:summary22}\label{summary22}Summary of the avoided emmissions (ton/year) and corresponding monetization (thousand €) by replacing car trips with PT, in the second leg.}
+\caption{\label{tab:summary22}\label{summary22}Summary of the avoided \DIFdelbeginFL \DIFdelFL{emmissions }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{emissions }\DIFaddendFL (ton/year) and corresponding monetization (thousand €) by replacing car trips with PT, in the second leg.}
 \centering
 \begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}>{\raggedleft\arraybackslash}p{3.5em}r}
 \toprule
@@ -850,7 +850,7 @@ time periods.
 
 \begin{table}
 
-\caption{\label{tab:summaryall}\label{summaryall}Summary of the avoided CO2eq emmissions (ton/year) and the estimated social and environmental benefits (monetized in thousand €) by replacing car trips with cycling in combination with PT.}
+\caption{\label{tab:summaryall}\label{summaryall}Summary of the avoided CO2eq \DIFdelbeginFL \DIFdelFL{emmissions }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{emissions }\DIFaddendFL (ton/year) and the estimated social and environmental benefits (monetized in thousand €) by replacing car trips with cycling in combination with PT.}
 \centering
 \begin{tabular}[t]{ll>{\raggedleft\arraybackslash}p{8em}>{\raggedleft\arraybackslash}p{8em}>{\raggedleft\arraybackslash}p{8em}}
 \toprule
@@ -876,7 +876,7 @@ The environmental impacts represent less than 2\% of the
 socio-environmental benefits (in value) from replacing car trips to
 bicycle in first-and-last legs. For the PT segment, we did not estimate
 the social impacts from substituting car trips. One of the main
-socio-environmetal benefits, valued after monetization, comes from the
+\DIFdelbegin \DIFdel{socio-environmetal }\DIFdelend \DIFaddbegin \DIFadd{socio-environmental }\DIFaddend benefits, valued after monetization, comes from the
 increase in physical activity \citep{Felix2023ES}. Although there are
 also social benefits form shifting car trips to PT, its health benefits
 would not be as high as shifting to cycling. The literature shows that
@@ -1000,8 +1000,8 @@ from 3,000 to 7,500 tons per day, depending on the cycling target and
 routing profile. Moreover, for the second trip segment, the shift from
 car to public transport contributes to avoiding up to 20,500 tons of
 CO\textsubscript{2}eq emissions annually. These changes are estimated to
-yield socio-environmental benefits totaling €125 million to €325 million
-over a decade. The quantification of such benefits can support
+yield socio-environmental benefits \DIFdelbegin \DIFdel{totaling }\DIFdelend \DIFaddbegin \DIFadd{totalling }\DIFaddend €125 million to €325
+million over a decade. The quantification of such benefits can support
 policy-makers in prioritizing interventions to reduce the reliance on
 private motorized modes of transportation.
 
