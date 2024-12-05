@@ -457,9 +457,14 @@ Vídeos auxiliares sobre a metodologia adotada no biclaR, e sobre como se usa es
 
 <div align="center"><iframe width="1000" height="563" src="https://www.youtube.com/embed/SsvoYPZwrFs" title="YouTube video player" frameborder="0" data-external="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 
-### Parte II: Como usar o biclaR?
+### Parte II: Como usar o biclaR
 
-(*comming soon!*)
+<div align="center"><iframe width="1000" height="563" src="https://www.youtube.com/embed/PPZMcD0MrZI" title="YouTube video player" frameborder="0" data-external="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
+### Parte III: Como ler os ficheiros e fazer análises em SIG
+
+<div align="center"><iframe width="1000" height="563" src="https://www.youtube.com/embed/d1wu1Rpl5y8" title="YouTube video player" frameborder="0" data-external="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+
 
 <!-- ------------------------------------------------------------------------ -->
 
