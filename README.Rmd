@@ -1,7 +1,8 @@
 ---
 output: github_document
-bibliography: refs.bib
-
+bibliography:
+  - refs.bib
+  - biclar.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -29,9 +30,12 @@ library(sf)
 
 <!-- badges: end -->
 
-The goal of `biclar` is to store code and (in the releases) data for estimating cycling potential and influencing policy.
-
 **biclar** is a tool for the design and assessment of different scenarios of the cycling network models in the Lisbon metropolitan area (LMA).
+The web application can be found at [u-shift.github.io/biclar](https://u-shift.github.io/biclarwww/) and on the [TML website](https://www.tmlmobilidade.pt/projetos-e-atividades/planos-e-estudos/rede-ciclavel-metropolitana-estudo-modelacao-e-ferramenta-de-apoio-ao-planeamento-e-decisao/).
+
+**biclar** is an open source project, see the source code on [github.com/U-Shift/biclar](https://github.com/U-Shift/biclar).
+
+For a description of the methods and research underlying the project, see the [paper](https://www.sciencedirect.com/science/article/pii/S0198971524001595) *Reproducible methods for modeling combined public transport and cycling trips and associated benefits: Evidence from the biclaR tool" published in *Computers, Environment and Urban Systems* [@felix_reproducible_2025].
 
 # Input data
 
