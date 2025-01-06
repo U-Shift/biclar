@@ -2,34 +2,43 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# biclar
+# biclaR
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-
-The goal of `biclar` is to store code and (in the releases) data for
-estimating cycling potential and influencing policy.
-
-**biclar** is a tool for the design and assessment of different
+**biclaR** is a tool for the design and assessment of different
 scenarios of the cycling network models in the Lisbon metropolitan area
-(LMA).
+(LMA). The web application can be found at
+[u-shift.github.io/biclarwww](https://u-shift.github.io/biclarwww/).
+
+**biclaR** is an open source project, see the source code on
+[github.com/U-Shift/biclar](https://github.com/U-Shift/biclar).
+
+For a description of the methods and research underlying the project,
+see the
+[paper](https://www.sciencedirect.com/science/article/pii/S0198971524001595)
+“Reproducible methods for modeling combined public transport and cycling
+trips and associated benefits: Evidence from the biclaR tool” published
+in *Computers, Environment and Urban Systems* (Félix, Moura, and
+Lovelace 2025), and the methodological report \[PT\] on the [TML
+website](https://www.tmlmobilidade.pt/projetos-e-atividades/planos-e-estudos/rede-ciclavel-metropolitana-estudo-modelacao-e-ferramenta-de-apoio-ao-planeamento-e-decisao/).
 
 # Input data
 
 The key datasets are as follows:
 
--   Trips dataset with Origin and Destination, at *Freguesia* level,
-    disaggregated by transport mode, from Instituto National de
-    Estatística (2018)  
--   [CAOP
-    2020](https://www.dgterritorio.gov.pt/cartografia/cartografia-tematica/caop?language=en) -
-    Official limits of Portuguese areas.
--   Road network from
-    [OpenStreetMap](https://www.openstreetmap.org/#map=11/38.7053/-9.1585)  
--   Main public transport interfaces at Lisbon Metropolitan Area,
-    provided by [Transportes Metropolitanos de
-    Lisboa](https://www.tmlmobilidade.pt/)
+- Trips dataset with Origin and Destination, at *Freguesia* level,
+  disaggregated by transport mode, from Instituto National de
+  Estatística (2018)  
+- [CAOP
+  2020](https://www.dgterritorio.gov.pt/cartografia/cartografia-tematica/caop?language=en) -
+  Official limits of Portuguese areas.
+- Road network from
+  [OpenStreetMap](https://www.openstreetmap.org/#map=11/38.7053/-9.1585)  
+- Main public transport interfaces at Lisbon Metropolitan Area, provided
+  by [Transportes Metropolitanos de
+  Lisboa](https://www.tmlmobilidade.pt/)
 
 # Cenarios for cycling uptake
 
@@ -48,8 +57,8 @@ see how this was modeled.
 
 The National targets for cycling uptake were set to:
 
--   4% of all trips should be made by bicycle by 2025
--   10% of all trips should be made by bicycle by 2030
+- 4% of all trips should be made by bicycle by 2025
+- 10% of all trips should be made by bicycle by 2030
 
 Cycling trips should replace car trips directly.
 
@@ -111,22 +120,32 @@ and cycling by WHO.
 
 ## Cycling uptake in LMA and by Municipality
 
-#### ENMAC Scenario
+#### ENMAC Scenario up to 5km
 
-See [here](region_enmac4_quiet.html) for full map.
+See [here](https://u-shift.github.io/biclarwww/aml/mapa_cenario1.html)
+for full map.
 
-<iframe src="region_enmac4_quiet.html" width="800" height="400px" data-external="1">
+<iframe src="https://u-shift.github.io/biclarwww/lisboa/mapa_cenario1.html" width="800" height="400px" data-external="1">
 </iframe>
 
-See [here](articles/propotype.html) for results for each Municipality.
+See [here](https://u-shift.github.io/biclarwww/) for results for each
+Municipality.
 
-#### E-bike Scenario
+#### ENMAC Scenario up to 10km (E-bike)
 
-<!-- todo -->
+See [here](https://u-shift.github.io/biclarwww/aml/mapa_cenario2.html)
+for full map.
+
+<iframe src="https://u-shift.github.io/biclarwww/lisboa/mapa_cenario2.html" width="800" height="400px" data-external="1">
+</iframe>
 
 #### Intermodality Scenario
 
-<!-- todo -->
+See [here](https://u-shift.github.io/biclarwww/aml/mapa_cenario3.html)
+for full map.
+
+<iframe src="https://u-shift.github.io/biclarwww/lisboa/mapa_cenario3.html" width="800" height="400px" data-external="1">
+</iframe>
 
 ## Comparision with the cycling network plans by Municipality
 
@@ -147,7 +166,19 @@ Lisboa](https://www.tmlmobilidade.pt/projetos-e-atividades/planos-e-estudos/rede
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+
+<div id="ref-felix_reproducible_2025" class="csl-entry">
+
+Félix, Rosa, Filipe Moura, and Robin Lovelace. 2025. “Reproducible
+Methods for Modeling Combined Public Transport and Cycling Trips and
+Associated Benefits: Evidence from the
+<span class="nocase">biclaR</span> Tool.” *Computers, Environment and
+Urban Systems* 117 (April): 102230.
+<https://doi.org/10.1016/j.compenvurbsys.2024.102230>.
+
+</div>
 
 <div id="ref-IMOB" class="csl-entry">
 
