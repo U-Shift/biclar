@@ -128,7 +128,7 @@ for full map.
 <!--iframe src="https://u-shift.github.io/biclarwww/lisboa/mapa_cenario1.html" width="800" height="400px" data-external="1"-->
 <!--/iframe-->
 
-![](images/clipboard-917840690.png)
+<img src="man/figures/clipboard-917840690.png" width="100%" />
 
 See [here](https://u-shift.github.io/biclarwww/) for results for each
 Municipality.
@@ -141,7 +141,7 @@ for full map.
 <!--iframe src="https://u-shift.github.io/biclarwww/lisboa/mapa_cenario2.html" width="800" height="400px" data-external="1"-->
 <!--/iframe-->
 
-![](images/clipboard-2091156617.png)
+<img src="man/figures/clipboard-2091156617.png" width="100%" />
 
 #### Intermodality Scenario
 
@@ -151,7 +151,7 @@ for full map.
 <!--iframe src="https://u-shift.github.io/biclarwww/lisboa/mapa_cenario3.html" width="800" height="400px" data-external="1"-->
 <!--/iframe-->
 
-![](images/clipboard-1852439731.png)
+<img src="man/figures/clipboard-1852439731.png" width="100%" />
 
 ## Comparision with the cycling network plans by Municipality
 

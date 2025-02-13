@@ -127,7 +127,9 @@ See [here](https://u-shift.github.io/biclarwww/aml/mapa_cenario1.html) for full 
 
 <!--/iframe-->
 
-![](images/clipboard-917840690.png)
+```{r echo=FALSE}
+knitr::include_graphics("man/figures/clipboard-917840690.png")
+```
 
 See [here](https://u-shift.github.io/biclarwww/) for results for each Municipality.
 
@@ -139,7 +141,9 @@ See [here](https://u-shift.github.io/biclarwww/aml/mapa_cenario2.html) for full 
 
 <!--/iframe-->
 
-![](images/clipboard-2091156617.png)
+```{r echo=FALSE}
+knitr::include_graphics("man/figures/clipboard-2091156617.png")
+```
 
 #### Intermodality Scenario
 
@@ -149,7 +153,9 @@ See [here](https://u-shift.github.io/biclarwww/aml/mapa_cenario3.html) for full 
 
 <!--/iframe-->
 
-![](images/clipboard-1852439731.png)
+```{r echo=FALSE}
+knitr::include_graphics("man/figures/clipboard-1852439731.png")
+```
 
 ## Comparision with the cycling network plans by Municipality
 
